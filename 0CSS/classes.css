@@ -1,0 +1,1344 @@
+/*_________________ GENERAL CLASSES (specialized classes are further down) _________________*/
+
+
+.container {
+    margin           : 0 !important;
+    padding          : 0 !important;
+    background-color : transparent !important;
+    border-style     : none; border-radius : 0; border-width : 0 !important;
+    box-shadow       : none !important;
+    /*line-break: auto;*/
+    }
+
+.notched {
+    clip-path : polygon(
+            0% 20px, /* top left */ 20px 0%, /* top left */ calc(100% - 20px) 0%, /* top right */ 100% 20px, /* top right */ 100% calc(100% - 20px), /* bottom right */ calc(100% - 20px) 100%, /* bottom right */ 20px 100%, /* bottom left */ 0 calc(100% - 20px) /* bottom left */
+    );
+    }
+
+.zeroHeight {
+    position         : relative;
+    top              : 1em;
+    width            : 100%;
+    height           : 0;
+    margin           : 0;
+    padding          : 0;
+    background-color : transparent;
+    border           : none;
+    }
+
+.contrastBackground {
+    color          : #FAED26;
+    mix-blend-mode : difference;
+    filter         : contrast(5) drop-shadow(0.1em 0.1em gray());
+    font           : bolder 2.5em Arial;
+    text-align     : center;
+    }
+
+/* for text */
+.frame {
+    padding       : 30px;
+    border-radius : 50% 5% / 5% 50%
+    }
+
+.frame img {
+    border-radius : 50% 5% / 5% 50%
+    }
+
+
+
+.primary a { color : var(--secondary) }
+
+.primaryVariant a { color : var(--secondaryVariant) }
+
+.secondary a { color : var(--primary) }
+
+.secondaryVariant a { color : var(--primaryVariant) }
+
+.normalA a { color : #00E }
+
+div a { color : var(--secondaryVariant); }
+
+.container > a, .plainDiv > a { color : var(--primaryVariant); }
+
+.error a {
+    color : var(--primaryVariant);
+    }
+
+
+
+
+/*_________________ flex _________________*/
+.inline { display : inline-flex !important; }
+
+/*fits container to content size*/
+.inlineChildren * { display : inline-flex !important; }
+
+.manualInline { display : inline !important; }
+
+.row { flex-direction : row; }
+
+.column { flex-direction : column; }
+
+.disableCenteringY { align-items : flex-start; /*middle/top/bottom*/ }
+
+.disableCenteringX { justify-content : left; }
+
+.alignCenter { align-items : center; }
+
+/* centers children relative to flex direction */
+.alignLeft { align-items : flex-start; }
+
+.alignRight { align-items : flex-end; }
+
+.justifyAround { justify-content : space-around; }
+
+.justifyCenter { justify-content : center; }
+
+/* centers children relative to flex direction */
+.justifyCenterChildren * { justify-content : center; }
+
+.justifyLeft { justify-content : left; /* center/left/right */ }
+
+.justifyRight { justify-content : right; }
+
+/* for readability (& depends on flex direction) */
+.centerHorizontally { justify-content : center; }
+
+/*main axis*/
+.centerVertically { align-items : center; }
+
+/*cross axis*/
+
+.centerMain { justify-content : center; }
+
+/*main axis*/
+.centerCross { align-items : center; }
+
+/*cross axis*/
+
+.dontShrink { flex-shrink : 0; }
+
+.grow1 { flex-grow : 1; }
+
+/* elementet utvider seg til å fylle parent element, tallet er "prioriteten" */
+.grow2 { flex-grow : 2; }
+
+.grow3 { flex-grow : 3; }
+
+.grow4 { flex-grow : 4; }
+
+.stretch { flex-grow : 1; align-items : stretch; }
+
+.fill { height : 100%; width : 100%;}
+
+.wrap { flex-wrap : wrap; }
+
+
+
+/*_________________ general _________________*/
+/* <br> fungerer ikke med min konfigurasjon av flex, dette er et alternativ. */
+.newline { margin : 0 !important; padding : 0 !important; position : relative; width : 95%; height : 0; background-color : transparent !important; border-style : none !important; box-shadow : none !important; }
+
+/* legger til et 1em (font size) gap */
+.space { margin : 0 !important; padding : 0 !important; position : relative; width : 95%; height : 1em; background-color : transparent !important; border-style : none !important; box-shadow : none !important; }
+
+.noHover { pointer-events : none; }
+
+.noBorder { border : transparent none; }
+
+.black_and_white { filter : grayscale(100%); }
+
+.blur { filter : blur(5px); }
+
+.relative { position : relative; }
+
+.absolute { position : absolute; }
+
+.minMargin { margin : 2px !important;}
+
+.noMargin { margin : 0 !important;}
+
+.noSideMargin {margin-left : 0 !important; margin-right : 0 !important;}
+
+.noTopMargin {margin-top : 0 !important; margin-bottom : 0 !important;}
+
+.noLeftMargin {margin-left : 0 !important;}
+
+.noRightMargin {margin-right : 0 !important;}
+
+.noTopMargin {margin-top : 0 !important;}
+
+.noBottomMargin {margin-bottom : 0 !important;}
+
+.onlyLeftMargin { margin-top : 0 !important; margin-bottom : 0 !important; margin-right : 0 !important;}
+
+.onlyRightMargin { margin-top : 0 !important; margin-bottom : 0 !important; margin-left : 0 !important;}
+
+
+.autoMargin { margin : auto !important; }
+
+.autoSideMargin { margin-left : auto !important; margin-right : auto !important; }
+
+.autoTopMargin { margin-top : auto !important; margin-bottom : auto !important; }
+
+.noMarginChildren * { margin : 0 !important;}
+
+.minMarginChildren * { margin : 2px !important;}
+
+.minPadding { padding : 2px !important; }
+
+.noPadding { padding : 0px !important; }
+
+.noSidePadding { padding-left : 0 !important; padding-right : 0 !important;}
+
+.noTopPadding { padding-top : 0 !important; padding-bottom : 0 !important;}
+
+.noLeftPadding { padding-left : 0 !important;}
+
+.noRightPadding {padding-right : 0 !important;}
+
+.noTopPadding {padding-top : 0 !important;}
+
+.noBottomPadding {padding-bottom : 0 !important;}
+
+.onlyLeftPadding { padding-top : 0 !important; padding-bottom : 0 !important; padding-right : 0 !important;}
+
+.onlyRightPadding { padding-top : 0 !important; padding-bottom : 0 !important; padding-left : 0 !important;}
+
+.fullWidth { width : 100% !important;}
+
+.fullHeight { height : 100% !important;}
+
+.fullHeightChildren * { height : 100% !important;}
+
+.fullWidthChildren * { width : 100% !important;}
+
+.expandOnHoverChild { display : none; }
+
+.expandOnHoverParent:hover .expandOnHoverChild { display : block; }
+
+.bold { font-weight : bold; }
+
+.italic { font-style : italic; }
+
+/* For å posisjonere tekst over bilder i samme container. */
+.bottomLeftEl { position : absolute; bottom : 8px; left : 16px; }
+
+.bottomEl { position : absolute; bottom : 8px; }
+
+.topEl { position : absolute; top : 8px; }
+
+.topLeftEl { position : absolute; top : 8px; left : 16px; }
+
+.topRightEl { position : absolute; top : 8px; right : 16px; }
+
+.bottomRightEl { position : absolute; bottom : 8px; right : 16px; }
+
+.centerElAbsolute { position : absolute; top : 50%; left : 50%; transform : translate(-50%, -50%); }
+
+.textAlignCenter {text-align : center !important;}
+
+.textAlignLeft {text-align : start !important;}
+
+.textAlignRight {text-align : end !important;}
+
+.textAlignJustify {text-align : justify !important;}
+
+.alignSelfCenter { align-self : center !important;}
+
+.textVerticallyCenter { vertical-align : center; }
+
+.textAlignCenterChildren * {text-align : center !important;}
+
+.textAlignLeftChildren * {text-align : start !important;}
+
+.textAlignRightChildren * {text-align : right !important;}
+
+.textAlignJustifyChildren * {text-align : justify !important;}
+
+.invisible { opacity : 0 !important; }
+
+.vanish { display : none !important; }
+
+.square { border-radius : 0 !important; }
+
+.circle { border-radius : 50% !important; }
+
+.rounded { border-radius : var(--borderRadius) !important; }
+
+.shadow {
+    box-shadow         : 3px 3px 5px var(--shadowColor) !important; /* Kompatibel med det meste */
+    -webkit-box-shadow : 3px 3px 5px var(--shadowColor) !important; /* Kompatibel med android og eldre versjoner av nettlesere */
+    }
+
+.raised, .heavyShadow { box-shadow : 0 15px 30px var(--shadowColor), 0 15px 30px var(--shadowColor); }
+
+/* Children av parent element med noShadow class vil ikke ha shadow. */
+.noShadow {
+    box-shadow         : none;
+    -webkit-box-shadow : none;
+    }
+
+.noShadowChildren * {
+    box-shadow         : none;
+    -webkit-box-shadow : none;
+    }
+
+.whiteOutline { -webkit-text-stroke-color : white; -webkit-text-stroke-width : 1px; }
+
+.blackOutline { -webkit-text-stroke-color : black; -webkit-text-stroke-width : 1px; }
+
+
+.transparent {
+    opacity             : .785; /* Kan overrides individually ved å bruke style="opacity:1;" i div taggen. Childs inheriter parents opacity. */
+    transition-duration : .25s;
+    }
+
+.transparent:hover { opacity : 1; }
+
+/* alternaivt bruk rgb for å velge bakgrunnsfarge som er opaque, og derfor tar på seg bakgrunnen sin farge */
+
+
+/* __________ < CURSORS > __________ */
+.cursor_fancy { cursor : url("Resources/etc/cursors/Numix_Cursors/NumixLight/Arrow.cur"), auto; }
+
+.cursor_rubbishBionicle { cursor : url("Resources/etc/cursors/Bionicle/Normal\ Select.cur"), auto; }
+
+.cursor_mario { cursor : url("Resources/etc/cursors/Mario_Gant/Normal\ Select.cur"), auto; }
+
+.cursor_music { cursor : url("Resources/etc/cursors/0etc/music bigboi.cur"), auto; }
+
+.cursor_music_children * { cursor : url("Resources/etc/cursors/0etc/music bigboi.cur"), auto; }
+
+/* .cursor_precision {  } */
+.cursor_hand { cursor : url("Resources/etc/cursors/Mario_Gant/Normal_Select.cur"), pointer; }
+
+
+
+
+
+
+.white {
+    background-color : white;
+    color            : black;
+    }
+
+.black {
+    background-color : black;
+    color            : white;
+    }
+
+
+
+
+.disabled {
+    color : darkgrey !important;
+    }
+
+.error { background-color : var(--error); }
+
+.error p, .error h1, .error h2, .error h3, .error h4, .error h5 { color : var(--onError); }
+
+
+.frameWhite, .whiteFrame {
+    border-radius : 3px;
+    border        : solid white 15px;
+    }
+
+.blackText p, .blackText h1, .blackText h2, .blackText select { color : blacK;}
+
+.whiteText p, .whiteText h1, .whiteText h2, .whiteText select { color : white;}
+
+
+.gradientPrimary { background-image : linear-gradient(-120deg, var(--primary), var(--primaryVariant)); }
+
+.gradientSecondary { background-image : linear-gradient(-120deg, var(--secondary), var(--secondaryVariant)); }
+
+.gradientPrimaryToSecondary { background-image : linear-gradient(-120deg, var(--primary), var(--secondary)); }
+
+.gradientPrimaryToSecondaryVariants { background-image : linear-gradient(-120deg, var(--primaryVariant), var(--secondaryVariant)); }
+
+.gradientPrimaryToSecondaryHorizontal { background-image : linear-gradient(0deg, var(--primary), var(--secondary)); }
+
+.gradientPrimaryToSecondaryVariantsHorizontal { background-image : linear-gradient(0deg, var(--primaryVariant), var(--secondaryVariant)); }
+
+.gradientSecondaryToPrimary { background-image : linear-gradient(-120deg, var(--secondary), var(--primary)); }
+
+.gradientSecondaryToPrimaryVariants { background-image : linear-gradient(-120deg, var(--secondaryVariant), var(--primaryVariant)); }
+
+.gradientSecondaryToPrimaryHorizontal { background-image : linear-gradient(0deg, var(--secondary), var(--primary)); }
+
+.gradientSecondaryToPrimaryVariantsHorizontal { background-image : linear-gradient(0deg, var(--secondaryVariant), var(--primaryVariant)); }
+
+.gradientBackground { background-image : linear-gradient(-120deg, var(--background), var(--backgroundSecondary)); }
+
+.gradientPrimaryHorizontal { background-image : linear-gradient(0deg, var(--primary), var(--primaryVariant)); }
+
+.gradientSecondaryHorizontal { background-image : linear-gradient(0deg, var(--secondary), var(--secondaryVariant)); }
+
+.gradientBackgroundHorizontal { background-image : linear-gradient(0deg, var(--background), var(--backgroundSecondary)); }
+
+.backupRadioCheck::before { /* when removing the "check" attribute, the above checked::before selector doesn't apply on elements that have previously been selected, adding & removing this class as well fixes that. */
+    position  : absolute;
+    content   : '✔';
+    font-size : 15px;
+    color     : var(--onPrimary);
+    left      : 4px;
+    top       : 0;
+    }
+
+.noBefore::before { content : none !important; }
+
+
+
+/*_________________ specialized _________________*/
+.fancyDiv {
+    background-color : var(--primary);
+
+    margin           : 15px auto;
+    padding          : 15px;
+    border           : 1px solid var(--onBackground) var(--borderRadius);
+
+    max-width        : 75%;
+    overflow         : auto;
+    }
+
+
+.plainDiv { /* unformatted div */
+    background-color : transparent !important;
+    border-style     : none; border-radius : 0; border-width : 0 !important;
+    box-shadow       : none !important;
+    }
+
+.plainDiv > p, .plainDiv > h1 {
+    color : var(--onBackground);
+    }
+
+
+/* Moves "centerOfGP_grandchild" (with a parent "centerOfGP_parent") to the absolute center of "centerOfGP_grandparent" */
+.centerOfGP_grandparent {
+    position    : relative;
+    align-items : center;
+    transform   : rotate(0deg);
+    }
+
+.centerOfGP_parent {
+    justify-content : center;
+    align-items     : center;
+    }
+
+.centerOfGP_grandchild {
+    position   : fixed;
+    top        : 34%;
+    transition : all 0.5s;
+    }
+
+
+
+/*_________________ animations _________________*/
+.opaqueOnHover {
+    opacity : 0.75;
+    }
+
+.opaqueOnHover:hover {
+    opacity : 1;
+    }
+
+.pop {
+    box-shadow : 0 3px 6px rgba(0, 0, 0, .12), 0 3px 6px var(--shadowColor);
+    transition : all .2s ease-out;
+    }
+
+.pop:hover {
+    box-shadow : 0 15px 25px var(--shadowColor), 0 10px 10px var(--shadowColor);
+    }
+
+.enlarge {
+    transition : all 2s ease-in-out;
+    position   : relative;
+    }
+
+.enlarge:hover {
+    width  : 600px !important;
+    height : 300px !important;
+    }
+
+
+
+/*_________________ transformations _________________*/
+.scroll, .marquee {
+    animation       : scroll 20s linear infinite;
+    position        : absolute; /* make parent element zerowidth & relative */
+    white-space     : nowrap;
+    opacity         : 0.75;
+    z-index         : 2;
+    text-align      : center;
+    justify-content : center;
+    }
+
+@keyframes scroll {
+    from { left : 100% }
+    to { left : 0 }
+    }
+
+.marquee_header_smolText {
+    animation       : scrollHeader 20s linear infinite;
+    position        : absolute; /* make parent element zerowidth & relative */
+    white-space     : nowrap;
+    opacity         : 0.75;
+    z-index         : 2;
+    text-align      : center;
+    justify-content : center;
+    }
+
+@keyframes scrollHeader {
+    0% { left : 100%; top : -25px; transform : rotate(-9.70deg) }
+    49% { left : 49%; top : 115px; transform : rotate(-9.70deg) }
+    50% { left : 48%; top : 116px; transform : rotate(0deg) }
+    51% { left : 47%; top : 117px; transform : rotate(9.70deg) }
+    100% { left : -15px; top : -18px; transform : rotate(9.70deg) }
+    }
+
+.circlify { transition-duration : .5s; }
+
+.circlify:hover { border-radius : 50% }
+
+.circlifyFocus { transition-duration : .5s; }
+
+.circlifyFocus:focus { border-radius : 50% }
+
+.circlifyChildren, .circlifyChildren * { transition-duration : .5s; }
+
+.circlifyChildren:hover, .circlifyChildren:hover * { border-radius : 50%; }
+
+.deCirclify {
+    transition-duration : .5s;
+    border-radius       : 50%
+    }
+
+.deCirclify:hover {
+    border-radius : var(--borderRadius);
+    }
+
+.deCirclifyFocus {
+    transition-duration : .5s;
+    border-radius       : 50%;
+    }
+
+.deCirclifyFocus:focus {
+    border-radius : var(--borderRadius);
+    }
+
+.rotate3D, .rotate3DHover:hover {
+    animation : rotate3D 2s linear infinite;
+    }
+
+@keyframes rotate3D {
+    from { transform : perspective(800px) rotateX(0) }
+    to { transform : perspective(800px) rotateX(-360deg) }
+
+    }
+
+.fadeInAndOut { animation : fadeInOutBackground 2s linear infinite; }
+
+.fadeInAndOutSlow { animation : fadeInOutBackground 5s linear infinite; }
+
+@keyframes fadeInOutBackground {
+    0% {}
+    33% { background-color : transparent; box-shadow : none; }
+    66% { background-color : transparent; box-shadow : none; }
+    100% {}
+    }
+
+.blurOut {
+    animation : blurOut 5s linear;
+    }
+
+@keyframes blurOut {
+    from { }
+    to { filter : blur(100px) }
+    }
+
+
+.transform_inflate {
+    transition    : all, 0.5s;
+    transform     : scale(3.22, 3.22);
+    border-radius : 3px !important;
+    border-width  : 0;
+    }
+
+/* kan brukes med å gi parent-element class "textAlignCenter", for å centere elementer. */
+
+.transform_stretch {
+    transition-duration : 1s;
+    transform           : scale(1.5, 1)
+    }
+
+.widen:hover {
+    transition-duration : 1s;
+    transform           : scale(2, 1);
+    }
+
+.spin, .rotating, .rotate { animation : spin 10s linear infinite; }
+
+@keyframes spin {
+    to { transform : rotate(360deg); }
+    }
+
+
+.cr-backgroundRainbow {
+    animation : rainbowBackground 10s linear infinite;
+    }
+
+.cr-backgroundPalette {
+    animation : paletteBackground 10s linear infinite;
+    }
+
+.cr-textPalette {
+    animation : paletteText 10s linear infinite;
+    }
+
+.cr-textRainbow {
+    animation : rainbowText 10s linear infinite;
+    }
+
+@keyframes rainbowBackground {
+    0.00% { }
+    14.3% { background-color : orange }
+    28.6% { background-color : #C2B200 }
+    42.9% { background-color : rgba(0, 255, 19, 0.52); }
+    57.1% { background-color : lightskyblue; }
+    71.4% { background-color : palevioletred; }
+    85.7% { background-color : rgb(255, 77, 76); }
+    100% { }
+    }
+
+@keyframes paletteBackground {
+    0% { }
+    20% { background-color : var(--primary); color : var(--onPrimary); }
+    40% { background-color : var(--primaryVariant); color : var(--onPrimary); }
+    60% { background-color : var(--secondary); color : var(--onSecondary); }
+    80% { background-color : var(--secondaryVariant); color : var(--onSecondary); }
+    100% { }
+    }
+
+@keyframes rainbowText {
+    0% { }
+    14.3% { color : orange; }
+    28.6% { color : yellow; }
+    42.9% { color : lime; }
+    57.1% { color : deepskyblue; }
+    71.4% { color : mediumvioletred; }
+    85.71% { color : red; }
+    100% { }
+    }
+
+@keyframes paletteText {
+    0% { }
+    20% { color : var(--primary) }
+    40% { color : var(--primaryVariant) }
+    60% { color : var(--secondary) }
+    80% { color : var(--secondaryVariant) }
+    100% { }
+    }
+
+
+/*_________________ special _________________*/
+@font-face {
+    /* Skaper en custom font, Garamond. Garamond er en pupulær konkurrent til Times New Roman, basert på Claude Garamond (ca. 1480-1561) sitt design. Mer info om Claude Garamond: bit.ly/2E0YHwb & om Garamond sammenlignet med Times: bit.ly/2TFe56I */
+    font-family : "Adobe Garamond";
+    src         : url("resources/etc/fonts/Garamond/Garamond_Regular.ttf");
+    }
+
+.cursive {
+    font : 900 35vmin/50vh cookie, cursive;
+    }
+
+
+
+
+
+
+
+
+
+
+/******************************************************************
+**                             INPUTS                            **
+*******************************************************************/
+
+.minimalistInput { /*textarea, input[type=text], input[type=number], input[type=date], input[type=email], input[type=search], input[type=submit]*/
+    background-color : transparent !important;
+    box-shadow       : none !important;
+    outline          : none !important;
+    border           : none !important;
+    border-bottom    : 2px solid black !important;
+    border-radius    : 0 !important;
+    margin           : auto !important;
+    }
+
+.minimalistInput::placeholder { /*textarea::placeholder, input[type=text]::placeholder, input[type=number]::placeholder, input[type=date]::placeholder, input[type=email]::placeholder, input[type=search]::placeholder, input[type=submit]::placeholder*/
+    color : var(--onPrimary) !important;
+    }
+
+
+.minimalistButton {
+    color               : var(--onPrimary);
+    background-color    : transparent;
+    border              : solid transparent;
+    border-radius       : 0;
+    font-weight         : bold;
+    text-transform      : uppercase;
+    margin              : 10px; padding : 5px; /*padding: 15px 30px;*/
+    transition-duration : .25s;
+    }
+
+.minimalistButton:hover {
+    transform           : scale(1.1);
+    transition-duration : .2s;
+    }
+
+.minimalistButton:active {
+    transition-duration : .05s;
+    transform           : scale(1.2);
+    }
+
+.retroButton {
+    min-width           : 2em;
+    min-height          : 2em;
+    border              : black solid 1px;
+    border-radius       : 5px;
+    padding             : 5px 8px 5px 8px;
+    background-color    : white;
+    transition-duration : 0.1s;
+    box-shadow          : 0 5px 0 black;
+    transform           : none;
+    }
+
+.retroButton:hover {
+    transform : none;
+    }
+
+.retroButton:active {
+    transform           : translate(0, 5px);
+    box-shadow          : none;
+    transition-duration : 0.05s;
+    }
+
+
+
+
+.bigButton {
+    margin         : 5px;
+    padding-top    : 15px;
+    padding-bottom : 15px;
+    }
+
+.twitterInput {
+    margin              : 5px, 0;
+    padding             : 5px 0;
+    outline             : none;
+    border              : 1px solid #CCC;
+    border-radius       : var(--borderRadius);
+    transition-duration : 0.5s;
+    }
+
+.twitterInput:focus {
+    padding    : 5px 0;
+    margin     : 5px, 0;
+    box-shadow : 0 0 5px #00C8FF;
+    border     : 1px solid #00C8FF;
+    }
+
+.bigOnHover:hover { transform : scale(1.1) }
+
+.bigOnClick:active { transform : scale(1.1) }
+
+.leanLeftPerma { transform : perspective(800px) rotateY(-30deg); transition-duration : 1s;}
+
+.leanRightPerma { transform : perspective(800px) rotateY(30deg); transition-duration : 1s;}
+
+.leanLeftPermaMild { transform : perspective(800px) rotateY(-15deg); transition-duration : 1s;}
+
+.leanLeft:hover {
+    transition-duration : 0.5s;
+    transform           : perspective(800px) rotateY(-30deg);
+    }
+
+.leanRight:hover {
+    transition-duration : 0.5s;
+    transform           : perspective(800px) rotateY(30deg);
+    }
+
+.leanLeftClick, .leanRightClick { transition-duration : 0.05s; }
+
+.leanLeftClick:active {
+    transition-duration        : 0.05s;
+    transition-timing-function : linear;
+    transform                  : perspective(700px) rotateY(-30deg) !important;
+    }
+
+.leanRightClick:active {
+    transition-duration        : 0.05s;
+    transition-timing-function : linear;
+    transform                  : perspective(700px) rotateY(30deg) !important;
+    }
+
+.leanNormal:hover, leanNone:hover {
+    transition-duration : 1s;
+    transform           : perspective(0) rotateY(0deg) !important;
+    }
+
+.leanNormalClick:active, leanNoneClick:active {
+    transition-duration : 0.2s;
+    transform           : perspective(0) rotateY(0deg) !important;
+    }
+
+
+
+.uniformButton1 {
+    width : 150px;
+    }
+
+
+.hoverFillPrimary:hover { background-color : var(--primary) }
+
+.hoverFillSecondary:hover { background-color : var(--secondary) }
+
+.hoverFillPrimaryVariant:hover { background-color : var(--primaryVariant) }
+
+.hoverFillSecondaryVariant:hover { background-color : var(--secondaryVariant) }
+
+.clickFillPrimary:active { background-color : var(--primary) }
+
+.clickFillSecondary:active { background-color : var(--secondary) }
+
+.clickFillPrimaryVariant:active { background-color : var(--primaryVariant) }
+
+.clickFillSecondaryVariant:active { background-color : var(--secondaryVariant) }
+
+.frameHover:hover, hoverFrame:hover { border-radius : border-radius : 50% 5% / 5% 50%; transition-duration : 1s; }
+
+
+
+/*
+Imma make these .fancyButton's simpler sometime
+.fancyButton {
+    text-transform      : uppercase;
+    font-weight         : bold;
+    transition-duration : .5s;
+    background          : transparent;
+    }
+
+.fancyButton:hover {
+
+    }
+
+.fancyButton:active {
+
+    }*/
+
+.fancyButtonPrimary {
+    color               : var(--onPrimary);
+    /*background-color: var(--background);*/
+    background          : transparent;
+    border              : 2px solid var(--primary);
+    border-radius       : var(--borderRadius);
+
+    text-transform      : uppercase;
+    font-weight         : bold;
+    transition-duration : .5s;
+    }
+
+.fancyButtonPrimary:hover {
+    transform        : scale(1.1);
+    background-color : var(--primary);
+    color            : var(--secondaryVariant) !important;
+    border-color     : transparent /* alt: var(--primaryVariant) */
+    }
+
+/*
+.fancyButtonPrimary:active {
+    transform           : scale(1.15) !important;
+    transition-duration : 0.1s;
+    }
+*/
+.fancyButtonPrimaryTriggered {
+    background-color : var(--primary) !important;
+    color            : var(--secondaryVariant) !important;
+    border-color     : transparent !important; /* alt: var(--primaryVariant) */
+    }
+
+.fancyButtonPrimaryTriggered h1 { text-shadow : none }
+
+.fancyButtonPrimaryTriggered:hover {
+    transform : perspective(400px) rotateX(30deg);
+    }
+
+
+
+.fancyButtonSecondary {
+    color               : var(--secondary) !important;
+    /*background-color: var(--background);*/
+    background          : transparent;
+    border              : 2px solid var(--secondary);
+    border-radius       : var(--borderRadius);
+
+    text-transform      : uppercase;
+    font-weight         : bold;
+    transition-duration : .5s;
+    }
+
+.fancyButtonSecondary:hover {
+    box-shadow       : 0 3px 6px rgba(0, 0, 0, .12), 0 3px 6px var(--shadowColor);
+    transform        : scale(1.1);
+    background-color : var(--secondary);
+    border-color     : transparent;
+    color            : var(--primary) !important;
+    }
+
+/*
+.fancyButtonSecondary:active {
+    transform           : scale(1.15) !important;
+    transition-duration : 0.1s;
+    }
+*/
+.fancyButtonSecondaryTriggered { /* replaces fancyButtonSecondary on the element toggleButton() is used on. Allows for further customization than just adding the class. */
+    background-color    : var(--secondary);
+    color               : var(--primary);
+    border              : 2px solid transparent;
+    border-radius       : var(--borderRadius);
+
+    text-transform      : uppercase;
+    font-weight         : bold;
+    transition-duration : .5s;
+    text-shadow         : none;
+    }
+
+.fancyButtonSecondaryTriggered h1 { text-shadow : none }
+
+.fancyButtonSecondaryTriggered:hover {
+    transform           : perspective(400px) rotateX(20deg);
+    transition-duration : .2s;
+    }
+
+
+.fancyButtonBackground {
+    color               : var(--onPrimary);
+    /*background-color: var(--background);*/
+    background          : transparent;
+    border              : 2px solid var(--background);
+    border-radius       : var(--borderRadius);
+
+    text-transform      : uppercase;
+    font-weight         : bold;
+    transition-duration : .5s;
+    }
+
+.fancyButtonBackground:hover {
+    transform        : scale(1.1);
+    background-color : var(--background);
+    border-color     : transparent;
+    color            : var(--onBackground);
+    }
+
+/*
+.fancyButtonBackground:active {
+    transform           : scale(1.15) !important;
+    transition-duration : 0.1s;
+    }
+*/
+.fancyButtonTriggered {
+    background-color : var(--background) !important;
+    border-color     : transparent !important;
+    color            : var(--onBackground) !important;
+    }
+
+.fancyButtonTriggered h1 { text-shadow : none }
+
+/* NOTE - dette burde forandres, sattes slik pga. slideshow. */
+.fancyButtonBackgroundTriggered:hover {
+    transform : perspective(400px) rotateX(30deg);
+    }
+
+.selectUp:hover {
+    border-radius : 15px 15px 100% 100% / 15px 15px 20px 20px; /* ( x-radius / y-radius ) */
+    }
+
+.selectUp:focus {
+    border-radius : 0 0 20px 20px;
+    }
+
+.selectUni:hover {
+    border-radius : 100px 10px / 5px 50px;
+    }
+
+.selectUni:focus {
+    border-radius : 2px;
+    }
+
+
+.thiccButton {
+    color            : var(--surface);
+    font-size        : 14px;
+    font-weight      : bold;
+    background-color : var(--onSurface);
+    border-radius    : var(--borderRadius);
+    border-style     : solid;
+    border-width     : 1px;
+    border-color     : var(--onBackground);
+    }
+
+.imageButton {
+    font-size        : 16px;
+    font-weight      : bold;
+    background-image : url("Resources/loops/water/water pool.jpg");
+    border-radius    : var(--borderRadius); /*30px*/
+
+    /*-webkit-text-stroke: 1px;     -webkit-text-stroke-color: rgba(255, 255, 255, .35);     /* Hvit outline rundt tekst for å øke lesbarhet, disabled fordi det ikke fungerte bra på så lav font-størrelse. beholder det for reference */
+    text-shadow      : rgba(255, 255, 255, .75) .8px .8px; /* legger til en litt opaque hvit skygge bak teksten for å øke lesbarhet. */ /*TODO - forandre til svart & apply til annen tekst */
+    }
+
+
+
+
+
+
+
+
+
+
+.primary { background-color : var(--primary); color : var(--onPrimary)}
+
+.primaryVariant { background-color : var(--primaryVariant); color : var(--onPrimary)}
+
+.secondary { background-color : var(--secondary); color : var(--onSecondary)}
+
+.secondaryVariant { background-color : var(--secondaryVariant); color : var(--onSecondary);}
+
+.primary > p, .primary > h1, .primary > h2, .primary > h3, .primary > h4, .primary > h5 { color : var(--onPrimary) !important; }
+
+.primaryVariant > p, .primaryVariant > h1, .primaryVariant > h2, .primaryVariant > h3, .primaryVariant > h4, .primaryVariant > h5 { color : var(--onPrimary) !important; }
+
+.secondary > p, .secondary > h1, .secondary > h2, .secondary > h3, .secondary > h4, .secondary > h5 { color : var(--onSecondary) !important; }
+
+.secondaryVariant > p, .secondaryVariant > h1, .secondaryVariant > h2, .secondaryVariant > h3, .secondaryVariant > h4, .secondaryVariant > h5 { color : var(--onSecondary) !important; }
+
+
+
+
+
+
+
+
+/* __________________ shapes  (take a lot of space) _________________________ */
+
+/* Shapes */
+
+
+
+.shape-triangle-topLeft {
+    width        : 0;
+    height       : 0;
+    border-top   : 100px solid var(--secondaryVariant);
+    border-right : 100px solid transparent;
+    }
+
+.shape-triangle-topRight {
+    width       : 0;
+    height      : 0;
+    border-top  : 100px solid var(--secondaryVariant);
+    border-left : 100px solid transparent;
+    }
+
+.shape-triangle-bottomRight {
+    width         : 0;
+    height        : 0;
+    border-bottom : 100px solid var(--secondaryVariant);
+    border-left   : 100px solid transparent;
+    }
+
+.shape-triangle-bottomLeft {
+    width         : 0;
+    height        : 0;
+    border-bottom : 100px solid var(--secondaryVariant);
+    border-right  : 100px solid transparent;
+    }
+
+.shape-chatBubble {
+    position      : relative;
+    border-radius : 25px;
+    }
+
+.shape-chatBubble:before {
+    content       : "";
+    position      : absolute;
+    right         : 100%;
+    top           : 50%;
+    width         : 0;
+    height        : 0;
+    border-top    : 15px solid transparent;
+    border-bottom : 15px solid transparent;
+    border-right  : 30px solid var(--primary);
+    }
+
+
+
+/* ______ WEIRD SHAPES _________ */
+
+.shape-retain { width : 100%; padding-bottom : 75% }
+
+/* shape-retain tries to maintain the aspect ratio at ~1:1. note: make the parent relative */
+
+.shape-odd { border-radius : 4em 8em !important; }
+
+.shape-cigar { border-radius : 85% 40% 50% 100% / 90% 55% 90% 55% !important; }
+
+.shape-cigarSharper { border-radius : 85% 20% 45% 55% / 75% 35% 75% 35% !important; }
+
+.shape-sharpSquiggle { border-radius : 80% 35% 20% 85% / 80% 20% 75% 55% !important; }
+
+.shape-leaf { border-radius : 65% 35% 65% 35% / 80% 20% 80% 20% !important; }
+
+.shape-leafRound { border-radius : 95% 41% 70% 42% / 59% 32% 100% 76% !important; }
+
+.shape-blob { border-radius : 100% 35% 90% 35% / 100% 90% 100% 100% !important; }
+
+.shape-blob > * { position : relative; left : 5px }
+
+.shape-fav { border-radius : 30% 70% 70% 30% / 30% 30% 70% 70% !important; }
+
+.shape-aero { border-radius : 15% 85% 55% 45% / 25% 60% 40% 75% !important; }
+
+.shape-aeroSharp { border-radius : 30% 70% 60% 40% / 20% 70% 30% 80% !important; }
+
+.square-oddlysharpie { border-radius : 100px 10px / 5px 50px !important; }
+
+
+.mirrored { transform : rotateY(180deg)}
+
+
+/*  ____________ THIRD PARTY SHAPES _________________ */
+
+.shape-badge-ribbon {
+    position      : relative;
+    height        : 100px;
+    width         : 100px;
+    border-radius : 50px;
+    }
+
+.shape-badge-ribbon:before, .shape-badge-ribbon:after {
+    content       : '';
+    position      : absolute;
+    border-bottom : 70px solid var(--secondaryVariant);
+    border-left   : 40px solid transparent;
+    border-right  : 40px solid transparent;
+    top           : 70px;
+    left          : -10px;
+    transform     : rotate(-140deg);
+    }
+
+.shape-badge-ribbon:after {
+    left      : auto;
+    right     : -10px;
+    transform : rotate(140deg);
+    }
+
+
+.shape-tv {
+    position      : relative;
+    width         : 200px;
+    height        : 150px;
+    margin        : 20px 0;
+    border-radius : 50% / 10%;
+    text-align    : center;
+    text-indent   : . shape-1em;
+    }
+
+.shape-tv:before {
+    content       : '';
+    position      : absolute;
+    top           : 10%;
+    bottom        : 10%;
+    right         : -5%;
+    left          : -5%;
+    background    : inherit;
+    border-radius : 5% / 50%;
+    }
+
+
+
+.shape-parallelogram {
+    transform : skew(20deg);
+    }
+
+
+.shape-heart {
+    position : relative;
+    width    : 100px;
+    height   : 90px;
+    }
+
+.shape-heart:before, .shape-heart:after {
+    position         : absolute;
+    content          : "";
+    left             : 50px;
+    top              : 0;
+    width            : 50px;
+    height           : 80px;
+    border-radius    : 50px 50px 0 0;
+    transform        : rotate(-45deg);
+    transform-origin : 0 100%;
+    }
+
+.shape-heart:after {
+    left             : 0;
+    transform        : rotate(45deg);
+    transform-origin : 100% 100%;
+    }
+
+
+.shape-diamond {
+    width               : 0;
+    height              : 0;
+    border              : 50px solid transparent;
+    border-bottom-color : var(--secondaryVariant);
+    position            : relative;
+    top                 : -50px;
+    }
+
+.shape-diamond:after {
+    content          : '';
+    position         : absolute;
+    left             : -50px;
+    top              : 50px;
+    width            : 0;
+    height           : 0;
+    border           : 50px solid transparent;
+    border-top-color : var(--secondaryVariant);
+    }
+
+
+.shape-pacman {
+    width         : 0;
+    height        : 0;
+    border-right  : 60px solid transparent;
+    border-top    : 60px solid var(--secondaryVariant);
+    border-left   : 60px solid var(--secondaryVariant);
+    border-bottom : 60px solid var(--secondaryVariant);
+    border-radius : 60px;
+    }
+
+
+.shape-flag {
+    width          : 110px;
+    height         : 56px;
+    box-sizing     : content-box;
+    padding-top    : 15px;
+    position       : relative;
+    font-size      : 11px;
+    letter-spacing : 0 . shape-2em;
+    text-align     : center;
+    text-transform : uppercase;
+    }
+
+.shape-flag:after {
+    content       : "";
+    position      : absolute;
+    left          : 0;
+    bottom        : 0;
+    width         : 0;
+    height        : 0;
+    border-bottom : 13px solid . shape-eee;
+    border-left   : 55px solid transparent;
+    border-right  : 55px solid transparent;
+    }
+
+
+.shape-rightPoint {
+    width    : 200px;
+    height   : 40px;
+    position : relative;
+    }
+
+.shape-rightPoint:after {
+    content       : "";
+    position      : absolute;
+    left          : 0;
+    bottom        : 0;
+    width         : 0;
+    height        : 0;
+    border-left   : 20px solid transparent;
+    border-top    : 20px solid transparent;
+    border-bottom : 20px solid transparent;
+    }
+
+.shape-rightPoint:before {
+    content       : "";
+    position      : absolute;
+    right         : -20px;
+    bottom        : 0;
+    width         : 0;
+    height        : 0;
+    border-left   : 20px solid var(--secondaryVariant);
+    border-top    : 20px solid transparent;
+    border-bottom : 20px solid transparent;
+    }
+
+.shape-base {
+    display     : inline-block;
+    height      : 55px;
+    margin-left : 20px;
+    margin-top  : 55px;
+    position    : relative;
+    width       : 100px;
+    }
+
+.shape-base:before {
+    border-bottom : 35px solid var(--secondaryVariant);
+    border-left   : 50px solid transparent;
+    border-right  : 50px solid transparent;
+    content       : "";
+    height        : 0;
+    left          : 0;
+    position      : absolute;
+    top           : -35px;
+    width         : 0;
+    }
+
+
+
+.shape-scooped {
+    /* these are all the essential styles */
+    overflow      : hidden;
+    position      : relative;
+    margin        : .5em auto 0;
+    padding       : 50px;
+    width         : 100px;
+    max-width     : 47em;
+    min-height    : 10em;
+    border-radius : 1em;
+    color         : #fff;
+    }
+
+.shape-scooped:before {
+    position      : absolute;
+    z-index       : -1;
+    top           : 0; left : 0;
+    margin        : 50px;
+    padding       : inherit;
+    border-radius : 50%;
+    box-shadow    : 0 0 0 85em red;
+    content       : ''
+    }
+
+.shape-hexagon { width : 100px; height : 55px; background : var(--secondary); position : relative; }
+
+.shape-hexagon:before { content : ""; position : absolute; top : -25px; left : 0; width : 0; height : 0; border-left : 50px solid transparent; border-right : 50px solid transparent; border-bottom : 25px solid var(--secondary); }
+
+.shape-hexagon:after { content : ""; position : absolute; bottom : -25px; left : 0; width : 0; height : 0; border-left : 50px solid transparent; border-right : 50px solid transparent; border-top : 25px solid var(--secondary); }
+
+
+
+

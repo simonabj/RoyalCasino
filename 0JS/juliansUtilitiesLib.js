@@ -75,6 +75,15 @@ function getPos(elementId) {
     posY = rect.top;
     return [rect.left, rect.top];
 }
+function getAbsPos(element) {
+    let top = 0, left = 0;
+    do {
+        top += element.offsetTop || 0;
+        left += element.offsetLeft || 0;
+        element = element.offsetParent;
+    } while (element);
+    return [left, top];
+}
 
 
 
@@ -213,7 +222,7 @@ function animTiming(elem_or_id_or_return, animTimingType) {
  * @returns {String} - navnet til key'en
  */
 function getKeyByKeyValue(object, verdi) {
-    return String(object.keys(object).find(key = > object[key] === verdi));
+    return String(object.keys(object).find(key => object[key] === verdi));
 }
 
 

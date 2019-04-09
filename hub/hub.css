@@ -1,0 +1,594 @@
+/* _________________ variables _________________ */
+:root {
+    /* COLOR PALETTE  */
+    --primary             : #470F79;
+    --primaryVariant      : #455573;
+    --secondary           : #F8A917;
+    --secondaryVariant    : #E0D273;
+    --background          : #2B2B2B;
+    --backgroundSecondary : #393939;
+    --surface             : #F5F1ED;
+    --error               : #C53426;
+
+    /* Fargen til elementer som ligger "på" gitt annet element */
+    --onPrimary           : white;
+    --onSecondary         : black;
+    --onBackground        : black;
+    --onSurface           : black;
+    --onError             : #F5F1ED;
+
+    /* alternatives:
+    Tomato / lightblue - primary,secondary = tomato, background=lightblue
+    Stronkブルー - 6200EE 3700B3 03DAC6 018786 f5f1ed f5f1ed B00020 f5f1ed 252323 252323 252323 f5f1ed
+    Pinkie - e91e63 b0003a f06292 ff94c2
+    Vintage - 252323 70798c f5f1ed dad2bc a99985
+    Proブルー - 4880B6 5996A7 A9C77C EBF6CC 38A5B1
+    Joyブルー - 4880B6 31A7B1 C2AD53 CF8E5A D84B40
+    Envy - 4FAEAD 60CDA3 F58538 B54F52 4880B6
+    Desgustang - 60CDA3 C3AF5B F58538 B54F52 4880B6
+    ★ Tacky Jappie - 4FAEAD 60CDA3 F0C04C F58538 4880B6
+    Sky high -  ffb021 * * * bg:339ec5
+    ★ Candy - 01ABAA FEA680 FEDC3D FEDC3D 414141 onBackground=f5f1ed
+    ★ Brilliant - 4FAEAD 01ABAA FEDC3D FEDC3D 414141/2B2B2B/rgb(85, 85, 85) f5f1ed c53426 f5f1ed 252323 f5f1ed 252323 f5f1ed
+    - Infinity - 00bcd4
+     Outrun - d03384 CE3287 592bc7 (/04b79c) 4c2084 2b0492 ad2a6e f5f1ed
+    ★ Fishing hut - 359081 E27D60 E8A87C C38D9E 85DCB0 85DCB0 (white)
+    ★★ Fishing boat - 24305E 24305E 3f559c 5471cf c3e3f2/white/f0f298 00a3a2 A8D0E6 (f5f1ed black)
+    ★ Contrasting Delivery - 46344E 5A5560 rgba(250,237,38,0.89) FAED26 231a29 5A5560 (white black)
+
+    */
+    /* alt. neutral background color e2e1e0 / 2B2B2B
+    alt. background gradient: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%),
+    */
+
+    --borderRadius        : 15px;
+    --shadowColor         : rgba(0, 0, 0, .25); /* alternatives: rgba(0,0,0,.5) [fargen tar på fargen til bakgrunnen pga. opacity, beste alternativ] - #ccc - grey */
+    --shadowColorSides    : rgba(0, 0, 0, .25);
+    }
+
+
+/* ______________ page-wide ______________ */
+html {
+    overflow        : scroll;
+    overflow-x      : hidden;
+    scrollbar-width : none; /* for firefox */
+    scroll-behavior : smooth;
+    }
+
+/* For andre browsere enn firefox */
+::-webkit-scrollbar {
+    background : transparent;
+    }
+
+::-webkit-scrollbar-thumb {
+    background-color : rgba(0, 0, 0, .25); /* Slightly opaque, tar på fargen som er bak den. */
+    border-radius    : 30px 0 0 30px / 100% 0 0 100%; /* curves the scrollbar so that the entire left side is gently curved. */
+    }
+
+::-webkit-scrollbar-thumb:hover { background-color : rgba(0, 0, 0, .5); }
+
+body {
+    width            : 100vw;
+    height           : auto; /* Gjør at <body> fyller hele siden, siden Firefox ikke gjør dette automatisk */
+    min-height       : 100vh;
+    margin           : 0;
+    flex-wrap        : wrap; /* Wrapper elementer ned til ny linje om det blir overflow */
+    overflow         : auto;
+
+    background-image : radial-gradient(var(--background) 75%, var(--backgroundSecondary));
+    /*
+    background: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%);
+     */
+    /*
+    background-image: radial-gradient(circle, var(--backgroundSecondary), var(--background) 75%);
+    /*
+    background-image: url("Resources/loops/space\ nebula.jpg");
+    background-color: var(--background);
+    background-repeat: repeat;
+    */
+
+
+    cursor           : url("Resources/etc/cursors/Numix_Cursors/NumixLight/Arrow.cur"), auto;
+    font-family      : Arial, sans-serif; /* Første font er foretrukket, følgende fonter er fallbacks, om nettleseren ikke støtter fonten. */
+    /* Web-safe alternatives:  "Lucida Sans Unicode", Georgia, Palatino, Garamond, Bookman, Helvetica.
+    Other alternatives: "Century Gothic" / "Adobe Garamond"(Custom font (facefont), veldig ofte brukt i  magasiner) / "Verdana" (Uprofesjonelt, men bra readability: flere studier hevder det er den lettest-leste fonten.) */
+    }
+
+/*  neat html ting: contenteditable="true" */
+* {
+    max-width           : 100vw;
+    flex-wrap           : wrap;
+    box-sizing          : border-box;
+    transition-duration : 0.5s;
+    }
+
+header {
+    background-image   : linear-gradient(var(--primary), var(--primaryVariant));
+    display            : flex;
+    flex-direction     : column;
+    flex-grow          : 1;
+    width              : 100vw;
+    justify-content    : center;
+    min-height         : 290px;
+    align-items        : center;
+    margin             : 0 0 20px 0;
+    padding            : 20px 0 40px 0;
+    box-shadow         : 0 10px 15px var(--shadowColor);
+    -webkit-box-shadow : 0 10px 15px var(--shadowColor);
+    clip-path          : polygon(0 0, 100% 0, 50vw 100%, 0 calc(50% - 50%));
+    /* change the calc height to a percentage height to get alternate responsive behavior */
+    }
+
+header h1, header h2, header h3 {
+    font-size : 2.5em;
+    color     : var(--onPrimary);
+    margin    : 10px auto; /*top&bunn=10px, left&right=auto*/
+    }
+
+header img { max-height : 100% !important; /* for å ikke exceede parent element */ }
+
+header div {
+    position              : fixed;
+    top                   : 35px;
+    padding               : 15px 40px 15px 40px;
+    min-width             : 200px;
+    min-height            : 100px;
+    -webkit-border-radius : 50px;
+    -moz-border-radius    : 50px;
+    background-color      : var(--secondary);
+    /*background-image: linear-gradient(-120deg, var(--primaryVariant), var(--secondary) 75%);
+    */}
+
+header .titleDiv {
+    background-image : linear-gradient(-120deg, var(--primaryVariant), var(--secondary) 75%);
+    }
+
+#tableOfContents {
+    margin  : 15px 0 15px 0;
+    padding : 15px;
+    }
+
+div {
+    display            : flex; /* Alternative: "inline-flex". */
+    align-items        : center;
+    flex-wrap          : wrap;
+    overflow-wrap      : break-word;
+    word-wrap          : break-word;
+
+    justify-content    : center;
+
+    margin             : 10px;
+    padding            : 10px;
+
+    background-color   : var(--primary);
+    border-color       : var(--onBackground);
+    border-radius      : var(--borderRadius);
+    border-width       : 0;
+    border-style       : solid;
+
+    box-shadow         : 0 /*X*/ 6px /*Y*/ 8px /*uklarhet*/ 0 /*spredning (optional)*/ var(--shadowColor);
+    -webkit-box-shadow : 0 6px 8px 0 var(--shadowColor);
+    }
+
+div > p, div > h1, div > h2, div > h3, div > h4, div > h5, div > label, div > output {
+    color : var(--onPrimary);
+    /*cursor: url("Resources/etc/cursors/Mario_Gant/Text_Select.cur"), text*/
+    }
+
+/*.plainDiv > p, .plainDiv > h1, .plainDiv > h2, .plainDiv > h3, .plainDiv > h4, .plainDiv > h5, .plainDiv > label, .plainDiv > output {
+    color: var(--onBackground) ! i m p o r t a n t;
+}*/
+/*.container > p, .container > h1, .container > h2, .container > h3, .container > h4, .container > h5, .container > label, .container > output {
+    color: var(--onBackground) ! i m p o r t a n t;
+}*/
+
+h1, h2, h3, h4, h5 {
+    font-weight : bolder;
+    font-family : "Lucida Sans Unicode", Palatino, Arial, serif;
+    margin      : 0.25em;
+    /*line-break: auto;*/
+    }
+
+p {
+    /* 4autolinebreak width: 100% */
+    margin-top    : 5px;
+    margin-bottom : 5px;
+    max-width     : 25em;
+    }
+
+/* cssfontstack.com presets (cssfontstack.com/<PALETTENAME>):
+/* palatino
+h1 { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; }
+
+lucida
+h1 { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; }
+
+segue
+h1 { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; } h3 { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; } p { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } blockquote { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } pre { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }
+
+optima
+h1 { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; }
+
+Book-Antiqua
+h1 { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; }
+
+Georgia
+h1 { font-family: Georgia, Times, "Times New Roman", serif; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: Georgia, Times, "Times New Roman", serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: Georgia, Times, "Times New Roman", serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: Georgia, Times, "Times New Roman", serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: Georgia, Times, "Times New Roman", serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px;
+ */
+
+
+a {
+    word-break          : break-all;
+    color               : var(--secondaryVariant);
+    text-decoration     : none;
+    text-shadow         : 0 2px 1px var(--shadowColor);
+    transition-duration : 0.3s;
+    }
+
+a:hover {
+    filter          : brightness(110%);
+    text-decoration : underline dashed;
+    text-shadow     : 0 5px 2px var(--shadowColor);
+    }
+
+a::before {
+    content   : "🔗";
+    opacity   : 0.5;
+    font-size : 0.8em;
+    }
+
+img {
+    /*border-style:solid;
+    border-color:black;
+    border-radius: var(--borderRadius);
+    border-width: 1px;*/
+
+    max-width           : 100%; /* Bilder vil aldri bli større enn parent element */
+    max-height          : 100%;
+
+    margin              : 5px;
+
+    transition-duration : .5s;
+
+    /* sikrer at aspect ratio ikke forandres */
+    display             : block;
+    }
+
+marquee {
+    margin  : 0;
+    padding : 0;
+    }
+
+/* OBSOLETE - bruk class .scroll eller marquee class i stedet. */
+
+
+
+
+
+/* __________ < lists > __________ */
+
+ul, ol {
+    padding : 0 1em 0 2em;
+    }
+
+
+
+
+
+/* __________ < Tables > __________ */
+table {
+    margin             : 15px;
+    background-color   : var(--primary);
+
+    border-collapse    : collapse;
+
+    border-radius      : 25px;
+    border-style       : hidden;
+
+    box-shadow         : 0 6px 8px 0 var(--shadowColor);
+    -webkit-box-shadow : 0 6px 8px 0 var(--shadowColor);
+    }
+
+table, th, td {
+    padding : 10px;
+    }
+
+th {
+    border          : 1px solid var(--background);
+    text-decoration : var(--background) underline;
+    border-radius   : 0;
+    }
+
+td {
+    border     : 1px solid var(--background);
+    text-align : center;
+    }
+
+td:first-child {
+    text-align   : left;
+    padding-left : 25px;
+    }
+
+tr:nth-child(odd) {
+    background : var(--primaryVariant);
+    }
+
+
+
+
+
+
+
+
+
+
+/* ***************************************************
+   **                    INPUTS                     **
+   ***************************************************/
+
+input, select, button, textarea {
+    background-color : var(--secondary);
+    outline          : none;
+    margin           : 5px;
+    padding          : 5px;
+    text-align       : center;
+    /*border: 1px solid var(--onBackground);*/
+    border-radius    : var(--borderRadius);
+    border-style     : none;
+    overflow         : hidden;
+    /* max-width: 90%;  */
+    }
+
+textarea {
+    resize : none;
+    }
+
+button {
+    font-size   : 14px;
+    font-weight : bold;
+    border      : solid 1px var(--onBackground) var(--borderRadius);
+    padding     : 7px 10px;
+    }
+
+button h1 {
+    text-shadow         : 5px 5px 5px var(--shadowColor);
+    transition-duration : 0.15s;
+    }
+
+button:active h1 {
+    text-shadow : none;
+    }
+
+button:hover {
+    transform : scale(1.05);
+    }
+
+button:active {
+    transform           : scale(1.1);
+    transition-duration : 0.1s;
+    box-shadow          : none !important;
+    -webkit-box-shadow  : none !important;
+    }
+
+/* removes mozilla button outline */
+button::-moz-focus-inner { border : 0; }
+
+
+button, select, input[type=radio], input[type=checkbox], label {
+    cursor              : url("Resources/etc/cursors/Mario_Gant/Normal_Select.cur"), pointer !important;
+    transition-duration : 0.5s;
+    }
+
+::placeholder { /*placeholder teksten i inputs*/
+    padding-left : 3px;
+    color        : var(--onSecondary);
+    opacity      : 0.5;
+    }
+
+
+
+
+/* __________ < TEXT INPUTS > __________ */
+input[type=text] {
+    margin              : 5px 0;
+    padding             : 5px 0;
+    border              : 1px solid var(--secondaryVariant);
+    border-radius       : 5px;
+    background-color    : transparent;
+    transition-duration : 0.5s;
+    font-weight         : bold;
+    }
+
+input[type=text]:focus {
+    padding          : 5px 0;
+    background-color : var(--secondaryVariant);
+    margin           : 5px 0;
+    box-shadow       : 0 10px 10px var(--shadowColor);
+    }
+
+
+
+
+/* __________ < SELECT > __________ */
+select {
+    padding             : 7px 25px 7px 10px;
+    text-align-last     : center;
+    border              : solid var(--secondary) 2px;
+    border-radius       : 10px;
+    outline             : none;
+    font-weight         : 600;
+    appearance          : none; /* fjerner pilen (som ikke kan styles) */
+    -webkit-appearance  : none;
+    background          : transparent url("../resources/img/icons/iOS/popular/menu-filled.png") 90% no-repeat; /* bildet er custom ikonet, 95% to the right. */
+    color               : var(--onPrimary);
+    background-size     : 1em; /* størrelsen på ikonet */
+    transition-duration : 0.5s;
+    }
+
+select:hover {
+    color               : var(--onSecondary);
+    border-color        : var(--secondaryVariant);
+    background-color    : var(--secondaryVariant);
+    /*border-radius    : 100% 100% 15px 15px / 20px 20px 15px 15px; /* ( x-radius / y-radius )
+    */border-radius : 50% 50% 10px 10px / 10px 10px 20px 20px; */ filter : brightness(125%);
+    }
+
+select:focus {
+    color            : var(--onSecondary);
+    background-color : var(--secondaryVariant);
+    border-radius    : /*20px 20px 0*/ 4px;
+    }
+
+option {
+    text-align       : center;
+    background-color : var(--secondary);
+    }
+
+option:nth-child(odd) {
+    background-color : var(--secondaryVariant)
+    }
+
+
+
+
+
+
+/* Gjemmer opp & ned pilene på input type "number" */
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance : none; margin : 0; }
+
+/* For Chrome & etc. */
+input[type="number"] { -moz-appearance : textfield; }
+
+/* For Firefox: */
+/*input[text], textArea{ cursor: url("Resources/etc/cursors/0etc/Zelda_Pen.png"), text; }*/
+
+
+
+
+
+/* __________ < RADIO > __________ */
+input[type=radio] {
+    -webkit-appearance  : none; /* hides the normal radio button */
+    -moz-appearance     : none;
+    background-color    : var(--primaryVariant) !important;
+
+    outline             : none; /*fjerner firkantet selection outline, native i html. */
+    border-style        : none;
+    border-radius       : 50% !important;
+
+    position            : relative; /*for å tillate absolute text content */
+    height              : 20px;
+    width               : 20px;
+    transition-duration : 0.3s;
+    }
+
+input[type=radio]:hover {
+    transform           : scale(1.5);
+    background-color    : var(--secondaryVariant) !important;
+    box-shadow          : 0 5px 7px var(--shadowColor);
+    transition-duration : 0.2s;
+    }
+
+input[type=radio]:active {
+    transform           : scale(1.8);
+    transition-duration : 0.1s;
+    }
+
+input[type=radio]:checked::before { /* inserts text before the content on checked radios */
+    position  : absolute;
+    content   : '✔';
+    font-size : 15px;
+    color     : var(--onPrimary);
+    left      : 4px;
+    top       : 0;
+    }
+
+
+
+
+/* __________ < ranges > __________ */
+input[type=range] {
+    -webkit-appearance  : none; /* Override default CSS styles */
+    outline             : none;
+    appearance          : none;
+    padding             : 0;
+    border-radius       : 50px;
+    height              : 12.5px;
+    filter              : brightness(90%);
+    background-color    : #666;
+    transition-duration : 0.5s;
+    overflow            : visible;
+    }
+
+input[type=range]:hover {
+    filter              : brightness(100%);
+    transition-duration : 0.5s;
+    }
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance  : none;
+    position            : relative;
+    bottom              : 5px;
+    width               : 20px;
+    height              : 20px;
+    border-style        : none;
+    border-radius       : 50%;
+    background-color    : var(--secondaryVariant);
+    transition-duration : 0.5s;
+    box-shadow          : 3px 2px 3px var(--shadowColor);
+    }
+
+input[type=range]::-moz-range-thumb {
+    box-shadow          : 3px 2px 3px var(--shadowColor);
+    border-style        : none;
+    -webkit-appearance  : none;
+    width               : 20px; /* the size is slightly different for firefox, so I'm manually making up for that here */
+    height              : 20px;
+    border-radius       : 50%;
+    background-color    : var(--secondaryVariant);
+    transition-duration : 0.5s;
+    }
+
+input[type=range]::-moz-range-thumb:hover {
+    transform           : scale(1.3);
+    transition-duration : 0.3s;
+    box-shadow          : 5px 5px 5px var(--shadowColor);
+    }
+
+input[type=range]::-webkit-slider-thumb:hover {
+    box-shadow          : 5px 5px 5px var(--shadowColor);
+    transform           : scale(1.3);
+    transition-duration : 0.3s;
+    }
+
+
+
+
+
+
+
+/* __________________________ CLASSES ___________________________ */
+
+/* __________ < COLOURS > __________ */
+.primary { background-color : var(--primary); color : var(--onPrimary)}
+
+.primaryVariant { background-color : var(--primaryVariant); color : var(--onPrimary)}
+
+.secondary { background-color : var(--secondary); color : var(--onSecondary)}
+
+.secondaryVariant { background-color : var(--secondaryVariant); color : var(--onSecondary);}
+
+.primary > p, .primary > h1, .primary > h2, .primary > h3, .primary > h4, .primary > h5 { color : var(--onPrimary) !important; }
+
+.primaryVariant > p, .primaryVariant > h1, .primaryVariant > h2, .primaryVariant > h3, .primaryVariant > h4, .primaryVariant > h5 { color : var(--onPrimary) !important; }
+
+.secondary > p, .secondary > h1, .secondary > h2, .secondary > h3, .secondary > h4, .secondary > h5 { color : var(--onSecondary) !important; }
+
+.secondaryVariant > p, .secondaryVariant > h1, .secondaryVariant > h2, .secondaryVariant > h3, .secondaryVariant > h4, .secondaryVariant > h5 { color : var(--onSecondary) !important; }
+
+
+
+
+
+
+

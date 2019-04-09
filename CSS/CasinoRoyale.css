@@ -1,0 +1,42 @@
+
+
+
+:root{
+
+    /* Main elements, divs. */
+    --primary: blue;
+    --primaryVariant: lightblue;
+
+    /* Secondary elements, such as buttons. */
+    --secondary: red;
+    --secondaryVariant: orange;
+
+    --background: black;
+    --backgroundSecondary: grey;
+
+    --borderRadius: 10px;
+
+    /* Fetch variables with: "var(--variableName)" */
+
+    }
+
+
+body{
+    margin: 0;
+    padding: 15px;
+    overflow-x: hidden;
+
+    background-image: linear-gradient();
+
+
+    }
+
+div {
+
+    }
+
+
+
+
+
+

@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $row2 = mysqli_fetch_assoc($result69);
                             $_SESSION["mail"] = $row2['mail'];
 
-                            header("location: index.php");
+                            header("location: getIP.php");
                         } else {
                             $password_err = "The password you entered was not valid.";
                         }
@@ -76,12 +76,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LOGIN</title>
+    <title>VIDRATES | LOGG INN</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <style type="text/css">
+        body{ font: 14px sans-serif; }
+        .wrapper{ width: 350px; padding: 20px; }
+    </style>
 </head>
 <body>
-<div>
+<div class="wrapper" style="text-align:center;text-align-last:center; margin-left:auto;margin-right:auto">
     <h2>Login</h2>
-    <p>Fill out the fields below to login and start playing at Casino Royale.</p>
+    <p>Fill out the fields below to login.</p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
             <label>Username</label>
@@ -96,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Login">
         </div>
-        <p>Har du ingen bruker? <a href="register.php" style="color:blue;">Register</a>.</p>
+        <p>Dont you have an user? <a href="register.php" style="color:blue;">Register</a>.</p>
     </form>
 </div>
 </body>

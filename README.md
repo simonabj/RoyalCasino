@@ -1,2 +1,2 @@
 # RoyalCasino
-Skole prosjekt
+Skoleprosjekt

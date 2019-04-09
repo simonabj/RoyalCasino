@@ -91,14 +91,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "Something went wrong. Please try again later.";
             }
 
-            ini_set( 'display_errors', 1 );
-            error_reporting( E_ALL );
-            $from = "vidrate@rateateachernorway.com";
-            $to = "simon.lyngar@gmail.com";
-            $subject = "User $param_username Registrert";
-            $message = "The User $param_username has just made his account on VIDRATES.";
-            $headers = "From:" . $from;
-            mail($to,$subject,$message, $headers);
         }
 
         mysqli_stmt_close($stmt);

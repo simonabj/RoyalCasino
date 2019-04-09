@@ -663,7 +663,6 @@ div a { color : var(--secondaryVariant); }
 
 
 
-
 /******************************************************************
 **                             INPUTS                            **
 *******************************************************************/
@@ -725,9 +724,6 @@ div a { color : var(--secondaryVariant); }
     box-shadow          : none;
     transition-duration : 0.05s;
     }
-
-
-
 
 .bigButton {
     margin         : 5px;
@@ -795,12 +791,9 @@ div a { color : var(--secondaryVariant); }
     transform           : perspective(0) rotateY(0deg) !important;
     }
 
-
-
 .uniformButton1 {
     width : 150px;
     }
-
 
 .hoverFillPrimary:hover { background-color : var(--primary) }
 
@@ -830,13 +823,9 @@ Imma make these .fancyButton's simpler sometime
     transition-duration : .5s;
     background          : transparent;
     }
-
 .fancyButton:hover {
-
     }
-
 .fancyButton:active {
-
     }*/
 
 .fancyButtonPrimary {
@@ -860,7 +849,7 @@ Imma make these .fancyButton's simpler sometime
 
 /*
 .fancyButtonPrimary:active {
-    transform           : scale(1.15) !important;
+    transform           : scale(1.15) !imp ort an t;
     transition-duration : 0.1s;
     }
 */
@@ -900,7 +889,7 @@ Imma make these .fancyButton's simpler sometime
 
 /*
 .fancyButtonSecondary:active {
-    transform           : scale(1.15) !important;
+    transform           : scale(1.15) !i mpor t ant;
     transition-duration : 0.1s;
     }
 */
@@ -945,7 +934,7 @@ Imma make these .fancyButton's simpler sometime
 
 /*
 .fancyButtonBackground:active {
-    transform           : scale(1.15) !important;
+    transform           : scale(1.15) !i m p o rtant;
     transition-duration : 0.1s;
     }
 */
@@ -1030,14 +1019,7 @@ Imma make these .fancyButton's simpler sometime
 
 
 
-
-
-/* __________________ shapes  (take a lot of space) _________________________ */
-
-/* Shapes */
-
-
-
+/* ___________________ Shapes _______________ */
 .shape-triangle-topLeft {
     width        : 0;
     height       : 0;

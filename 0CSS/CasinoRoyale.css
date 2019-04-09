@@ -1,0 +1,50 @@
+
+:root {
+
+    /* ___ COLOR PALETTE ___ */
+    /* Main elements, divs. */
+    --primary             : blue;
+    --primaryVariant      : lightblue;
+    --onPrimary           : black;
+
+    /* Secondary elements, such as buttons. */
+    --secondary           : red;
+    --secondaryVariant    : orange;
+    --onSecondary         : white;
+
+    --background          : black;
+    --backgroundSecondary : grey;
+    --onBackground        : white;
+
+
+
+    /* ___ OTHER VALUES ___ */
+    --borderRadius        : 10px;
+
+
+
+
+    /* Fetch variables with: "var(--variableName)" */
+
+    }
+
+
+body {
+    margin           : 0;
+    padding          : 15px;
+    overflow-x       : hidden;
+
+    background-image : linear-gradient();
+
+
+    }
+
+div {
+
+    }
+
+
+
+
+
+

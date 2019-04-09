@@ -35,8 +35,8 @@
     ★ Fishing hut - 359081 E27D60 E8A87C C38D9E 85DCB0 85DCB0 (white)
     ★★ Fishing boat - 24305E 24305E 3f559c 5471cf c3e3f2/white/f0f298 00a3a2 A8D0E6 (f5f1ed black)
     ★ Contrasting Delivery - 46344E 5A5560 rgba(250,237,38,0.89) FAED26 231a29 5A5560 (white black)
-
     */
+
     /* alt. neutral background color e2e1e0 / 2B2B2B
     alt. background gradient: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%),
     */
@@ -54,18 +54,6 @@ html {
     scrollbar-width : none; /* for firefox */
     scroll-behavior : smooth;
     }
-
-/* For andre browsere enn firefox */
-::-webkit-scrollbar {
-    background : transparent;
-    }
-
-::-webkit-scrollbar-thumb {
-    background-color : rgba(0, 0, 0, .25); /* Slightly opaque, tar på fargen som er bak den. */
-    border-radius    : 30px 0 0 30px / 100% 0 0 100%; /* curves the scrollbar so that the entire left side is gently curved. */
-    }
-
-::-webkit-scrollbar-thumb:hover { background-color : rgba(0, 0, 0, .5); }
 
 body {
     width            : 100vw;
@@ -258,10 +246,17 @@ marquee {
     margin  : 0;
     padding : 0;
     }
-
 /* OBSOLETE - bruk class .scroll eller marquee class i stedet. */
 
 
+::-webkit-scrollbar {
+    background : transparent;
+    }
+::-webkit-scrollbar-thumb {
+    background-color : rgba(0, 0, 0, .25); /* Slightly opaque, tar på fargen som er bak den. */
+    border-radius    : 30px 0 0 30px / 100% 0 0 100%; /* curves the scrollbar so that the entire left side is gently curved. */
+    }
+::-webkit-scrollbar-thumb:hover { background-color : rgba(0, 0, 0, .5); }
 
 
 
@@ -270,10 +265,6 @@ marquee {
 ul, ol {
     padding : 0 1em 0 2em;
     }
-
-
-
-
 
 /* __________ < Tables > __________ */
 table {
@@ -565,9 +556,10 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
+/* __________________________ DOC CLASSES ___________________________ */
 
 
-/* __________________________ CLASSES ___________________________ */
+
 
 /* __________ < COLOURS > __________ */
 .primary { background-color : var(--primary); color : var(--onPrimary)}

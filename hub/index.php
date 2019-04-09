@@ -17,6 +17,7 @@
         #id {}
 
     </style>
+
 </head>
 <body>
 <header style="position: fixed">
@@ -35,7 +36,9 @@
 </header>
 <div id="documentWrapper" class="container column" style="margin-top: 300px !important;">
 
+
     <h1>test</h1>
+
 
     <div class="secondary">
         <pre>
@@ -191,14 +194,7 @@
         </pre>
     </div>
 
-
-
-
-</div>
-
-
-
-
+</div> <!-- end of document wrapper -->
 <script>
     $(function () {
 
@@ -211,6 +207,9 @@
         let toggled = false;
 
 
+        /**
+         * method resizeHeaderOnScroll animates the <header> tag when the page has been scrolled down to below "shrinkOn" pixels.
+         */
         function resizeHeaderOnScroll() {
             let distanceY = window.pageYOffset || document.documentElement.scrollTop;
             console.log(distanceY);
@@ -258,9 +257,8 @@
             }
         }
 
-
+        // When the window is scrolled, triggers resizeHeaderOnScroll().
         window.onscroll = function () {resizeHeaderOnScroll()};
-
 
     });
 </script>

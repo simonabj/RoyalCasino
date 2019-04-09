@@ -55,7 +55,6 @@ String.prototype.removeQuotes = function () {
 };
 String.prototype.toUrl = function () { return this.replace(/ /g, "%20"); };
 String.prototype.toURL = function () { return this.replace(/ /g, "%20"); };
-
 Element.prototype.remove = function () { this.outerHTML = ""; };
 NodeList.prototype.remove = HTMLCollection.prototype.remove = function () { this.outerHTML = ""; };
 
@@ -75,6 +74,13 @@ function getPos(elementId) {
     posY = rect.top;
     return [rect.left, rect.top];
 }
+
+
+/**
+ * method getAbsPos gets the absolute position of an element relative to the body.
+ * @param element {Object} - the element to get the position of.
+ * @returns {number[]} - returns [x, y] coordinates
+ */
 function getAbsPos(element) {
     let top = 0, left = 0;
     do {

@@ -1,32 +1,40 @@
 
+:root {
 
-
-:root{
-
+    /* ___ COLOR PALETTE ___ */
     /* Main elements, divs. */
-    --primary: blue;
-    --primaryVariant: lightblue;
+    --primary             : blue;
+    --primaryVariant      : lightblue;
+    --onPrimary           : black;
 
     /* Secondary elements, such as buttons. */
-    --secondary: red;
-    --secondaryVariant: orange;
+    --secondary           : red;
+    --secondaryVariant    : orange;
+    --onSecondary         : white;
 
-    --background: black;
-    --backgroundSecondary: grey;
+    --background          : black;
+    --backgroundSecondary : grey;
+    --onBackground        : white;
 
-    --borderRadius: 10px;
+
+
+    /* ___ OTHER VALUES ___ */
+    --borderRadius        : 10px;
+
+
+
 
     /* Fetch variables with: "var(--variableName)" */
 
     }
 
 
-body{
-    margin: 0;
-    padding: 15px;
-    overflow-x: hidden;
+body {
+    margin           : 0;
+    padding          : 15px;
+    overflow-x       : hidden;
 
-    background-image: linear-gradient();
+    background-image : linear-gradient();
 
 
     }

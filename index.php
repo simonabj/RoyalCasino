@@ -18,9 +18,7 @@
 </header>
 <div id="documentWrapper">
 
-
-
-
+    
 
 </div>
 <!-------------- JAVASCRIPT -------------->

@@ -41,38 +41,8 @@
 
 
 
+
     <div id="gamesContainer"></div>
-
-<div class="row container">
-
-        <div class="hubGame_container">
-            <div class="hubGame_imageContainer">
-                <div class="hubGame_image" style="background-image: url('https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip')"></div>
-                <div class="hubGame_imageTitleContainer">
-                    <h1> Roulette </h1>
-                </div>
-            </div>
-            <button> <h2> PLAY NOW </h2> </button>
-        </div>
-        <div class="hubGame_container">
-            <div class="hubGame_imageContainer">
-                <div class="hubGame_image" style="background-image: url('https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip')"></div>
-                <div class="hubGame_imageTitleContainer">
-                    <h1> Roulette </h1>
-                </div>
-            </div>
-            <button> <h2> PLAY NOW </h2> </button>
-        </div>
-        <div class="hubGame_container">
-            <div class="hubGame_imageContainer">
-                <div class="hubGame_image" style="background-image: url('https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip')"></div>
-                <div class="hubGame_imageTitleContainer">
-                    <h1> Roulette </h1>
-                </div>
-            </div>
-            <button> <h2> PLAY NOW </h2> </button>
-        </div>
-</div>
 
 
 

@@ -36,6 +36,9 @@
     padding       : 30px;
     border-radius : 50% 5% / 5% 50%
     }
+.frameShape{
+    border-radius : 50% 5% / 5% 50%
+    }
 
 .frame img {
     border-radius : 50% 5% / 5% 50%

@@ -603,7 +603,7 @@ input[type=range]::-webkit-slider-thumb:hover {
     position       : relative;
     padding        : 0;
     border-radius  : 30px;
-    margin         : 45px;
+    margin         : 30px;
     }
 
 .hubGame_imageContainer {
@@ -617,8 +617,8 @@ input[type=range]::-webkit-slider-thumb:hover {
     }
 
 .hubGame_image {
-    width                 : 300px;
-    height                : 300px;
+    width                 : 400px;
+    height                : 200px;
     margin                : 0;
     padding               : 0;
     background-color      : transparent;
@@ -658,9 +658,9 @@ input[type=range]::-webkit-slider-thumb:hover {
     }
 
 
-
 #gamesContainer {
-
+    background-image: url("loops/textura-material-rojo_1385-1933.jpg");
+    background-repeat: repeat;
     }
 
 

@@ -23,42 +23,74 @@ $(function () {
      *
      * @param object
      */
-    function addGameBox(wrapper, object) {
+    function addGameBox(object) {
 
+        // CREATING THE CONTAINER FOR THE GAME
         let container = document.createElement("div");
         container.classList.add("hubGame_container");
 
+        // CREATING THE CONTAINER FOR THE IMAGE AND IT'S TITLE
         let imageContainer = document.createElement("div");
         imageContainer.classList.add("hubGame_imageContainer");
 
+        // CREATING THE IMAGE
         let image = document.createElement("div");
         image.classList.add("hubGame_image");
-        image.style.backgroundImage = "url("+object.image+")";
+        image.style.backgroundImage = "url(" + object.image + ")";
 
+        //CREATING THE TITLE AND IT'S CONTAINER
         let imageTitleContainer = document.createElement("div");
         imageTitleContainer.classList.add("hubGame_imageTitleContainer");
-
         let title = document.createElement("h1");
         title.innerHTML = object.title;
-
         imageTitleContainer.appendChild(title);
 
+        // CREATING THE BUTTON AND IT'S TEXT
         let button = document.createElement("button");
+        button.onclick = function () { setTimeout(function(){window.location.href = object.href}, 100)};
         let buttonText = document.createElement("h2");
         buttonText.innerHTML = " PLAY NOW ";
         button.appendChild(buttonText);
 
-
+        //APPENDING THE IMAGE AND IT'S TITLE TO THEIR CONTAINER
         imageContainer.appendChild(image);
         imageContainer.appendChild(imageTitleContainer);
+
+        //APPENDING THE IMAGE CONTAINER AND THE BUTTON TO THE GAME CONTAINER
         container.appendChild(imageContainer);
         container.appendChild(button);
-        wrapper.appendChild(container);
+
+        //RETURNING THE GAME CONTAINER
+        return container;
+    }
+
+
+
+    function addAllGameBoxes(container, array, columns = 2) {
+        for (let i = 0; i < array.length; i++) {
+            let index = 0;
+
+            let row = document.createElement("div");
+            row.style.flexDirection = "row";
+            row.classList.add("container");
+
+            for (let j = 0; j < columns; j++) {
+
+                //IF THE END OF THE ARRAY HAS BEEN REACHED, BREAK THE LOOP.
+                if (array[index] === undefined) break;
+
+                let gameContainer = addGameBox(games[index]);
+
+                row.appendChild(gameContainer);
+
+                index++;
+            }
+            container.appendChild(row);
+        }
 
     }
 
-    addGameBox($("#gamesContainer")[0], games[0]);
-
+    addAllGameBoxes($("#gamesContainer")[0], games);
 
 
     /*

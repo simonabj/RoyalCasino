@@ -10,7 +10,7 @@
     /*line-break: auto;*/
     }
 
-.notched {
+.notched, .shape-notched {
     clip-path : polygon(
             0% 20px, /* top left */ 20px 0%, /* top left */ calc(100% - 20px) 0%, /* top right */ 100% 20px, /* top right */ 100% calc(100% - 20px), /* bottom right */ calc(100% - 20px) 100%, /* bottom right */ 20px 100%, /* bottom left */ 0 calc(100% - 20px) /* bottom left */
     );
@@ -64,7 +64,6 @@ div a { color : var(--secondaryVariant); }
 .error a {
     color : var(--primaryVariant);
     }
-
 
 
 
@@ -316,9 +315,6 @@ div a { color : var(--secondaryVariant); }
 
 
 
-
-
-
 .white {
     background-color : white;
     color            : black;
@@ -328,7 +324,6 @@ div a { color : var(--secondaryVariant); }
     background-color : black;
     color            : white;
     }
-
 
 
 
@@ -654,12 +649,6 @@ div a { color : var(--secondaryVariant); }
 .cursive {
     font : 900 35vmin/50vh cookie, cursive;
     }
-
-
-
-
-
-
 
 
 
@@ -991,13 +980,6 @@ Imma make these .fancyButton's simpler sometime
 
 
 
-
-
-
-
-
-
-
 .primary { background-color : var(--primary); color : var(--onPrimary)}
 
 .primaryVariant { background-color : var(--primaryVariant); color : var(--onPrimary)}
@@ -1016,44 +998,67 @@ Imma make these .fancyButton's simpler sometime
 
 
 
+/* ________ shapes ______ */
+.shape-rhombus, .shape-rotatedSquare {
+    -webkit-clip-path : polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    clip-path         : polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+.shape-hexagon {
+    -webkit-clip-path : polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path         : polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    }
+
+.shape-bat {
+    clip-path : polygon(50% 20%, 100% 0%, 90% 75%, 50% 100%, 10% 75%, 0% 0%);
+    }
+
+.shape-bat-heart {
+    clip-path : polygon(50% 20%, 80% 10%, 90% 65%, 50% 100%, 10% 65%, 20% 5%);
+    }
+
+.shape-bat-top {
+    clip-path : polygon(50% 10%, 100% 10%, 90% 70%, 50% 100%, 10% 70%, 0% 0%);
+
+    }
 
 
 
-/* ___________________ Shapes _______________ */
-.shape-triangle-topLeft {
+/* ___________________ bordershapes _______________ */
+.bordershape-triangle-topLeft {
     width        : 0;
     height       : 0;
     border-top   : 100px solid var(--secondaryVariant);
     border-right : 100px solid transparent;
     }
 
-.shape-triangle-topRight {
+.bordershape-triangle-topRight {
     width       : 0;
     height      : 0;
     border-top  : 100px solid var(--secondaryVariant);
     border-left : 100px solid transparent;
     }
 
-.shape-triangle-bottomRight {
+.bordershape-triangle-bottomRight {
     width         : 0;
     height        : 0;
     border-bottom : 100px solid var(--secondaryVariant);
     border-left   : 100px solid transparent;
     }
 
-.shape-triangle-bottomLeft {
+.bordershape-triangle-bottomLeft {
     width         : 0;
     height        : 0;
     border-bottom : 100px solid var(--secondaryVariant);
     border-right  : 100px solid transparent;
     }
 
-.shape-chatBubble {
+.bordershape-chatBubble {
     position      : relative;
     border-radius : 25px;
     }
 
-.shape-chatBubble:before {
+.bordershape-chatBubble:before {
     content       : "";
     position      : absolute;
     right         : 100%;
@@ -1103,14 +1108,14 @@ Imma make these .fancyButton's simpler sometime
 
 /*  ____________ THIRD PARTY SHAPES _________________ */
 
-.shape-badge-ribbon {
+.bordershape-badge-ribbon {
     position      : relative;
     height        : 100px;
     width         : 100px;
     border-radius : 50px;
     }
 
-.shape-badge-ribbon:before, .shape-badge-ribbon:after {
+.bordershape-badge-ribbon:before, .bordershape-badge-ribbon:after {
     content       : '';
     position      : absolute;
     border-bottom : 70px solid var(--secondaryVariant);
@@ -1121,7 +1126,7 @@ Imma make these .fancyButton's simpler sometime
     transform     : rotate(-140deg);
     }
 
-.shape-badge-ribbon:after {
+.bordershape-badge-ribbon:after {
     left      : auto;
     right     : -10px;
     transform : rotate(140deg);
@@ -1156,13 +1161,13 @@ Imma make these .fancyButton's simpler sometime
     }
 
 
-.shape-heart {
+.bordershape-heart {
     position : relative;
     width    : 100px;
     height   : 90px;
     }
 
-.shape-heart:before, .shape-heart:after {
+.bordershape-heart:before, .bordershape-heart:after {
     position         : absolute;
     content          : "";
     left             : 50px;
@@ -1174,14 +1179,14 @@ Imma make these .fancyButton's simpler sometime
     transform-origin : 0 100%;
     }
 
-.shape-heart:after {
+.bordershape-heart:after {
     left             : 0;
     transform        : rotate(45deg);
     transform-origin : 100% 100%;
     }
 
 
-.shape-diamond {
+.bordershape-diamond {
     width               : 0;
     height              : 0;
     border              : 50px solid transparent;
@@ -1190,7 +1195,7 @@ Imma make these .fancyButton's simpler sometime
     top                 : -50px;
     }
 
-.shape-diamond:after {
+.bordershape-diamond:after {
     content          : '';
     position         : absolute;
     left             : -50px;
@@ -1202,7 +1207,7 @@ Imma make these .fancyButton's simpler sometime
     }
 
 
-.shape-pacman {
+.bordershape-pacman {
     width         : 0;
     height        : 0;
     border-right  : 60px solid transparent;
@@ -1213,7 +1218,7 @@ Imma make these .fancyButton's simpler sometime
     }
 
 
-.shape-flag {
+.bordershape-flag {
     width          : 110px;
     height         : 56px;
     box-sizing     : content-box;
@@ -1225,7 +1230,7 @@ Imma make these .fancyButton's simpler sometime
     text-transform : uppercase;
     }
 
-.shape-flag:after {
+.bordershape-flag:after {
     content       : "";
     position      : absolute;
     left          : 0;
@@ -1238,13 +1243,13 @@ Imma make these .fancyButton's simpler sometime
     }
 
 
-.shape-rightPoint {
+.bordershape-rightPoint {
     width    : 200px;
     height   : 40px;
     position : relative;
     }
 
-.shape-rightPoint:after {
+.bordershape-rightPoint:after {
     content       : "";
     position      : absolute;
     left          : 0;
@@ -1256,7 +1261,7 @@ Imma make these .fancyButton's simpler sometime
     border-bottom : 20px solid transparent;
     }
 
-.shape-rightPoint:before {
+.bordershape-rightPoint:before {
     content       : "";
     position      : absolute;
     right         : -20px;
@@ -1268,7 +1273,7 @@ Imma make these .fancyButton's simpler sometime
     border-bottom : 20px solid transparent;
     }
 
-.shape-base {
+.bordershape-base {
     display     : inline-block;
     height      : 55px;
     margin-left : 20px;
@@ -1277,7 +1282,7 @@ Imma make these .fancyButton's simpler sometime
     width       : 100px;
     }
 
-.shape-base:before {
+.bordershape-base:before {
     border-bottom : 35px solid var(--secondaryVariant);
     border-left   : 50px solid transparent;
     border-right  : 50px solid transparent;
@@ -1289,37 +1294,11 @@ Imma make these .fancyButton's simpler sometime
     width         : 0;
     }
 
+.bordershape-hexagon { width : 100px; height : 55px; background : var(--secondary); position : relative; }
 
+.bordershape-hexagon:before { content : ""; position : absolute; top : -25px; left : 0; width : 0; height : 0; border-left : 50px solid transparent; border-right : 50px solid transparent; border-bottom : 25px solid var(--secondary); }
 
-.shape-scooped {
-    /* these are all the essential styles */
-    overflow      : hidden;
-    position      : relative;
-    margin        : .5em auto 0;
-    padding       : 50px;
-    width         : 100px;
-    max-width     : 47em;
-    min-height    : 10em;
-    border-radius : 1em;
-    color         : #fff;
-    }
-
-.shape-scooped:before {
-    position      : absolute;
-    z-index       : -1;
-    top           : 0; left : 0;
-    margin        : 50px;
-    padding       : inherit;
-    border-radius : 50%;
-    box-shadow    : 0 0 0 85em red;
-    content       : ''
-    }
-
-.shape-hexagon { width : 100px; height : 55px; background : var(--secondary); position : relative; }
-
-.shape-hexagon:before { content : ""; position : absolute; top : -25px; left : 0; width : 0; height : 0; border-left : 50px solid transparent; border-right : 50px solid transparent; border-bottom : 25px solid var(--secondary); }
-
-.shape-hexagon:after { content : ""; position : absolute; bottom : -25px; left : 0; width : 0; height : 0; border-left : 50px solid transparent; border-right : 50px solid transparent; border-top : 25px solid var(--secondary); }
+.bordershape-hexagon:after { content : ""; position : absolute; bottom : -25px; left : 0; width : 0; height : 0; border-left : 50px solid transparent; border-right : 50px solid transparent; border-top : 25px solid var(--secondary); }
 
 
 

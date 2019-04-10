@@ -17,25 +17,6 @@
     --onSurface           : black;
     --onError             : #F5F1ED;
 
-    /* alternatives:
-    Tomato / lightblue - primary,secondary = tomato, background=lightblue
-    Stronkブルー - 6200EE 3700B3 03DAC6 018786 f5f1ed f5f1ed B00020 f5f1ed 252323 252323 252323 f5f1ed
-    Pinkie - e91e63 b0003a f06292 ff94c2
-    Vintage - 252323 70798c f5f1ed dad2bc a99985
-    Proブルー - 4880B6 5996A7 A9C77C EBF6CC 38A5B1
-    Joyブルー - 4880B6 31A7B1 C2AD53 CF8E5A D84B40
-    Envy - 4FAEAD 60CDA3 F58538 B54F52 4880B6
-    Desgustang - 60CDA3 C3AF5B F58538 B54F52 4880B6
-    ★ Tacky Jappie - 4FAEAD 60CDA3 F0C04C F58538 4880B6
-    Sky high -  ffb021 * * * bg:339ec5
-    ★ Candy - 01ABAA FEA680 FEDC3D FEDC3D 414141 onBackground=f5f1ed
-    ★ Brilliant - 4FAEAD 01ABAA FEDC3D FEDC3D 414141/2B2B2B/rgb(85, 85, 85) f5f1ed c53426 f5f1ed 252323 f5f1ed 252323 f5f1ed
-    - Infinity - 00bcd4
-     Outrun - d03384 CE3287 592bc7 (/04b79c) 4c2084 2b0492 ad2a6e f5f1ed
-    ★ Fishing hut - 359081 E27D60 E8A87C C38D9E 85DCB0 85DCB0 (white)
-    ★★ Fishing boat - 24305E 24305E 3f559c 5471cf c3e3f2/white/f0f298 00a3a2 A8D0E6 (f5f1ed black)
-    ★ Contrasting Delivery - 46344E 5A5560 rgba(250,237,38,0.89) FAED26 231a29 5A5560 (white black)
-    */
 
     /* alt. neutral background color e2e1e0 / 2B2B2B
     alt. background gradient: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%),
@@ -111,11 +92,12 @@ header h1, header h2, header h3 {
     font-size : 2.5em;
     color     : var(--onPrimary);
     margin    : 10px auto; /*top&bunn=10px, left&right=auto*/
+    font-family : "Lucida Sans Unicode", Arial, sans-serif;
     }
 
 header img { max-height : 100% !important; /* for å ikke exceede parent element */ }
 
-header div {
+header .div {
     position              : fixed;
     top                   : 35px;
     padding               : 15px 40px 15px 40px;
@@ -128,7 +110,8 @@ header div {
     */}
 
 header .titleDiv {
-    background-image : linear-gradient(-120deg, var(--primaryVariant), var(--secondary) 75%);
+    background-image : linear-gradient(-180deg, var(--secondaryVariant), var(--secondary) 25%);
+    padding: 30px 50px 30px 50px;
     }
 
 #tableOfContents {
@@ -580,6 +563,16 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
+
+
+
+.spin {
+    animation: spin 0.5s linear;
+    }
+@keyframes spin {
+    from {transform: rotateY(0deg) scale(1)}
+    to {transform: rotateY(180deg) scale(2)}
+    }
 
 
 

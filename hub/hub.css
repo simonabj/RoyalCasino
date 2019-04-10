@@ -2,7 +2,7 @@
 :root {
     /* COLOR PALETTE  */
     --primary             : #470F79;
-    --primaryVariant      : #455573;
+    --primaryVariant      : #451469;
     --secondary           : #F8A917;
     --secondaryVariant    : #E0D273;
     --background          : #2B2B2B;
@@ -17,33 +17,14 @@
     --onSurface           : black;
     --onError             : #F5F1ED;
 
-    /* alternatives:
-    Tomato / lightblue - primary,secondary = tomato, background=lightblue
-    Stronkブルー - 6200EE 3700B3 03DAC6 018786 f5f1ed f5f1ed B00020 f5f1ed 252323 252323 252323 f5f1ed
-    Pinkie - e91e63 b0003a f06292 ff94c2
-    Vintage - 252323 70798c f5f1ed dad2bc a99985
-    Proブルー - 4880B6 5996A7 A9C77C EBF6CC 38A5B1
-    Joyブルー - 4880B6 31A7B1 C2AD53 CF8E5A D84B40
-    Envy - 4FAEAD 60CDA3 F58538 B54F52 4880B6
-    Desgustang - 60CDA3 C3AF5B F58538 B54F52 4880B6
-    ★ Tacky Jappie - 4FAEAD 60CDA3 F0C04C F58538 4880B6
-    Sky high -  ffb021 * * * bg:339ec5
-    ★ Candy - 01ABAA FEA680 FEDC3D FEDC3D 414141 onBackground=f5f1ed
-    ★ Brilliant - 4FAEAD 01ABAA FEDC3D FEDC3D 414141/2B2B2B/rgb(85, 85, 85) f5f1ed c53426 f5f1ed 252323 f5f1ed 252323 f5f1ed
-    - Infinity - 00bcd4
-     Outrun - d03384 CE3287 592bc7 (/04b79c) 4c2084 2b0492 ad2a6e f5f1ed
-    ★ Fishing hut - 359081 E27D60 E8A87C C38D9E 85DCB0 85DCB0 (white)
-    ★★ Fishing boat - 24305E 24305E 3f559c 5471cf c3e3f2/white/f0f298 00a3a2 A8D0E6 (f5f1ed black)
-    ★ Contrasting Delivery - 46344E 5A5560 rgba(250,237,38,0.89) FAED26 231a29 5A5560 (white black)
-    */
 
     /* alt. neutral background color e2e1e0 / 2B2B2B
     alt. background gradient: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%),
     */
 
     --borderRadius        : 15px;
-    --shadowColor         : rgba(0, 0, 0, .25); /* alternatives: rgba(0,0,0,.5) [fargen tar på fargen til bakgrunnen pga. opacity, beste alternativ] - #ccc - grey */
-    --shadowColorSides    : rgba(0, 0, 0, .25);
+    --shadowColor         : rgba(0, 0, 0, .5); /* alternatives: rgba(0,0,0,.5) [fargen tar på fargen til bakgrunnen pga. opacity, beste alternativ] - #ccc - grey */
+    --shadowColorSides    : rgba(0, 0, 0, .5);
     }
 
 
@@ -108,14 +89,15 @@ header {
     }
 
 header h1, header h2, header h3 {
-    font-size : 2.5em;
-    color     : var(--onPrimary);
-    margin    : 10px auto; /*top&bunn=10px, left&right=auto*/
+    font-size   : 2.5em;
+    color       : var(--onPrimary);
+    margin      : 10px auto; /*top&bunn=10px, left&right=auto*/
+    font-family : "Lucida Sans Unicode", Arial, sans-serif;
     }
 
 header img { max-height : 100% !important; /* for å ikke exceede parent element */ }
 
-header div {
+header .div {
     position              : fixed;
     top                   : 35px;
     padding               : 15px 40px 15px 40px;
@@ -128,7 +110,8 @@ header div {
     */}
 
 header .titleDiv {
-    background-image : linear-gradient(-120deg, var(--primaryVariant), var(--secondary) 75%);
+    background-image : linear-gradient(-180deg, var(--secondaryVariant), var(--secondary) 25%);
+    padding          : 30px 50px 30px 50px;
     }
 
 #tableOfContents {
@@ -138,6 +121,7 @@ header .titleDiv {
 
 div {
     display            : flex; /* Alternative: "inline-flex". */
+    flex-direction     : column;
     align-items        : center;
     flex-wrap          : wrap;
     overflow-wrap      : break-word;
@@ -148,7 +132,7 @@ div {
     margin             : 10px;
     padding            : 10px;
 
-    background-color   : var(--primary);
+    background-color   : var(--primaryVariant);
     border-color       : var(--onBackground);
     border-radius      : var(--borderRadius);
     border-width       : 0;
@@ -240,22 +224,28 @@ img {
 
     /* sikrer at aspect ratio ikke forandres */
     display             : block;
+
+    border-radius       : var(--borderRadius)
+
     }
 
 marquee {
     margin  : 0;
     padding : 0;
     }
+
 /* OBSOLETE - bruk class .scroll eller marquee class i stedet. */
 
 
 ::-webkit-scrollbar {
     background : transparent;
     }
+
 ::-webkit-scrollbar-thumb {
     background-color : rgba(0, 0, 0, .25); /* Slightly opaque, tar på fargen som er bak den. */
     border-radius    : 30px 0 0 30px / 100% 0 0 100%; /* curves the scrollbar so that the entire left side is gently curved. */
     }
+
 ::-webkit-scrollbar-thumb:hover { background-color : rgba(0, 0, 0, .5); }
 
 
@@ -306,13 +296,6 @@ tr:nth-child(odd) {
 
 
 
-
-
-
-
-
-
-
 /* ***************************************************
    **                    INPUTS                     **
    ***************************************************/
@@ -335,27 +318,35 @@ textarea {
     }
 
 button {
-    font-size   : 14px;
-    font-weight : bold;
-    border      : solid 1px var(--onBackground) var(--borderRadius);
-    padding     : 7px 10px;
+    font-size           : 14px;
+    font-weight         : bold;
+    border              : solid 1px var(--onBackground) var(--borderRadius);
+    padding             : 7px 10px;
+    transition-duration : 0.05s;
     }
 
-button h1 {
-    text-shadow         : 5px 5px 5px var(--shadowColor);
-    transition-duration : 0.15s;
+button h1, button h2 {
+    text-shadow         : 0 4px 3px var(--shadowColor);
+    transition-duration : 0.05s;
     }
 
-button:active h1 {
-    text-shadow : none;
+button:hover h1, button:hover h2 {
+    transform   : scale(1.05);
+    text-shadow : 0 7px 4px var(--shadowColor);
     }
 
-button:hover {
+button:active h1, button:active h2 {
+    text-shadow         : none;
+    transform           : scale(0.95) translate(0, 4px) !important;
+    transition-duration : 0.02s;
+    }
+
+/*button:hover {
     transform : scale(1.05);
     }
 
 button:active {
-    transform           : scale(1.1);
+    /*transform           : scale(1.1);
     transition-duration : 0.1s;
     box-shadow          : none !important;
     -webkit-box-shadow  : none !important;
@@ -378,7 +369,6 @@ button, select, input[type=radio], input[type=checkbox], label {
 
 
 
-
 /* __________ < TEXT INPUTS > __________ */
 input[type=text] {
     margin              : 5px 0;
@@ -396,7 +386,6 @@ input[type=text]:focus {
     margin           : 5px 0;
     box-shadow       : 0 10px 10px var(--shadowColor);
     }
-
 
 
 
@@ -441,9 +430,6 @@ option:nth-child(odd) {
 
 
 
-
-
-
 /* Gjemmer opp & ned pilene på input type "number" */
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance : none; margin : 0; }
 
@@ -452,8 +438,6 @@ input[type="number"] { -moz-appearance : textfield; }
 
 /* For Firefox: */
 /*input[text], textArea{ cursor: url("Resources/etc/cursors/0etc/Zelda_Pen.png"), text; }*/
-
-
 
 
 
@@ -493,7 +477,6 @@ input[type=radio]:checked::before { /* inserts text before the content on checke
     left      : 4px;
     top       : 0;
     }
-
 
 
 
@@ -554,10 +537,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
-
-
 /* __________________________ DOC CLASSES ___________________________ */
-
 
 
 
@@ -577,6 +557,129 @@ input[type=range]::-webkit-slider-thumb:hover {
 .secondary > p, .secondary > h1, .secondary > h2, .secondary > h3, .secondary > h4, .secondary > h5 { color : var(--onSecondary) !important; }
 
 .secondaryVariant > p, .secondaryVariant > h1, .secondaryVariant > h2, .secondaryVariant > h3, .secondaryVariant > h4, .secondaryVariant > h5 { color : var(--onSecondary) !important; }
+
+
+
+.spin {
+    animation : spin 0.3s linear;
+    }
+
+@keyframes spin {
+    from {transform : rotateY(0deg) scale(1)}
+    to {transform : rotateY(180deg) scale(2)}
+    }
+
+
+.bordershape-diamond {
+    transition-duration : 0.05s;
+    }
+
+/*.bordershape-diamond:hover {
+    border-width : 25px;
+    transform    : scale(1.05);
+    }
+
+.bordershape-diamond:active {
+    border-width : 0;
+    transform    : scale(1.15);
+    }
+*/
+.animation-bordershape-diamond {
+    animation : borderShapeDiamondAnimation 0.5s linear;
+    }
+
+@keyframes borderShapeDiamondAnimation {
+    from {
+        }
+    to {
+        transform : rotateY(180deg) translate(0, 100px);
+        }
+    }
+
+
+
+.hubGame_container {
+    flex-direction : column;
+    position       : relative;
+    padding        : 0;
+    border-radius  : 30px;
+    margin         : 30px;
+    }
+
+.hubGame_imageContainer {
+    flex-direction   : column;
+    margin           : 0;
+    padding          : 0;
+    background-color : transparent;
+    border           : none transparent 0;
+    border-radius    : 0;
+    box-shadow       : none;
+    }
+
+.hubGame_image {
+    width                 : 400px;
+    height                : 200px;
+    margin                : 0;
+    padding               : 0;
+    background-color      : transparent;
+    border                : none transparent 0;
+    border-radius         : 30px 30px 0 0;
+    box-shadow            : none;
+    background-size       : cover;
+    background-position-x : center;
+    background-position-y : top;
+    }
+
+
+.hubGame_imageTitleContainer {
+    position         : absolute;
+    bottom           : 20%;
+    background-color : rgba(130, 42, 147, 0.75);
+    padding          : 2px 5px 2px 5px;
+    }
+
+.hubGame_imageTitleContainer h1,
+.hubGame_imageTitleContainer h2,
+.hubGame_imageTitleContainer h3,
+.hubGame_imageTitleContainer h4,
+.hubGame_imageTitleContainer h5,
+.hubGame_imageTitleContainer p {
+    color  : var(--onPrimary);
+    margin : 0 5px;
+    }
+
+.hubGame_container button {
+    background-color : var(--primary);
+    color            : var(--onPrimary);
+    width            : 100%;
+    margin           : 0;
+    padding          : 15px;
+    border-radius    : 0 0 30px 30px;
+    }
+
+
+#gamesContainer {
+    background-image: url("loops/textura-material-rojo_1385-1933.jpg");
+    background-repeat: repeat;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

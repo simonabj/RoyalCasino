@@ -26,7 +26,7 @@
     <button class="secondary square">3</button>
     <button class="secondary square">4</button>
 </div>-->
-<header style="position: fixed">
+<header style="position: fixed; z-index: 5;">
 
 
     <div class="column container div">
@@ -50,162 +50,83 @@
 
 
 
+    <div class="container row">
+        <div class="secondary relative column">
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+        </div>
+        <div class="secondary relative">
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+
+        </div>
+    </div>
+    <div class="container row">
+        <div class="secondary relative">
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+
+        </div>
+        <div class="secondary relative">
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+        </div>
+    </div>
+
+    <div class="container row">
+        <div class="secondary relative column">
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+        </div>
+        <div class="secondary relative">
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+
+        </div>
+    </div>
+    <div class="container row">
+        <div class="secondary relative">
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+
+        </div>
+        <div class="secondary relative">
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+            <h1>Testing</h1>
+        </div>
+    </div>
+
+
+
     <h1>test</h1>
 
 
-    <div class="secondary">
-        <pre>
 
 
-
-
-
-
-
-
-
-
-
-
- yoohoo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     dette er langt nede gitt
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         fy fasan så langt
-
-
-
-
-
-
-
-        </pre>
-    </div>
 
 </div> <!-- end of document wrapper -->
 <script>
@@ -228,7 +149,7 @@
          */
         window.onscroll = function () {
             let distanceY = window.pageYOffset || document.documentElement.scrollTop;
-            let shrinkOn = 200;
+            let shrinkOn = 125;
 
             if (distanceY > shrinkOn && headerToggled === false) {
                 headerToggled = true;

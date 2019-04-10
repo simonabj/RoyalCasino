@@ -224,21 +224,21 @@
 
 
         /**
-         * method resizeHeaderOnScroll animates the <header> tag when the page has been scrolled down to below "shrinkOn" pixels.
+         * The follinw geventlistener animates the <header> tag when the page has been scrolled down to below "shrinkOn" pixels.
          */
-        function resizeHeaderOnScroll() {
+        window.onscroll = function () {
             let distanceY = window.pageYOffset || document.documentElement.scrollTop;
             let shrinkOn = 200;
 
             if (distanceY > shrinkOn && headerToggled === false) {
                 headerToggled = true;
 
-                //symbol.classList.add("spin");
+                symbol.classList.add("spin");
                 header.style.fontSize = "10px";
                 symbol.style.width = 0;
                 symbol.style.height = 0;
                 symbol.style.borderWidth = 0;
-                symbol.style.opacity = 0;
+                    symbol.style.opacity = 0;
 
                 setTimeout(function () {
                     header.style.clipPath = "polygon(0 0, 100% 0, 50vw 40%, 0 calc(50% - 50%))";
@@ -254,7 +254,7 @@
 
             } else if (distanceY < shrinkOn && headerToggled) {
                 headerToggled = false;
-                //symbol.classList.remove("spin");
+                symbol.classList.remove("spin");
                 header.style.clipPath = "polygon(0 0, 100% 0, 50vw 100%, 0 calc(50% - 50%))";
                 header.style.padding = "initial";
                 header.style.height = "initial";
@@ -276,9 +276,8 @@
             }
         }
 
-
         // When the window is scrolled, triggers resizeHeaderOnScroll().
-        window.onscroll = function () {resizeHeaderOnScroll()};
+
 
     });
 </script>

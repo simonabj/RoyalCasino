@@ -1,20 +1,23 @@
 <?php
-session_start();
+session_start(); /*Starte en session for å hente verdiene lagret*/
 
-require_once "config.php";
+require_once "config.php"; /*Hente konfigurasjonsbitene*/
 
-$tilkobling = mysqli_connect("localhost","u201393012_film","abc123cba","u201393012_film");
+$tilkobling = mysqli_connect("localhost","u201393012_film","abc123cba","u201393012_film"); /*Koble seg til database*/
 
+/*Dobbeltsjekke og mulig endre filtypen til utf8*/
 if (!$tilkobling->set_charset("utf8")) {
     printf("", $tilkobling->error);
 } else {
     printf("", $tilkobling->character_set_name());
 }
 
+/*Definere hvilken bruker som logger inn og iden, også IP'en*/
 $seUser = $_SESSION["username"];
 $seUserID = $_SESSION["id"];
 $IP = $_SERVER['REMOTE_ADDR'];
 
+/*Finne stedet innloggingen skjer fra*/
 $ip = $_SERVER['REMOTE_ADDR'];
 $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
 $country = $details->country;
@@ -29,6 +32,7 @@ $NokiaSymbian = stripos($_SERVER['HTTP_USER_AGENT'],"NokiaSymbian");
 $BlackBerry9down = stripos($_SERVER['HTTP_USER_AGENT'],"BlackBerry9down");
 $BlackBerry10 = stripos($_SERVER['HTTP_USER_AGENT'],"BlackBerry10");
 
+/*Finne ut hvilken enhet man logger seg på med*/
 if ($iPod) {
     $deviceUsed = 'iPod';
 } else if ($iPhone) {
@@ -47,6 +51,7 @@ if ($iPod) {
 
 $browser = $_SERVER['HTTP_USER_AGENT'];
 
+/*Lage en spørresetning for å legge til verdiene til databasen*/
 $sql = sprintf("INSERT INTO userLogin(IP, userLogged, countryConnection, regionConnection, cityConnection, device, browser) VALUES('%s','%s','%s','%s','%s','%s','%s')",
         $tilkobling->real_escape_string($IP),
         $tilkobling->real_escape_string($seUserID),
@@ -56,9 +61,9 @@ $sql = sprintf("INSERT INTO userLogin(IP, userLogged, countryConnection, regionC
         $tilkobling->real_escape_string($deviceUsed),
         $tilkobling->real_escape_string($browser)
         );
-$tilkobling->query($sql);
+$tilkobling->query($sql); /*Oppdatere verdiene til databasen*/
 
-header('Location: hub/index.php');
+header('Location: hub/index.php'); /*Ta deg videre til en indexen*/
 ?>
 
 <!DOCTYPE html>

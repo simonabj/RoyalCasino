@@ -2,7 +2,7 @@
 :root {
     /* COLOR PALETTE  */
     --primary             : #470F79;
-    --primaryVariant      : #455573;
+    --primaryVariant      : #451469;
     --secondary           : #F8A917;
     --secondaryVariant    : #E0D273;
     --background          : #2B2B2B;
@@ -23,8 +23,8 @@
     */
 
     --borderRadius        : 15px;
-    --shadowColor         : rgba(0, 0, 0, .25); /* alternatives: rgba(0,0,0,.5) [fargen tar på fargen til bakgrunnen pga. opacity, beste alternativ] - #ccc - grey */
-    --shadowColorSides    : rgba(0, 0, 0, .25);
+    --shadowColor         : rgba(0, 0, 0, .5); /* alternatives: rgba(0,0,0,.5) [fargen tar på fargen til bakgrunnen pga. opacity, beste alternativ] - #ccc - grey */
+    --shadowColorSides    : rgba(0, 0, 0, .5);
     }
 
 
@@ -89,9 +89,9 @@ header {
     }
 
 header h1, header h2, header h3 {
-    font-size : 2.5em;
-    color     : var(--onPrimary);
-    margin    : 10px auto; /*top&bunn=10px, left&right=auto*/
+    font-size   : 2.5em;
+    color       : var(--onPrimary);
+    margin      : 10px auto; /*top&bunn=10px, left&right=auto*/
     font-family : "Lucida Sans Unicode", Arial, sans-serif;
     }
 
@@ -111,7 +111,7 @@ header .div {
 
 header .titleDiv {
     background-image : linear-gradient(-180deg, var(--secondaryVariant), var(--secondary) 25%);
-    padding: 30px 50px 30px 50px;
+    padding          : 30px 50px 30px 50px;
     }
 
 #tableOfContents {
@@ -121,7 +121,7 @@ header .titleDiv {
 
 div {
     display            : flex; /* Alternative: "inline-flex". */
-    flex-direction: column;
+    flex-direction     : column;
     align-items        : center;
     flex-wrap          : wrap;
     overflow-wrap      : break-word;
@@ -132,7 +132,7 @@ div {
     margin             : 10px;
     padding            : 10px;
 
-    background-color   : var(--primary);
+    background-color   : var(--primaryVariant);
     border-color       : var(--onBackground);
     border-radius      : var(--borderRadius);
     border-width       : 0;
@@ -224,22 +224,28 @@ img {
 
     /* sikrer at aspect ratio ikke forandres */
     display             : block;
+
+    border-radius       : var(--borderRadius)
+
     }
 
 marquee {
     margin  : 0;
     padding : 0;
     }
+
 /* OBSOLETE - bruk class .scroll eller marquee class i stedet. */
 
 
 ::-webkit-scrollbar {
     background : transparent;
     }
+
 ::-webkit-scrollbar-thumb {
     background-color : rgba(0, 0, 0, .25); /* Slightly opaque, tar på fargen som er bak den. */
     border-radius    : 30px 0 0 30px / 100% 0 0 100%; /* curves the scrollbar so that the entire left side is gently curved. */
     }
+
 ::-webkit-scrollbar-thumb:hover { background-color : rgba(0, 0, 0, .5); }
 
 
@@ -290,13 +296,6 @@ tr:nth-child(odd) {
 
 
 
-
-
-
-
-
-
-
 /* ***************************************************
    **                    INPUTS                     **
    ***************************************************/
@@ -319,27 +318,35 @@ textarea {
     }
 
 button {
-    font-size   : 14px;
-    font-weight : bold;
-    border      : solid 1px var(--onBackground) var(--borderRadius);
-    padding     : 7px 10px;
+    font-size           : 14px;
+    font-weight         : bold;
+    border              : solid 1px var(--onBackground) var(--borderRadius);
+    padding             : 7px 10px;
+    transition-duration : 0.05s;
     }
 
-button h1 {
-    text-shadow         : 5px 5px 5px var(--shadowColor);
-    transition-duration : 0.15s;
+button h1, button h2 {
+    text-shadow         : 0 4px 3px var(--shadowColor);
+    transition-duration : 0.05s;
     }
 
-button:active h1 {
-    text-shadow : none;
+button:hover h1, button:hover h2 {
+    transform   : scale(1.05);
+    text-shadow : 0 7px 4px var(--shadowColor);
     }
 
-button:hover {
+button:active h1, button:active h2 {
+    text-shadow         : none;
+    transform           : scale(0.95) translate(0, 4px) !important;
+    transition-duration : 0.02s;
+    }
+
+/*button:hover {
     transform : scale(1.05);
     }
 
 button:active {
-    transform           : scale(1.1);
+    /*transform           : scale(1.1);
     transition-duration : 0.1s;
     box-shadow          : none !important;
     -webkit-box-shadow  : none !important;
@@ -362,7 +369,6 @@ button, select, input[type=radio], input[type=checkbox], label {
 
 
 
-
 /* __________ < TEXT INPUTS > __________ */
 input[type=text] {
     margin              : 5px 0;
@@ -380,7 +386,6 @@ input[type=text]:focus {
     margin           : 5px 0;
     box-shadow       : 0 10px 10px var(--shadowColor);
     }
-
 
 
 
@@ -425,9 +430,6 @@ option:nth-child(odd) {
 
 
 
-
-
-
 /* Gjemmer opp & ned pilene på input type "number" */
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance : none; margin : 0; }
 
@@ -436,8 +438,6 @@ input[type="number"] { -moz-appearance : textfield; }
 
 /* For Firefox: */
 /*input[text], textArea{ cursor: url("Resources/etc/cursors/0etc/Zelda_Pen.png"), text; }*/
-
-
 
 
 
@@ -477,7 +477,6 @@ input[type=radio]:checked::before { /* inserts text before the content on checke
     left      : 4px;
     top       : 0;
     }
-
 
 
 
@@ -538,10 +537,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
-
-
 /* __________________________ DOC CLASSES ___________________________ */
-
 
 
 
@@ -564,36 +560,135 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
-
-
-
 .spin {
-    animation: spin 0.3s linear;
+    animation : spin 0.3s linear;
     }
+
 @keyframes spin {
-    from {transform: rotateY(0deg) scale(1)}
-    to {transform: rotateY(180deg) scale(2)}
+    from {transform : rotateY(0deg) scale(1)}
+    to {transform : rotateY(180deg) scale(2)}
     }
 
 
-.bordershape-diamond{
-    transition-duration: 0.05s;
+.bordershape-diamond {
+    transition-duration : 0.05s;
     }
-.bordershape-diamond:hover{
-    border-width: 25px;
-    transform: scale(1.05);
+
+/*.bordershape-diamond:hover {
+    border-width : 25px;
+    transform    : scale(1.05);
     }
-.bordershape-diamond:active{
-    border-width: 0;
-    transform: scale(1.15);
+
+.bordershape-diamond:active {
+    border-width : 0;
+    transform    : scale(1.15);
     }
-.animation-bordershape-diamond{
-    animation: borderShapeDiamondAnimation 0.5s linear;
+*/
+.animation-bordershape-diamond {
+    animation : borderShapeDiamondAnimation 0.5s linear;
     }
+
 @keyframes borderShapeDiamondAnimation {
     from {
         }
     to {
-        transform: rotateY(180deg) translate(0, 100px);
+        transform : rotateY(180deg) translate(0, 100px);
         }
     }
+
+
+
+.hubGame_container {
+    flex-direction : column;
+    position       : relative;
+    padding        : 0;
+    border-radius  : 30px;
+    margin         : 45px;
+    }
+
+.hubGame_imageContainer {
+    flex-direction   : column;
+    margin           : 0;
+    padding          : 0;
+    background-color : transparent;
+    border           : none transparent 0;
+    border-radius    : 0;
+    box-shadow       : none;
+    }
+
+.hubGame_image {
+    width                 : 300px;
+    height                : 300px;
+    margin                : 0;
+    padding               : 0;
+    background-color      : transparent;
+    border                : none transparent 0;
+    border-radius         : 30px 30px 0 0;
+    box-shadow            : none;
+    background-size       : cover;
+    background-position-x : center;
+    background-position-y : top;
+    }
+
+
+.hubGame_imageTitleContainer {
+    position         : absolute;
+    bottom           : 20%;
+    background-color : rgba(130, 42, 147, 0.75);
+    padding          : 2px 5px 2px 5px;
+    }
+
+.hubGame_imageTitleContainer h1,
+.hubGame_imageTitleContainer h2,
+.hubGame_imageTitleContainer h3,
+.hubGame_imageTitleContainer h4,
+.hubGame_imageTitleContainer h5,
+.hubGame_imageTitleContainer p {
+    color  : var(--onPrimary);
+    margin : 0 5px;
+    }
+
+.hubGame_container button {
+    background-color : var(--primary);
+    color            : var(--onPrimary);
+    width            : 100%;
+    height           : 100%;
+    margin           : 0;
+    padding          : 15px;
+    border-radius    : 0 0 30px 30px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

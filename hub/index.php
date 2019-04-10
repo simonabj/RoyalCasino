@@ -37,7 +37,7 @@
         </div>
 
         <span class="bordershape-diamond"
-              style="border-bottom-color: var(--secondary); display: flex; top: 85px"></span>
+                style="border-bottom-color: var(--secondary); display: flex; top: 85px"></span>
         <!-- alternative: when scrolling, turns into a triangle pointing up. clicking it returns the user to the top of the page. -->
         <!-- TODO: når diamond vises, kan den trykkes på (scale(1.1) on hover & 1.2@click). Da skyter toolbar menyen ut fra begge sider av den.
                 To tabs til venstre, og to til høyre, og når man scroller dem vekk eller trykker på diamanten igjen så glir de tilbake inn i diamanten og skjules,
@@ -45,85 +45,76 @@
     </div>
 
 </header>
-<div id="documentWrapper" class="container column" style="margin-top: 300px !important;">
+<div id="documentWrapper" class="container column" style="margin-top: 300px">
 
 
 
 
     <div class="container row">
-        <div class="secondary relative column">
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
+        <div class="hubGame_container">
+            <div class="hubGame_imageContainer">
+                <div class="hubGame_image" style="background-image: url('https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip')"></div>
+                <div class="hubGame_imageTitleContainer">
+                    <h1> Roulette </h1>
+                </div>
+            </div>
+            <button> <h2> PLAY NOW </h2> </button>
         </div>
-        <div class="secondary relative">
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
 
-        </div>
-    </div>
-    <div class="container row">
-        <div class="secondary relative">
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
 
-        </div>
-        <div class="secondary relative">
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
+        <!-- todo: make dynamique, object m stuff. som other thing -->
+
+
+        <div class="hubGame_container">
+            <div class="hubGame_imageContainer">
+                <div class="hubGame_image" style="background-image: url('https://hugelolcdn.com/i/596578.jpg')"></div>
+                <div class="hubGame_imageTitleContainer">
+                    <h1> DIO </h1>
+                </div>
+            </div>
+            <button> <h2> PLAY NOW </h2> </button>
         </div>
     </div>
-
-    <div class="container row">
-        <div class="secondary relative column">
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
+    <div class="row container">
+        <div class="hubGame_container">
+            <div class="hubGame_imageContainer">
+                <div class="hubGame_image" style="background-image: url('https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip')"></div>
+                <div class="hubGame_imageTitleContainer">
+                    <h1> Roulette </h1>
+                </div>
+            </div>
+            <button> <h2> PLAY NOW </h2> </button>
         </div>
-        <div class="secondary relative">
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-
-        </div>
-    </div>
-    <div class="container row">
-        <div class="secondary relative">
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-
-        </div>
-        <div class="secondary relative">
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
-            <h1>Testing</h1>
+        <div class="hubGame_container">
+            <div class="hubGame_imageContainer">
+                <div class="hubGame_image" style="background-image: url('https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip')"></div>
+                <div class="hubGame_imageTitleContainer">
+                    <h1> Roulette </h1>
+                </div>
+            </div>
+            <button> <h2> PLAY NOW </h2> </button>
         </div>
     </div>
-
-
-
-    <h1>test</h1>
-
+    <div class="row container">
+        <div class="hubGame_container">
+            <div class="hubGame_imageContainer">
+                <div class="hubGame_image" style="background-image: url('https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip')"></div>
+                <div class="hubGame_imageTitleContainer">
+                    <h1> Roulette </h1>
+                </div>
+            </div>
+            <button> <h2> PLAY NOW </h2> </button>
+        </div>
+        <div class="hubGame_container">
+            <div class="hubGame_imageContainer">
+                <div class="hubGame_image" style="background-image: url('https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip')"></div>
+                <div class="hubGame_imageTitleContainer">
+                    <h1> Roulette </h1>
+                </div>
+            </div>
+            <button> <h2> PLAY NOW </h2> </button>
+        </div>
+    </div>
 
 
 
@@ -145,11 +136,11 @@
 
 
         /**
-         * The follinw geventlistener animates the <header> tag when the page has been scrolled down to below "shrinkOn" pixels.
+         * The following geventlistener animates the <header> tag when the page has been scrolled down to below "shrinkOn" pixels.
          */
         window.onscroll = function () {
             let distanceY = window.pageYOffset || document.documentElement.scrollTop;
-            let shrinkOn = 125;
+            let shrinkOn = 25;
 
             if (distanceY > shrinkOn && headerToggled === false) {
                 headerToggled = true;
@@ -159,16 +150,17 @@
                 symbol.style.width = 0;
                 symbol.style.height = 0;
                 symbol.style.borderWidth = 0;
-                    symbol.style.opacity = 0;
+                symbol.style.opacity = 0;
 
                 setTimeout(function () {
-                    header.style.clipPath = "polygon(0 0, 100% 0, 50vw 40%, 0 calc(50% - 50%))";
+                    header.style.clipPath = "polygon(0 0, 100% 0, 50vw 35%, 0 calc(50% - 50%))";
                     header.style.padding = 0;
                     header.style.height = "50px";
-
                     div.style.top = "-25px";
                     div.classList.remove("shape-bat");
                     div.classList.add("shape-bat-top");
+
+                    //document.getElementById("documentWrapper").style.marginTop = "300px";
 
                 }, 250);
 
@@ -182,6 +174,7 @@
                 div.style.height = "initial";
                 div.classList.remove("shape-bat-top");
                 div.classList.add("shape-bat");
+                //document.getElementById("documentWrapper").style.marginTop = "200px";
 
                 setTimeout(function () {
                     div.style.position = "fixed";

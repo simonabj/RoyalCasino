@@ -2,19 +2,15 @@
 
 
 .container {
-    margin           : 0 !important;
-    padding          : 0 !important;
+    margin           : 0;
+    padding          : 0;
     background-color : transparent !important;
     border-style     : none; border-radius : 0; border-width : 0 !important;
     box-shadow       : none !important;
     /*line-break: auto;*/
     }
 
-.notched, .shape-notched {
-    clip-path : polygon(
-            0% 20px, /* top left */ 20px 0%, /* top left */ calc(100% - 20px) 0%, /* top right */ 100% 20px, /* top right */ 100% calc(100% - 20px), /* bottom right */ calc(100% - 20px) 100%, /* bottom right */ 20px 100%, /* bottom left */ 0 calc(100% - 20px) /* bottom left */
-    );
-    }
+.notched, .shape-notched { clip-path : polygon( 0% 20px, /* top left */ 20px 0%, /* top left */ calc(100% - 20px) 0%, /* top right */ 100% 20px, /* top right */ 100% calc(100% - 20px), /* bottom right */ calc(100% - 20px) 100%, /* bottom right */ 20px 100%, /* bottom left */ 0 calc(100% - 20px) /* bottom left */); }
 
 .zeroHeight {
     position         : relative;
@@ -387,6 +383,15 @@ div a { color : var(--secondaryVariant); }
 
 
 
+.noSelect {
+    user-select: none; /* supported by Chrome and Opera */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    }
+
+
 /*_________________ specialized _________________*/
 .fancyDiv {
     background-color : var(--primary);
@@ -682,12 +687,12 @@ div a { color : var(--secondaryVariant); }
     transition-duration : .25s;
     }
 
-.minimalistButton:hover {
+.minimalistButton:hover p, .minimalistButton:hover h1, .minimalistButton:hover h2, .minimalistButton:hover h3, .minimalistButton:hover h4, .minimalistButton:hover h5{
     transform           : scale(1.1);
     transition-duration : .2s;
     }
 
-.minimalistButton:active {
+.minimalistButton:active p, .minimalistButton:active h1, .minimalistButton:active h2, .minimalistButton:active h3, .minimalistButton:active h4, .minimalistButton:active h5{
     transition-duration : .05s;
     transform           : scale(1.2);
     }
@@ -834,14 +839,15 @@ Imma make these .fancyButton's simpler sometime
     background-color : var(--primary);
     color            : var(--secondaryVariant) !important;
     border-color     : transparent /* alt: var(--primaryVariant) */
-    }
-
-/*
-.fancyButtonPrimary:active {
-    transform           : scale(1.15) !imp ort an t;
     transition-duration : 0.1s;
     }
-*/
+
+
+.fancyButtonPrimary:active {
+    transform           : scale(1.15) !important;
+    transition-duration : 0.1s;
+    }
+
 .fancyButtonPrimaryTriggered {
     background-color : var(--primary) !important;
     color            : var(--secondaryVariant) !important;
@@ -874,14 +880,15 @@ Imma make these .fancyButton's simpler sometime
     background-color : var(--secondary);
     border-color     : transparent;
     color            : var(--primary) !important;
-    }
-
-/*
-.fancyButtonSecondary:active {
-    transform           : scale(1.15) !i mpor t ant;
     transition-duration : 0.1s;
     }
-*/
+
+
+.fancyButtonSecondary:active {
+    transform           : scale(1.15) !important;
+    transition-duration : 0.1s;
+    }
+
 .fancyButtonSecondaryTriggered { /* replaces fancyButtonSecondary on the element toggleButton() is used on. Allows for further customization than just adding the class. */
     background-color    : var(--secondary);
     color               : var(--primary);
@@ -921,12 +928,11 @@ Imma make these .fancyButton's simpler sometime
     color            : var(--onBackground);
     }
 
-/*
 .fancyButtonBackground:active {
-    transform           : scale(1.15) !i m p o rtant;
+    transform           : scale(1.15) !important;
     transition-duration : 0.1s;
     }
-*/
+
 .fancyButtonTriggered {
     background-color : var(--background) !important;
     border-color     : transparent !important;
@@ -1018,7 +1024,7 @@ Imma make these .fancyButton's simpler sometime
     }
 
 .shape-bat-top {
-    clip-path : polygon(50% 10%, 100% 0%, 90% 70%, 50% 100%, 10% 70%, 0% 0%);
+    clip-path : polygon(50% 10%, 100% 0%, 90% 70%, 50% 85%, 10% 70%, 0% 0%);
 
     }
 

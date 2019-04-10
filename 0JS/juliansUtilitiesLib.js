@@ -55,7 +55,6 @@ String.prototype.removeQuotes = function () {
 };
 String.prototype.toUrl = function () { return this.replace(/ /g, "%20"); };
 String.prototype.toURL = function () { return this.replace(/ /g, "%20"); };
-
 Element.prototype.remove = function () { this.outerHTML = ""; };
 NodeList.prototype.remove = HTMLCollection.prototype.remove = function () { this.outerHTML = ""; };
 
@@ -74,6 +73,22 @@ function getPos(elementId) {
     posX = rect.left;
     posY = rect.top;
     return [rect.left, rect.top];
+}
+
+
+/**
+ * method getAbsPos gets the absolute position of an element relative to the body.
+ * @param element {Object} - the element to get the position of.
+ * @returns {number[]} - returns [x, y] coordinates
+ */
+function getAbsPos(element) {
+    let top = 0, left = 0;
+    do {
+        top += element.offsetTop || 0;
+        left += element.offsetLeft || 0;
+        element = element.offsetParent;
+    } while (element);
+    return [left, top];
 }
 
 
@@ -213,7 +228,7 @@ function animTiming(elem_or_id_or_return, animTimingType) {
  * @returns {String} - navnet til key'en
  */
 function getKeyByKeyValue(object, verdi) {
-    return String(object.keys(object).find(key = > object[key] === verdi));
+    return String(object.keys(object).find(key => object[key] === verdi));
 }
 
 

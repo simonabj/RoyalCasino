@@ -3,7 +3,7 @@ session_start(); /*Starte en session for å hente verdiene lagret*/
 
 require_once "config.php"; /*Hente konfigurasjonsbitene*/
 
-$tilkobling = mysqli_connect("localhost","u201393012_film","abc123cba","u201393012_film"); /*Koble seg til database*/
+$tilkobling = mysqli_connect("mysql.hostinger.com","u201393012_cr","1EjjQpVKmAMa","u201393012_cr"); /*Koble seg til database*/
 
 /*Dobbeltsjekke og mulig endre filtypen til utf8*/
 if (!$tilkobling->set_charset("utf8")) {

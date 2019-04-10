@@ -12,13 +12,23 @@ $(function () {
         },
         {
             title: "blackjack",
-            image: "",
+            image: "http://getgmailaccount.com/wp-content/uploads/2019/01/Panduan-Mudah-Bermain-Di-Situs-Poker-Online.jpg",
             href: "../games/blackjack/index.html",
         },
+        {
+            title: "monty Hall",
+            image: "https://media.boingboing.net/wp-content/uploads/2017/10/monty-hall.jpg",
+            href: "../games/montyHall/index.html",
+        },
+        {
+            title: "DIO",
+            image: "https://hugelolcdn.com/i/596578.jpg",
+            href: "https://hugelol.com"
+        }
     ];
 
 
-
+    //IMPORTANT - comment
     /**
      *
      * @param object
@@ -42,7 +52,7 @@ $(function () {
         let imageTitleContainer = document.createElement("div");
         imageTitleContainer.classList.add("hubGame_imageTitleContainer");
         let title = document.createElement("h1");
-        title.innerHTML = object.title;
+        title.innerHTML = object.title.capitalize();
         imageTitleContainer.appendChild(title);
 
         // CREATING THE BUTTON AND IT'S TEXT
@@ -66,28 +76,13 @@ $(function () {
 
 
 
-    function addAllGameBoxes(container, array, columns = 2) {
+    function addAllGameBoxes(container, array) {
         for (let i = 0; i < array.length; i++) {
-            let index = 0;
 
-            let row = document.createElement("div");
-            row.style.flexDirection = "row";
-            row.classList.add("container");
-
-            for (let j = 0; j < columns; j++) {
-
-                //IF THE END OF THE ARRAY HAS BEEN REACHED, BREAK THE LOOP.
-                if (array[index] === undefined) break;
-
-                let gameContainer = addGameBox(games[index]);
-
-                row.appendChild(gameContainer);
-
-                index++;
-            }
-            container.appendChild(row);
+            if (array[i] === undefined) break;
+            let gameContainer = addGameBox(games[i]);
+            container.appendChild(gameContainer);
         }
-
     }
 
     addAllGameBoxes($("#gamesContainer")[0], games);

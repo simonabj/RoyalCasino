@@ -15,10 +15,10 @@ $ganger=$_GET["ganger"];
 $bet=$_GET["bTall"];
 $seBrukerID=$_SESSION["id"];
 
-/*Hente ut hvor mye tokens brukeren har*/
+/*Hente ut hvor mye collection brukeren har*/
 $sql="SELECT * FROM users WHERE id=$seBrukerID";
 $kjort=mysqli_query($tilkobling, $sql);
-while ($row = mysqli_fetch_array($kjort)) { /*Hente verdien av tokens*/
+while ($row = mysqli_fetch_array($kjort)) { /*Hente verdien av collection*/
     $balanse=$row['balance'];
 }
 

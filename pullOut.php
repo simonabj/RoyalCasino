@@ -21,8 +21,8 @@ while ($row = mysqli_fetch_array($kjort)) {
 ?>
 
 <head>
-    <title>Counter</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> <!-- Koble til jQuery -->
+    <title>Casino Royale | Pull Out</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> <!-- Hente kode jQuery -->
 </head>
 <body>
 
@@ -70,6 +70,7 @@ while ($row = mysqli_fetch_array($kjort)) {
             ganger2=1;
             utfallEl.innerHTML="Du trakk IKKE ut i tide, tapte "+betSatt+".";
 
+            /*Kjøring av funksjon hvis man taper*/
             $.ajax({url:"funksjonPullOut.php?bTall="+betSatt.value+"&ganger="+ganger2+"&utfall=tap",success:function(){
                     console.log("Tapt penger, funksjon kjørt.");
                 }})
@@ -87,6 +88,7 @@ while ($row = mysqli_fetch_array($kjort)) {
         buttonEl.removeEventListener("click", pullOut);
         utfallEl.innerHTML="Du trakk deg ut i tide, veddet "+betSatt+" og tjente "+betSatt*ganger2+" Tokens. Innsatsen din ble ganget med "+ganger2+".";
 
+        /*Kjøring av funksjon hvis man vinner*/
         $.ajax({url:"funksjonPullOut.php?bTall="+betSatt.value+"&ganger="+ganger2+"&utfall=vinn",success:function(){
                 console.log("Pull Out Kjørt.");
             }})

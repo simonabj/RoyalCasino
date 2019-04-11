@@ -1,3 +1,5 @@
+
+
 /*_________________ GENERAL CLASSES (specialized classes are further down) _________________*/
 
 
@@ -10,7 +12,7 @@
     /*line-break: auto;*/
     }
 
-.notched, .shape-notched { clip-path : polygon( 0% 20px, /* top left */ 20px 0%, /* top left */ calc(100% - 20px) 0%, /* top right */ 100% 20px, /* top right */ 100% calc(100% - 20px), /* bottom right */ calc(100% - 20px) 100%, /* bottom right */ 20px 100%, /* bottom left */ 0 calc(100% - 20px) /* bottom left */); }
+.notched, .shape-notched { clip-path : polygon(0% 20px, /* top left */ 20px 0%, /* top left */ calc(100% - 20px) 0%, /* top right */ 100% 20px, /* top right */ 100% calc(100% - 20px), /* bottom right */ calc(100% - 20px) 100%, /* bottom right */ 20px 100%, /* bottom left */ 0 calc(100% - 20px) /* bottom left */); }
 
 .zeroHeight {
     position         : relative;
@@ -36,7 +38,8 @@
     padding       : 30px;
     border-radius : 50% 5% / 5% 50%
     }
-.frameShape{
+
+.frameShape {
     border-radius : 50% 5% / 5% 50%
     }
 
@@ -82,23 +85,23 @@ div a { color : var(--secondaryVariant); }
 
 .disableCenteringX { justify-content : left; }
 
-.alignCenter { align-items : center; }
+.alignCenter { align-items : center !important; }
 
 /* centers children relative to flex direction */
-.alignLeft { align-items : flex-start; }
+.alignLeft { align-items : flex-start !important; }
 
-.alignRight { align-items : flex-end; }
+.alignRight { align-items : flex-end !important; }
 
-.justifyAround { justify-content : space-around; }
+.justifyAround { justify-content : space-around !important; }
 
-.justifyCenter { justify-content : center; }
+.justifyCenter { justify-content : center !important; }
 
 /* centers children relative to flex direction */
 .justifyCenterChildren * { justify-content : center; }
 
-.justifyLeft { justify-content : left; /* center/left/right */ }
+.justifyLeft { justify-content : left !important; /* center/left/right */ }
 
-.justifyRight { justify-content : right; }
+.justifyRight { justify-content : right !important; }
 
 /* for readability (& depends on flex direction) */
 .centerHorizontally { justify-content : center; }
@@ -204,9 +207,10 @@ div a { color : var(--secondaryVariant); }
 
 .onlyRightPadding { padding-top : 0 !important; padding-bottom : 0 !important; padding-left : 0 !important;}
 
-.fullWidth { width : 100% !important;}
-
-.fullHeight { height : 100% !important;}
+.fullWidth { width : 95% !important;}
+.fullWidthVw { width: 100vw !important;}
+.fullHeight { height : 95% !important;}
+.fullHeightVw { width: 100vh !important;}
 
 .fullHeightChildren * { height : 100% !important;}
 
@@ -387,11 +391,11 @@ div a { color : var(--secondaryVariant); }
 
 
 .noSelect {
-    user-select: none; /* supported by Chrome and Opera */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select         : none; /* supported by Chrome and Opera */
+    -webkit-user-select : none; /* Safari */
+    -khtml-user-select  : none; /* Konqueror HTML */
+    -moz-user-select    : none; /* Firefox */
+    -ms-user-select     : none; /* Internet Explorer/Edge */
     }
 
 
@@ -440,13 +444,10 @@ div a { color : var(--secondaryVariant); }
 
 
 /*_________________ animations _________________*/
-.opaqueOnHover {
-    opacity : 0.75;
-    }
-
-.opaqueOnHover:hover {
-    opacity : 1;
-    }
+.opaqueOnHover { opacity : 0.75; }
+.opaqueOnHover:hover { opacity : 1; }
+.opaqueOnHover50 { opacity : 0.50; }
+.opaqueOnHover50:hover { opacity : 1; }
 
 .pop {
     box-shadow : 0 3px 6px rgba(0, 0, 0, .12), 0 3px 6px var(--shadowColor);
@@ -690,12 +691,12 @@ div a { color : var(--secondaryVariant); }
     transition-duration : .25s;
     }
 
-.minimalistButton:hover p, .minimalistButton:hover h1, .minimalistButton:hover h2, .minimalistButton:hover h3, .minimalistButton:hover h4, .minimalistButton:hover h5{
+.minimalistButton:hover p, .minimalistButton:hover h1, .minimalistButton:hover h2, .minimalistButton:hover h3, .minimalistButton:hover h4, .minimalistButton:hover h5 {
     transform           : scale(1.1);
     transition-duration : .2s;
     }
 
-.minimalistButton:active p, .minimalistButton:active h1, .minimalistButton:active h2, .minimalistButton:active h3, .minimalistButton:active h4, .minimalistButton:active h5{
+.minimalistButton:active p, .minimalistButton:active h1, .minimalistButton:active h2, .minimalistButton:active h3, .minimalistButton:active h4, .minimalistButton:active h5 {
     transition-duration : .05s;
     transform           : scale(1.2);
     }
@@ -788,6 +789,16 @@ div a { color : var(--secondaryVariant); }
     transform           : perspective(0) rotateY(0deg) !important;
     }
 
+.leanUpPerma{ transform : perspective(800px) rotateX(30deg); transition-duration : 1s; }
+.leanUpPermaMild{ transform : perspective(800px) rotateX(15deg); transition-duration : 1s; }
+.leanDownPerma{ transform : perspective(800px) rotateX(-30deg); transition-duration : 1s; }
+.leanDownPermaMild{ transform : perspective(800px) rotateX(-15deg); transition-duration : 1s; }
+
+
+
+
+
+
 .uniformButton1 {
     width : 150px;
     }
@@ -838,10 +849,10 @@ Imma make these .fancyButton's simpler sometime
     }
 
 .fancyButtonPrimary:hover {
-    transform        : scale(1.1);
-    background-color : var(--primary);
-    color            : var(--secondaryVariant) !important;
-    border-color     : transparent /* alt: var(--primaryVariant) */
+    transform           : scale(1.1);
+    background-color    : var(--primary);
+    color               : var(--secondaryVariant) !important;
+    border-color        : transparent /* alt: var(--primaryVariant) */
     transition-duration : 0.1s;
     }
 
@@ -878,11 +889,11 @@ Imma make these .fancyButton's simpler sometime
     }
 
 .fancyButtonSecondary:hover {
-    box-shadow       : 0 3px 6px rgba(0, 0, 0, .12), 0 3px 6px var(--shadowColor);
-    transform        : scale(1.1);
-    background-color : var(--secondary);
-    border-color     : transparent;
-    color            : var(--primary) !important;
+    box-shadow          : 0 3px 6px rgba(0, 0, 0, .12), 0 3px 6px var(--shadowColor);
+    transform           : scale(1.1);
+    background-color    : var(--secondary);
+    border-color        : transparent;
+    color               : var(--primary) !important;
     transition-duration : 0.1s;
     }
 

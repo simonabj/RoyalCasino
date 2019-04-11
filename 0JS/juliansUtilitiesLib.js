@@ -36,10 +36,10 @@ window.addEventListener("keyup", function (event) {
 });
 
 function keys_preventCombinations(event) {
-    if (keys.control) {
+    /*if (keys.control) {
         event.preventDefault(event);
         console.log("prevented ctrl");
-    }
+    }*/
 }
 
 

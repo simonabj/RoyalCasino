@@ -24,7 +24,8 @@ $(function () {
             title: "DIO",
             image: "https://hugelolcdn.com/i/596578.jpg",
             href: "https://hugelol.com"
-        }
+        },
+
     ];
 
 
@@ -57,7 +58,7 @@ $(function () {
 
         // CREATING THE BUTTON AND IT'S TEXT
         let button = document.createElement("button");
-        button.onclick = function () { setTimeout(function(){window.location.href = object.href}, 100)};
+        button.onclick = function () { setTimeout(function () {window.location.href = object.href}, 100)};
         let buttonText = document.createElement("h2");
         buttonText.innerHTML = " PLAY NOW ";
         button.appendChild(buttonText);
@@ -77,23 +78,25 @@ $(function () {
 
 
     function addAllGameBoxes(container, array) {
+        //kan alternativt velge hvor mange kolonner en skal generere, men det er mer naturlig å bare bruke max-width på container.
         for (let i = 0; i < array.length; i++) {
-
             if (array[i] === undefined) break;
             let gameContainer = addGameBox(games[i]);
             container.appendChild(gameContainer);
         }
     }
 
+
     addAllGameBoxes($("#gamesContainer")[0], games);
 
 
     /*
+    STRUCTURE:
     <div class="hubGame_container">
             <div class="hubGame_imageContainer">
-                <div class="hubGame_image" style="background-image: url('https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip')"></div>
+                <div class="hubGame_image" style="background-image: url(' [bilde] ')"></div>
                 <div class="hubGame_imageTitleContainer">
-                    <h1> Roulette </h1>
+                    <h1> [title] </h1>
                 </div>
             </div>
             <button> <h2> PLAY NOW </h2> </button>
@@ -110,18 +113,24 @@ $(function () {
     let header = document.querySelector("header");
     let div = header.getElementsByClassName("titleDiv")[0];
     let symbol = header.querySelector("span");
-    let headerToggled = false;
     let headerTransitionDuration = 0.25;
     header.style.transitionDuration = headerTransitionDuration + "s";
     div.style.transitionDuration = headerTransitionDuration + "s";
     symbol.style.transitionDuration = headerTransitionDuration + 0.2 + "s";
+    document.getElementById("footer").style.opacity = 0;
+    let headerToggled = false;
 
+    let framedTextBox = document.getElementById("framedTextBox");
+
+    let footer = document.getElementById("footer");
+    let footerToggled = false;
+
+    let shrinkOn = 25;
     /**
      * The following geventlistener animates the <header> tag when the page has been scrolled down to below "shrinkOn" pixels.
      */
     window.onscroll = function () {
         let distanceY = window.pageYOffset || document.documentElement.scrollTop;
-        let shrinkOn = 25;
 
         if (distanceY > shrinkOn && headerToggled === false) {
             headerToggled = true;
@@ -133,6 +142,7 @@ $(function () {
             symbol.style.opacity = 0;
 
             setTimeout(function () {
+                document.getElementById("gamesContainer").scrollIntoView({block: "center", behavior: "smooth"});
                 header.style.clipPath = "polygon(0 0, 100% 0, 50vw 35%, 0 calc(50% - 50%))";
                 header.style.padding = 0;
                 header.style.height = "50px";
@@ -161,8 +171,26 @@ $(function () {
                 symbol.style.borderWidth = "50px";
                 symbol.style.opacity = 1;
             }, 200);
-
         }
-    }
-    // When the window is scrolled, triggers resizeHeaderOnScroll().
+
+
+        // __ FOOTER __
+        if (footerToggled === false && document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
+            footer.style.opacity = 1;
+            footerToggled = true;
+
+        } else if (footerToggled) {
+            footer.style.opacity = 0;
+            footerToggled = false;
+        }
+
+
+        //__INFO TEXT-BOX__
+        (distanceY > framedTextBox.getBoundingClientRect().top + framedTextBox.getBoundingClientRect().height) ? framedTextBox.classList.remove("leanUpPermaMild") : framedTextBox.classList.add("leanUpPermaMild");
+
+
+    };
+
+
+
 });

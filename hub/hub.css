@@ -597,7 +597,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 #gamesContainer {
-    background-image  : url("loops/textura-material-rojo_1385-1933.jpg");
+    background-image  : url("loops/dotted velvet.jpg");
     background-repeat : repeat;
     flex-direction    : row;
     max-width         : 1000px;

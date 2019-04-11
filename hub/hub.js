@@ -142,7 +142,7 @@ $(function () {
             symbol.style.opacity = 0;
 
             setTimeout(function () {
-                document.getElementById("gamesContainer").scrollIntoView({block:"center", behavior:"smooth"});
+                document.getElementById("gamesContainer").scrollIntoView({block: "center", behavior: "smooth"});
                 header.style.clipPath = "polygon(0 0, 100% 0, 50vw 35%, 0 calc(50% - 50%))";
                 header.style.padding = 0;
                 header.style.height = "50px";
@@ -179,7 +179,7 @@ $(function () {
             footer.style.opacity = 1;
             footerToggled = true;
 
-        } else if(footerToggled) {
+        } else if (footerToggled) {
             footer.style.opacity = 0;
             footerToggled = false;
         }

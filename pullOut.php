@@ -46,6 +46,12 @@
             buttonEl.removeEventListener("click", pullOut);
             n=1;
             ganger2=1;
+            utfallEl.innerHTML="Du trakk IKKE ut i tide, tapte "+betSatt+".";
+
+            $.ajax({url:"funksjonPullOut.php?bTall="+betSatt.value+"&ganger="+ganger2+"&utfall=tap",success:function(){
+                    console.log("Tapt penger, funksjon kjørt.");
+                }})
+
         } else {
             ganger2=1+0.01*n;
             gangerEl.innerHTML=ganger2.toFixed(2);
@@ -59,7 +65,7 @@
         buttonEl.removeEventListener("click", pullOut);
         utfallEl.innerHTML="Du trakk deg ut i tide, veddet "+betSatt+" og tjente "+betSatt*ganger2+" Tokens. Innsatsen din ble ganget med "+ganger2+".";
 
-        $.ajax({url:"funksjonPullOut.php?bTall="+betSatt.value+"&ganger="+ganger2,success:function(){
+        $.ajax({url:"funksjonPullOut.php?bTall="+betSatt.value+"&ganger="+ganger2+"&utfall=vinn",success:function(){
                 console.log("Pull Out Kjørt.");
             }})
 

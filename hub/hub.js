@@ -2,8 +2,6 @@ $(function () {
 
 
 
-    // ____________________________________ DISPLAYING GAMES ___________________________________
-
     let games = [
         {
             title: "roulette",
@@ -29,12 +27,13 @@ $(function () {
     ];
 
 
-    //IMPORTANT - comment
+    // ____________________________________ DISPLAYING GAMES ___________________________________
     /**
-     *
-     * @param object
+     * method createGameBox(object) creates and returns a HTML element containing an image, title and link from given object.
+     * @param object {Object} - The object of which to fetch the image url, title and link.
+     * @returns {HTMLElement} - The HTML element generated.
      */
-    function addGameBox(object) {
+    function createGameBox(object) {
 
         // CREATING THE CONTAINER FOR THE GAME
         let container = document.createElement("div");
@@ -76,40 +75,42 @@ $(function () {
     }
 
 
-
+    /**
+     * method addAllGameBoxes(container, array) creates a HTML element for each object of given array, using method createGameBox, and appends each element to the given container.
+     * @param container {HTMLElement} - The container in which to append the created HTML elements.
+     * @param array {Array} - The array from where to fetch the values used for creating the elements with method createGameBox. Should contain "title", "image" and "href".
+     */
     function addAllGameBoxes(container, array) {
         //kan alternativt velge hvor mange kolonner en skal generere, men det er mer naturlig å bare bruke max-width på container.
         for (let i = 0; i < array.length; i++) {
             if (array[i] === undefined) break;
-            let gameContainer = addGameBox(games[i]);
+            let gameContainer = createGameBox(games[i]);
             container.appendChild(gameContainer);
         }
     }
 
 
+    // Creates and appends all game-boxes into the div with id "gamesContainer".
     addAllGameBoxes($("#gamesContainer")[0], games);
 
 
     /*
-    STRUCTURE:
+    - STRUCTURE:
     <div class="hubGame_container">
-            <div class="hubGame_imageContainer">
-                <div class="hubGame_image" style="background-image: url(' [bilde] ')"></div>
-                <div class="hubGame_imageTitleContainer">
-                    <h1> [title] </h1>
-                </div>
+        <div class="hubGame_imageContainer">
+            <div class="hubGame_image" style="background-image: url(' [IMAGE URL] ')"></div>
+            <div class="hubGame_imageTitleContainer">
+                <h1> [TITLE] </h1>
             </div>
-            <button> <h2> PLAY NOW </h2> </button>
         </div>
-     */
+        <button> <h2> PLAY NOW </h2> </button>
+    </div>
+    */
 
 
 
-    // _____________________________________ SCROLLING MINIMIZES HEADER _________________________________
+    // _____________________________________ SCROLLING ______________________________________
 
-
-    // When the user scrolls down 50px from the top of the document, resize the header's font size
-    // alternative - ha en vanlig square header, men når bruker scroller ned, bytt class til bookmarkesque triangle header & make small.
     let header = document.querySelector("header");
     let div = header.getElementsByClassName("titleDiv")[0];
     let symbol = header.querySelector("span");
@@ -117,30 +118,31 @@ $(function () {
     header.style.transitionDuration = headerTransitionDuration + "s";
     div.style.transitionDuration = headerTransitionDuration + "s";
     symbol.style.transitionDuration = headerTransitionDuration + 0.2 + "s";
-    document.getElementById("footer").style.opacity = 0;
     let headerToggled = false;
-
-    let framedTextBox = document.getElementById("framedTextBox");
+    let shrinkOn = 25;
 
     let footer = document.getElementById("footer");
     let footerToggled = false;
+    footer.style.opacity = 0;
 
-    let shrinkOn = 25;
-    /**
-     * The following geventlistener animates the <header> tag when the page has been scrolled down to below "shrinkOn" pixels.
-     */
+    let textBox1 = document.getElementById("framedTextBox");
+
+
+
+    // SCROLLING
     window.onscroll = function () {
+
+        /** distanceY is the distance in pixels scrolled from the top of the document. */
         let distanceY = window.pageYOffset || document.documentElement.scrollTop;
 
+        //HEADER
+        /** If scrolled distance is larger than shrinkOn, styles the header to minimize it, else, styles the header back to initial values. */
         if (distanceY > shrinkOn && headerToggled === false) {
             headerToggled = true;
             symbol.classList.add("spin");
             header.style.fontSize = "10px";
-            symbol.style.width = 0;
-            symbol.style.height = 0;
             symbol.style.borderWidth = 0;
             symbol.style.opacity = 0;
-
             setTimeout(function () {
                 document.getElementById("gamesContainer").scrollIntoView({block: "center", behavior: "smooth"});
                 header.style.clipPath = "polygon(0 0, 100% 0, 50vw 35%, 0 calc(50% - 50%))";
@@ -150,7 +152,6 @@ $(function () {
                 div.classList.remove("shape-bat");
                 div.classList.add("shape-bat-top");
             }, 250);
-
         } else if (distanceY < shrinkOn && headerToggled) {
             headerToggled = false;
             symbol.classList.remove("spin");
@@ -160,21 +161,18 @@ $(function () {
             div.style.height = "initial";
             div.classList.remove("shape-bat-top");
             div.classList.add("shape-bat");
-
             setTimeout(function () {
                 div.style.position = "fixed";
                 div.style.top = "10px";
-
-                header.style.fontSize = "initial";
-                symbol.style.width = 0;
-                symbol.style.height = 0;
-                symbol.style.borderWidth = "50px";
                 symbol.style.opacity = 1;
+                symbol.style.borderWidth = "50px";
+                header.style.fontSize = "initial";
             }, 200);
         }
 
 
-        // __ FOOTER __
+        // FOOTER
+        /** If bottom of page reached, footer opacity is set to 1, else, footer opacity is set to 0. */
         if (footerToggled === false && document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
             footer.style.opacity = 1;
             footerToggled = true;
@@ -184,11 +182,9 @@ $(function () {
             footerToggled = false;
         }
 
-
-        //__INFO TEXT-BOX__
-        (distanceY > framedTextBox.getBoundingClientRect().top + framedTextBox.getBoundingClientRect().height) ? framedTextBox.classList.remove("leanUpPermaMild") : framedTextBox.classList.add("leanUpPermaMild");
-
-
+        //TEXT BOX
+        /** If textBox1 reached, remove the class "leanUpPermaMild", else, add class "leanUpPermaMild". */
+        (distanceY > textBox1.getBoundingClientRect().top + textBox1.getBoundingClientRect().height) ? textBox1.classList.remove("leanUpPermaMild") : textBox1.classList.add("leanUpPermaMild");
     };
 
 

@@ -1,5 +1,5 @@
 <?php
-require_once "config.php";
+require_once "config.php"; /*Henter config filen som kobler til databasen*/
 
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";

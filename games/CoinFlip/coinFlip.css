@@ -1,0 +1,82 @@
+body {
+  padding-top: 50px;
+  background: #F7F7F7;
+  -webkit-perspective: 800px;
+}
+h1{
+  text-align: center;
+}
+#penge {
+  position: relative;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+
+}
+#penge div {
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+  -webkit-box-shadow: inset 0 0 45px rgba(255,255,255,.3), 0 12px 20px -10px rgba(0,0,0,.4);
+     -moz-box-shadow: inset 0 0 45px rgba(255,255,255,.3), 0 12px 20px -10px rgba(0,0,0,.4);
+          box-shadow: inset 0 0 45px rgba(255,255,255,.3), 0 12px 20px -10px rgba(0,0,0,.4);
+}
+.side1 {
+  background-color: #03C03C;
+}
+.side2 {
+  background-color: #EADA52;
+}
+
+#penge {
+  transition: -webkit-transform 1s ease-in;
+  -webkit-transform-style: preserve-3d;
+}
+#penge div {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+}
+.side1 {
+  z-index: 100;
+}
+.side2 {
+  -webkit-transform: rotateY(-180deg);
+
+}
+
+#penge.heads {
+  -webkit-animation: flipHeads 3s ease-out forwards;
+  -moz-animation: flipHeads 3s ease-out forwards;
+    -o-animation: flipHeads 3s ease-out forwards;
+       animation: flipHeads 3s ease-out forwards;
+}
+#penge.tails {
+  -webkit-animation: flipTails 3s ease-out forwards;
+  -moz-animation: flipTails 3s ease-out forwards;
+    -o-animation: flipTails 3s ease-out forwards;
+       animation: flipTails 3s ease-out forwards;
+}
+
+@-webkit-keyframes flipHeads {
+  from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
+  to { -webkit-transform: rotateY(1800deg); -moz-transform: rotateY(1800deg); transform: rotateY(1800deg); }
+}
+@-webkit-keyframes flipTails {
+  from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
+  to { -webkit-transform: rotateY(1980deg); -moz-transform: rotateY(1980deg); transform: rotateY(1980deg); }
+}
+
+#flip {
+  padding: 10px;
+  color: white;
+  text-shadow: 0 -1px 1px #335166;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background: linear-gradient(rgba(255,255,255,0.2), transparent);
+  background-color: #5588AA;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+  outline: none;
+  cursor: pointer;
+}

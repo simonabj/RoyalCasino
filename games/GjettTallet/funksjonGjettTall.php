@@ -19,7 +19,7 @@ $seBrukerID=$_SESSION["id"];
 $sql="SELECT * FROM users WHERE id=$seBrukerID";
 $kjort=mysqli_query($tilkobling, $sql);
 
-while ($row = mysqli_fetch_array($kjort)) { /*Hente verdien av tokens*/
+while ($row = mysqli_fetch_array($kjort)) { /*Hente verdien av collection*/
     $balanse=$row['balance'];
 }
 

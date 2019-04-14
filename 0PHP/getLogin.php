@@ -63,7 +63,7 @@ $sql = sprintf("INSERT INTO userLogin(IP, userLogged, countryConnection, regionC
         );
 $tilkobling->query($sql); /*Oppdatere verdiene til databasen*/
 
-header('Location: hub/index.php'); /*Ta deg videre til en indexen*/
+header('Location: ../hub/index.php'); /*Ta deg videre til en indexen*/
 ?>
 
 <!DOCTYPE html>

@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-require_once "config.php";
+require_once "0PHP/config.php";
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: 0PHP/login.php");
     exit;
 }
 ?>

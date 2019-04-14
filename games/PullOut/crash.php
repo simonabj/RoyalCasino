@@ -2,9 +2,9 @@
 /*Lage connection til databasen*/
 $tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr");
 session_start(); /*Starte session og hente lagrede variabler for å kommunisere med databasen*/
-require_once "config.php"; /*Sjekk på at man er innlogget, hvis ikke blir man redirectet til login siden*/
+require_once "../../config.php"; /*Sjekk på at man er innlogget, hvis ikke blir man redirectet til login siden*/
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: ../../login.php");
     exit;
 }
 $seBrukerID=$_SESSION["id"];
@@ -87,7 +87,7 @@ while ($row = mysqli_fetch_array($kjort)) {
         buttonEl.addEventListener("click", sluttVerdiFunksjon);
         utfallEl.innerHTML="Du trakk deg ut i tide, veddet "+betSatt+" og tjente "+Number(betSatt*ganger2-betSatt)+" Tokens. Innsatsen din ble ganget med "+ganger2+".";
         /*Kjøring av funksjon hvis man vinner*/
-        $.ajax({url:"funksjonPullOut.php?bTall="+betSatt+"&ganger="+ganger2+"&utfall=vinn",success:function(){
+        $.ajax({url:"funksjonCrash.php?bTall="+betSatt+"&ganger="+ganger2+"&utfall=vinn",success:function(){
                 console.log("Pull Out Kjørt.");
             }})
         n=0;

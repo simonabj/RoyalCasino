@@ -238,6 +238,20 @@ class Game {
 }
 
 
+//////////////////////////////////////////
+//                                      //
+//  -----====== USER SYSTEM  =====----  //
+//                                      //
+//////////////////////////////////////////
+
+class User {
+    constructor(username = "testUser", email = "test@mail.it", isLoggedIn = false) {
+        this.username = username;
+        this.email = email;
+        this.tokenManager = new TokenManager();
+        this.isLoggedIn = isLoggedIn;
+    }
+}
 
 //////////////////////////////////////////
 //                                      //
@@ -362,8 +376,9 @@ const Cards = {
 
 //TODO: ADD SUPPORT FOR MULTIPLE PLAYERS
 /**
- * @enum
- * @desc Enumeration for decks in CardManager
+ @enum
+ * @name DeckEnum
+ * @desc Enumeration of cards
  * @constant
  * @memberOf RoyaleSubsystem
  * @property MAIN {number} - The main deck

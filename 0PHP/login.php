@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: hub/index.php");
+    header("location: ../hub/index.php");
     exit;
 }
 

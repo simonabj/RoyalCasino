@@ -15,6 +15,24 @@
     <script src="hub.js"></script>
 </head>
 <body>
+<script src="../0JS/RoyaleSubsystem.js"></script>
+
+<!-- INIT SUBSYSTEM -->
+<script>
+    let userName = "<?php echo $_SESSION["username"]?>";
+    let userMail = "<?php echo $_SESSION["mail"] ?>";
+    let isLoggedIn = "<?php echo $_SESSION["loggedin"]?>";
+    let user = new User(userName, userMail, isLoggedIn);
+    window.onload = () => sessionStorage.setItem("casinoUser", user);
+</script>
+
+<!--<div class="container row centerCross centerMain" style="z-index: 1; height: 50px; width:100vw; top: 10px; position: fixed;">
+    <button class="secondary square">1</button>
+    <button class="secondary square">2</button>
+    <button class="secondary square">3</button>
+    <button class="secondary square">4</button>
+</div>-->
+ 
 <header style="position: fixed; z-index: 5;">
     <div class="column container div">
         <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">

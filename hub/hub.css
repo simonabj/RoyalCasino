@@ -1,10 +1,14 @@
+/* NOTE: Veldig dokument-spesifikke forandringer er på bunnen av siden. */
+
+
+
 /* _________________ variables _________________ */
 :root {
     /* COLOR PALETTE  */
     --primary             : #470F79;
     --primaryVariant      : #451469;
     --secondary           : #F8A917;
-    --secondaryVariant    : #E0D273;
+    --secondaryVariant    : #FFDF00;
     --background          : #2B2B2B;
     --backgroundSecondary : #393939;
     --surface             : #F5F1ED;
@@ -95,7 +99,6 @@ div {
     }
 
 div > p, div > h1, div > h2, div > h3, div > h4, div > h5, div > label, div > output {
-    color : var(--onPrimary);
     /*cursor: url("Resources/etc/cursors/Mario_Gant/Text_Select.cur"), text*/
     }
 
@@ -145,6 +148,11 @@ header .titleDiv {
     background-image : linear-gradient(-180deg, var(--secondaryVariant), var(--secondary) 25%);
     padding          : 30px 50px 30px 50px;
     }
+
+header .titleDiv h1 {
+    white-space : nowrap;
+    }
+
 
 #tableOfContents {
     margin  : 15px 0 15px 0;
@@ -594,8 +602,6 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
-
-
 #gamesContainer {
     background-image  : url("loops/dotted velvet.jpg");
     background-repeat : repeat;
@@ -688,7 +694,6 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 #footer {
-    justify-content     : end;
     width               : 100vw;
     min-height          : 50px;
     margin              : 15px 0 0 0;
@@ -701,32 +706,98 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
+#headerSymbol {
+    position            : fixed;
+    justify-self        : center;
+    z-index             : 10;
+    border-bottom-color : var(--secondary);
+    display             : flex;
+    top                 : 122px
+    }
+
+#headerSymbol:hover {
+
+    }
+
+.toolbar {
+    width                      : 350px;
+    margin                     : 0;
+    background-color           : transparent;
+    box-shadow                 : none;
+    position                   : fixed;
+    z-index                    : 5;
+    top                        : 171px;
+    opacity                    : 1;
+    flex-direction             : row;
+    justify-content            : center;
+    transition-duration        : 0.75s;
+    padding                    : 0;
+    transition-timing-function : cubic-bezier(.18, .89, .47, 1.39);
+    }
+
+
+/* mirrors the right-side toolbar so that the clip-path is pointed in the right direction, and mirrors the content so that it's rotated in the normal direction. */
+#toolbarRight .toolbarItem { transform : rotateY(180deg); }
+
+#toolbarRight .toolbarItem * { transform : rotateY(180deg); }
+
+
+.toolbarItem {
+    height           : 92px;
+    width            : 260px;
+    margin           : 5px;
+    clip-path        : polygon(100% 0%, 85% 50%, 100% 100%, 25% 75%, 15% 50%, 25% 25%);
+    padding          : 30px 60px;
+    background-color : var(--secondary);
+    border-radius    : 0;
+    color            : var(--onSecondary);
+    }
 
 
 
+.toolbarOpenAnimation {
+    animation : ease-in-out toolbarOpenAnimation 0.75s;
+    }
 
+.toolbarCloseAnimation {
+    animation : ease-in-out toolbarCloseAnimation 0.75s;
+    }
 
+@keyframes toolbarOpenAnimation {
+    0% {
+        transform : rotateY(0deg) scale(1);
+        }
+    50% {
+        transform : rotate(180deg) scale(0.8);
+        top       : 248px;
+        }
+    100% {
+        transform : rotate(360deg) scale(1);
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@keyframes toolbarCloseAnimation {
+    0% {
+        transform : rotateY(0deg);
+        top       : 122px;
+        }
+    25% {
+        transform : rotateY(0deg);
+        top       : 122px;
+        }
+    50% {
+        transform : rotateY(180deg) scale(1.25);
+        top       : 107px;
+        }
+    75% {
+        transform : rotateY(180deg) scale(1.25);
+        top       : 107px;
+        }
+    100% {
+        transform : rotateY(360deg);
+        top       : 122px;
+        }
+    }
 
 
 

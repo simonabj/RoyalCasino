@@ -21,10 +21,21 @@ $(function () {
         {
             title: "DIO",
             image: "https://hugelolcdn.com/i/596578.jpg",
-            href: "https://hugelol.com"
+            href: "https://hugelol.com",
+        },
+        {
+            title: "Royale Bros",
+            image: "https://bonusstagemagazine.files.wordpress.com/2015/09/anime-mario-portada2.png",
+            href: "reddit.com",
+        },
+        {
+            title: "The Link to the Rich",
+            image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",
+            href: "vg.no",
         },
 
     ];
+
 
 
     // ____________________________________ DISPLAYING GAMES ___________________________________
@@ -62,6 +73,18 @@ $(function () {
         buttonText.innerHTML = " PLAY NOW ";
         button.appendChild(buttonText);
 
+        // ADDING EVENT LISTENERS ON THE BUTTON ELEMENT
+        $(button).on({
+            // BLURS THE GAME IMAGE ON HOVer
+            mouseenter: function () {
+                image.style.filter = "blur(5px)"
+            },
+            // DE-BLURS THE GAME IMAGE WHEN NO LONGER HOVERING
+            mouseleave: function () {
+                image.style.filter = "";
+            },
+        });
+
         //APPENDING THE IMAGE AND IT'S TITLE TO THEIR CONTAINER
         imageContainer.appendChild(image);
         imageContainer.appendChild(imageTitleContainer);
@@ -73,6 +96,21 @@ $(function () {
         //RETURNING THE GAME CONTAINER
         return container;
     }
+
+
+
+    /*
+    - STRUCTURE:
+    <div class="hubGame_container">
+        <div class="hubGame_imageContainer">
+            <div class="hubGame_image" style="background-image: url(' [IMAGE URL] ')"></div>
+            <div class="hubGame_imageTitleContainer">
+                <h1> [TITLE] </h1>
+            </div>
+        </div>
+        <button> <h2> PLAY NOW </h2> </button>
+    </div>
+    */
 
 
     /**
@@ -90,31 +128,18 @@ $(function () {
     }
 
 
+
     // Creates and appends all game-boxes into the div with id "gamesContainer".
     addAllGameBoxes($("#gamesContainer")[0], games);
-
-
-    /*
-    - STRUCTURE:
-    <div class="hubGame_container">
-        <div class="hubGame_imageContainer">
-            <div class="hubGame_image" style="background-image: url(' [IMAGE URL] ')"></div>
-            <div class="hubGame_imageTitleContainer">
-                <h1> [TITLE] </h1>
-            </div>
-        </div>
-        <button> <h2> PLAY NOW </h2> </button>
-    </div>
-    */
 
 
 
     // _____________________________________ SCROLLING ______________________________________
 
+    let headerTransitionDuration = 0.25;
     let header = document.querySelector("header");
     let div = header.getElementsByClassName("titleDiv")[0];
-    let symbol = header.querySelector("span");
-    let headerTransitionDuration = 0.25;
+    let symbol = document.getElementById("headerSymbol");
     header.style.transitionDuration = headerTransitionDuration + "s";
     div.style.transitionDuration = headerTransitionDuration + "s";
     symbol.style.transitionDuration = headerTransitionDuration + 0.2 + "s";
@@ -137,14 +162,17 @@ $(function () {
 
         //HEADER
         /** If scrolled distance is larger than shrinkOn, styles the header to minimize it, else, styles the header back to initial values. */
+        // CLOSING HEADER
         if (distanceY > shrinkOn && headerToggled === false) {
             headerToggled = true;
             symbol.classList.add("spin");
             header.style.fontSize = "10px";
             symbol.style.borderWidth = 0;
             symbol.style.opacity = 0;
+
+            closeToolbar();
             setTimeout(function () {
-                document.getElementById("gamesContainer").scrollIntoView({block: "center", behavior: "smooth"});
+                //document.getElementById("gamesContainer").scrollIntoView({block: "center", behavior: "smooth"});
                 header.style.clipPath = "polygon(0 0, 100% 0, 50vw 35%, 0 calc(50% - 50%))";
                 header.style.padding = 0;
                 header.style.height = "50px";
@@ -152,6 +180,8 @@ $(function () {
                 div.classList.remove("shape-bat");
                 div.classList.add("shape-bat-top");
             }, 250);
+
+        // OPENING HEADER
         } else if (distanceY < shrinkOn && headerToggled) {
             headerToggled = false;
             symbol.classList.remove("spin");
@@ -184,9 +214,97 @@ $(function () {
 
         //TEXT BOX
         /** If textBox1 reached, remove the class "leanUpPermaMild", else, add class "leanUpPermaMild". */
-        (distanceY > textBox1.getBoundingClientRect().top + textBox1.getBoundingClientRect().height) ? textBox1.classList.remove("leanUpPermaMild") : textBox1.classList.add("leanUpPermaMild");
+        (distanceY > textBox1.getBoundingClientRect().top + 1250/*textBox1.getBoundingClientRect().height*/) ? textBox1.classList.remove("leanUpPermaMild") : textBox1.classList.add("leanUpPermaMild");
     };
 
+
+
+
+
+
+
+
+
+
+    // _______________ TOOLBAR ___________________
+
+
+
+    let toolbarLeft = document.getElementById("toolbarLeft");
+    let toolbarRight = document.getElementById("toolbarRight");
+    toolbarLeft.justifyContent = "space-around";
+    toolbarRight.justifyContent = "space-around";
+    let toolbarItem = $(".toolbarItem");
+    let openedClipPath = "polygon(100% 0%, 85% 50%, 100% 100%, 25% 75%, 15% 50%, 25% 25%)";
+    let closingClipPath = "polygon(50% 0%, 30% 50%, 50% 100%, 25% 75%, 15% 50%, 25% 25%)";
+    let closedClipPath = "polygon(25% 4.5%, 15% 50%, 25% 95.5%, 20.5% 75%, 15% 50%, 20.5% 25%)";
+
+    let isToolbarOpen = false;
+
+
+    /**
+     * method closeToolbar plays appropriate animation and hides the toolbar.
+     */
+    function closeToolbar() {
+        isToolbarOpen = false;
+        toolbarLeft.style.right = "33%";
+        toolbarRight.style.left = "33.5%";
+        toolbarItem[0].style.transitionDuration = "0.30s";
+        toolbarItem[1].style.transitionDuration = "0.30s";
+        toolbarItem[0].style.transitionTimingFunction = "linear";
+        toolbarItem[1].style.transitionTimingFunction = "linear";
+        toolbarItem[0].style.clipPath = closedClipPath;
+        toolbarItem[1].style.clipPath = closedClipPath;
+    }
+
+
+    /**
+     * method openToolbar plays appropriate animation and shows the toolbar.
+     */
+    function openToolbar() {
+        isToolbarOpen = true;
+        toolbarLeft.style.right = "50%";
+        toolbarRight.style.left = "50.5%";
+        toolbarItem[0].style.transitionDuration = "0.350s";
+        toolbarItem[1].style.transitionDuration = "0.350s";
+        toolbarItem[0].style.clipPath = openedClipPath;
+        toolbarItem[1].style.clipPath = openedClipPath;
+        toolbarLeft.style.opacity = 1;
+        toolbarRight.style.opacity = 1;
+    }
+
+
+
+    openToolbar();
+
+
+
+    /**
+     * method toolbarToggle opens the toolbar if it's closed, and vice-versa.
+     */
+    function toolbarToggle() {
+        console.log(isToolbarOpen);
+        if (!isToolbarOpen) {
+            openToolbar();
+            isToolbarOpen = true;
+            symbol.classList.add("toolbarOpenAnimation");
+            symbol.classList.remove("toolbarCloseAnimation");
+        } else {
+            symbol.classList.add("toolbarCloseAnimation");
+            symbol.classList.remove("toolbarOpenAnimation");
+            setTimeout(function () {
+                closeToolbar();
+                isToolbarOpen = false;
+            }, 200);
+        }
+    }
+
+
+
+    // RUNS FUNCTION toolbarToggle() WHEN THE HEADER IS CLICKED.
+    document.getElementById("headerSymbol").onclick = function () {toolbarToggle()};
+
+    //symbol.addEventListener("animationend", function() {symbol.classList.remove("toolbarSymbolAnimation");});
 
 
 });

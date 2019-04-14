@@ -5,7 +5,8 @@
     <title> Casino Royale Hub </title>
     <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/interface-part-1/32/html-code-512.png">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <script src="../0JS/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <script src="../0JS/juliansUtilitiesLib.js"></script>
@@ -23,24 +24,35 @@
             </h1>
         </div>
 
-
-        <span class="bordershape-diamond"
-              style="border-bottom-color: var(--secondary); display: flex; top: 75px"></span>
         <!-- alternative: when scrolling, turns into a triangle pointing up. clicking it returns the user to the top of the page. -->
         <!-- TODO: når diamond vises, kan den trykkes på (scale(1.1) on hover & 1.2@click). Da skyter toolbar menyen ut fra begge sider av den.
                 To tabs til venstre, og to til høyre, og når man scroller dem vekk eller trykker på diamanten igjen så glir de tilbake inn i diamanten og skjules,
                 og diamanten spiller av en liten animasjon mens den mottar tabs'ene, satisfying qubic-bezier rotateX/Y spin(ning til de er inne).-->
-
-        <!--<div class="container row centerCross centerMain" style="z-index: 1; height: 50px; width:100vw; top: 10px; position: fixed;">
-    <button class="secondary square">1</button>
-    <button class="secondary square">2</button>
-    <button class="secondary square">3</button>
-    <button class="secondary square">4</button>
-    </div>-->
     </div>
 
 </header>
+
+    <div id="toolbarLeft" class="toolbar">
+
+        <div class="toolbarItem row">
+            <p id="tokenCount">Tokens: 14</p>
+            <button onclick="purchaseTokens()" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
+            <!-- todo: redirect til buying place?  ABORTED IDEA:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
+        </div>
+
+    </div>
+    <div id="toolbarRight" class="toolbar">
+        <div class="toolbarItem">
+            <p>Profile Settings</p>
+        </div>
+        <!--<div class="toolbarItem invisible">
+            <p>logout</p>
+        </div>-->
+    </div>
+
+
 <div id="documentWrapper" class="container column" style="margin-top: 325px">
+    <span id="headerSymbol" class="bordershape-diamond"></span>
 
 
     <!-- the games -->
@@ -49,8 +61,8 @@
 
     <!-- text box -->
     <span><br><br><br><br><br><br><br><br></span>
-    <div id="framedTextBox" class="whiteFrame"
-         style="width: 600px; background-color: darkred; transition-duration: 0.5s">
+    <div id="framedTextBox" class="whiteFrame whiteText"
+            style="width: 600px; background-color: darkred; transition-duration: 1s">
         <h1>Lorem Ipsum</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
             magna aliqua. Cursus euismod quis viverra nibh cras pulvinar mattis nunc sed. Consequat semper viverra nam

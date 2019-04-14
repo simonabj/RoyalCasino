@@ -793,13 +793,13 @@ div a { color : var(--secondaryVariant); }
     transform           : perspective(0) rotateY(0deg) !important;
     }
 
-.leanUpPerma { transform : perspective(800px) rotateX(30deg); transition-duration : 1s; }
+.leanUpPerma { transform : perspective(800px) rotateX(30deg); }
 
-.leanUpPermaMild { transform : perspective(800px) rotateX(15deg); transition-duration : 1s; }
+.leanUpPermaMild { transform : perspective(800px) rotateX(15deg); }
 
-.leanDownPerma { transform : perspective(800px) rotateX(-30deg); transition-duration : 1s; }
+.leanDownPerma { transform : perspective(800px) rotateX(-30deg); }
 
-.leanDownPermaMild { transform : perspective(800px) rotateX(-15deg); transition-duration : 1s; }
+.leanDownPermaMild { transform : perspective(800px) rotateX(-15deg); }
 
 
 

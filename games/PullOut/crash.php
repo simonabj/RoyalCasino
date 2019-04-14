@@ -87,7 +87,7 @@ while ($row = mysqli_fetch_array($kjort)) {
         buttonEl.addEventListener("click", sluttVerdiFunksjon);
         utfallEl.innerHTML="Du trakk deg ut i tide, veddet "+betSatt+" og tjente "+Number(betSatt*ganger2-betSatt)+" Tokens. Innsatsen din ble ganget med "+ganger2+".";
         /*Kjøring av funksjon hvis man vinner*/
-        $.ajax({url:"funksjonPullOut.php?bTall="+betSatt+"&ganger="+ganger2+"&utfall=vinn",success:function(){
+        $.ajax({url:"funksjonCrash.php?bTall="+betSatt+"&ganger="+ganger2+"&utfall=vinn",success:function(){
                 console.log("Pull Out Kjørt.");
             }})
         n=0;

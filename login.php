@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: index.php");
+    header("location: hub/index.php");
     exit;
 }
 
@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $row2 = mysqli_fetch_assoc($result69);
                             $_SESSION["mail"] = $row2['mail'];
 
-                            header("location: index.php"); /*Alt er riktig for login og du føres til index.php*/
+                            header("location: hub/index.php"); /*Alt er riktig for login og du føres til index.php*/
                         } else {
                             $password_err = "The password you entered was not valid.";
                         }

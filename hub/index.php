@@ -16,18 +16,29 @@
     <script src="hub.js"></script>
 </head>
 <body>
+<script src="../0JS/RoyaleSubsystem.js"></script>
+<!-- INIT SUBSYSTEM -->
+<script>
+    let userName = "<?php echo $_SESSION["username"]?>";
+    let userMail = "<?php echo $_SESSION["mail"] ?>";
+    let isLoggedIn = "<?php echo $_SESSION["loggedin"]?>";
+    let user = new User(userName, userMail, isLoggedIn);
+    window.onload = () => sessionStorage.setItem("casinoUser", user);
+</script>
+
+
+
 <span id="headerSpan" class="clipPathShadow">
+    <header style="position: fixed; z-index: 5;" class="clipPathShadow">
+        <div class="column container div">
 
-<header style="position: fixed; z-index: 5;" class="clipPathShadow">
-    <div class="column container div">
+            <!-- alternative: when scrolling, turns into a triangle pointing up. clicking it returns the user to the top of the page. -->
+            <!-- TODO: når diamond vises, kan den trykkes på (scale(1.1) on hover & 1.2@click). Da skyter toolbar menyen ut fra begge sider av den.
+                    To tabs til venstre, og to til høyre, og når man scroller dem vekk eller trykker på diamanten igjen så glir de tilbake inn i diamanten og skjules,
+                    og diamanten spiller av en liten animasjon mens den mottar tabs'ene, satisfying qubic-bezier rotateX/Y spin(ning til de er inne).-->
+        </div>
 
-        <!-- alternative: when scrolling, turns into a triangle pointing up. clicking it returns the user to the top of the page. -->
-        <!-- TODO: når diamond vises, kan den trykkes på (scale(1.1) on hover & 1.2@click). Da skyter toolbar menyen ut fra begge sider av den.
-                To tabs til venstre, og to til høyre, og når man scroller dem vekk eller trykker på diamanten igjen så glir de tilbake inn i diamanten og skjules,
-                og diamanten spiller av en liten animasjon mens den mottar tabs'ene, satisfying qubic-bezier rotateX/Y spin(ning til de er inne).-->
-    </div>
-
-</header>
+    </header>
 </span>
 
 <div id="toolbarLeft" class="toolbar">

@@ -37,6 +37,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </script>
 
 
+
 <span id="headerSpan" class="clipPathShadow">
     <header style="position: fixed; z-index: 5;" class="clipPathShadow">
         <div class="column container div">

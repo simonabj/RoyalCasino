@@ -598,6 +598,7 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 @keyframes spinBehindTitle {
     0% {
         transform : rotate(0) scale(1);
+        top       : 160px;
         z-index   : 10;
         opacity   : 1;
         }
@@ -608,6 +609,7 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
         opacity   : 1;
         }
     100% {
+        transform : scale(0.5);
         top     : -15px;
         z-index : -10;
         opacity : 0;

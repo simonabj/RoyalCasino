@@ -75,14 +75,33 @@ $(function () {
 
         // ADDING EVENT LISTENERS ON THE BUTTON ELEMENT
         $(button).on({
-            // BLURS THE GAME IMAGE ON HOVer
+
+            // BLURS OTHER GAME IMAGES ON HOVER
             mouseenter: function () {
-                image.style.filter = "blur(5px)"
+                //image.style.filter = "blur(5px)"
+
+                // BLURS EACH GAME BOX THAT ISNT THIS ONE
+                for (let i = 0; i < gameBoxes.length; i++) {
+                    if(gameBoxes[i] !== container){
+                        gameBoxes[i].querySelector(".hubGame_image").style.filter = "blur(3px)";
+                    }
+                }
+
             },
-            // DE-BLURS THE GAME IMAGE WHEN NO LONGER HOVERING
+
+            // DE-BLURS OTHER GAME IMAGES WHEN NO LONGER HOVERING
             mouseleave: function () {
-                image.style.filter = "";
+                //image.style.filter = "";
+
+                // DE-BLURS EACH GAME BOX THAT ISNT THIS ONE
+                for (let i = 0; i < gameBoxes.length; i++) {
+                    if(gameBoxes[i] !== container){
+                        gameBoxes[i].querySelector(".hubGame_image").style.filter = "";
+                    }
+                }
+
             },
+
         });
 
         //APPENDING THE IMAGE AND IT'S TITLE TO THEIR CONTAINER
@@ -118,19 +137,33 @@ $(function () {
      * @param container {HTMLElement} - The container in which to append the created HTML elements.
      * @param array {Array} - The array from where to fetch the values used for creating the elements with method createGameBox. Should contain "title", "image" and "href".
      */
-    function addAllGameBoxes(container, array) {
-        //kan alternativt velge hvor mange kolonner en skal generere, men det er mer naturlig å bare bruke max-width på container.
+    function addAllGameBoxes(container, array, outputArray) {
+        //kan alternativt velge hvor mange kolonner en skal generere, men det er mer flexible å i stedet bare bruke max-width på container.
         for (let i = 0; i < array.length; i++) {
-            if (array[i] === undefined) break;
+            //if (array[i] === undefined) break; - breaks the lop if the given array element for some reason is undefined. Was more relevant when I was using the define-number-of-rows method when a row couldn't be filled, but it does no harm to keep.
             let gameContainer = createGameBox(games[i]);
             container.appendChild(gameContainer);
+            outputArray[i] = gameContainer;
         }
+
     }
 
 
 
-    // Creates and appends all game-boxes into the div with id "gamesContainer".
-    addAllGameBoxes($("#gamesContainer")[0], games);
+    let gameBoxes = [];
+
+    // Creates and appends all game-boxes into the div with id "gamesContainer", and puts each game box element into the array "gameBoxes".
+    addAllGameBoxes($("#gamesContainer")[0], games, gameBoxes);
+
+
+    for (let i = 0; i < gameBoxes.length; i++) {
+        gameBoxes[i].style.transitionDuration = "0.5s";
+    }
+
+
+
+
+
 
 
 
@@ -170,10 +203,8 @@ $(function () {
             div.style.fontSize = "10px";
 
             closeToolbar("no animation");
-
+            symbol.style.top = "160px";
             symbol.classList.add("symbolHideAnimation");
-            //symbol.style.borderWidth = 0;
-
 
             setTimeout(function () {
                 symbol.style.opacity = 0;
@@ -184,10 +215,14 @@ $(function () {
                 div.style.top = "-25px";
                 div.classList.remove("shape-bat");
                 div.classList.add("shape-bat-top");
+                setTimeout(function(){
+                    symbol.style.top = "-15px";
+                }, 250)
             }, 250);
 
             // OPENING HEADER
         } else if (distanceY < shrinkOn && headerToggled) {
+
             headerToggled = false;
             header.style.clipPath = "polygon(0 0, 100% 0, 50vw 100%, 0 calc(50% - 50%))";
             header.style.padding = "initial";
@@ -195,15 +230,22 @@ $(function () {
             div.style.height = "initial";
             div.classList.remove("shape-bat-top");
             div.classList.add("shape-bat");
+            symbol.style.top = "40px";
+            symbol.style.transform = "scale(0.2)";
+
             setTimeout(function () {
                 symbol.style.opacity = 1;
                 symbol.classList.add("symbolShowAnimation");
                 div.style.position = "fixed";
                 div.style.top = "10px";
-                //symbol.style.borderWidth = "50px";
                 div.style.fontSize = "initial";
                 header.style.fontSize = "initial";
+                setTimeout(function(){
+                    symbol.style.top = "160px";
+                    symbol.style.transform = "";
+                }, 400)
             }, 200);
+
         }
 
 

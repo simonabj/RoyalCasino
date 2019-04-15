@@ -1,16 +1,19 @@
 <?php
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr");
+$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Koble til database*/
 
+/*Sett til utf8*/
 if (!$tilkobling->set_charset("utf8")) {
     printf("", $tilkobling->error);
 } else {
     printf("", $tilkobling->character_set_name());
 }
 
+/*Velg mappe bildet skal lastes opp i*/
 $target_dir = "ProfilePictures/";
-$target_file = $target_dir . basename($_FILES["avatarToUpload"]["name"]);
+$target_file = $target_dir . basename($_FILES["avatarToUpload"]["name"]); /*Sette filens lagringssted og navn*/
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+/*Sjekk på at alt er ok med bildet*/
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["avatarToUpload"]["tmp_name"]);
     if($check !== false) {
@@ -25,10 +28,12 @@ if (file_exists($target_file)) {
     echo "Sorry, file already exists.";
     $uploadOk = 0;
 }
+/*Limitering av størelse på bildet*/
 if ($_FILES["avatarToUpload"]["size"] > 500000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
+/*Limitering av type bilde*/
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
@@ -43,26 +48,30 @@ if ($uploadOk == 0) {
     }
 }
 
-session_start();
+session_start(); /*Starte session*/
 
-require_once "config.php";
+require_once "config.php"; /*Hente konfigurasjonsfilen*/
+
+/*Hvis man ikke er logget inn skal ingenting i databasen endres, da ledes du til innloggingssiden*/
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
 
+/*Lagring av session variabler til lettere senere bruk*/
 $seUser = $_SESSION["username"];
 $seBrukerID = $_SESSION["id"];
 
 $sql = "SELECT * FROM users WHERE id=$seBrukerID";
 
+/*Endring av filnavn i database hvor bruker ID'en din er lik i databasen*/
 if(isset($_POST["submit"]))
 {
 $sql = sprintf("UPDATE users SET profilePicture='%s' WHERE id=$seBrukerID",
         $tilkobling->real_escape_string($_FILES["avatarToUpload"]["name"])
         );
 $tilkobling->query($sql);
-header('Location: settings.php');
+header('Location: settings.php'); /*Ledes tilbake til innstillingene*/
 }
 ?>
 <head>

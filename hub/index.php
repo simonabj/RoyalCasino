@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+require_once "../0PHP/config.php";
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../0PHP/login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

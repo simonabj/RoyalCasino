@@ -13,11 +13,15 @@ if (!$tilkobling->set_charset("utf8")) {
 } else {
     printf("", $tilkobling->character_set_name());
 }
+
+/*Definer SESSION variabler til senere bruk*/
 $seUser = $_SESSION["username"];
 $seBrukerID = $_SESSION["id"];
-$sql3 = "SELECT * FROM users WHERE id=$seBrukerID";
-$datasett3 = mysqli_query($tilkobling, $sql3);
-$datasett22 = mysqli_query($tilkobling, $sql3);
+
+/*Querys til bruk senere i koden*/
+$sql3 = "SELECT * FROM users WHERE id=$seBrukerID"; /*Spørresetning*/
+$datasett3 = mysqli_query($tilkobling, $sql3); /*Datasett*/
+$datasett22 = mysqli_query($tilkobling, $sql3); /*Datasett*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,9 +29,9 @@ $datasett22 = mysqli_query($tilkobling, $sql3);
 <head>
     <meta charset="UTF-8">
     <title>Casino Royale | Settings</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link href="stilark.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> <!-- Stilark for enkelte deler -->
+    <link href="stilark.css" rel="stylesheet" type="text/css"> <!-- Stilark -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> <!-- jQuery -->
 </head>
 <body>
 
@@ -43,7 +47,7 @@ $datasett22 = mysqli_query($tilkobling, $sql3);
                     <input type="checkbox" id="sliderTheme">
                     <span class="slider round"></span>
                 </label>
-                <input type="text" name="txtOppdaternavn1" id="txtOppdaternavn1" style="display:none;" value="<?php echo $rad["theme"]; ?>">
+                <input type="text" name="txtOppdaternavn1" id="txtOppdaternavn1" style="display:none;" value="<?php echo $rad["theme"]; ?>"> <!-- Element som rommer verdien til temaverdi -->
             </td>
         </tr>
         <?php } ?>
@@ -58,6 +62,7 @@ $datasett22 = mysqli_query($tilkobling, $sql3);
         <tr>
             <th style="width:631px;">Upload your own(JPEG, JPG, PNG, GIF)</th>
             <td>
+                <!-- Opplastningsfelt for profilbilde, leder til en ny side(avatarChange.php) når man klikker på knappen under. -->
                 <input type="file" name="avatarToUpload" id="avatarToUpload" style="margin-left:auto;margin-right:auto;text-align:center;color:black;font-size:18px;"><textarea name="usynlig" style="display:none;"><?php echo $seUser; ?></textarea>
             </td>
         </tr>
@@ -67,19 +72,20 @@ $datasett22 = mysqli_query($tilkobling, $sql3);
         </tr>
         </tbody>
     </table>
-    <button id="submit" name="submit" value="Upload Avatar">Change Profilepicture</button>
+    <button id="submit" name="submit" value="Upload Avatar">Change Profilepicture</button> <!-- Knapp for opplastning av profilbilde -->
 </form>
 
+<!-- Sikkerhet for brukeren -->
 <h2 style="width:1000px; text-align: left;margin-left:auto;margin-right:auto;font-size:20px;color:#337ab7;">Security</h2>
 <table class="innstilling" border="0">
     <tbody>
     <tr>
         <th style="width:631px;">Change your password</th>
-        <td><a href="reset-password.php" class="btn" id="endrePassord">Change</a></td>
+        <td><a href="reset-password.php" class="btn" id="endrePassord">Change</a></td> <!-- Endring av passord -->
     </tr>
     <tr>
         <th style="width:631px;">Logged In Devices</th>
-        <td><a id="showIP" class="btn" href="innloggedeEnheter.php">Logged Devices</a></td>
+        <td><a id="showIP" class="btn" href="innloggedeEnheter.php">Logged Devices</a></td> <!-- Se hvem og hvor man har logget seg inn på brukeren fra -->
     </tr>
     </tbody>
 </table>
@@ -94,6 +100,7 @@ $datasett22 = mysqli_query($tilkobling, $sql3);
     if (txtOppdaternavn1El.value==="Dark") {
         sliderThemeEl.checked = true;
     }
+
     /*Change value that manages the dark theme knode, triggered when slider is flicked*/
     function innstillingerEndre() {
         /*SLIDER TILBAKEMELDINGER*/
@@ -104,6 +111,7 @@ $datasett22 = mysqli_query($tilkobling, $sql3);
         }
         updateSettings();
     }
+
     /*Run a file to update values in database*/
     function updateSettings() {
         var theme=document.querySelector("#txtOppdaterNavn1").value;

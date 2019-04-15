@@ -1,27 +1,33 @@
 <?php
-session_start();
+session_start(); /*Starte session*/
 
-require_once "config.php";
+require_once "config.php"; /*Koble seg til configurasjonsfilen*/
+
+/*Hvis ikke logget inn ta brukeren til innloggingssiden*/
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
 
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr");
+$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Tilkobling til databasen*/
 
+/*Sette typen til UTF8 for å kunne bruke Æ, Ø, Å*/
 if (!$tilkobling->set_charset("utf8")) {
     printf("", $tilkobling->error);
 } else {
     printf("", $tilkobling->character_set_name());
 }
 
+/*Definere session variabler*/
 $seUser = $_SESSION["username"];
 $seBrukerID = $_SESSION["id"];
 
+/*Lage en spørresetning for informasjonen som skal vises på siden og lage datasett som kan vise det til brukeren*/
 $sql = "SELECT * FROM users WHERE id=$seBrukerID";
 $datasett = $tilkobling -> query($sql);
 $datasett2 = $tilkobling -> query($sql);
 
+/*Når man klikker på oppdater profilbilde vil profilbildet endres der bruker ID'en er lik brukeren som browser*/
 if(isset($_POST["submit"]))
 {
     $sql2 = sprintf("UPDATE users SET profilePicture='%s' WHERE id=%s",
@@ -29,7 +35,7 @@ if(isset($_POST["submit"]))
         $tilkobling->real_escape_string($seBrukerID)
     );
     $tilkobling->query($sql2);
-    header('Location: settings.php');
+    header('Location: settings.php'); /*Når alt er ferdig kjørt tas du tilbake til samme side*/
 }
 ?>
 <!DOCTYPE html>
@@ -38,8 +44,8 @@ if(isset($_POST["submit"]))
 <head>
   <meta charset="UTF-8">
   <title>Casino Royale | Profile Pictures</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-  <link href="stilark.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> <!-- CSS -->
+  <link href="stilark.css" rel="stylesheet" type="text/css"> <!-- CSS Stilark -->
   <style>
       body{
           font: 14px sans-serif;
@@ -89,6 +95,7 @@ if(isset($_POST["submit"]))
 <body>
 
 <h2 style="text-align:center;color:white;font-size:35px;">Choose a profile picture</h2>
+<!-- Visning av alle standardprofilbildene man kan velge mellom -->
 <form id="oppdaterattraksjon" name="oppdaterattraksjon" method="POST">
   <?php while($rad = mysqli_fetch_array($datasett)) { ?>
   <table id="profilBildeTabell" border="0">
@@ -111,12 +118,13 @@ if(isset($_POST["submit"]))
       <input type="text" name="valgtProfilbilde" id="valgtProfilbilde" style="display:none;">
     </tbody>
   </table>
-  <button value="Tilbake"><a href="settings.php" style="color:white;text-decoration:none;">Abort</a></button>
-  <button name="submit" value="Update Profile Picture">VELG PROFILBILDE</button>
+  <button value="Tilbake"><a href="settings.php" style="color:white;text-decoration:none;">Abort</a></button> <!-- Knapp for å ta deg tilbake til innstillinger -->
+  <button name="submit" value="Update Profile Picture">Choose Profile Picture</button> <!-- Knapp for å endre profilbilde til det valgte -->
   <?php } ?>
 </form>
 
 <script>
+    /*Definering av variablene som skal brukes til å endre profilbilde variablen*/
 var profile1=document.getElementById("profile");
 var profile2=document.getElementById("profile2");
 var profile3=document.getElementById("profile3");

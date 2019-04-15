@@ -1,25 +1,30 @@
 <?php
-session_start();
+session_start(); /*Starte session*/
 
-require_once "config.php";
+require_once "config.php"; /*Hente konfigurasjons koden*/
+
+/*Hvis brukeren ikke er logget inn tas han/hun til innloggingssiden*/
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
 
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr");
+$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Tilkobling til databasen*/
 
+/*Settes til utf8*/
 if (!$tilkobling->set_charset("utf8")) {
     printf("", $tilkobling->error);
 } else {
     printf("", $tilkobling->character_set_name());
 }
 
+/*Definering av session variabler*/
 $seUser = $_SESSION["username"];
 $seBrukerID = $_SESSION["id"];
 
+/*Lage en spørresetning som brukes til å vise informasjon senere og definering av et datasett som vises for brukeren.*/
 $sql = "SELECT * FROM userLogin WHERE userLogged=$seBrukerID ORDER BY Time";
-$datasett = $tilkobling->query($sql);
+$datasett = $tilkobling->query($sql); /*Utføring av spørringen*/
 ?>
 
 <!DOCTYPE html>
@@ -27,9 +32,8 @@ $datasett = $tilkobling->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>Casino Royale | Logged Devices</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link href="stilark.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> <!-- CSS -->
+    <link href="stilark.css" rel="stylesheet" type="text/css"> <!-- CSS Stilark -->
     <style>
         body{
             font: 14px sans-serif;
@@ -42,6 +46,7 @@ $datasett = $tilkobling->query($sql);
 </head>
 <body>
 
+<!-- Visning av informasjon om innlogginger og tilbud om å sikre kontoen -->
 <h2 style="width:99%; text-align: left; margin-left:auto; margin-right:auto; font-size:20px; color:#337ab7;">Logins on this user - <a href="hackedUser.php" style="color: gray;">If any of the IP's or devices on the list isnt yours, click here.</a></h2>
 <table id="ipForUser" border="0" style="text-align:center; background-color:white; width:99%;">
   <tbody>
@@ -53,6 +58,7 @@ $datasett = $tilkobling->query($sql);
     <th>By:</th>
     <th>Dato-Tid:</th>
   </tr>
+  <!-- PhP kode for visning av all informasjonen nedover i tabellen -->
   <?php while($rad = mysqli_fetch_array($datasett)) { ?>
   <tr>
     <td><a href="https://www.iplocation.net/?query=<?php echo $rad['IP']; ?>" target="_blank" style="color:blue;"><?php echo $rad["IP"]; ?></a></td>

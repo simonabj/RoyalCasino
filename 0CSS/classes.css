@@ -803,9 +803,6 @@ div a { color : var(--secondaryVariant); }
 
 
 
-
-
-
 .uniformButton1 {
     width : 150px;
     }
@@ -1329,4 +1326,23 @@ Imma make these .fancyButton's simpler sometime
 
 
 
+:root{
+    --speechBubbleColor: #0AB;
+    }
+.speech-bubble { position : relative; background : var(--speechBubbleColor); border-radius : .4em; }
+
+.speech-bubble:after { content : ''; position : absolute; left : 0; top : 50%; width : 0; height : 0; border : 30px solid transparent; border-right-color : var(--speechBubbleColor); border-left : 0; border-bottom : 0; margin-top : -15px; margin-left : -30px; }
+
+.slowlyRotating{
+    animation: rotate_360 20s
+    }
+
+@keyframes rotate_360 {
+    to { transform: rotate(360deg) }
+    }
+
+
+.clipPathShadow {
+    filter : drop-shadow(0px 10px 5px rgba(0,0,0,0.5));
+    }
 

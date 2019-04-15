@@ -16,13 +16,10 @@
     <script src="hub.js"></script>
 </head>
 <body>
-<header style="position: fixed; z-index: 5;">
+<span id="headerSpan" class="clipPathShadow">
+
+<header style="position: fixed; z-index: 5;" class="clipPathShadow">
     <div class="column container div">
-        <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">
-            <h1>
-                Casino Royale!
-            </h1>
-        </div>
 
         <!-- alternative: when scrolling, turns into a triangle pointing up. clicking it returns the user to the top of the page. -->
         <!-- TODO: når diamond vises, kan den trykkes på (scale(1.1) on hover & 1.2@click). Da skyter toolbar menyen ut fra begge sider av den.
@@ -31,28 +28,39 @@
     </div>
 
 </header>
+</span>
 
-    <div id="toolbarLeft" class="toolbar">
-
-        <div class="toolbarItem row">
-            <p id="tokenCount">Tokens: 14</p>
-            <button onclick="purchaseTokens()" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
-            <!-- todo: redirect til buying place?  ABORTED IDEA:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
-        </div>
-
+<div id="toolbarLeft" class="toolbar">
+    <div class="toolbarItem">
+        <p id="tokenCount">Tokens: 54</p>
+        <button onclick="purchaseTokens()" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
+        <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
     </div>
-    <div id="toolbarRight" class="toolbar">
-        <div class="toolbarItem">
-            <p>Profile Settings</p>
-        </div>
-        <!--<div class="toolbarItem invisible">
-            <p>logout</p>
-        </div>-->
-    </div>
+</div>
+
+<div id="toolbarRight" class="toolbar">
+    <div id="profileSettings" class="toolbarItem"> <p>Profile Settings</p> </div>
+    <div id="logoutButton"> <p>logout</p> </div>
+</div>
+
 
 
 <div id="documentWrapper" class="container column" style="margin-top: 325px">
-    <span id="headerSymbol" class="bordershape-diamond"></span>
+    <!-- <span id="headerSymbol" class="bordershape-diamond"></span> -->
+
+    <!-- HEADER ELEMENTS -->
+    <img id="headerSymbol" src="../resources/redChip.png">
+    <div id="toolbarTooltip" class="speech-bubble"> <p>Click me to show the toolbar</p> </div>
+
+
+    <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">
+        <h1>
+            Casino Royale!
+        </h1>
+    </div>
+    <!-- END OF HEADER ELEMENTS -->
+
+
 
 
     <!-- the games -->

@@ -138,7 +138,7 @@ $(function () {
 
     let headerTransitionDuration = 0.25;
     let header = document.querySelector("header");
-    let div = header.getElementsByClassName("titleDiv")[0];
+    let div = document.getElementsByClassName("titleDiv")[0];
     let symbol = document.getElementById("headerSymbol");
     header.style.transitionDuration = headerTransitionDuration + "s";
     div.style.transitionDuration = headerTransitionDuration + "s";
@@ -164,14 +164,19 @@ $(function () {
         /** If scrolled distance is larger than shrinkOn, styles the header to minimize it, else, styles the header back to initial values. */
         // CLOSING HEADER
         if (distanceY > shrinkOn && headerToggled === false) {
+            $("#toolbarTooltip").hide();
             headerToggled = true;
-            symbol.classList.add("spin");
             header.style.fontSize = "10px";
-            symbol.style.borderWidth = 0;
-            symbol.style.opacity = 0;
+            div.style.fontSize = "10px";
 
-            closeToolbar();
+            closeToolbar("no animation");
+
+            symbol.classList.add("symbolHideAnimation");
+            //symbol.style.borderWidth = 0;
+
+
             setTimeout(function () {
+                symbol.style.opacity = 0;
                 //document.getElementById("gamesContainer").scrollIntoView({block: "center", behavior: "smooth"});
                 header.style.clipPath = "polygon(0 0, 100% 0, 50vw 35%, 0 calc(50% - 50%))";
                 header.style.padding = 0;
@@ -181,10 +186,9 @@ $(function () {
                 div.classList.add("shape-bat-top");
             }, 250);
 
-        // OPENING HEADER
+            // OPENING HEADER
         } else if (distanceY < shrinkOn && headerToggled) {
             headerToggled = false;
-            symbol.classList.remove("spin");
             header.style.clipPath = "polygon(0 0, 100% 0, 50vw 100%, 0 calc(50% - 50%))";
             header.style.padding = "initial";
             header.style.height = "initial";
@@ -192,10 +196,12 @@ $(function () {
             div.classList.remove("shape-bat-top");
             div.classList.add("shape-bat");
             setTimeout(function () {
+                symbol.style.opacity = 1;
+                symbol.classList.add("symbolShowAnimation");
                 div.style.position = "fixed";
                 div.style.top = "10px";
-                symbol.style.opacity = 1;
-                symbol.style.borderWidth = "50px";
+                //symbol.style.borderWidth = "50px";
+                div.style.fontSize = "initial";
                 header.style.fontSize = "initial";
             }, 200);
         }
@@ -206,7 +212,6 @@ $(function () {
         if (footerToggled === false && document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
             footer.style.opacity = 1;
             footerToggled = true;
-
         } else if (footerToggled) {
             footer.style.opacity = 0;
             footerToggled = false;
@@ -216,13 +221,6 @@ $(function () {
         /** If textBox1 reached, remove the class "leanUpPermaMild", else, add class "leanUpPermaMild". */
         (distanceY > textBox1.getBoundingClientRect().top + 1250/*textBox1.getBoundingClientRect().height*/) ? textBox1.classList.remove("leanUpPermaMild") : textBox1.classList.add("leanUpPermaMild");
     };
-
-
-
-
-
-
-
 
 
 
@@ -238,8 +236,8 @@ $(function () {
     let openedClipPath = "polygon(100% 0%, 85% 50%, 100% 100%, 25% 75%, 15% 50%, 25% 25%)";
     let closingClipPath = "polygon(50% 0%, 30% 50%, 50% 100%, 25% 75%, 15% 50%, 25% 25%)";
     let closedClipPath = "polygon(25% 4.5%, 15% 50%, 25% 95.5%, 20.5% 75%, 15% 50%, 20.5% 25%)";
-
     let isToolbarOpen = false;
+
 
 
     /**
@@ -248,14 +246,16 @@ $(function () {
     function closeToolbar() {
         isToolbarOpen = false;
         toolbarLeft.style.right = "33%";
-        toolbarRight.style.left = "33.5%";
+        toolbarRight.style.left = "33%";
         toolbarItem[0].style.transitionDuration = "0.30s";
         toolbarItem[1].style.transitionDuration = "0.30s";
         toolbarItem[0].style.transitionTimingFunction = "linear";
         toolbarItem[1].style.transitionTimingFunction = "linear";
         toolbarItem[0].style.clipPath = closedClipPath;
         toolbarItem[1].style.clipPath = closedClipPath;
+        $("#logoutButton").hide();
     }
+
 
 
     /**
@@ -263,8 +263,8 @@ $(function () {
      */
     function openToolbar() {
         isToolbarOpen = true;
-        toolbarLeft.style.right = "50%";
-        toolbarRight.style.left = "50.5%";
+        toolbarLeft.style.right = "55%";
+        toolbarRight.style.left = "55%";
         toolbarItem[0].style.transitionDuration = "0.350s";
         toolbarItem[1].style.transitionDuration = "0.350s";
         toolbarItem[0].style.clipPath = openedClipPath;
@@ -275,23 +275,28 @@ $(function () {
 
 
 
-    openToolbar();
+    closeToolbar();
 
 
 
     /**
      * method toolbarToggle opens the toolbar if it's closed, and vice-versa.
      */
-    function toolbarToggle() {
-        console.log(isToolbarOpen);
+    function toolbarToggle(animation) {
+
         if (!isToolbarOpen) {
-            openToolbar();
-            isToolbarOpen = true;
-            symbol.classList.add("toolbarOpenAnimation");
+
             symbol.classList.remove("toolbarCloseAnimation");
-        } else {
-            symbol.classList.add("toolbarCloseAnimation");
             symbol.classList.remove("toolbarOpenAnimation");
+            openToolbar();
+            if (animation !== "no animation") symbol.classList.add("toolbarOpenAnimation");
+            isToolbarOpen = true;
+
+        } else {
+
+            symbol.classList.remove("toolbarOpenAnimation");
+            symbol.classList.remove("toolbarCloseAnimation");
+            if (animation !== "no animation") symbol.classList.add("toolbarCloseAnimation");
             setTimeout(function () {
                 closeToolbar();
                 isToolbarOpen = false;
@@ -302,9 +307,56 @@ $(function () {
 
 
     // RUNS FUNCTION toolbarToggle() WHEN THE HEADER IS CLICKED.
-    document.getElementById("headerSymbol").onclick = function () {toolbarToggle()};
+    document.getElementById("headerSymbol").onclick = function () {toolbarToggle(); $("#toolbarTooltip").hide()};
 
-    //symbol.addEventListener("animationend", function() {symbol.classList.remove("toolbarSymbolAnimation");});
+    symbol.addEventListener("animationend", function() {
+        symbol.classList.remove("toolbarOpenAnimation");
+        symbol.classList.remove("toolbarCloseAnimation");
+        symbol.classList.remove("symbolShowAnimation");
+        symbol.classList.remove("symbolHideAnimation");
+    });
+
+
+
+
+    let isLogoutHover = false;
+    $("#logoutButton").on({
+        click: function(){
+            window.location.href="../logout.php";
+        },
+        mouseenter: function(){
+            isLogoutHover = true;
+        },
+        mouseleave: function(){
+            isLogoutHover = false;
+            $("#logoutButton").hide();
+        }
+    });
+
+    let isProfileHover = false;
+    $("#profileSettings").on({
+        click: function(){
+            window.location.href="https://visitjulian.com";
+        },
+        mouseenter: function(){
+            isProfileHover = true;
+            $("#logoutButton").show();
+        },
+        mouseleave: function(){
+            isProfileHover = false;
+            setTimeout(function(){
+                if(!isLogoutHover && !isProfileHover){
+                    $("#logoutButton").hide();
+                }
+            }, 400);
+        }
+    })
+
+
+
+
+
+
 
 
 });

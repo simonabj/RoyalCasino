@@ -4,9 +4,9 @@ $tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmA
 
 session_start();
 
-require_once "config.php";
+require_once "../../OPHP/config.php";
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){ /*Sjekke om man er logget inn*/
-    header("location: login.php");
+    header("location: ../../OPHP/login.php");
     exit;
 }
 

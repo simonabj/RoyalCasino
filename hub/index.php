@@ -17,6 +17,7 @@
 </head>
 <body>
 <script src="../0JS/RoyaleSubsystem.js"></script>
+
 <!-- INIT SUBSYSTEM -->
 <script>
     let userName = "<?php echo $_SESSION["username"]?>";
@@ -25,7 +26,6 @@
     let user = new User(userName, userMail, isLoggedIn);
     window.onload = () => sessionStorage.setItem("casinoUser", user);
 </script>
-
 
 
 <span id="headerSpan" class="clipPathShadow">

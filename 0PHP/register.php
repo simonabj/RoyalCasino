@@ -4,8 +4,10 @@ require_once "config.php"; /*Henter config filen som kobler til databasen*/
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
 
+/*Koden som kjøres ved registrering*/
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
+    /*Valider brukernavnet*/
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     } else{
@@ -14,24 +16,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if($stmt = mysqli_prepare($link, $sql)){
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
+            /*Set en variabel for brukernavnet til senere bruk*/
             $param_username = trim($_POST["username"]);
 
             if(mysqli_stmt_execute($stmt)){
                 mysqli_stmt_store_result($stmt);
 
+                /*Beskjed om at brukernavnet allerede er tatt*/
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     $username_err = "This username is already taken.";
                 } else{
                     $username = trim($_POST["username"]);
                 }
             } else{
-                echo "Oops! Something went wrong. Please try again later.";
+                echo "Oops! Something went wrong. Please try again later."; /*Feilmelding*/
             }
         }
 
         mysqli_stmt_close($stmt);
     }
 
+    /*Sjekk på mailen*/
     if(empty(trim($_POST["mail"]))){
         $mail_err = "Please enter a mail adress.";
     } else{
@@ -40,11 +45,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if($stmt = mysqli_prepare($link, $sql)){
             mysqli_stmt_bind_param($stmt, "s", $param_mail);
 
+            /*Lagring av mailen som en parameter*/
             $param_mail = trim($_POST["mail"]);
 
             if(mysqli_stmt_execute($stmt)){
                 mysqli_stmt_store_result($stmt);
 
+                /*Melding om at mailen allerede er i bruk*/
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     $mail_err = "This mail is already in use.";
                 } else {
@@ -57,6 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         mysqli_stmt_close($stmt);
     }
 
+    /*Sjekk av passord feltet*/
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";
     } elseif(strlen(trim($_POST["password"])) < 6){
@@ -65,6 +73,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST["password"]);
     }
 
+    /*Sjekk av confirm passord feltet*/
     if(empty(trim($_POST["confirm_password"]))){
         $confirm_password_err = "Please confirm password.";
     } else{
@@ -74,19 +83,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
+    /*Hvis alt er riktig skal det legges inn i databasen*/
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($mail_err)){
 
-        $sql = "INSERT INTO users (username, password, mail) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO users (username, password, mail) VALUES (?, ?, ?)"; /*Setningen for å legge til verdiene til databasen*/
 
         if($stmt = mysqli_prepare($link, $sql)){
             mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_mail);
 
             $param_username = $username;
             $param_mail = $mail;
-            $param_password = password_hash($password, PASSWORD_DEFAULT);
+            $param_password = password_hash($password, PASSWORD_DEFAULT); /*Kryptere passord*/
 
             if(mysqli_stmt_execute($stmt)){
-                header("location: login.php");
+                header("location: login.php"); /*Sendes tilbake til innloggingssiden*/
             } else{
                 echo "Something went wrong. Please try again later.";
             }

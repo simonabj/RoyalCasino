@@ -70,7 +70,7 @@ if ($svar_sporring<1) {
     $tilkobling->query($sql); /*Oppdatere verdiene til databasen*/
 }
 
-header('Location: hub/index.php'); /*Ta deg videre til en indexen*/
+header('Location: ../hub/index.php'); /*Ta deg videre til en indexen*/
 ?>
 
 <!DOCTYPE html>

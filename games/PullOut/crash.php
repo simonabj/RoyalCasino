@@ -2,9 +2,9 @@
 /*Lage connection til databasen*/
 $tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr");
 session_start(); /*Starte session og hente lagrede variabler for å kommunisere med databasen*/
-require_once "../../config.php"; /*Sjekk på at man er innlogget, hvis ikke blir man redirectet til login siden*/
+require_once "../../0PHP/config.php"; /*Sjekk på at man er innlogget, hvis ikke blir man redirectet til login siden*/
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../../login.php");
+    header("location: ../../0PHP/login.php");
     exit;
 }
 $seBrukerID=$_SESSION["id"];

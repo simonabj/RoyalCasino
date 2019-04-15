@@ -51,19 +51,26 @@ if ($iPod) {
 
 $browser = $_SERVER['HTTP_USER_AGENT'];
 
-/*Lage en spørresetning for å legge til verdiene til databasen*/
-$sql = sprintf("INSERT INTO userLogin(IP, userLogged, countryConnection, regionConnection, cityConnection, device, browser) VALUES('%s','%s','%s','%s','%s','%s','%s')",
-        $tilkobling->real_escape_string($IP),
-        $tilkobling->real_escape_string($seUserID),
-        $tilkobling->real_escape_string($country),
-        $tilkobling->real_escape_string($region),
-        $tilkobling->real_escape_string($city),
-        $tilkobling->real_escape_string($deviceUsed),
-        $tilkobling->real_escape_string($browser)
-        );
-$tilkobling->query($sql); /*Oppdatere verdiene til databasen*/
+$sporring = "SELECT * FROM userLogin WHERE userLogged=$seUserID AND device LIKE '%$deviceUsed%' AND browser LIKE '%$browser%' AND IP LIKE '%$IP%'";
+$sporring2 = mysqli_query($tilkobling, $sporring);
+$svar_sporring=mysqli_num_rows($sporring2);
 
-header('Location: ../hub/index.php'); /*Ta deg videre til en indexen*/
+/*Hvis det ikke finnes en maken innlogging, legg til personen som logger inn her.*/
+if ($svar_sporring<1) {
+    /*Lage en spørresetning for å legge til verdiene til databasen*/
+    $sql = sprintf("INSERT INTO userLogin(IP, userLogged, countryConnection, regionConnection, cityConnection, device, browser) VALUES('%s','%s','%s','%s','%s','%s','%s')",
+            $tilkobling->real_escape_string($IP),
+            $tilkobling->real_escape_string($seUserID),
+            $tilkobling->real_escape_string($country),
+            $tilkobling->real_escape_string($region),
+            $tilkobling->real_escape_string($city),
+            $tilkobling->real_escape_string($deviceUsed),
+            $tilkobling->real_escape_string($browser)
+            );
+    $tilkobling->query($sql); /*Oppdatere verdiene til databasen*/
+}
+
+header('Location: hub/index.php'); /*Ta deg videre til en indexen*/
 ?>
 
 <!DOCTYPE html>

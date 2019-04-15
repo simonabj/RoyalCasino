@@ -1,11 +1,13 @@
 <?php
 session_start();
-require_once "config.php";
+require_once "config.php"; /*Connect til database*/
+
+/*Hvis man ikke er logget inn blir man sendt til innloggingssiden*/
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../hub/index.php");
+    header("location: login.php");
     exit;
 }
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr");
+$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Koble seg til databasen*/
 if (!$tilkobling->set_charset("utf8")) {
     printf("", $tilkobling->error);
 } else {
@@ -16,15 +18,6 @@ $seBrukerID = $_SESSION["id"];
 $sql3 = "SELECT * FROM users WHERE id=$seBrukerID";
 $datasett3 = mysqli_query($tilkobling, $sql3);
 $datasett22 = mysqli_query($tilkobling, $sql3);
-if(isset($_POST["submit"]))
-{
-    $sql = sprintf("UPDATE users SET theme='%s' WHERE id=%s",
-        $tilkobling->real_escape_string($_POST["txtOppdaternavn1"]),
-        $tilkobling->real_escape_string($seBrukerID)
-    );
-    $tilkobling->query($sql);
-    header('Location: settings.php');
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,7 +49,6 @@ if(isset($_POST["submit"]))
         <?php } ?>
         </tbody>
     </table>
-    <button id="submit" name="submit" value="Oppdater">Oppdater</button>
 </form>
 
 <h2 style="width:1000px; text-align: left;margin-left:auto;margin-right:auto;font-size:20px;color:#337ab7;">Profile Pictures</h2>

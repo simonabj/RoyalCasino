@@ -2,8 +2,6 @@ $(function () {
 
 
 
-    // ____________________________________ DISPLAYING GAMES ___________________________________
-
     let games = [
         {
             title: "roulette",
@@ -23,18 +21,30 @@ $(function () {
         {
             title: "DIO",
             image: "https://hugelolcdn.com/i/596578.jpg",
-            href: "https://hugelol.com"
+            href: "https://hugelol.com",
+        },
+        {
+            title: "Royale Bros",
+            image: "https://bonusstagemagazine.files.wordpress.com/2015/09/anime-mario-portada2.png",
+            href: "reddit.com",
+        },
+        {
+            title: "The Link to the Rich",
+            image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",
+            href: "vg.no",
         },
 
     ];
 
 
-    //IMPORTANT - comment
+
+    // ____________________________________ DISPLAYING GAMES ___________________________________
     /**
-     *
-     * @param object
+     * method createGameBox(object) creates and returns a HTML element containing an image, title and link from given object.
+     * @param object {Object} - The object of which to fetch the image url, title and link.
+     * @returns {HTMLElement} - The HTML element generated.
      */
-    function addGameBox(object) {
+    function createGameBox(object) {
 
         // CREATING THE CONTAINER FOR THE GAME
         let container = document.createElement("div");
@@ -63,6 +73,18 @@ $(function () {
         buttonText.innerHTML = " PLAY NOW ";
         button.appendChild(buttonText);
 
+        // ADDING EVENT LISTENERS ON THE BUTTON ELEMENT
+        $(button).on({
+            // BLURS THE GAME IMAGE ON HOVer
+            mouseenter: function () {
+                image.style.filter = "blur(5px)"
+            },
+            // DE-BLURS THE GAME IMAGE WHEN NO LONGER HOVERING
+            mouseleave: function () {
+                image.style.filter = "";
+            },
+        });
+
         //APPENDING THE IMAGE AND IT'S TITLE TO THEIR CONTAINER
         imageContainer.appendChild(image);
         imageContainer.appendChild(imageTitleContainer);
@@ -77,72 +99,85 @@ $(function () {
 
 
 
+    /*
+    - STRUCTURE:
+    <div class="hubGame_container">
+        <div class="hubGame_imageContainer">
+            <div class="hubGame_image" style="background-image: url(' [IMAGE URL] ')"></div>
+            <div class="hubGame_imageTitleContainer">
+                <h1> [TITLE] </h1>
+            </div>
+        </div>
+        <button> <h2> PLAY NOW </h2> </button>
+    </div>
+    */
+
+
+    /**
+     * method addAllGameBoxes(container, array) creates a HTML element for each object of given array, using method createGameBox, and appends each element to the given container.
+     * @param container {HTMLElement} - The container in which to append the created HTML elements.
+     * @param array {Array} - The array from where to fetch the values used for creating the elements with method createGameBox. Should contain "title", "image" and "href".
+     */
     function addAllGameBoxes(container, array) {
         //kan alternativt velge hvor mange kolonner en skal generere, men det er mer naturlig å bare bruke max-width på container.
         for (let i = 0; i < array.length; i++) {
             if (array[i] === undefined) break;
-            let gameContainer = addGameBox(games[i]);
+            let gameContainer = createGameBox(games[i]);
             container.appendChild(gameContainer);
         }
     }
 
 
+
+    // Creates and appends all game-boxes into the div with id "gamesContainer".
     addAllGameBoxes($("#gamesContainer")[0], games);
 
 
-    /*
-    STRUCTURE:
-    <div class="hubGame_container">
-            <div class="hubGame_imageContainer">
-                <div class="hubGame_image" style="background-image: url(' [bilde] ')"></div>
-                <div class="hubGame_imageTitleContainer">
-                    <h1> [title] </h1>
-                </div>
-            </div>
-            <button> <h2> PLAY NOW </h2> </button>
-        </div>
-     */
 
+    // _____________________________________ SCROLLING ______________________________________
 
-
-    // _____________________________________ SCROLLING MINIMIZES HEADER _________________________________
-
-
-    // When the user scrolls down 50px from the top of the document, resize the header's font size
-    // alternative - ha en vanlig square header, men når bruker scroller ned, bytt class til bookmarkesque triangle header & make small.
-    let header = document.querySelector("header");
-    let div = header.getElementsByClassName("titleDiv")[0];
-    let symbol = header.querySelector("span");
     let headerTransitionDuration = 0.25;
+    let header = document.querySelector("header");
+    let div = document.getElementsByClassName("titleDiv")[0];
+    let symbol = document.getElementById("headerSymbol");
     header.style.transitionDuration = headerTransitionDuration + "s";
     div.style.transitionDuration = headerTransitionDuration + "s";
     symbol.style.transitionDuration = headerTransitionDuration + 0.2 + "s";
-    document.getElementById("footer").style.opacity = 0;
     let headerToggled = false;
-
-    let framedTextBox = document.getElementById("framedTextBox");
+    let shrinkOn = 25;
 
     let footer = document.getElementById("footer");
     let footerToggled = false;
+    footer.style.opacity = 0;
 
-    let shrinkOn = 25;
-    /**
-     * The following geventlistener animates the <header> tag when the page has been scrolled down to below "shrinkOn" pixels.
-     */
+    let textBox1 = document.getElementById("framedTextBox");
+
+
+
+    // SCROLLING
     window.onscroll = function () {
+
+        /** distanceY is the distance in pixels scrolled from the top of the document. */
         let distanceY = window.pageYOffset || document.documentElement.scrollTop;
 
+        //HEADER
+        /** If scrolled distance is larger than shrinkOn, styles the header to minimize it, else, styles the header back to initial values. */
+        // CLOSING HEADER
         if (distanceY > shrinkOn && headerToggled === false) {
+            $("#toolbarTooltip").hide();
             headerToggled = true;
-            symbol.classList.add("spin");
             header.style.fontSize = "10px";
-            symbol.style.width = 0;
-            symbol.style.height = 0;
-            symbol.style.borderWidth = 0;
-            symbol.style.opacity = 0;
+            div.style.fontSize = "10px";
+
+            closeToolbar("no animation");
+
+            symbol.classList.add("symbolHideAnimation");
+            //symbol.style.borderWidth = 0;
+
 
             setTimeout(function () {
-                document.getElementById("gamesContainer").scrollIntoView({block: "center", behavior: "smooth"});
+                symbol.style.opacity = 0;
+                //document.getElementById("gamesContainer").scrollIntoView({block: "center", behavior: "smooth"});
                 header.style.clipPath = "polygon(0 0, 100% 0, 50vw 35%, 0 calc(50% - 50%))";
                 header.style.padding = 0;
                 header.style.height = "50px";
@@ -151,45 +186,176 @@ $(function () {
                 div.classList.add("shape-bat-top");
             }, 250);
 
+            // OPENING HEADER
         } else if (distanceY < shrinkOn && headerToggled) {
             headerToggled = false;
-            symbol.classList.remove("spin");
             header.style.clipPath = "polygon(0 0, 100% 0, 50vw 100%, 0 calc(50% - 50%))";
             header.style.padding = "initial";
             header.style.height = "initial";
             div.style.height = "initial";
             div.classList.remove("shape-bat-top");
             div.classList.add("shape-bat");
-
             setTimeout(function () {
+                symbol.style.opacity = 1;
+                symbol.classList.add("symbolShowAnimation");
                 div.style.position = "fixed";
                 div.style.top = "10px";
-
+                //symbol.style.borderWidth = "50px";
+                div.style.fontSize = "initial";
                 header.style.fontSize = "initial";
-                symbol.style.width = 0;
-                symbol.style.height = 0;
-                symbol.style.borderWidth = "50px";
-                symbol.style.opacity = 1;
             }, 200);
         }
 
 
-        // __ FOOTER __
+        // FOOTER
+        /** If bottom of page reached, footer opacity is set to 1, else, footer opacity is set to 0. */
         if (footerToggled === false && document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
             footer.style.opacity = 1;
             footerToggled = true;
-
         } else if (footerToggled) {
             footer.style.opacity = 0;
             footerToggled = false;
         }
 
-
-        //__INFO TEXT-BOX__
-        (distanceY > framedTextBox.getBoundingClientRect().top + framedTextBox.getBoundingClientRect().height) ? framedTextBox.classList.remove("leanUpPermaMild") : framedTextBox.classList.add("leanUpPermaMild");
-
-
+        //TEXT BOX
+        /** If textBox1 reached, remove the class "leanUpPermaMild", else, add class "leanUpPermaMild". */
+        (distanceY > textBox1.getBoundingClientRect().top + 1250/*textBox1.getBoundingClientRect().height*/) ? textBox1.classList.remove("leanUpPermaMild") : textBox1.classList.add("leanUpPermaMild");
     };
+
+
+
+    // _______________ TOOLBAR ___________________
+
+
+
+    let toolbarLeft = document.getElementById("toolbarLeft");
+    let toolbarRight = document.getElementById("toolbarRight");
+    toolbarLeft.justifyContent = "space-around";
+    toolbarRight.justifyContent = "space-around";
+    let toolbarItem = $(".toolbarItem");
+    let openedClipPath = "polygon(100% 0%, 85% 50%, 100% 100%, 25% 75%, 15% 50%, 25% 25%)";
+    let closingClipPath = "polygon(50% 0%, 30% 50%, 50% 100%, 25% 75%, 15% 50%, 25% 25%)";
+    let closedClipPath = "polygon(25% 4.5%, 15% 50%, 25% 95.5%, 20.5% 75%, 15% 50%, 20.5% 25%)";
+    let isToolbarOpen = false;
+
+
+
+    /**
+     * method closeToolbar plays appropriate animation and hides the toolbar.
+     */
+    function closeToolbar() {
+        isToolbarOpen = false;
+        toolbarLeft.style.right = "33%";
+        toolbarRight.style.left = "33%";
+        toolbarItem[0].style.transitionDuration = "0.30s";
+        toolbarItem[1].style.transitionDuration = "0.30s";
+        toolbarItem[0].style.transitionTimingFunction = "linear";
+        toolbarItem[1].style.transitionTimingFunction = "linear";
+        toolbarItem[0].style.clipPath = closedClipPath;
+        toolbarItem[1].style.clipPath = closedClipPath;
+        $("#logoutButton").hide();
+    }
+
+
+
+    /**
+     * method openToolbar plays appropriate animation and shows the toolbar.
+     */
+    function openToolbar() {
+        isToolbarOpen = true;
+        toolbarLeft.style.right = "55%";
+        toolbarRight.style.left = "55%";
+        toolbarItem[0].style.transitionDuration = "0.350s";
+        toolbarItem[1].style.transitionDuration = "0.350s";
+        toolbarItem[0].style.clipPath = openedClipPath;
+        toolbarItem[1].style.clipPath = openedClipPath;
+        toolbarLeft.style.opacity = 1;
+        toolbarRight.style.opacity = 1;
+    }
+
+
+
+    closeToolbar();
+
+
+
+    /**
+     * method toolbarToggle opens the toolbar if it's closed, and vice-versa.
+     */
+    function toolbarToggle(animation) {
+
+        if (!isToolbarOpen) {
+
+            symbol.classList.remove("toolbarCloseAnimation");
+            symbol.classList.remove("toolbarOpenAnimation");
+            openToolbar();
+            if (animation !== "no animation") symbol.classList.add("toolbarOpenAnimation");
+            isToolbarOpen = true;
+
+        } else {
+
+            symbol.classList.remove("toolbarOpenAnimation");
+            symbol.classList.remove("toolbarCloseAnimation");
+            if (animation !== "no animation") symbol.classList.add("toolbarCloseAnimation");
+            setTimeout(function () {
+                closeToolbar();
+                isToolbarOpen = false;
+            }, 200);
+        }
+    }
+
+
+
+    // RUNS FUNCTION toolbarToggle() WHEN THE HEADER IS CLICKED.
+    document.getElementById("headerSymbol").onclick = function () {toolbarToggle(); $("#toolbarTooltip").hide()};
+
+    symbol.addEventListener("animationend", function() {
+        symbol.classList.remove("toolbarOpenAnimation");
+        symbol.classList.remove("toolbarCloseAnimation");
+        symbol.classList.remove("symbolShowAnimation");
+        symbol.classList.remove("symbolHideAnimation");
+    });
+
+
+
+
+    let isLogoutHover = false;
+    $("#logoutButton").on({
+        click: function(){
+            window.location.href="../logout.php";
+        },
+        mouseenter: function(){
+            isLogoutHover = true;
+        },
+        mouseleave: function(){
+            isLogoutHover = false;
+            $("#logoutButton").hide();
+        }
+    });
+
+    let isProfileHover = false;
+    $("#profileSettings").on({
+        click: function(){
+            window.location.href="https://visitjulian.com";
+        },
+        mouseenter: function(){
+            isProfileHover = true;
+            $("#logoutButton").show();
+        },
+        mouseleave: function(){
+            isProfileHover = false;
+            setTimeout(function(){
+                if(!isLogoutHover && !isProfileHover){
+                    $("#logoutButton").hide();
+                }
+            }, 400);
+        }
+    })
+
+
+
+
+
 
 
 

@@ -1,10 +1,14 @@
+/* NOTE: Veldig dokument-spesifikke forandringer er på bunnen av siden. */
+
+
+
 /* _________________ variables _________________ */
 :root {
     /* COLOR PALETTE  */
     --primary             : #470F79;
     --primaryVariant      : #451469;
     --secondary           : #F8A917;
-    --secondaryVariant    : #E0D273;
+    --secondaryVariant    : #FFDF00;
     --background          : #2B2B2B;
     --backgroundSecondary : #393939;
     --surface             : #F5F1ED;
@@ -95,7 +99,6 @@ div {
     }
 
 div > p, div > h1, div > h2, div > h3, div > h4, div > h5, div > label, div > output {
-    color : var(--onPrimary);
     /*cursor: url("Resources/etc/cursors/Mario_Gant/Text_Select.cur"), text*/
     }
 
@@ -103,48 +106,6 @@ div > p, div > h1, div > h2, div > h3, div > h4, div > h5, div > label, div > ou
 /*.container > p, .container > h1, .container > h2, .container > h3, .container > h4, .container > h5, .container > label, .container > output { color: var(--onBackground) ! i m p o r t a n t; }*/
 
 
-header {
-    background-image   : linear-gradient(var(--primary), var(--primaryVariant));
-    display            : flex;
-    flex-direction     : column;
-    flex-grow          : 1;
-    width              : 100vw;
-    justify-content    : center;
-    min-height         : 290px;
-    align-items        : center;
-    margin             : 0 0 20px 0;
-    padding            : 20px 0 40px 0;
-    box-shadow         : 0 10px 15px var(--shadowColor);
-    -webkit-box-shadow : 0 10px 15px var(--shadowColor);
-    clip-path          : polygon(0 0, 100% 0, 50vw 100%, 0 calc(50% - 50%));
-    /* change the calc height to a percentage height to get alternate responsive behavior */
-    }
-
-header h1, header h2, header h3 {
-    font-size   : 2.5em;
-    color       : var(--onPrimary);
-    margin      : 10px auto; /*top&bunn=10px, left&right=auto*/
-    font-family : "Lucida Sans Unicode", Arial, sans-serif;
-    }
-
-header img { max-height : 100% !important; /* for å ikke exceede parent element */ }
-
-header .div {
-    position              : fixed;
-    top                   : 35px;
-    padding               : 15px 40px 15px 40px;
-    min-width             : 200px;
-    min-height            : 100px;
-    -webkit-border-radius : 50px;
-    -moz-border-radius    : 50px;
-    background-color      : var(--secondary);
-    /*background-image: linear-gradient(-120deg, var(--primaryVariant), var(--secondary) 75%);
-    */}
-
-header .titleDiv {
-    background-image : linear-gradient(-180deg, var(--secondaryVariant), var(--secondary) 25%);
-    padding          : 30px 50px 30px 50px;
-    }
 
 #tableOfContents {
     margin  : 15px 0 15px 0;
@@ -533,10 +494,6 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
-/* __________________________ DOC CLASSES ___________________________ */
-
-
-
 /* __________ < COLOURS > __________ */
 .primary { background-color : var(--primary); color : var(--onPrimary)}
 
@@ -555,44 +512,119 @@ input[type=range]::-webkit-slider-thumb:hover {
 .secondaryVariant > p, .secondaryVariant > h1, .secondaryVariant > h2, .secondaryVariant > h3, .secondaryVariant > h4, .secondaryVariant > h5 { color : var(--onSecondary) !important; }
 
 
+/* __________________________ DOC ___________________________ */
 
-.spin {
-    animation : spin 0.3s linear;
+#headerSpan {
+    position : fixed;
+    top      : 0;
+    z-index  : 2;
     }
 
-@keyframes spin {
-    from {transform : rotateY(0deg) scale(1)}
-    to {transform : rotateY(180deg) scale(2)}
+header {
+    background-image   : linear-gradient(var(--primary), var(--primaryVariant));
+    display            : flex;
+    flex-direction     : column;
+    flex-grow          : 1;
+    width              : 100vw;
+    justify-content    : center;
+    min-height         : 290px;
+    align-items        : center;
+    margin             : 0 0 20px 0;
+    padding            : 20px 0 40px 0;
+    box-shadow         : 0 10px 15px var(--shadowColor);
+    -webkit-box-shadow : 0 10px 15px var(--shadowColor);
+    clip-path          : polygon(0 0, 100% 0, 50vw 100%, 0 calc(50% - 50%));
+    /* change the calc height to a percentage height to get alternate responsive behavior */
+    }
+
+header h1, header h2, header h3 {
+    font-size   : 2.5em;
+    color       : var(--onPrimary);
+    margin      : 10px auto; /*top&bunn=10px, left&right=auto*/
+    font-family : "Lucida Sans Unicode", Arial, sans-serif;
+    }
+
+header img { max-height : 100% !important; /* for å ikke exceede parent element */ }
+
+.titleDiv {
+    position              : fixed;
+    top                   : 35px;
+    min-width             : 200px;
+    min-height            : 100px;
+    -webkit-border-radius : 50px;
+    -moz-border-radius    : 50px;
+    background-color      : var(--secondary);
+    background-image      : linear-gradient(-180deg, var(--secondaryVariant), var(--secondary) 25%);
+    padding               : 30px 50px 30px 50px;
+    z-index               : 12;
+    }
+
+.titleDiv h1 {
+    white-space : nowrap;
     }
 
 
-.bordershape-diamond {
-    transition-duration : 0.05s;
+
+.clipPathShadow {
+    filter : drop-shadow(0px 10px 5px darkred /*rgba(0,0,0,0.5)*/);
     }
 
-/*.bordershape-diamond:hover {
-    border-width : 25px;
-    transform    : scale(1.05);
+
+
+#headerSymbol {
+    height              : 100px;
+    width               : 100px;
+    position            : fixed;
+    justify-self        : center;
+    z-index             : 10;
+    border-bottom-color : var(--secondary);
+    display             : flex;
+    top                 : 160px;
+    cursor              : pointer;
     }
 
-.bordershape-diamond:active {
-    border-width : 0;
-    transform    : scale(1.15);
-    }
-*/
-.animation-bordershape-diamond {
-    animation : borderShapeDiamondAnimation 0.5s linear;
+#headerSymbol:hover {
+    filter : brightness(125%);
     }
 
-@keyframes borderShapeDiamondAnimation {
-    from {
+.symbolHideAnimation {
+    animation : spinBehindTitle 0.45s ease-in;
+    }
+
+.symbolShowAnimation {
+    animation : spinBehindTitle 0.65s reverse cubic-bezier(.35, -0.52, .73, .09);
+    }
+
+@keyframes spinBehindTitle {
+    0% {
+        transform : rotate(0) scale(1);
+        z-index   : 10;
+        opacity   : 1;
         }
-    to {
-        transform : rotateY(180deg) translate(0, 100px);
+    99% {
+        transform : rotate(270deg) scale(0.5);
+        top       : -15px;
+        z-index   : 10;
+        opacity   : 1;
+        }
+    100% {
+        top     : -15px;
+        z-index : -10;
+        opacity : 0;
         }
     }
 
 
+#toolbarTooltip {
+    position : fixed;
+    top      : 160px;
+    left     : 57%;
+    z-index  : 13;
+    }
+
+:root {
+    --speechBubbleColor : var(--secondaryVariant);
+    }
 
 
 
@@ -607,6 +639,8 @@ input[type=range]::-webkit-slider-thumb:hover {
     justify-content   : space-evenly;
     align-content     : space-around;
     }
+
+
 
 .hubGame_container {
     flex-direction      : column;
@@ -688,7 +722,6 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 #footer {
-    justify-content     : end;
     width               : 100vw;
     min-height          : 50px;
     margin              : 15px 0 0 0;
@@ -701,35 +734,110 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
+.toolbar {
+
+    margin                     : 0;
+    background-color           : transparent;
+    box-shadow                 : none;
+    position                   : fixed;
+    z-index                    : 5;
+    top                        : 162px;
+    opacity                    : 1;
+    flex-direction             : row;
+    justify-content            : center;
+    transition-duration        : 0.75s;
+    padding                    : 0;
+    transition-timing-function : cubic-bezier(.18, .89, .47, 1.39);
+    }
+
+
+/* mirrors the right-side toolbar so that the clip-path is pointed in the right direction, and mirrors the content so that it's rotated in the normal direction. */
+#toolbarRight .toolbarItem { transform : rotateY(180deg); }
+
+#toolbarRight .toolbarItem * { transform : rotateY(180deg); }
+
+
+.toolbarItem {
+    flex-direction      : row;
+    height              : 92px;
+    width               : 260px;
+    margin              : 5px;
+    clip-path           : polygon(100% 0%, 85% 50%, 100% 100%, 25% 75%, 15% 50%, 25% 25%);
+    padding             : 30px 60px;
+    background-color    : var(--secondary);
+    color               : var(--onSecondary);
+    border-radius       : 0;
+    user-select         : none; /* supported by Chrome and Opera */
+    -webkit-user-select : none; /* Safari */
+    -khtml-user-select  : none; /* Konqueror HTML */
+    -moz-user-select    : none; /* Firefox */
+    -ms-user-select     : none; /* Internet Explorer/Edge */
+    font-size           : 12pt;
+    }
+
+#toolbarLeft .toolbarItem {
+
+    }
+
+#toolbarRight .toolbarItem {
+    cursor : pointer;
+
+#toolbarRight *:hover {
+    }
+
+font-size:
+
+16
+pt
+
+;
+    }
+
+
+.toolbarOpenAnimation {
+    animation : ease-in-out toolbarOpenAnimation 0.75s;
+    }
+
+.toolbarCloseAnimation {
+    animation : ease-in-out toolbarCloseAnimation 0.75s;
+    }
+
+@keyframes toolbarOpenAnimation {
+    0% {
+        transform : rotateY(0deg) scale(1);
+        }
+    50% {
+        transform : rotate(180deg) scale(0.8);
+        top       : 248px;
+        }
+    100% {
+        transform : rotate(360deg) scale(1);
+        }
+    }
+
+@keyframes toolbarCloseAnimation {
+    50% {
+        transform : rotateY(180deg) scale(1.25);
+        top       : 155px;
+        }
+    75% {
+        transform : rotateY(180deg) scale(1.25);
+        top       : 155px;
+        }
+    }
 
 
 
+#logoutButton {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    display          : none;
+    background-color : red;
+    color            : white;
+    padding          : 6px 12px;
+    border-radius    : 2px;
+    z-index          : 15;
+    cursor           : pointer;
+    }
 
 
 

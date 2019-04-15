@@ -1,5 +1,3 @@
-
-
 //_______________________________________ ETC ____________________________
 /** Settes til "true" om gjeldende nettleser er Google Chrome */
 var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
@@ -35,12 +33,15 @@ window.addEventListener("keyup", function (event) {
     keysCS[event.key] = false;
 });
 
+
+
 function keys_preventCombinations(event) {
     /*if (keys.control) {
         event.preventDefault(event);
         console.log("prevented ctrl");
     }*/
 }
+
 
 
 // ______________________________________ PROTOTYPES _________________________
@@ -59,7 +60,6 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function () { this
 
 
 
-
 //_______________________________________ GENERAL ____________________________
 
 /**
@@ -73,6 +73,7 @@ function getPos(elementId) {
     posY = rect.top;
     return [rect.left, rect.top];
 }
+
 
 
 /**
@@ -213,9 +214,6 @@ function animTiming(elem_or_id_or_return, animTimingType) {
         }
     }
 }
-
-
-
 
 
 
@@ -370,6 +368,15 @@ function getSelected(selectId) {
     console.log(value);
     return value;
 }
+
+
+
+function removeClassOnAnimationEnd(element, className) {
+    element.addEventListener("animationend", function () {element.classList.remove(className);});
+}
+
+
+
 
 
 

@@ -12,8 +12,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <html>
 <head>
     <meta charset="UTF-8">
-    <title> Casino Royale Hub </title>
-    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/interface-part-1/32/html-code-512.png">
+    <title> Casino Royale - Hub </title>
+    <link rel="icon" href="../resources/redChip.png">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -40,14 +40,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <span id="headerSpan" class="clipPathShadow">
     <header style="position: fixed; z-index: 5;" class="clipPathShadow">
-        <div class="column container div">
-
-            <!-- alternative: when scrolling, turns into a triangle pointing up. clicking it returns the user to the top of the page. -->
-            <!-- TODO: når diamond vises, kan den trykkes på (scale(1.1) on hover & 1.2@click). Da skyter toolbar menyen ut fra begge sider av den.
-                    To tabs til venstre, og to til høyre, og når man scroller dem vekk eller trykker på diamanten igjen så glir de tilbake inn i diamanten og skjules,
-                    og diamanten spiller av en liten animasjon mens den mottar tabs'ene, satisfying qubic-bezier rotateX/Y spin(ning til de er inne).-->
-        </div>
-
+        <div class="column container div clipPathShadow"></div>
     </header>
 </span>
 
@@ -68,11 +61,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <div id="documentWrapper" class="container column" style="margin-top: 325px">
     <!-- <span id="headerSymbol" class="bordershape-diamond"></span> -->
-
     <!-- HEADER ELEMENTS -->
     <img id="headerSymbol" src="../resources/redChip.png">
     <div id="toolbarTooltip" class="speech-bubble"> <p>Click me to show the toolbar</p> </div>
-
 
     <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">
         <h1>

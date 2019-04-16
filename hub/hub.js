@@ -83,7 +83,7 @@ $(function () {
                 // BLURS EACH GAME BOX THAT ISNT THIS ONE
                 for (let i = 0; i < gameBoxes.length; i++) {
                     if(gameBoxes[i] !== container){
-                        gameBoxes[i].querySelector(".hubGame_image").style.filter = "blur(3px)";
+                        gameBoxes[i].querySelector(".hubGame_image").style.filter = "blur(4px)";
                     }
                 }
 
@@ -203,7 +203,7 @@ $(function () {
             div.style.fontSize = "10px";
 
             closeToolbar("no animation");
-            symbol.style.top = "160px";
+            //symbol.style.top = "160px";
             symbol.classList.add("symbolHideAnimation");
 
             setTimeout(function () {
@@ -230,8 +230,8 @@ $(function () {
             div.style.height = "initial";
             div.classList.remove("shape-bat-top");
             div.classList.add("shape-bat");
-            symbol.style.top = "40px";
-            symbol.style.transform = "scale(0.2)";
+            //symbol.style.top = "40px";
+            //symbol.style.transform = "scale(0.2)";
 
             setTimeout(function () {
                 symbol.style.opacity = 1;
@@ -243,7 +243,7 @@ $(function () {
                 setTimeout(function(){
                     symbol.style.top = "160px";
                     symbol.style.transform = "";
-                }, 400)
+                }, 200)
             }, 200);
 
         }

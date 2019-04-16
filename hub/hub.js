@@ -322,7 +322,7 @@ $(function () {
     let isLogoutHover = false;
     $("#logoutButton").on({
         click: function(){
-            window.location.href="../logout.php";
+            window.location.href="../0PHP/logout.php";
         },
         mouseenter: function(){
             isLogoutHover = true;

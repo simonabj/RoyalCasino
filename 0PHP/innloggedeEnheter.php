@@ -32,8 +32,8 @@ $datasett = $tilkobling->query($sql); /*Utføring av spørringen*/
 <head>
     <meta charset="UTF-8">
     <title>Casino Royale | Logged Devices</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> <!-- CSS -->
-    <link href="stilark.css" rel="stylesheet" type="text/css"> <!-- CSS Stilark -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> <!-- CSS Eksternt -->
+    <link href="stilark.css" rel="stylesheet" type="text/css"> <!-- CSS Lokalt Stilark -->
     <style>
         body{
             font: 14px sans-serif;

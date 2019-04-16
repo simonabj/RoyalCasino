@@ -280,8 +280,6 @@ $(function () {
     let closedClipPath = "polygon(25% 4.5%, 15% 50%, 25% 95.5%, 20.5% 75%, 15% 50%, 20.5% 25%)";
     let isToolbarOpen = false;
 
-
-
     /**
      * method closeToolbar plays appropriate animation and hides the toolbar.
      */
@@ -364,7 +362,7 @@ $(function () {
     let isLogoutHover = false;
     $("#logoutButton").on({
         click: function(){
-            window.location.href="../logout.php";
+            window.location.href="/0PHP/logout.php";
         },
         mouseenter: function(){
             isLogoutHover = true;
@@ -393,12 +391,6 @@ $(function () {
             }, 400);
         }
     })
-
-
-
-
-
-
 
 
 });

@@ -1,0 +1,208 @@
+body {
+    margin:0;
+    background-color: #001f3f;
+    text-align: center;
+}
+
+#rate, #filmerRateLog, #log4, #ipForUser, #innstillinger, .innstilling {
+  margin-left: auto;
+  margin-right: auto;
+  font-size:20px;
+  font-family: Verdana;
+}
+#filmerRateLog, #log4, #ipForUser, #innstillinger, .innstilling {
+    margin-bottom: 75px;
+}
+#ipForUser tr:nth-child(even), #filmerRateLog tr:nth-child(even), #log4 tr:nth-child(even) {
+  background-color: #5f6268;
+  color: black;
+}
+#ipForUser tr:nth-child(odd), #filmerRateLog tr:nth-child(odd), #log4 tr:nth-child(odd) {
+  background-color: #b5bdbf;
+  color: black;
+}
+
+#rate th, #filmerRateLog th, #log4 th, #ipForUser th {
+    background-color:#259BDF;
+    text-align: center;
+    color: black;
+    font-size:30px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+}
+
+#submit {
+  user-select: none;
+  background-image: none;
+  background: linear-gradient(to bottom, #4267b2 5%, #4267b2 100%);
+  background-color: #4267b2;
+  border-radius: 28px;
+  display: inline-block;
+  cursor: pointer;
+  font-family: Arial;
+  font-size: 28px;
+  padding: 5px 15px;
+  text-decoration: none;
+  text-shadow: 0px 2px 0px #4286f4;
+  outline: none;
+  margin-bottom: 0;
+  margin-top: 10px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  color: black;
+}
+#submit:hover {
+  background:linear-gradient(to bottom, #29487d 5%, #29487d 100%);
+  background-color:#4267b2;
+}
+#submit:active {
+  position:relative;
+  top:1px;
+}
+
+#txtEn {
+    width: 80%;
+    font-weight: bold;
+    height:72px;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+#avatarVelg, #showSettings, #showIP {
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  color: #fff;
+  background-color: skyblue;
+  border-color: black;
+  color: black;
+  font-weight: bold;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  margin-left:auto;
+  margin-right:auto;
+}
+.custom-select select {
+  display: none;
+}
+.select-selected {
+  background-color: DodgerBlue;
+}
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+.select-hide {
+  display: none;
+}
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #b3b7bc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #2196F3;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+#showIP, #endrePassord, #standardProfile {
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-weight: bold;
+  background-color: DodgerBlue;
+  font-family: Arial;
+  font-size: 20px;
+  border-spacing: 0;
+  border-radius:0;
+  width:200px;
+}
+#innstillinger, .innstilling {
+  text-align:center;
+  background-color:white;
+  width:1000px;
+  margin-bottom: 10px;
+  font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;
+  border: 1px solid black;
+}
+#innstillinger th, .innstilling th {
+  background-color: #c4c8ce;
+}

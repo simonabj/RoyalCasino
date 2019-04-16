@@ -9,13 +9,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Database connection*/
-
 /*Sett datatype til UTF8 for å kunne bruke Æ, Ø og Å*/
-if (!$tilkobling->set_charset("utf8")) {
-    printf("", $tilkobling->error);
+if (!$link->set_charset("utf8")) {
+    printf($link->error, "");
 } else {
-    printf("", $tilkobling->character_set_name());
+    printf($link->character_set_name(), "");
 }
 
 /*Hente ut SESSION variablene*/
@@ -24,10 +22,10 @@ $seBrukerID = $_SESSION["id"];
 
 /*Spørresetning for å oppdatere databasen*/
 $sql = sprintf("UPDATE users SET theme='%s' WHERE id=%s",
-    $tilkobling->real_escape_string($_GET["theme"]),
-    $tilkobling->real_escape_string($seBrukerID)
+    $link->real_escape_string($_GET["theme"]),
+    $link->real_escape_string($seBrukerID)
 );
-$tilkobling->query($sql); /*Kjøre spørringen til databasen og oppdatere den*/
+$link->query($sql); /*Kjøre spørringen til databasen og oppdatere den*/
 ?>
 <!DOCTYPE html>
 <html>

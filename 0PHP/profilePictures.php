@@ -9,32 +9,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Tilkobling til databasen*/
-
-/*Sette typen til UTF8 for å kunne bruke Æ, Ø, Å*/
-if (!$tilkobling->set_charset("utf8")) {
-    printf("", $tilkobling->error);
-} else {
-    printf("", $tilkobling->character_set_name());
-}
-
 /*Definere session variabler*/
 $seUser = $_SESSION["username"];
 $seBrukerID = $_SESSION["id"];
 
 /*Lage en spørresetning for informasjonen som skal vises på siden og lage datasett som kan vise det til brukeren*/
 $sql = "SELECT * FROM users WHERE id=$seBrukerID";
-$datasett = $tilkobling -> query($sql);
-$datasett2 = $tilkobling -> query($sql);
+$datasett = $link -> query($sql);
+$datasett2 = $link -> query($sql);
 
 /*Når man klikker på oppdater profilbilde vil profilbildet endres der bruker ID'en er lik brukeren som browser*/
 if(isset($_POST["submit"]))
 {
     $sql2 = sprintf("UPDATE users SET profilePicture='%s' WHERE id=%s",
-        $tilkobling->real_escape_string($_POST["valgtProfilbilde"]),
-        $tilkobling->real_escape_string($seBrukerID)
+        $link->real_escape_string($_POST["valgtProfilbilde"]),
+        $link->real_escape_string($seBrukerID)
     );
-    $tilkobling->query($sql2);
+    $link->query($sql2);
     header('Location: settings.php'); /*Når alt er ferdig kjørt tas du tilbake til samme side*/
 }
 ?>

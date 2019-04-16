@@ -23,19 +23,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     <link href="hub.css" rel="stylesheet">
     <script src="hub.js"></script>
-
-    <script src="../0JS/RoyaleSubsystem.js"></script>
+    <script src="/0JS/RoyaleSubsystem.js"></script>
 </head>
 <body>
-<!-- INIT SUBSYSTEM -->
-<script>
-    let userName = "<?php echo $_SESSION["username"]?>";
-    let userMail = "<?php echo $_SESSION["mail"] ?>";
-    let isLoggedIn = "<?php echo $_SESSION["loggedin"]?>";
-    let user = new User(userName, userMail, isLoggedIn);
-    window.onload = () => sessionStorage.setItem("user", user);
-</script>
-
 
 <span id="headerSpan" class="clipPathShadow">
     <header style="position: fixed; z-index: 5;" class="clipPathShadow">
@@ -52,7 +42,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <div id="toolbarLeft" class="toolbar">
     <div class="toolbarItem">
-        <p id="tokenCount">Tokens: 54</p>
+        <p>Tokens: <span id="tokenCount">0</span></p>
+        <script>
+            document.getElementById("tokenCount").innerText = getUser().tokenManager.getCount();
+        </script>
         <button onclick="purchaseTokens()" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
         <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
     </div>

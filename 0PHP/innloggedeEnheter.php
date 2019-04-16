@@ -9,13 +9,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Tilkobling til databasen*/
-
 /*Settes til utf8*/
-if (!$tilkobling->set_charset("utf8")) {
-    printf("", $tilkobling->error);
+if (!$link->set_charset("utf8")) {
+    printf($link->error, "");
 } else {
-    printf("", $tilkobling->character_set_name());
+    printf($link->character_set_name(), "");
 }
 
 /*Definering av session variabler*/
@@ -24,7 +22,7 @@ $seBrukerID = $_SESSION["id"];
 
 /*Lage en spørresetning som brukes til å vise informasjon senere og definering av et datasett som vises for brukeren.*/
 $sql = "SELECT * FROM userLogin WHERE userLogged=$seBrukerID ORDER BY Time";
-$datasett = $tilkobling->query($sql); /*Utføring av spørringen*/
+$datasett = $link->query($sql); /*Utføring av spørringen*/
 ?>
 
 <!DOCTYPE html>

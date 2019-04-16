@@ -98,7 +98,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(mysqli_stmt_execute($stmt)){
                 header("location: login.php"); /*Sendes tilbake til innloggingssiden*/
             } else{
-                echo "Something went wrong. Please try again later.";
+                echo "Something went wrong. Please try again later."; /*Melding om at noe gikk galt i registreringsprosessen*/
             }
 
         }

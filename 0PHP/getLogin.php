@@ -5,9 +5,9 @@ require_once "config.php"; /*Hente konfigurasjonsbitene*/
 
 /*Dobbeltsjekke og mulig endre filtypen til utf8*/
 if (!$link->set_charset("utf8")) {
-    printf($link->error, "");
+    printf("", $link->error);
 } else {
-    printf($link->character_set_name(), "");
+    printf("", $link->character_set_name());
 }
 
 /*Definere hvilken bruker som logger inn og iden, også IP'en*/

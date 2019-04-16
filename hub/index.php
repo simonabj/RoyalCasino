@@ -23,17 +23,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     <link href="hub.css" rel="stylesheet">
     <script src="hub.js"></script>
+
+    <script src="../0JS/RoyaleSubsystem.js"></script>
 </head>
 <body>
-<script src="../0JS/RoyaleSubsystem.js"></script>
-
 <!-- INIT SUBSYSTEM -->
 <script>
     let userName = "<?php echo $_SESSION["username"]?>";
     let userMail = "<?php echo $_SESSION["mail"] ?>";
     let isLoggedIn = "<?php echo $_SESSION["loggedin"]?>";
     let user = new User(userName, userMail, isLoggedIn);
-    window.onload = () => sessionStorage.setItem("casinoUser", user);
+    window.onload = () => sessionStorage.setItem("user", user);
 </script>
 
 

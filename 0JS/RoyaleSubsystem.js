@@ -15,25 +15,14 @@
  * @desc Contains configuration values for the system
  * @name System
  * @constant
- * @memberOf RoyaleSubsystem
- * @property DefaultTokens {Token[]} - The tokens used by the system
- * @property TokenValue {number} - The value of each token in NOK
- * @property emptyCollection {TokenCollection} - An empty {@link TokenCollection}
  */
-/** @private */
 const System = {
-    DefaultTokens: [
-        new Token(1),
-        new Token(5),
-        new Token(10),
-        new Token(25),
-        new Token(50)
-    ],
-    // TokenValues, value of each token in NOK
-    TokenValue: 1.25,
-    emptyCollection: new TokenCollection()
+    /**
+     * @type {number}
+     * @desc Value of each token in NOK
+     */
+    TokenValue: 1.25
 };
-
 
 //////////////////////////////////////
 //                                  //
@@ -76,40 +65,41 @@ class Token {
 }
 
 /**
- * @class
- * @desc Represents a collection of collection.
- * @memberOf RoyaleSubsystem
- */
-class TokenCollection {
-    /**
-     * @constructor
-     * @param initTokens {Token[]} - Tokens to use
-     * @param amount {Number[]} - Amount of each token
-     */
-    constructor(initTokens = System.DefaultTokens, amount = [0,0,0,0,0]) {
-        this.tokens = initTokens;
-        this.amount = amount;
-    }
-}
-
-/**
  * @enum
  * @desc Enumeration of token values
  * @name TokenValues
  * @constant
  * @memberOf RoyaleSubsystem
- * @property TOKEN_1 {number} - Token with value 1
- * @property TOKEN_5 {number} - Token with value 5
- * @property TOKEN_10 {number} - Token with value 10
- * @property TOKEN_25 {number} - Token with value 25
- * @property TOKEN_50 {number} - Token with value 50
  */
-/** @private */
 const TokenValues = {
+    /**
+     * @type {number}
+     * @desc Token of value 1
+     */
     TOKEN_1: 0,
+
+    /**
+     * @type {number}
+     * @desc Token of value 5
+     */
     TOKEN_5: 1,
+
+    /**
+     * @type {number}
+     * @desc Token of value 10
+     */
     TOKEN_10: 2,
+
+    /**
+     * @type {number}
+     * @desc Token of value 25
+     */
     TOKEN_25: 3,
+
+    /**
+     * @type {number}
+     * @desc Token of value 50
+     */
     TOKEN_50: 4
 };
 
@@ -122,67 +112,49 @@ class TokenManager {
     /**
      * @constructor
      * @method
-     * @param initCollection {TokenCollection} - Initial collection
+     * @param initialAmount {number} - Initial token count
      */
-    constructor(initCollection = System.emptyCollection) {
-        this.collection = initCollection;
+    constructor(initialAmount = 0) {
+        this.tokenBalance = initialAmount;
     }
-    getTokens() { return this.collection}
+    getTokens() { return this.tokenBalance}
 
     /**
-     * @desc Returns the amount of one token in a TokenManager
+     * @desc Add an amount of tokens to tokenBalance
      * @method
-     * @param token {TokenValues} - The token to get amount from
-     * @returns {number} The amount of tokens in collection
-     */
-    getTokenAmount(token) {
-        return this.collection.amount[token];
-    }
-
-    /**
-     * @desc Add an amount of tokens to collection
-     * @method
-     * @param token {number} - The token to increase
      * @param amount {number} - The amount to add
      */
-    addTokenAmount(token, amount) {
-        this.collection.amount[token] += amount;
+    addTokenAmount(amount) {
+        this.tokenBalance += amount;
     }
 
     /**
-     * @desc Subtract an amount of tokens from collection
+     * @desc Subtract an amount of tokens from tokenBalance
      * @method
-     * @param token {number} - Token to subtract from
      * @param amount - Amount to subtract from tokens
      */
-    subTokenAmount(token, amount) {
-        console.assert(this.collection.amount[token] >= amount, "Resulting amount must be greater or equal to 0");
-        this.collection.amount[token] -= amount;
+    subTokenAmount(amount) {
+        console.assert(this.tokenBalance >= amount, "Resulting amount must be greater or equal to 0");
+        this.tokenBalance -= amount;
     }
 
     /**
-     * @desc Set the amount of a token in collection
+     * @desc Set the amount of a token in tokenBalance
      * @method
-     * @param token {number} - Token to set amount of
      * @param amount {number} - Amount to set token to
      */
-    setTokenAmount(token, amount) {
+    setTokenAmount(amount) {
         console.assert(amount >= 0, "Amount must be greater or equal to 0");
-        this.collection.amount[token] = amount;
+        this.tokenBalance = amount;
     }
 
     /**
-     * @desc Returns the value of all collection in collection, based of the token value in the config.
+     * @desc Returns the value of all tokenBalance in tokenBalance, based of the token value in the config.
      * @method
-     * @returns {number} The total value of tokens in collection.
+     * @returns {number} The total value of tokens in tokenBalance.
      */
-    getTotalValue() {
-        let value = 0;
-        for(let i in this.collection.tokens) {
-            value += this.collection.tokens[i].getValue() * this.collection.amount[i];
-        }
-        value *= System.TokenValue;
-        return value;
+    getTokenValue() {
+        return this.tokenBalance * System.TokenValue;
     }
 }
 

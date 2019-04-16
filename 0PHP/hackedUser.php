@@ -11,9 +11,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 /*Sette siden til utf8*/
 if (!$link->set_charset("utf8")) {
-    printf($link->error, "");
+    printf("", $link->error);
 } else {
-    printf($link->character_set_name(), "");
+    printf("", $link->character_set_name());
 }
 
 /*Definere session variablene til lettere bruk senere i filen*/

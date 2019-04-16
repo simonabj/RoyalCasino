@@ -13,14 +13,14 @@ $sql2 = "SELECT * FROM users";
 $result2 = mysqli_query($tilkobling, $sql2);
 $antallBrukereTotalt = mysqli_num_rows($result2);
 
-$query_run = mysqli_query($sql2);
-
-$totalTokens= 0;
-while ($num = mysqli_fetch_assoc ($query_run)) {
-    $totalTokens += $num['balance'];
-}
+$sql3 = 'SELECT SUM(balance) AS value_sum FROM users';
+$result = mysqli_query($tilkobling, $sql3);
+$row = mysqli_fetch_assoc($result);
+$totalTokens = $row['value_sum'];
 
 $averageTokens=$totalTokens/$antallBrukereTotalt;
+
+echo 'Brukere: '.$antallBrukereTotalt.'. Totalt antall tokens: '.$totalTokens.'. Snitt tokens: '.$averageTokens;
 
 /*Spørring til database.*/
 $sql = sprintf("INSERT INTO stats(amountUSers, totalTokens, averageTokens) VALUES('%s','%s','%s')",

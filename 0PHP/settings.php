@@ -8,12 +8,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-if (!$link->set_charset("utf8")) {
-    printf("", $link->error);
-} else {
-    printf("", $link->character_set_name());
-}
-
 /*Definer SESSION variabler til senere bruk*/
 $seUser = $_SESSION["username"];
 $seBrukerID = $_SESSION["id"];

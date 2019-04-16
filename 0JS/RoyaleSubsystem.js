@@ -5,6 +5,64 @@
  * @see {@link https://imgur.com/FAHWgQ6|Class Diagram} for further information
  */
 
+
+///////////////////////////////////////
+//                                   //
+//  -----=====  STORAGE  =====-----  //
+//                                   //
+///////////////////////////////////////
+
+/**
+ * Store an object at the given location
+ * @memberOf RoyaleSubsystem
+ * @param key {string} - The key to save the object as
+ * @param object {*} - The object to save
+ * @param location {string} - Where to save the object
+ */
+const save = (key, object, location="session") => {
+    if(location === "session") {
+        sessionStorage.setItem(key, JSON.stringify(object));
+    } else if(location === "local") {
+        localStorage.setItem(key, JSON.stringify(object));
+    } else {
+        console.error("Save location '"+ location +"' is invalid!");
+    }
+};
+
+/**
+ * Return a stored object from given location
+ * @memberOf RoyaleSubsystem
+ * @param key {string} - Key to get from storage
+ * @param parent {*} - Parent class. Used to fix prototype issues from serialization
+ * @param location {string} - Location from which to retrieve value. Either 'session' or 'local'.
+ * @returns {*} - Object from storage
+ */
+const get = (key, parent = undefined, location = "session") => {
+    if(location === "session") {
+        let result = JSON.parse(sessionStorage.getItem(key));
+        if(parent !== undefined) {
+            console.assert(result instanceof parent, "Parent must be class of expected result!");
+            result.__proto__ = parent.prototype;
+        }
+        return result;
+    }
+    else if(location === "local")
+        return JSON.parse(localStorage.getItem(key));
+    else console.error("Location '" + location + "' is invalid!");
+};
+
+/**
+ * Returns the user, and fixes prototype issues from serialization.
+ * @memberOf RoyaleSubsystem
+ * @returns {User} - The user object
+ */
+const getUser = () => {
+    let result = JSON.parse(sessionStorage.getItem("user"));
+    result.tokenManager.__proto__ = TokenManager.prototype;
+    console.assert(result.tokenManager instanceof TokenManager, "tokenManager not instance of TokenManager!");
+    return result;
+};
+
 //////////////////////////////////////
 //                                  //
 //  -----=====  CONFIG  =====-----  //
@@ -14,6 +72,7 @@
 /**
  * @desc Contains configuration values for the system
  * @name System
+ * @memberOf RoyaleSubsystem
  * @constant
  */
 const System = {
@@ -117,7 +176,8 @@ class TokenManager {
     constructor(initialAmount = 0) {
         this.tokenBalance = initialAmount;
     }
-    getTokens() { return this.tokenBalance}
+
+    getCount() { return this.tokenBalance}
 
     /**
      * @desc Add an amount of tokens to tokenBalance
@@ -217,11 +277,13 @@ class Game {
 //////////////////////////////////////////
 
 class User {
-    constructor(username = "testUser", email = "test@mail.it", isLoggedIn = false) {
+    constructor(username = "testUser", email = "test@mail.it", isLoggedIn = false, balance = 0, portraitURL = "", inviteAmount = 0) {
         this.username = username;
         this.email = email;
-        this.tokenManager = new TokenManager();
+        this.tokenManager = new TokenManager(balance);
         this.isLoggedIn = isLoggedIn;
+        this.portrait = portraitURL;
+        this.invites = inviteAmount;
     }
 }
 

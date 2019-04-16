@@ -53,11 +53,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
 
-                            $tilkobling = mysqli_connect("localhost","u201393012_film","abc123cba","u201393012_film");
                             $sql22 = "SELECT * FROM users WHERE id=$id";
-                            $result69 = mysqli_query($tilkobling, $sql22);
+                            $result69 = mysqli_query($link, $sql22);
                             $row2 = mysqli_fetch_assoc($result69);
-                            $_SESSION["mail"] = $row2['mail']; /*Lagring av mail variablen*/
+
+                            /*Lagring av variabler*/
+                            $_SESSION["mail"] = $row2['mail'];
+                            $_SESSION["balance"] = $row2['balance'];
+                            $_SESSION["profilePicture"] = $row2['profilePicture'];
+                            $_SESSION["amountInvites"] = $row2['amountInvites'];
 
                             header("location: getLogin.php"); /*Alt er riktig for login og du føres til index.php*/
                         } else {

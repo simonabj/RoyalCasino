@@ -13,13 +13,22 @@ $sql2 = "SELECT * FROM users";
 $result2 = mysqli_query($tilkobling, $sql2);
 $antallBrukereTotalt = mysqli_num_rows($result2);
 
+$query_run = mysqli_query($sql2);
+
+$totalTokens= 0;
+while ($num = mysqli_fetch_assoc ($query_run)) {
+    $totalTokens += $num['balance'];
+}
+
+$averageTokens=$totalTokens/$antallBrukereTotalt;
+
 /*Spørring til database.*/
-$sql = sprintf("INSERT INTO stats(amountUSers) VALUES('%s')",
-    $tilkobling->real_escape_string($antallBrukereTotalt)
+$sql = sprintf("INSERT INTO stats(amountUSers, totalTokens, averageTokens) VALUES('%s','%s','%s')",
+    $tilkobling->real_escape_string($antallBrukereTotalt),
+    $tilkobling->real_escape_string($totalTokens),
+    $tilkobling->real_escape_string($averageTokens)
 );
 $tilkobling->query($sql);
-
-/*Legg til totalt tokens world wide. Og totalt antall invites.*/
 ?>
 <!DOCTYPE html>
 <html>

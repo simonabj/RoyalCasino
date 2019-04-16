@@ -11,9 +11,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 /*Sett datatype til UTF8 for å kunne bruke Æ, Ø og Å*/
 if (!$link->set_charset("utf8")) {
-    printf($link->error, "");
+    printf("", $link->error);
 } else {
-    printf($link->character_set_name(), "");
+    printf("", $link->character_set_name());
 }
 
 /*Hente ut SESSION variablene*/

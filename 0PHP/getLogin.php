@@ -3,13 +3,6 @@ session_start(); /*Starte en session for å hente verdiene lagret*/
 
 require_once "config.php"; /*Hente konfigurasjonsbitene*/
 
-/*Dobbeltsjekke og mulig endre filtypen til utf8*/
-if (!$link->set_charset("utf8")) {
-    printf($link->error, "");
-} else {
-    printf($link->character_set_name(), "");
-}
-
 /*Definere hvilken bruker som logger inn og iden, også IP'en*/
 $seUser = $_SESSION["username"];
 $seUserID = $_SESSION["id"];
@@ -68,7 +61,6 @@ if ($svar_sporring<1) {
     $link->query($sql); /*Oppdatere verdiene til databasen*/
 }
 
-header('Location: ../hub/index.php'); /*Ta deg videre til en indexen*/
 ?>
 
 <!DOCTYPE html>
@@ -76,8 +68,23 @@ header('Location: ../hub/index.php'); /*Ta deg videre til en indexen*/
 <head>
     <meta charset="UTF-8">
     <title>CASINO ROYALE | SECURE PROFILE</title>
+    <script src="/0JS/RoyaleSubsystem.js"></script>
 </head>
 <body>
-    
+<!-- INIT SUBSYSTEM -->
+<script>
+    window.onload = () => {
+        save("user", new User(
+            "<?php echo $_SESSION["username"]?>",
+            "<?php echo $_SESSION["mail"] ?>",
+            "<?php echo $_SESSION["loggedin"]?>" === "1",
+            Number("<?php echo $_SESSION["balance"] ?>"),
+            "<?php echo $_SESSION["profilePicture"]?>",
+            Number("<?php echo $_SESSION["amountInvites"]?>")
+        ));
+
+        window.location.replace("/hub/index.php");
+    }
+</script>
 </body>
 </html>

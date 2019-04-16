@@ -737,7 +737,6 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 
 
 .toolbar {
-
     margin                     : 0;
     background-color           : transparent;
     box-shadow                 : none;
@@ -760,12 +759,13 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 
 
 .toolbarItem {
+    justify-content: center;
     flex-direction      : row;
     height              : 92px;
     width               : 260px;
     margin              : 5px;
     clip-path           : polygon(100% 0%, 85% 50%, 100% 100%, 25% 75%, 15% 50%, 25% 25%);
-    padding             : 30px 60px;
+    padding             : 30px 0;
     background-color    : var(--secondary);
     color               : var(--onSecondary);
     border-radius       : 0;

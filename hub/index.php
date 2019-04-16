@@ -53,11 +53,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 
 <div id="documentWrapper" class="container column" style="margin-top: 325px">
-    <!-- <span id="headerSymbol" class="bordershape-diamond"></span> -->
     <!-- HEADER ELEMENTS -->
     <img id="headerSymbol" src="../resources/redChip.png">
     <div id="toolbarTooltip" class="speech-bubble"> <p>Click me to show the toolbar</p> </div>
-
     <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">
         <h1>
             Casino Royale!
@@ -67,9 +65,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 
 
-
     <!-- the games -->
     <div id="gamesContainer"></div>
+    
 
 
     <!-- text box -->

@@ -359,19 +359,6 @@ $(function () {
 
 
 
-    let isLogoutHover = false;
-    $("#logoutButton").on({
-        click: function(){
-            window.location.href="/0PHP/logout.php";
-        },
-        mouseenter: function(){
-            isLogoutHover = true;
-        },
-        mouseleave: function(){
-            isLogoutHover = false;
-            $("#logoutButton").hide();
-        }
-    });
 
     let isProfileHover = false;
     $("#profileSettings").on({
@@ -388,9 +375,22 @@ $(function () {
                 if(!isLogoutHover && !isProfileHover){
                     $("#logoutButton").hide();
                 }
-            }, 400);
+            }, 750);
         }
-    })
+    });
+    let isLogoutHover = false;
+    $("#logoutButton").on({
+        click: function(){
+            window.location.href="/0PHP/logout.php";
+        },
+        mouseenter: function(){
+            isLogoutHover = true;
+        },
+        mouseleave: function(){
+            isLogoutHover = false;
+            $("#logoutButton").hide();
+        }
+    });
 
 
 });

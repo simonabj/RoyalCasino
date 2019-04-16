@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); /*Start Session*/
 
 require_once "config.php";
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){

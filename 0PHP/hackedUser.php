@@ -9,13 +9,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Kobling til databasen*/
-
 /*Sette siden til utf8*/
-if (!$tilkobling->set_charset("utf8")) {
-    printf("", $tilkobling->error);
+if (!$link->set_charset("utf8")) {
+    printf($link->error, "");
 } else {
-    printf("", $tilkobling->character_set_name());
+    printf($link->character_set_name(), "");
 }
 
 /*Definere session variablene til lettere bruk senere i filen*/
@@ -48,10 +46,10 @@ $hashedPassword = password_hash($new_password, PASSWORD_DEFAULT);
 
 /*Spørresetning som setter nytt passord i databasen*/
 $sql = sprintf("UPDATE users SET password='%s' WHERE id = '%s'",
-  $tilkobling->real_escape_string($hashedPassword),
-  $tilkobling->real_escape_string($seBrukerID)
+  $link->real_escape_string($hashedPassword),
+  $link->real_escape_string($seBrukerID)
 );
-$tilkobling->query($sql); /*Utførelse av nytt passord*/
+$link->query($sql); /*Utførelse av nytt passord*/
 
 $_SESSION = array();
 session_destroy(); /*Ødelegg session så man må logge inn igjen*/

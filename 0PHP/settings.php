@@ -7,11 +7,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Koble seg til databasen*/
-if (!$tilkobling->set_charset("utf8")) {
-    printf("", $tilkobling->error);
+
+if (!$link->set_charset("utf8")) {
+    printf("", $link->error);
 } else {
-    printf("", $tilkobling->character_set_name());
+    printf("", $link->character_set_name());
 }
 
 /*Definer SESSION variabler til senere bruk*/
@@ -20,8 +20,8 @@ $seBrukerID = $_SESSION["id"];
 
 /*Querys til bruk senere i koden*/
 $sql3 = "SELECT * FROM users WHERE id=$seBrukerID"; /*Spørresetning*/
-$datasett3 = mysqli_query($tilkobling, $sql3); /*Datasett*/
-$datasett22 = mysqli_query($tilkobling, $sql3); /*Datasett*/
+$datasett3 = mysqli_query($link, $sql3); /*Datasett*/
+$datasett22 = mysqli_query($link, $sql3); /*Datasett*/
 ?>
 <!DOCTYPE html>
 <html>

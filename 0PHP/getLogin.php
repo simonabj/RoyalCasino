@@ -3,13 +3,11 @@ session_start(); /*Starte en session for å hente verdiene lagret*/
 
 require_once "config.php"; /*Hente konfigurasjonsbitene*/
 
-$tilkobling = mysqli_connect("mysql.hostinger.com","u201393012_cr","1EjjQpVKmAMa","u201393012_cr"); /*Koble seg til database*/
-
 /*Dobbeltsjekke og mulig endre filtypen til utf8*/
-if (!$tilkobling->set_charset("utf8")) {
-    printf("", $tilkobling->error);
+if (!$link->set_charset("utf8")) {
+    printf($link->error, "");
 } else {
-    printf("", $tilkobling->character_set_name());
+    printf($link->character_set_name(), "");
 }
 
 /*Definere hvilken bruker som logger inn og iden, også IP'en*/
@@ -52,22 +50,22 @@ if ($iPod) {
 $browser = $_SERVER['HTTP_USER_AGENT'];
 
 $sporring = "SELECT * FROM userLogin WHERE userLogged=$seUserID AND device LIKE '%$deviceUsed%' AND browser LIKE '%$browser%' AND IP LIKE '%$IP%'";
-$sporring2 = mysqli_query($tilkobling, $sporring);
+$sporring2 = mysqli_query($link, $sporring);
 $svar_sporring=mysqli_num_rows($sporring2);
 
 /*Hvis det ikke finnes en maken innlogging, legg til personen som logger inn her.*/
 if ($svar_sporring<1) {
     /*Lage en spørresetning for å legge til verdiene til databasen*/
     $sql = sprintf("INSERT INTO userLogin(IP, userLogged, countryConnection, regionConnection, cityConnection, device, browser) VALUES('%s','%s','%s','%s','%s','%s','%s')",
-            $tilkobling->real_escape_string($IP),
-            $tilkobling->real_escape_string($seUserID),
-            $tilkobling->real_escape_string($country),
-            $tilkobling->real_escape_string($region),
-            $tilkobling->real_escape_string($city),
-            $tilkobling->real_escape_string($deviceUsed),
-            $tilkobling->real_escape_string($browser)
+            $link->real_escape_string($IP),
+            $link->real_escape_string($seUserID),
+            $link->real_escape_string($country),
+            $link->real_escape_string($region),
+            $link->real_escape_string($city),
+            $link->real_escape_string($deviceUsed),
+            $link->real_escape_string($browser)
             );
-    $tilkobling->query($sql); /*Oppdatere verdiene til databasen*/
+    $link->query($sql); /*Oppdatere verdiene til databasen*/
 }
 
 header('Location: ../hub/index.php'); /*Ta deg videre til en indexen*/

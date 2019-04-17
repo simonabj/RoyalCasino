@@ -12,12 +12,3 @@ if (!$link->set_charset("utf8")) {
 } else {
     printf("", $link->character_set_name());
 }
-
-?>
-<html>
-<head>
-</head>
-<body>
-
-</body>
-</html>

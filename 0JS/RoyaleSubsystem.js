@@ -19,14 +19,24 @@
  * @param object {*} - The object to save
  * @param location {string} - Where to save the object
  */
-const save = (key, object, location="session") => {
-    if(location === "session") {
+const save = (key, object, location = "session") => {
+    if (location === "session") {
         sessionStorage.setItem(key, JSON.stringify(object));
-    } else if(location === "local") {
+    } else if (location === "local") {
         localStorage.setItem(key, JSON.stringify(object));
     } else {
-        console.error("Save location '"+ location +"' is invalid!");
+        console.error("Save location '" + location + "' is invalid!");
     }
+};
+
+/**
+ * Update the userObject in sessionStorage'
+ * @memberOf RoyaleSubsystem
+ * @param userObject {RoyaleSubsystem.User} - The altered user object. Preferably from {@link getUser|getUser()}.
+ */
+const saveUser = (userObject) => {
+    console.assert(userObject instanceof User, "userObject not instance of User!");
+    save("user", userObject);
 };
 
 /**
@@ -38,15 +48,14 @@ const save = (key, object, location="session") => {
  * @returns {*} - Object from storage
  */
 const get = (key, parent = undefined, location = "session") => {
-    if(location === "session") {
+    if (location === "session") {
         let result = JSON.parse(sessionStorage.getItem(key));
-        if(parent !== undefined) {
+        if (parent !== undefined) {
             console.assert(result instanceof parent, "Parent must be class of expected result!");
             result.__proto__ = parent.prototype;
         }
         return result;
-    }
-    else if(location === "local")
+    } else if (location === "local")
         return JSON.parse(localStorage.getItem(key));
     else console.error("Location '" + location + "' is invalid!");
 };
@@ -54,12 +63,13 @@ const get = (key, parent = undefined, location = "session") => {
 /**
  * Returns the user, and fixes prototype issues from serialization.
  * @memberOf RoyaleSubsystem
- * @returns {User} - The user object
+ * @returns {RoyaleSubsystem.User} - The user object
  */
 const getUser = () => {
     let result = JSON.parse(sessionStorage.getItem("user"));
-    result.tokenManager.__proto__ = TokenManager.prototype;
-    console.assert(result.tokenManager instanceof TokenManager, "tokenManager not instance of TokenManager!");
+    result.tokenManager.__proto__ = TokenManager.prototype; // Fix TokenManager instance
+    result.__proto__ = User.prototype; // Fix User instance
+    console.assert(result instanceof User && result.tokenManager instanceof TokenManager);
     return result;
 };
 
@@ -71,7 +81,6 @@ const getUser = () => {
 
 /**
  * @desc Contains configuration values for the system
- * @name System
  * @memberOf RoyaleSubsystem
  * @constant
  */
@@ -110,7 +119,9 @@ class Token {
      * @method
      * @returns {number}
      */
-    getValue() {return this.tokenValue;}
+    getValue() {
+        return this.tokenValue;
+    }
 
     /**
      * @desc Set the value of a token
@@ -124,9 +135,7 @@ class Token {
 }
 
 /**
- * @enum
  * @desc Enumeration of token values
- * @name TokenValues
  * @constant
  * @memberOf RoyaleSubsystem
  */
@@ -177,7 +186,9 @@ class TokenManager {
         this.tokenBalance = initialAmount;
     }
 
-    getCount() { return this.tokenBalance}
+    getCount() {
+        return this.tokenBalance
+    }
 
     /**
      * @desc Add an amount of tokens to tokenBalance
@@ -276,6 +287,11 @@ class Game {
 //                                      //
 //////////////////////////////////////////
 
+/**
+ * @class
+ * @desc User object. Used to manage each users settings and tokens.
+ * @memberOf RoyaleSubsystem
+ */
 class User {
     constructor(username = "testUser", email = "test@mail.it", isLoggedIn = false, balance = 0, portraitURL = "", inviteAmount = 0) {
         this.username = username;
@@ -286,6 +302,73 @@ class User {
         this.invites = inviteAmount;
     }
 }
+
+/**
+ * @method
+ * @memberOf RoyaleSubsystem
+ * @desc Updates session from SQL database
+ * @param username {string} - Username of currently logged in user.
+ */
+const updateSession = (username) => {
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/0JS/sub/updateSession.php?username="+username, true);
+
+    xhttp.onreadystatechange = () => {
+        if(xhttp.readyState === 4 && xhttp.status === 200) {
+            let response = JSON.parse(xhttp.responseText);
+
+            if(response !== 0) {
+                let newUserData = new User(
+                    getUser().username,
+                    response.mail,
+                    getUser().isLoggedIn,
+                    response.balance,
+                    response.profilePicture,
+                    response.amountInvites
+                );
+
+                saveUser(newUserData);
+                console.log("UserSession updated from SQL successfully!");
+            } else {
+                throw "Bad request!";
+            }
+
+        }
+    };
+
+    xhttp.send();
+};
+
+/**
+ * @method
+ * @memberOf RoyaleSubsystem
+ * @desc Updates database from session
+ */
+const updateSQL = () => {
+
+    let userObject = getUser();
+
+    let _attr =
+        "username=" + userObject.username +
+        "&mail=" + userObject.email +
+        "&balance=" + userObject.tokenManager.getCount() +
+        "&profilePicture=" + userObject.portrait +
+        "&amountInvites=" + userObject.invites;
+
+    // Setup XMLHttp
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/0JS/sub/updateSQL.php", true);
+
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhttp.onreadystatechange = () => {
+        if(xhttp.readyState === 4 && xhttp.status === 200) {
+            console.log(xhttp.response);
+        }
+    };
+    xhttp.send(_attr);
+};
 
 //////////////////////////////////////////
 //                                      //
@@ -439,10 +522,10 @@ class CardManager {
      */
     constructor() {
         this.deck = [];
-        for(let i = 0; i < 52; i++) {
+        for (let i = 0; i < 52; i++) {
             this.deck.push(i);
         }
-        this.deckMask = Math.round(Math.pow(2,52)-1);
+        this.deckMask = Math.round(Math.pow(2, 52) - 1);
         this.playerDeck = [];
         this.playerMask = 0;
         this.discardPile = [];
@@ -488,7 +571,7 @@ class CardManager {
      * @param target {DeckEnum} - Deck to move cards to
      * @param toBottom {boolean} - Should the cards go on the bottom of target deck?
      */
-    moveCards(cardMask, source, target, toBottom=true) {
+    moveCards(cardMask, source, target, toBottom = true) {
 
     }
 

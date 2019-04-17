@@ -23,6 +23,7 @@ while ($row = mysqli_fetch_array($kjort)) {
 <head>
     <title> Casino Royale | Gjett Tallet </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/0JS/RoyaleSubsystem.js"></script>
 </head>
 <body>
 
@@ -31,17 +32,18 @@ while ($row = mysqli_fetch_array($kjort)) {
 
 <!-- Valg av tokens man vil vedde -->
 <select id="bet">
-    <option value="50">50kr</option>
-    <option value="100">100kr</option>
-    <option value="200">200kr</option>
-    <option value="250">250kr</option>
+    <option value="50">50tokens</option>
+    <option value="100">100tokens</option>
+    <option value="200">200tokens</option>
+    <option value="250">250tokens</option>
 </select>
 
 <!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
 <button onclick="kjorBet()">Gjett!</button>
 
 <!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
-<p><span id="hendelse">Balanse: </span><span id="balance"><?php echo $balanse; ?></span></p>
+<p id="hendelse"></p>
+<p id="tokenCount">Balanse: <span id="tokenCount"></span></p>
 
 <script>
     /*Definerer variablene man trenger*/
@@ -57,19 +59,23 @@ while ($row = mysqli_fetch_array($kjort)) {
         vinnerTall=Math.floor(Math.random()*99+1);
         $.ajax({url:"funksjonGjettTall.php?gTall="+valgtTallEl.value+"&bTall="+betEl.value+"&vTall="+vinnerTall,success:function(){
                 console.log("Gjett tall kjørt.");
+                updateTokens();
             }
         })
 
         if (vinnerTall==valgtTallEl.value) { /*Tekst til eventuelt vinn*/
-            balanceEl.innerHTML=Number(balanceEl.innerHTML)+Number(betEl.value)*75;
-            hendelseEl.innerHTML="Tallet du gjettet "+valgtTallEl.value+" ble riktig! Du veddet "+betEl.value+" tokens og har nå ";
+            hendelseEl.innerHTML="Tallet du gjettet "+valgtTallEl.value+" ble riktig! Du veddet "+betEl.value+" tokens og fikk 75x så mye satt inn på kontoen din.";
         } else { /*Tekst til tap*/
-            balanceEl.innerHTML=Number(balanceEl.innerHTML)-Number(betEl.value);
-            hendelseEl.innerHTML="Tallet du gjettet "+valgtTallEl.value+" var desverre feil! Du tapte "+betEl.value+" tokens og har nå ";
+            hendelseEl.innerHTML="Tallet du gjettet "+valgtTallEl.value+" var desverre feil! Du tapte "+betEl.value+" tokens.";
         }
 
     }
 
+    /*Token Count*/
+    updateTokens();
+    function updateTokens() {
+        document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();
+    }
 </script>
 
 </body>

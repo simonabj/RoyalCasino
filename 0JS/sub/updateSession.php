@@ -2,7 +2,7 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/0PHP/config.php');
 
-$username = $_GET['username'];
+$username = $_POST['username'];
 
 $sql = "SELECT mail,balance,profilePicture,amountInvites FROM users WHERE username='$username'";
 

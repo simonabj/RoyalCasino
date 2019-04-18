@@ -1,13 +1,3 @@
-<?php
-session_start();
-
-require_once "../0PHP/config.php";
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../0PHP/login.php");
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +16,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <script src="/0JS/RoyaleSubsystem.js"></script>
 </head>
 <body>
+
+<script>
+    init_royale();
+</script>
 
 <span id="headerSpan" class="clipPathShadow">
     <header style="position: fixed; z-index: 5;" class="clipPathShadow">

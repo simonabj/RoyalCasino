@@ -83,7 +83,7 @@ if ($svar_sporring<1) {
             Number("<?php echo $_SESSION["amountInvites"]?>")
         ));
 
-        window.location.replace("/hub/index.php");
+        window.location.replace("/hub/");
     }
 </script>
 </body>

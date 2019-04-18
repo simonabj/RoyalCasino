@@ -17,9 +17,9 @@ while ($row = mysqli_fetch_array($kjort)) {
 ?>
 
 <head>
-    <title>Casino Royale | Pull Out</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><!-- Hente kode jQuery -->
+    <title>Casino Royale | Crash</title>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script><!-- Hente chart koden -->
+    <script src="/0JS/RoyaleSubsystem.js"></script> <!-- Subsystem -->
 </head>
 <body>
 
@@ -30,6 +30,7 @@ while ($row = mysqli_fetch_array($kjort)) {
 <button id="button2">Pull Out</button> <!-- Knapp for å gi seg med profitt -->
 <input type="number" id="bet" placeholder="Hvor mye vedder du?" /> <!-- Input for hvor mye penger du vedder -->
 <p id="utfall"></p>
+<p>Balanse: <span id="tokenCount"></span></p>
 
 <script>
     /*Lage variabler for å kunne bruke dem senere i spillet*/
@@ -46,6 +47,9 @@ while ($row = mysqli_fetch_array($kjort)) {
     var sluttVerdi;
     var betSatt;
     var stopp=false;
+
+    var user = getUser();/*Definere user*/
+    document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Vis balansen din av tokens på siden*/
 
     /*Funksjonen for å sette sluttverdien og ordne event listerne så man ikke kan gjenta flere prosesser*/
     function sluttVerdiFunksjon() {
@@ -103,9 +107,10 @@ while ($row = mysqli_fetch_array($kjort)) {
              chart.render();
             
             /*Kjøring av funksjon hvis man taper*/
-            $.ajax({url:"funksjonCrash.php?bTall="+betSatt+"&ganger="+ganger2+"&utfall=tap",success:function(){
-                    console.log("Tapt penger, funksjon kjørt.");
-                }})
+            user.tokenManager.subTokenAmount(betSatt);/* Fjern tokens hvis tap*/
+            saveUser(user); /*Oppdatere til session storage*/
+            updateSQL(); /*Oppdater database*/
+            document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
         } else {
             ganger2=1+0.01*n;
             gangerEl.innerHTML=ganger2.toFixed(2);
@@ -153,9 +158,10 @@ while ($row = mysqli_fetch_array($kjort)) {
         buttonEl.addEventListener("click", sluttVerdiFunksjon);
         utfallEl.innerHTML="Du trakk deg ut i tide, veddet "+betSatt+" og tjente "+Number(betSatt*ganger2-betSatt)+" Tokens. Innsatsen din ble ganget med "+ganger2+".";
         /*Kjøring av funksjon hvis man vinner*/
-        $.ajax({url:"funksjonCrash.php?bTall="+betSatt+"&ganger="+ganger2+"&utfall=vinn",success:function(){
-                console.log("Pull Out Kjørt.");
-            }})
+        user.tokenManager.addTokenAmount(betSatt*ganger2-betSatt); /*Gi brukeren tokens hvis vinn*/
+        saveUser(user); /*Oppdatere til session storage*/
+        updateSQL(); /*Oppdater database*/
+        document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
         n=0;
         stopp=true; /*Stopp kjøringen av funksjon*/
     }

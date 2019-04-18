@@ -11,18 +11,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 $seBrukerID=$_SESSION["id"];
-$sql="SELECT * FROM users WHERE id=$seBrukerID";
-$kjort=mysqli_query($tilkobling, $sql);
-
-/*Finne balansen man har på konto for å bruke den senere i filen*/
-while ($row = mysqli_fetch_array($kjort)) {
-    $balanse=$row['balance'];
-}
 ?>
 <html>
 <head>
-    <title> Casino Royale | Gjett Tallet </title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <title> Casino Royale | Guess The Number </title>
+    <script src="/0JS/RoyaleSubsystem.js"></script>
 </head>
 <body>
 
@@ -31,17 +24,18 @@ while ($row = mysqli_fetch_array($kjort)) {
 
 <!-- Valg av tokens man vil vedde -->
 <select id="bet">
-    <option value="50">50kr</option>
-    <option value="100">100kr</option>
-    <option value="200">200kr</option>
-    <option value="250">250kr</option>
+    <option value="50">50tokens</option>
+    <option value="100">100tokens</option>
+    <option value="200">200tokens</option>
+    <option value="250">250tokens</option>
 </select>
 
 <!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
 <button onclick="kjorBet()">Gjett!</button>
 
 <!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
-<p><span id="hendelse">Balanse: </span><span id="balance"><?php echo $balanse; ?></span></p>
+<p id="hendelse"></p>
+<p id="tokenCount">Balanse: <span id="tokenCount"></span></p>
 
 <script>
     /*Definerer variablene man trenger*/
@@ -50,24 +44,31 @@ while ($row = mysqli_fetch_array($kjort)) {
     var balanceEl=document.querySelector("#balance");
     var hendelseEl=document.querySelector("#hendelse");
 
-    var vinnertall;
+    var vinnertall; /*Definere variablen vinnertall*/
+
+    var user = getUser();
+
+    document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Vis balansen din av tokens på siden*/
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
-        vinnerTall=Math.floor(Math.random()*99+1);
-        $.ajax({url:"funksjonGjettTall.php?gTall="+valgtTallEl.value+"&bTall="+betEl.value+"&vTall="+vinnerTall,success:function(){
-                console.log("Gjett tall kjørt.");
+        if (valgtTallEl.value<100 && 0<valgtTallEl.value && (betEl.value==50 || betEl.value==100 || betEl.value==200 || betEl.value==250)) {
+            vinnerTall = Math.floor(Math.random() * 99 + 1); /*Valg av vinnertall*/
+
+            if (vinnerTall == valgtTallEl.value) {
+                hendelseEl.innerHTML = "You guessed the number " + valgtTallEl.value + ". And it was correct! You betted " + betEl.value + " and recieved 75x as much.";/*Tekst til eventuelt vinn*/
+                user.tokenManager.addTokenAmount(75 * betEl.value); // Gi brukeren tokens hvis vinn
+            } else {
+                hendelseEl.innerHTML = "You guessed " + valgtTallEl.value + ". The number was " + vinnerTall + ". You lost " + betEl.value + " tokens.";/*Tekst til tap*/
+                user.tokenManager.subTokenAmount(betEl.value);/* Fjern tokens hvis tap*/
             }
-        })
 
-        if (vinnerTall==valgtTallEl.value) { /*Tekst til eventuelt vinn*/
-            balanceEl.innerHTML=Number(balanceEl.innerHTML)+Number(betEl.value)*75;
-            hendelseEl.innerHTML="Tallet du gjettet "+valgtTallEl.value+" ble riktig! Du veddet "+betEl.value+" tokens og har nå ";
-        } else { /*Tekst til tap*/
-            balanceEl.innerHTML=Number(balanceEl.innerHTML)-Number(betEl.value);
-            hendelseEl.innerHTML="Tallet du gjettet "+valgtTallEl.value+" var desverre feil! Du tapte "+betEl.value+" tokens og har nå ";
+            saveUser(user); /*Oppdatere til session storage*/
+            updateSQL(); /*Oppdater database*/
+            document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
+        } else {
+            hendelseEl.innerHTML="The number must be between 1 and 99. And the bet value must be one of teh selected ones."
         }
-
     }
 
 </script>

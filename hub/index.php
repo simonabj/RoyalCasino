@@ -40,13 +40,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <div id="toolbarLeft" class="toolbar">
     <div class="toolbarItem">
         <p id="tokenCount">Tokens: 3</p>
-        <script> function updateTokenCount() {document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount();}
+        <script> document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount(); </script>
 
-
-
-            () </script>
-
-        <button onclick="" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
+        <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
         <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
     </div>
 </div>
@@ -114,5 +110,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
 
 </div> <!-- end of document wrapper -->
+<script>
+    init_royale();
+</script>
 </body>
 </html>

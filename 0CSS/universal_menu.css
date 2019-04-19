@@ -89,6 +89,7 @@
     width   : 100px;
     cursor  : pointer;
     z-index : 1010;
+    user-drag: none; -webkit-user-drag: none;
     }
 
 #rmh_handle:hover {

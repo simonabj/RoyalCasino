@@ -2,6 +2,8 @@
 $(function () {
     $('head').append('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">');
 
+    // To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag). (not sure if this works yet)
+    let rmh_href = "../../hub/index.php";
 
     // GENERATING THE HANDLE ELEMENT
     let rmh = document.createElement("div");
@@ -13,14 +15,14 @@ $(function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="window.location.href=\'../../hub/index.php\'"></i>\n' +
+        '                <i class="fas fa-home" onclick="window.location.href=\' '+rmh_href+' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
         '                <div class="container row">\n' +
         '                    <img src="../../resources/redChip.png" alt="token" class="rmh_token">\n' +
         '                    <p id="rmh_tokenCount"> x 400</p>\n' +
-        '                    <script> document.getElementById("tokenCount").innerHTML = "x " + getUser().tokenManager.getCount(); </script>\n' +
+        '                    <script> document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount(); </script>\n' +
         '                </div>\n' +
         '                <button class="retroButton" onclick="">get more</button>\n' +
         '            </div>\n' +

@@ -179,9 +179,10 @@ $(function () {
     let headerToggled = false;
     let shrinkOn = 25;
 
+    let doesFooterHide = false;
     let footer = document.getElementById("footer");
     let footerToggled = false;
-    footer.style.opacity = 0;
+    (doesFooterHide===true) ? footer.style.opacity = 0 : footer.style.opacity = 1;
 
     let textBox1 = document.getElementById("framedTextBox");
 
@@ -251,10 +252,10 @@ $(function () {
 
         // FOOTER
         /** If bottom of page reached, footer opacity is set to 1, else, footer opacity is set to 0. */
-        if (footerToggled === false && document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
+        if (doesFooterHide && footerToggled === false && document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
             footer.style.opacity = 1;
             footerToggled = true;
-        } else if (footerToggled) {
+        } else if (doesFooterHide && footerToggled) {
             footer.style.opacity = 0;
             footerToggled = false;
         }

@@ -1,7 +1,9 @@
+// APPENDING THE ICON-FONT TO HEAD
 $(function () {
+    $('head').append('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">');
+
 
     // GENERATING THE HANDLE ELEMENT
-
     let rmh = document.createElement("div");
     rmh.id = "rmh";
     rmh.classList.add("container");
@@ -11,7 +13,7 @@ $(function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="material-icons" onclick="window.location.href=\'../../hub/index.php\'">home</i>\n' +
+        '                <i class="fas fa-home" onclick="window.location.href=\'../../hub/index.php\'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
@@ -88,10 +90,20 @@ $(function () {
         },
     });
 
-    rmh.classList.add("rmh_open");
-    rmh.classList.add("rmh_opened");
-    rmh_handle.classList.add("rmh_handle_open");
-    rmh_handle.classList.add("rmh_handle_opened");
+
+    // MAKING THE MENU APPEAR ONLY AFTER 1 SECOND (giving the appended font time to load, and making it more noticable).
+    rmh.style.opacity = 0;
+    rmh.style.transitionDuration = "0.5s";
+    setTimeout(function(){
+        rmh.style.opacity = 1;
+        rmh.classList.add("rmh_open");
+        rmh.classList.add("rmh_opened");
+        rmh_handle.classList.add("rmh_handle_open");
+        rmh_handle.classList.add("rmh_handle_opened");
+        setTimeout(function() {
+            rmh.style.transitionDuration = "initial";
+        }, 500);
+    }, 1000);
 
 
 

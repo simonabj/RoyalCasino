@@ -16,7 +16,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="icon" href="../../resources/redChip.png">
 
     <script src="../../0JS/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
 
     <script src="../../0JS/RoyaleSubsystem.js"></script>
     <script src="../../0JS/juliansUtilitiesLib.js"></script>

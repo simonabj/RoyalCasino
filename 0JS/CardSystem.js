@@ -6,7 +6,7 @@
 
 /**
  * @namespace BigWise
- * @desc Contains arithmetically correct manipulation of numbers greater than 32-bit.
+ * @desc Contains arithmetically correct bitwise manipulation of numbers greater than 32-bit.
  * @author Simon Andreas Bjørn
  * @since 10.01.2019
  */
@@ -71,10 +71,10 @@ const OR = (x, y) => {
         sum +=
             twoN * (
                 (
-                    (Math.floor(n1 / twoN) % 2) + // First digit is 1
-                    (Math.floor(n2 / twoN) % 2) + // Second digit is 1
-                    (Math.floor(n1 / twoN) % 2) * // If both (1*1)=1 => 1+1+1 = 3
-                    (Math.floor(n2 / twoN) % 2)   // => 3 % 2 is 1.
+                    (Math.floor(n1 / twoN) % 2) + // First digit check
+                    (Math.floor(n2 / twoN) % 2) + // Second digit check
+                    (Math.floor(n1 / twoN) % 2) * // Fix if both are 1
+                    (Math.floor(n2 / twoN) % 2)
                 ) % 2
             );
     }
@@ -94,6 +94,7 @@ const XOR = (x, y) => {
     let sum = 0;
     for (let n = 0; n <= Math.floor(Math.log2(n1)); n++) {
         sum +=
+            // Basically OR but without check for double digit
             Math.pow(2, n) * ((
                 Math.floor(n1 / Math.pow(2, n)) +
                 Math.floor(n2 / Math.pow(2, n))
@@ -459,8 +460,11 @@ class CardManager {
      */
     moveCards(cardMask, source, target, toBottom = true) {
 
+        // Array of numbered cards
         let cards = getCardArrayFromMask(cardMask);
 
+
+        // Determine source and remove cards from both deck and mask
         if(source === DeckEnum.MAIN) {
             for(let card of cards) {
                 let index = this.deck.indexOf(card);
@@ -486,6 +490,7 @@ class CardManager {
             throw "Incorrect enumeration used!";
         }
 
+        // Determine target and add cards to both deck and mask
         if(target === DeckEnum.MAIN) {
             if(toBottom) {
                 this.deck = this.deck.concat(cards);

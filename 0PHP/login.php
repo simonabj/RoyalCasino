@@ -92,8 +92,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
 <script>
 
-    validateLogin((result) => {
-        if(result) window.location.replace("/hub/");
+    validateLogin((result, resolve) => {
+        if(result) {
+            resolve(true);
+        } else {
+            resolve(false);
+        }
+    }).then((promise) => {
+        if(promise) window.location.replace("/0PHP/getLogin.php");
     })
 
 </script>

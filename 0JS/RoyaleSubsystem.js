@@ -209,12 +209,12 @@ const updateSession = () => {
         if(!result) {
             window.location.replace("/0PHP/logout.php");
         }
-        resolve("Hello World!");
+        resolve(result);
     });
 
     promise.then((result) => {
 
-        console.log("TEST RESULT: " + result);
+        console.log("VALIDATION: " + (result ? "SUCCESS" : "FAILURE"));
 
         let xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/0JS/sub/updateSession.php", true);

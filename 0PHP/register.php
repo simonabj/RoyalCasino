@@ -1,8 +1,11 @@
 <?php
 require_once "config.php"; /*Henter config filen som kobler til databasen*/
+session_start();
 
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
+
+$mail_err = "";
 
 /*Koden som kjøres ved registrering*/
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -86,6 +89,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     /*Hvis alt er riktig skal det legges inn i databasen*/
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($mail_err)){
 
+        // Det vil da være første ganG i session, så legg det til session storage
+        $_SESSION['firstTimeLogin'] = TRUE;
+
         $sql = "INSERT INTO users (username, password, mail) VALUES (?, ?, ?)"; /*Setningen for å legge til verdiene til databasen*/
 
         if($stmt = mysqli_prepare($link, $sql)){
@@ -97,17 +103,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             if(mysqli_stmt_execute($stmt)){
                 header("location: login.php"); /*Sendes tilbake til innloggingssiden*/
+                /*oppdaterOgVidereled();*/
             } else{
-                echo "Something went wrong. Please try again later.";
+                echo "Something went wrong. Please try again later."; /*Melding om at noe gikk galt i registreringsprosessen*/
             }
 
         }
-
         mysqli_stmt_close($stmt);
     }
-
     mysqli_close($link);
 }
+
+/*
+$userInvite = $_GET['userInvite']; Definere hvem som har invitert deg
+function oppdaterOgVidereled() {
+    Hvis hvem som har invitert deg er definert skal verdien til antall inviterte personer økes med 1
+    if (!empty($userInvite)) {
+        $sqlQueryLine = "SELECT * FROM users WHERE id=$userInvite";
+        $sqlQuery = mysqli_query($tilkobling, $sqlQueryLine);
+        while ($row = mysqli_fetch_array($sqlQuery)) {
+            $amountOfInvites = $row['amountInvites']+1;
+        };
+
+        $updateAmountOfInvites = sprintf("UPDATE users SET amountInvites=%s WHERE id=%s",
+            $tilkobling->real_escape_string($amountOfInvites),
+            $tilkobling->real_escape_string($userInvite)
+        );
+        $tilkobling->query($updateAmountOfInvites); Oppdatere databasen
+    }
+    header("location: login.php"); Sendes tilbake til innloggingssiden
+}
+*/
 ?>
 
 <!DOCTYPE html>

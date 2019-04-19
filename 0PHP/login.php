@@ -1,16 +1,14 @@
 <?php
 session_start();
 
-/*Hvis brukeren er logget inn fra før sendes du til hub-indexen*/
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: ../hub/index.php");
-    exit;
-}
-
 require_once "config.php"; /*Hente ut variablene lagret i config.php filen*/
 
 $username = $password = "";
 $username_err = $password_err = "";
+
+if(!isset($_SESSION['firstTimeLogin'])) {
+    $_SESSION['firstTimeLogin'] = FALSE;
+}
 
 /*Skjemaet som behandler informasjonen når det blir submita*/
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -93,8 +91,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         body{ font: 14px sans-serif; }
         .wrapper{ width: 350px; padding: 20px; }
     </style>
+    <script src="/0JS/RoyaleSubsystem.js"></script>
 </head>
 <body>
+<script>
+
+    validateLogin((result, resolve) => {
+        if(result) {
+            resolve(true);
+        } else {
+            resolve(false);
+        }
+    }).then((promise) => {
+        if(promise) window.location.replace("/0PHP/getLogin.php");
+    })
+
+</script>
 <div class="wrapper" style="text-align:center;text-align-last:center; margin-left:auto;margin-right:auto">
     <h2>Login</h2>
     <p>Fill out the fields below to login.</p>

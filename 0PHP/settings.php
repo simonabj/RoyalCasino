@@ -19,7 +19,6 @@ $datasett22 = mysqli_query($link, $sql3); /*Datasett*/
 ?>
 <!DOCTYPE html>
 <html>
-<html land="en">
 <head>
     <meta charset="UTF-8">
     <title>Casino Royale | Settings</title>

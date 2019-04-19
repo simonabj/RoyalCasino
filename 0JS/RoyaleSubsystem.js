@@ -5,7 +5,6 @@
  * @see {@link https://imgur.com/FAHWgQ6|Class Diagram} for further information
  */
 
-
 ///////////////////////////////////////
 //                                   //
 //  -----=====  STORAGE  =====-----  //
@@ -19,14 +18,24 @@
  * @param object {*} - The object to save
  * @param location {string} - Where to save the object
  */
-const save = (key, object, location="session") => {
-    if(location === "session") {
+const save = (key, object, location = "session") => {
+    if (location === "session") {
         sessionStorage.setItem(key, JSON.stringify(object));
-    } else if(location === "local") {
+    } else if (location === "local") {
         localStorage.setItem(key, JSON.stringify(object));
     } else {
-        console.error("Save location '"+ location +"' is invalid!");
+        console.error("Save location '" + location + "' is invalid!");
     }
+};
+
+/**
+ * Update the userObject in sessionStorage'
+ * @memberOf RoyaleSubsystem
+ * @param userObject {RoyaleSubsystem.User} - The altered user object. Preferably from {@link getUser|getUser()}.
+ */
+const saveUser = (userObject) => {
+    console.assert(userObject instanceof User, "userObject not instance of User!");
+    save("user", userObject);
 };
 
 /**
@@ -38,15 +47,14 @@ const save = (key, object, location="session") => {
  * @returns {*} - Object from storage
  */
 const get = (key, parent = undefined, location = "session") => {
-    if(location === "session") {
+    if (location === "session") {
         let result = JSON.parse(sessionStorage.getItem(key));
-        if(parent !== undefined) {
+        if (parent !== undefined) {
             console.assert(result instanceof parent, "Parent must be class of expected result!");
             result.__proto__ = parent.prototype;
         }
         return result;
-    }
-    else if(location === "local")
+    } else if (location === "local")
         return JSON.parse(localStorage.getItem(key));
     else console.error("Location '" + location + "' is invalid!");
 };
@@ -54,12 +62,13 @@ const get = (key, parent = undefined, location = "session") => {
 /**
  * Returns the user, and fixes prototype issues from serialization.
  * @memberOf RoyaleSubsystem
- * @returns {User} - The user object
+ * @returns {RoyaleSubsystem.User} - The user object
  */
 const getUser = () => {
     let result = JSON.parse(sessionStorage.getItem("user"));
-    result.tokenManager.__proto__ = TokenManager.prototype;
-    console.assert(result.tokenManager instanceof TokenManager, "tokenManager not instance of TokenManager!");
+    result.tokenManager.__proto__ = TokenManager.prototype; // Fix TokenManager instance
+    result.__proto__ = User.prototype; // Fix User instance
+    console.assert(result instanceof User && result.tokenManager instanceof TokenManager);
     return result;
 };
 
@@ -71,7 +80,6 @@ const getUser = () => {
 
 /**
  * @desc Contains configuration values for the system
- * @name System
  * @memberOf RoyaleSubsystem
  * @constant
  */
@@ -91,76 +99,10 @@ const System = {
 
 /**
  * @class
- * @desc Represents a token used as currency
+ * @name TokenBalance
+ * @desc Contains functions to manage a users token
  * @memberOf RoyaleSubsystem
  */
-class Token {
-    /**
-     * @constructor
-     * @method
-     * @param tokenValue {number} - Value of token in units
-     */
-    constructor(tokenValue = 1) {
-        console.assert(typeof (tokenValue) === "number", "Token value must be a number");
-        this.tokenValue = tokenValue;
-    }
-
-    /**
-     * @desc Get the value of a token
-     * @method
-     * @returns {number}
-     */
-    getValue() {return this.tokenValue;}
-
-    /**
-     * @desc Set the value of a token
-     * @method
-     * @param value {number} - Set the value of the token
-     */
-    setValue(value = 1) {
-        console.assert(typeof (value) === "number", "Token value must be a number");
-        this.tokenValue = value;
-    }
-}
-
-/**
- * @enum
- * @desc Enumeration of token values
- * @name TokenValues
- * @constant
- * @memberOf RoyaleSubsystem
- */
-const TokenValues = {
-    /**
-     * @type {number}
-     * @desc Token of value 1
-     */
-    TOKEN_1: 0,
-
-    /**
-     * @type {number}
-     * @desc Token of value 5
-     */
-    TOKEN_5: 1,
-
-    /**
-     * @type {number}
-     * @desc Token of value 10
-     */
-    TOKEN_10: 2,
-
-    /**
-     * @type {number}
-     * @desc Token of value 25
-     */
-    TOKEN_25: 3,
-
-    /**
-     * @type {number}
-     * @desc Token of value 50
-     */
-    TOKEN_50: 4
-};
 
 /**
  * @class
@@ -174,14 +116,27 @@ class TokenManager {
      * @param initialAmount {number} - Initial token count
      */
     constructor(initialAmount = 0) {
+        /**
+         * @member {RoyaleSubsystem.TokenBalance}
+         * @desc The amount of tokens a user has.
+         */
         this.tokenBalance = initialAmount;
     }
 
-    getCount() { return this.tokenBalance}
+    /**
+     * @desc Returns the amount of tokens a user has.
+     * @method
+     * @memberOf RoyaleSubsystem.TokenBalance
+     * @returns {number|*}
+     */
+    getCount() {
+        return this.tokenBalance
+    }
 
     /**
      * @desc Add an amount of tokens to tokenBalance
      * @method
+     * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - The amount to add
      */
     addTokenAmount(amount) {
@@ -191,6 +146,7 @@ class TokenManager {
     /**
      * @desc Subtract an amount of tokens from tokenBalance
      * @method
+     * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount - Amount to subtract from tokens
      */
     subTokenAmount(amount) {
@@ -201,6 +157,7 @@ class TokenManager {
     /**
      * @desc Set the amount of a token in tokenBalance
      * @method
+     * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - Amount to set token to
      */
     setTokenAmount(amount) {
@@ -211,6 +168,7 @@ class TokenManager {
     /**
      * @desc Returns the value of all tokenBalance in tokenBalance, based of the token value in the config.
      * @method
+     * @memberOf RoyaleSubsystem.TokenBalance
      * @returns {number} The total value of tokens in tokenBalance.
      */
     getTokenValue() {
@@ -220,62 +178,15 @@ class TokenManager {
 
 //////////////////////////////////////////
 //                                      //
-//  -----====== GAME SYSTEM  =====----  //
-//                                      //
-//////////////////////////////////////////
-
-
-/**
- * @interface
- * @desc Interface to keep track of game states
- * @memberOf RoyaleSubsystem
- */
-class Game {
-    /**
-     * @constructor
-     * @method
-     * @param gameName {string} - The game name
-     */
-    constructor(gameName = "Game1") {
-        this.gameName = gameName;
-    }
-
-    /**
-     * @method
-     * @abstract
-     * @desc Starts the game
-     */
-    startGame() {
-
-    }
-
-    /**
-     * @method
-     * @abstract
-     * @desc Precede to the next game phase
-     */
-    nextTurn() {
-
-    }
-
-    /**
-     * @method
-     * @abstract
-     * @desc Ends the game
-     */
-    endGame() {
-
-    }
-
-}
-
-
-//////////////////////////////////////////
-//                                      //
 //  -----====== USER SYSTEM  =====----  //
 //                                      //
 //////////////////////////////////////////
 
+/**
+ * @class
+ * @desc User object. Used to manage each users settings and tokens.
+ * @memberOf RoyaleSubsystem
+ */
 class User {
     constructor(username = "testUser", email = "test@mail.it", isLoggedIn = false, balance = 0, portraitURL = "", inviteAmount = 0) {
         this.username = username;
@@ -287,219 +198,141 @@ class User {
     }
 }
 
-//////////////////////////////////////////
-//                                      //
-//  -----====== CARD SYSTEM  =====----  //
-//                                      //
-//////////////////////////////////////////
-
 /**
- * @enum
- * @name Cards
- * @desc Enumeration of cards
- * @constant
+ * @method
  * @memberOf RoyaleSubsystem
- * @property SPADE_A {number} - Ace of spades
- * @property SPADE_2 {number} - 2 of spades
- * @property SPADE_3 {number} - 3 of spades
- * @property SPADE_4 {number} - 4 of spades
- * @property SPADE_5 {number} - 5 of spades
- * @property SPADE_6 {number} - 6 of spades
- * @property SPADE_7 {number} - 7 of spades
- * @property SPADE_8 {number} - 8 of spades
- * @property SPADE_9 {number} - 9 of spades
- * @property SPADE_10 {number} - 10 of spades
- * @property SPADE_J {number} - Jack of spades
- * @property SPADE_Q {number} - Queen of spades
- * @property SPADE_K {number} - King of spades
- * @property HEART_A {number} - Ace of hearts
- * @property HEART_2 {number} - 2 of hearts
- * @property HEART_3 {number} - 3 of hearts
- * @property HEART_4 {number} - 4 of hearts
- * @property HEART_5 {number} - 5 of hearts
- * @property HEART_6 {number} - 6 of hearts
- * @property HEART_7 {number} - 7 of hearts
- * @property HEART_8 {number} - 8 of hearts
- * @property HEART_9 {number} - 9 of hearts
- * @property HEART_10 {number} - 10 of hearts
- * @property HEART_J {number} - Jack of hearts
- * @property HEART_Q {number} - Queen of hearts
- * @property HEART_K {number} - King of hearts
- * @property CLUBS_A {number} - Ace of clubs
- * @property CLUBS_2 {number} - 2 of clubs
- * @property CLUBS_3 {number} - 3 of clubs
- * @property CLUBS_4 {number} - 4 of clubs
- * @property CLUBS_5 {number} - 5 of clubs
- * @property CLUBS_6 {number} - 6 of clubs
- * @property CLUBS_7 {number} - 7 of clubs
- * @property CLUBS_8 {number} - 8 of clubs
- * @property CLUBS_9 {number} - 9 of clubs
- * @property CLUBS_10 {number} - 10 of clubs
- * @property CLUBS_J {number} - Jack of clubs
- * @property CLUBS_Q {number} - Queen of clubs
- * @property CLUBS_K {number} - King of clubs
- * @property DIAMOND_A {number} - Ace of diamonds
- * @property DIAMOND_2 {number} - 2 of diamonds
- * @property DIAMOND_3 {number} - 3 of diamonds
- * @property DIAMOND_4 {number} - 4 of diamonds
- * @property DIAMOND_5 {number} - 5 of diamonds
- * @property DIAMOND_6 {number} - 6 of diamonds
- * @property DIAMOND_7 {number} - 7 of diamonds
- * @property DIAMOND_8 {number} - 8 of diamonds
- * @property DIAMOND_9 {number} - 9 of diamonds
- * @property DIAMOND_10 {number} - 10 of diamonds
- * @property DIAMOND_J {number} - Jack of diamonds
- * @property DIAMOND_Q {number} - Queen of diamonds
- * @property DIAMOND_K {number} - King of diamonds
+ * @desc Updates session from SQL database
  */
-/** @private */
-const Cards = {
-    SPADE_A: 0,
-    SPADE_2: 1,
-    SPADE_3: 2,
-    SPADE_4: 3,
-    SPADE_5: 4,
-    SPADE_6: 5,
-    SPADE_7: 6,
-    SPADE_8: 7,
-    SPADE_9: 8,
-    SPADE_10: 9,
-    SPADE_J: 10,
-    SPADE_Q: 11,
-    SPADE_K: 12,
-    HEART_A: 13,
-    HEART_2: 14,
-    HEART_3: 15,
-    HEART_4: 16,
-    HEART_5: 17,
-    HEART_6: 18,
-    HEART_7: 19,
-    HEART_8: 20,
-    HEART_9: 21,
-    HEART_10: 22,
-    HEART_J: 23,
-    HEART_Q: 24,
-    HEART_K: 25,
-    CLUBS_A: 26,
-    CLUBS_2: 27,
-    CLUBS_3: 28,
-    CLUBS_4: 29,
-    CLUBS_5: 30,
-    CLUBS_6: 31,
-    CLUBS_7: 32,
-    CLUBS_8: 33,
-    CLUBS_9: 34,
-    CLUBS_10: 35,
-    CLUBS_J: 36,
-    CLUBS_Q: 37,
-    CLUBS_K: 38,
-    DIAMOND_A: 39,
-    DIAMOND_2: 40,
-    DIAMOND_3: 41,
-    DIAMOND_4: 42,
-    DIAMOND_5: 43,
-    DIAMOND_6: 44,
-    DIAMOND_7: 45,
-    DIAMOND_8: 46,
-    DIAMOND_9: 47,
-    DIAMOND_10: 48,
-    DIAMOND_J: 49,
-    DIAMOND_Q: 50,
-    DIAMOND_K: 51
-};
+const updateSession = () => {
 
-//TODO: ADD SUPPORT FOR MULTIPLE PLAYERS
-/**
- @enum
- * @name DeckEnum
- * @desc Enumeration of cards
- * @constant
- * @memberOf RoyaleSubsystem
- * @property MAIN {number} - The main deck
- * @property DISCARD {number} - The discard pile
- * @property PLAYER {number} - The player deck
- */
-/** @private */
-const DeckEnum = {
-    MAIN: 0,
-    DISCARD: 1,
-    PLAYER: 2
-};
-
-//TODO: ADD SUPPORT FOR MULTIPLE PLAYERS.
-/**
- * @class
- * @desc Manager class to keep track of cards and decks
- * @memberOf RoyaleSubsystem
- */
-class CardManager {
-    /**
-     * @constructor
-     * @method
-     */
-    constructor() {
-        this.deck = [];
-        for(let i = 0; i < 52; i++) {
-            this.deck.push(i);
+    let promise = validateLogin((result, resolve) => {
+        if(!result) {
+            window.location.replace("/0PHP/logout.php");
         }
-        this.deckMask = Math.round(Math.pow(2,52)-1);
-        this.playerDeck = [];
-        this.playerMask = 0;
-        this.discardPile = [];
-        this.discardMask = 0;
-    }
+        resolve(result);
+    });
 
-    /**
-     * @method
-     * @desc Shuffles the deck
-     */
-    shuffle() {
+    promise.then((result) => {
 
-    }
+        console.log("VALIDATION: " + (result ? "SUCCESS" : "FAILURE"));
+
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/0JS/sub/updateSession.php", true);
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
+
+                /**
+                 * @private
+                 * @type {{mail:string,balance:number,profilePicture:string,amountInvites:number}|number}
+                 */
+                let response = JSON.parse(xhttp.responseText);
+
+                if (response !== 0) {
+                    let newUserData = new User(
+                        getUser().username,
+                        response.mail,
+                        getUser().isLoggedIn,
+                        response.balance,
+                        response.profilePicture,
+                        response.amountInvites
+                    );
+                    saveUser(newUserData);
+                    console.log("UserSession updated from SQL successfully!");
+                } else {
+                    console.error("Bad request!");
+                }
+
+            }
+        };
+
+        xhttp.send();
+    });
+};
+
+/**
+ * @method
+ * @memberOf RoyaleSubsystem
+ * @desc Updates database from session
+ */
+const updateSQL = () => {
+
+    let userObject = getUser();
+
+    let _attr =
+        "username=" + userObject.username +
+        "&mail=" + userObject.email +
+        "&balance=" + userObject.tokenManager.getCount() +
+        "&profilePicture=" + userObject.portrait +
+        "&amountInvites=" + userObject.invites;
+
+    // Setup XMLHttp
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/0JS/sub/updateSQL.php", true);
+
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhttp.onreadystatechange = () => {
+        if(xhttp.readyState === 4 && xhttp.status === 200) {
+            console.log("Update response: " + xhttp.response);
+        }
+    };
+    xhttp.send(_attr);
+};
+
+//////////////////////////////////////////
+//                                      //
+//  -----====== LOAD-SYSTEM  =====----  //
+//                                      //
+//////////////////////////////////////////
 
 
-    /**
-     * @method
-     * @desc Deals an amount of cards to all players
-     * @param amount {number} - Amount of cards to deal players
-     */
-    deal(amount) {
+/**
+ * @function
+ * @name ValidationCallback
+ * @param {boolean} result - Result of validation
+ * @param {PromiseLike<*>|*} resolve - Promise when callback is complete
+ * @param {*} [reject] - Rejection reason. Used to determine outcome of promise
+ * @memberOf RoyaleSubsystem
+ */
+
+/**
+ * @memberOf RoyaleSubsystem
+ * @desc Validates user login (server-side).
+ * @see {@link RoyaleSubsystem.ValidationCallback| ValidationCallback} for more info on callback structure
+ * @param {RoyaleSubsystem.ValidationCallback} callback - Callback function to handle validation result
+ * @returns {Promise<*>}
+ */
+const validateLogin = async (callback) => {
+
+    let result = await new Promise(resolve => {
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/0JS/sub/validateLogin.php", true);
+
+        // Give 2000ms to confirm login. Can be changed later
+        xhttp.timeout = 2000;
+
+        xhttp.onreadystatechange = () => {
+            if(xhttp.readyState === 4 && xhttp.status === 200) {
+                resolve(JSON.parse(xhttp.response));
+            }
+        };
+        xhttp.onerror = () => resolve(xhttp.error);
+
+        xhttp.ontimeout = () => resolve(xhttp.error);
+
+        xhttp.send();
+    });
+
+    return new Promise((resolve,reject)=>callback(result.test === 1, resolve, reject));
+};
 
 
-    }
-
-
-    /**
-     * @deprecated Only one player to deal cards.
-     * @method
-     * @desc Deals an amount of cards to specified player index
-     * @param player {number} - Player index to deal cards
-     * @param amount {number} - Amount of cards to deal player
-     */
-    dealPlayer(player, amount) {
-
-    }
-
-    /**
-     * @method
-     * @desc Try to move cardMask from source deck and put them in target deck
-     * @param cardMask {number} - Cards to move in CardMask form
-     * @param source {DeckEnum} - Deck to move cards from
-     * @param target {DeckEnum} - Deck to move cards to
-     * @param toBottom {boolean} - Should the cards go on the bottom of target deck?
-     */
-    moveCards(cardMask, source, target, toBottom=true) {
-
-    }
-
-    /**
-     * @method
-     * @desc Discard cards from source deck
-     * @param cardMask {number} - Cards to put on discard pile
-     * @param source {DeckEnum} - Deck to discard from
-     */
-    discard(cardMask, source) {
-
-    }
-
-}
+/**
+ * @desc Confirm login, and initialize subsystem
+ * @function
+ * @memberOf RoyaleSubsystem
+ */
+const init_royale = () => {
+    updateSession();
+};

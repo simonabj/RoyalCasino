@@ -9,9 +9,9 @@ $(function () {
             href: "../games/roulette/index.html",
         },
         {
-            title: "blackjack",
+            title: "Blackjack",
             image: "http://getgmailaccount.com/wp-content/uploads/2019/01/Panduan-Mudah-Bermain-Di-Situs-Poker-Online.jpg",
-            href: "../games/blackjack/index.html",
+            href: "/games/Blackjack/",
         },
         {
             title: "monty Hall",

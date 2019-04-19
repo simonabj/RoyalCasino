@@ -2,7 +2,7 @@
 session_start();
 
 require_once "../0PHP/config.php";
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: ../0PHP/login.php");
     exit;
 }
@@ -13,17 +13,20 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <head>
     <meta charset="UTF-8">
     <title> Casino Royale - Hub </title>
-    <link rel="icon" href="../resources/redChip.png">
+    <link rel="icon" href="/resources/redChip.png">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+    <!--|Montserrat|Open+Sans|Raleway|Roboto-->
+    <script src="../0JS/jquery-3.3.1.js"></script>
+    <script src="../0JS/RoyaleSubsystem.js"></script>
 
     <script src="../0JS/juliansUtilitiesLib.js"></script>
     <link href="../0CSS/classes.css" rel="stylesheet">
+    <link href="../0CSS/universal.css" rel="stylesheet">
 
     <link href="hub.css" rel="stylesheet">
     <script src="hub.js"></script>
-    <script src="/0JS/RoyaleSubsystem.js"></script>
 </head>
 <body>
 
@@ -36,11 +39,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <div id="toolbarLeft" class="toolbar">
     <div class="toolbarItem">
-        <p>Tokens: <span id="tokenCount">0</span></p>
-        <script>
-            document.getElementById("tokenCount").innerText = getUser().tokenManager.getCount();
-        </script>
-        <button onclick="purchaseTokens()" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
+        <p id="tokenCount">Tokens: 3</p>
+        <script> function updateTokenCount() {document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount();}
+
+
+
+            () </script>
+
+        <button onclick="" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
         <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
     </div>
 </div>
@@ -55,7 +61,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <div id="documentWrapper" class="container column" style="margin-top: 325px">
     <!-- HEADER ELEMENTS -->
     <img id="headerSymbol" src="../resources/redChip.png">
-    <div id="toolbarTooltip" class="speech-bubble"> <p>Click me to show the toolbar</p> </div>
+    <div id="toolbarTooltip" class="speech-bubble" style="display: none"> <p>Click me to show the toolbar</p> </div>
+    <script>
+        if (get("firstTime")) { $("#toolbarTooltip").show(); $("#headerSymbol").addEventListener("click", function (){$("#toolbarTooltip").hide();});}
+    </script>
     <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">
         <h1>
             Casino Royale!
@@ -67,13 +76,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     <!-- the games -->
     <div id="gamesContainer"></div>
-    
+
 
 
     <!-- text box -->
     <span><br><br><br><br><br><br><br><br></span>
     <div id="framedTextBox" class="whiteFrame whiteText"
-            style="width: 600px; background-color: darkred; transition-duration: 1s">
+            style="width: 600px; background-color: var(--red); transition-duration: 1s">
         <h1>Lorem Ipsum</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
             magna aliqua. Cursus euismod quis viverra nibh cras pulvinar mattis nunc sed. Consequat semper viverra nam

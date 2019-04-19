@@ -6,22 +6,22 @@ $(function () {
         {
             title: "roulette",
             image: "https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip",
-            href: "../games/roulette/index.html",
+            href: "../games/Roulette/index.php",
         },
         {
             title: "blackjack",
             image: "http://getgmailaccount.com/wp-content/uploads/2019/01/Panduan-Mudah-Bermain-Di-Situs-Poker-Online.jpg",
-            href: "../games/blackjack/index.html",
+            href: "../games/blackjack/index.php",
         },
         {
             title: "monty Hall",
             image: "https://media.boingboing.net/wp-content/uploads/2017/10/monty-hall.jpg",
-            href: "../games/montyHall/index.html",
+            href: "../games/montyHall/index.php",
         },
         {
-            title: "DIO",
-            image: "https://hugelolcdn.com/i/596578.jpg",
-            href: "https://hugelol.com",
+            title: "Crash",
+            image: "https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F480661%2Frising_stock_chart.jpg&w=700&op=resize",
+            href: "../games/pullOut/crash.php",
         },
         {
             title: "Royale Bros",
@@ -29,7 +29,7 @@ $(function () {
             href: "reddit.com",
         },
         {
-            title: "The Link to the Rich",
+            title: "A Link to the Rich",
             image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",
             href: "vg.no",
         },
@@ -199,8 +199,8 @@ $(function () {
         if (distanceY > shrinkOn && headerToggled === false) {
             $("#toolbarTooltip").hide();
             headerToggled = true;
-            header.style.fontSize = "10px";
-            div.style.fontSize = "10px";
+            //header.style.fontSize = "10px";
+            div.querySelector("h1").style.fontSize = "20pt";
 
             closeToolbar("no animation");
             //symbol.style.top = "160px";
@@ -235,11 +235,11 @@ $(function () {
 
             setTimeout(function () {
                 symbol.style.opacity = 1;
-                symbol.classList.add("symbolShowAnimation");
                 div.style.position = "fixed";
-                div.style.top = "10px";
-                div.style.fontSize = "initial";
-                header.style.fontSize = "initial";
+                div.style.top = "4px";
+                div.querySelector("h1").style.fontSize = "27pt";
+                //header.style.fontSize = "initial";
+                symbol.classList.add("symbolShowAnimation");
                 setTimeout(function(){
                     symbol.style.top = "160px";
                     symbol.style.transform = "";
@@ -347,7 +347,7 @@ $(function () {
 
 
     // RUNS FUNCTION toolbarToggle() WHEN THE HEADER IS CLICKED.
-    document.getElementById("headerSymbol").onclick = function () {toolbarToggle(); $("#toolbarTooltip").hide()};
+    document.getElementById("headerSymbol").onclick = function () {toolbarToggle(); /*$("#toolbarTooltip").hide()*/};
 
     symbol.addEventListener("animationend", function() {
         symbol.classList.remove("toolbarOpenAnimation");

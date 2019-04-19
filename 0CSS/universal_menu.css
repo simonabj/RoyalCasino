@@ -7,11 +7,12 @@
     transition-duration : 0.25s;
     flex-direction      : column;
     transform-origin    : 50% 50px;
+    -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
     }
 
 #rmh #rmh_bar {
     background-color : var(--red);
-    padding          : 0 0 10px 0;
+    padding          : 0 0 0px 0;
     width            : 100px;
     flex-direction   : column;
     }
@@ -19,17 +20,32 @@
 #rmh * {
     margin-left  : 0;
     margin-right : 0;
+    -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
     }
 
-#rmh h1 {
+#rmh i {
     padding : 0 0;
     margin  : 0 0;
+    font-size: 50pt;
+    color: white;
+    text-shadow: 0 7px 4px var(--shadowColor);
+    transition-duration: 0.1s;
     }
+
+#rmh i:hover{
+    transform: rotate(15deg) scale(1.15);
+    text-shadow: 0 2px 4px var(--shadowColor);
+    }
+
+#rmh i:active{
+    transform: rotate(25deg) scale(1.05);
+    text-shadow: none;
+    }
+
 
 #rmh .pointer {
     cursor              : pointer;
     transition-duration : 0.1s;
-    -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
     }
 
 #rmh .pointer:hover {

@@ -26,8 +26,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link href="roulette.css" rel="stylesheet">
     <script src="roulette.js"></script>
 
-    <script src="universal_menu.js"></script>
-    <link href="universal_menu.css" rel="stylesheet">
+    <script src="../../0JS/universal_menu.js"></script>
+    <link href="../../0CSS/universal_menu.css" rel="stylesheet">
 
     <style>
 
@@ -35,29 +35,28 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </head>
 <body>
 
-
-<div id="rmh" class="container">
+    <!--
+    <div id="rmh" class="container">
 
         <img id="rmh_handle" src="../../resources/redChip.png">
 
         <div id="rmh_bar">
 
             <div class="pointer rmh_item">
-                <h1 onclick="window.location.href='../../hub/index.php'">🏠</h1>
+                <i class="material-icons" onclick="window.location.href='../../hub/index.php'">home</i>
             </div>
 
             <div class="rmh_item" id="rmh_tokenCountItem">
                 <div class="container row">
                     <img src="../../resources/redChip.png" alt="token" class="rmh_token">
                     <p id="rmh_tokenCount"> x 400</p>
-                    <script> document.getElementById("tokenCount").innerHTML = "x "+getUser().tokenManager.getCount(); </script>
+                    <script> document.getElementById("tokenCount").innerHTML = "x " + getUser().tokenManager.getCount(); </script>
                 </div>
                 <button class="retroButton" onclick="">get more</button>
             </div>
-
         </div>
     </div>
-
+    -->
 
 
 <div id="documentWrapper">

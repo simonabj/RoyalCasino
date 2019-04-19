@@ -74,6 +74,10 @@ if ($svar_sporring<1) {
 <!-- INIT SUBSYSTEM -->
 <script>
     window.onload = () => {
+
+        let sessionFirstTime = "<?php echo ($_SESSION['firstTimeLogin'] === TRUE) ? 1 : 0;?>";
+        save("firstTime", sessionFirstTime === "1");
+
         save("user", new User(
             "<?php echo $_SESSION["username"]?>",
             "<?php echo $_SESSION["mail"] ?>",
@@ -82,7 +86,6 @@ if ($svar_sporring<1) {
             "<?php echo $_SESSION["profilePicture"]?>",
             Number("<?php echo $_SESSION["amountInvites"]?>")
         ));
-
         window.location.replace("/hub/");
     }
 </script>

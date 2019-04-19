@@ -1,16 +1,11 @@
 <?php
 require_once "config.php"; /*Henter config filen som kobler til databasen*/
-
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr"); /*Database connection*/
-
-if (!$tilkobling->set_charset("utf8")) {
-    printf("", $tilkobling->error);
-} else {
-    printf("", $tilkobling->character_set_name());
-}
+session_start();
 
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
+
+$mail_err = "";
 
 /*Koden som kjøres ved registrering*/
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -93,6 +88,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     /*Hvis alt er riktig skal det legges inn i databasen*/
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($mail_err)){
+
+        // Det vil da være første ganG i session, så legg det til session storage
+        $_SESSION['firstTimeLogin'] = TRUE;
 
         $sql = "INSERT INTO users (username, password, mail) VALUES (?, ?, ?)"; /*Setningen for å legge til verdiene til databasen*/
 

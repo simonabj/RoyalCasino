@@ -6,6 +6,10 @@ require_once "config.php"; /*Hente ut variablene lagret i config.php filen*/
 $username = $password = "";
 $username_err = $password_err = "";
 
+if(!isset($_SESSION['firstTimeLogin'])) {
+    $_SESSION['firstTimeLogin'] = FALSE;
+}
+
 /*Skjemaet som behandler informasjonen når det blir submita*/
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 

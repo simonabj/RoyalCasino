@@ -1,46 +1,48 @@
+<?php
+session_start();
+
+require_once "../0PHP/config.php";
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../0PHP/login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title> Casino Royale Hub </title>
-    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/interface-part-1/32/html-code-512.png">
+    <title> Casino Royale - Hub </title>
+    <link rel="icon" href="/resources/redChip.png">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+    <!--|Montserrat|Open+Sans|Raleway|Roboto-->
+    <script src="../0JS/jquery-3.3.1.js"></script>
+    <script src="../0JS/RoyaleSubsystem.js"></script>
 
     <script src="../0JS/juliansUtilitiesLib.js"></script>
     <link href="../0CSS/classes.css" rel="stylesheet">
+    <link href="../0CSS/universal.css" rel="stylesheet">
 
     <link href="hub.css" rel="stylesheet">
     <script src="hub.js"></script>
-    <script src="/0JS/RoyaleSubsystem.js"></script>
 </head>
 <body>
 
-<script>
-    init_royale();
-</script>
 
 <span id="headerSpan" class="clipPathShadow">
     <header style="position: fixed; z-index: 5;" class="clipPathShadow">
-        <div class="column container div">
-
-            <!-- alternative: when scrolling, turns into a triangle pointing up. clicking it returns the user to the top of the page. -->
-            <!-- TODO: når diamond vises, kan den trykkes på (scale(1.1) on hover & 1.2@click). Da skyter toolbar menyen ut fra begge sider av den.
-                    To tabs til venstre, og to til høyre, og når man scroller dem vekk eller trykker på diamanten igjen så glir de tilbake inn i diamanten og skjules,
-                    og diamanten spiller av en liten animasjon mens den mottar tabs'ene, satisfying qubic-bezier rotateX/Y spin(ning til de er inne).-->
-        </div>
-
+        <div class="column container div clipPathShadow"></div>
     </header>
 </span>
 
 <div id="toolbarLeft" class="toolbar">
     <div class="toolbarItem">
-        <p>Tokens: <span id="tokenCount">0</span></p>
-        <script>
-            document.getElementById("tokenCount").innerText = getUser().tokenManager.getCount();
-        </script>
-        <button onclick="purchaseTokens()" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
+        <p id="tokenCount">Tokens: 3</p>
+        <script> document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount(); </script>
+
+        <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
         <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
     </div>
 </div>
@@ -53,13 +55,12 @@
 
 
 <div id="documentWrapper" class="container column" style="margin-top: 325px">
-    <!-- <span id="headerSymbol" class="bordershape-diamond"></span> -->
-
     <!-- HEADER ELEMENTS -->
     <img id="headerSymbol" src="../resources/redChip.png">
-    <div id="toolbarTooltip" class="speech-bubble"> <p>Click me to show the toolbar</p> </div>
-
-
+    <div id="toolbarTooltip" class="speech-bubble" style="display: none"> <p>Click me to show the toolbar</p> </div>
+    <script>
+        if (get("firstTime")) { $("#toolbarTooltip").show(); $("#headerSymbol").addEventListener("click", function (){$("#toolbarTooltip").hide();});}
+    </script>
     <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">
         <h1>
             Casino Royale!
@@ -69,15 +70,15 @@
 
 
 
-
     <!-- the games -->
     <div id="gamesContainer"></div>
+
 
 
     <!-- text box -->
     <span><br><br><br><br><br><br><br><br></span>
     <div id="framedTextBox" class="whiteFrame whiteText"
-            style="width: 600px; background-color: darkred; transition-duration: 1s">
+            style="width: 600px; background-color: var(--red); transition-duration: 1s">
         <h1>Lorem Ipsum</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
             magna aliqua. Cursus euismod quis viverra nibh cras pulvinar mattis nunc sed. Consequat semper viverra nam
@@ -109,5 +110,8 @@
     </div>
 
 </div> <!-- end of document wrapper -->
+<script>
+    init_royale();
+</script>
 </body>
 </html>

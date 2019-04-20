@@ -36,13 +36,6 @@ $(function () {
 
     ];
 
-    /*
-Det kan jeg gjøre! Her er linken: https://theRoyale.club/
-
-For øyeblikket er det bare det jeg har gjort som vises på siden, da jeg er den som står i ansvar for CSS og Hub'en, blandt annet.
-Spillene er ikke
-
- */
 
     // ____________________________________ DISPLAYING GAMES ___________________________________
     /**

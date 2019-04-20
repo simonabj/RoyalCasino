@@ -11,30 +11,49 @@
     }
 
 #rmh #rmh_bar {
-    background-color : var(--red);
-    padding          : 0 0 0px 0;
-    min-width        : 100px;
-    flex-direction   : column;
+    background-color   : #C80E0F; /* var(--red) */
+    padding            : 0 0 0 0;
+    min-width          : 100px;
+    flex-direction     : column;
+    margin             : 10px 0;
+    box-shadow         : 0 6px 8px 0 rgba(0, 0, 0, .5);
+    -webkit-box-shadow : 0 6px 8px 0 rgba(0, 0, 0, .5);
     }
 
 #rmh * {
     margin-left         : 0;
     margin-right        : 0;
     -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
+    font-family         : Arial, sans-serif;
     }
 
+#rmh, #rmh div {
+    display         : flex;
+    flex-direction  : column;
+    align-items     : center;
+    flex-wrap       : wrap;
+    overflow-wrap   : break-word;
+    word-wrap       : break-word;
+    justify-content : center;
+    border-radius   : 15px;
+    }
+
+#rmh .row { flex-direction : row; }
+
+
 #rmh i {
+    font-family         : "Font Awesome 5 Free" !important;
     padding             : 0 0;
     margin              : 0 0;
     font-size           : 50pt;
     color               : white;
-    text-shadow         : 0 7px 4px var(--shadowColor);
+    text-shadow         : 0 7px 4px rgba(0, 0, 0, 0.5);
     transition-duration : 0.1s;
     }
 
 #rmh i:hover {
     transform   : rotate(15deg) scale(1.15);
-    text-shadow : 0 2px 4px var(--shadowColor);
+    text-shadow : 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
 #rmh i:active {
@@ -65,9 +84,10 @@
     }
 
 #rmh .rmh_token {
-    width  : 25px;
-    height : 25px;
-    border : black 1px solid;
+    width         : 25px;
+    height        : 25px;
+    border        : black 1px solid;
+    border-radius : 50%;
     }
 
 #rmh #rmh_tokenCountItem {
@@ -167,11 +187,13 @@
     z-index             : 13000;
     }
 
-.speech-bubble-right { color : white; font-weight : bold; position : relative; background : transparent; border : var(--speechBubbleColor) 5px solid; border-radius : 50px; }
+#rmh .speech-bubble-right { color : white; font-weight : bold; position : relative; background : transparent; border : #F8A917 /*var(--speechBubbleColor)*/ 5px solid; border-radius : 50px; }
 
-.speech-bubble-right:after { content : ''; position : absolute; right : 0; top : 50%; width : 0; height : 0; border : 30px solid transparent; border-radius : 200%; border-left-color : var(--speechBubbleColor); border-right : 0; border-top : 0; margin-top : -20px; margin-right : -30px; }
+#rmh .speech-bubble-right:after { content : ''; position : absolute; right : 0; top : 50%; width : 0; height : 0; border : 30px solid transparent; border-left-color : #F8A917 /*var(--speechBubbleColor)*/; border-right : 0; border-top : 0; margin-top : -20px; margin-right : -30px; }
 
-.retroButton {
+#rmh .retroButton {
+    margin-top          : 5px;
+    margin-bottom       : 5px;
     min-width           : 2em;
     min-height          : 2em;
     border              : black solid 1px;
@@ -183,9 +205,9 @@
     transform           : translate(0, -4px);
     }
 
-.retroButton:hover { transform : translate(0, -4px); }
+#rmh .retroButton:hover { transform : translate(0, -4px); }
 
-.retroButton:active {
+#rmh .retroButton:active {
     transform           : translate(0, 3px);
     box-shadow          : none;
     transition-duration : 0.05s;

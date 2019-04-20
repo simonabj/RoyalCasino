@@ -68,7 +68,7 @@ $(function () {
             rotateVel = rotateVel * 0.99;
 
             // BREAKS THE GAMELOOP IF THE BALL HAS STOPPED.
-            if(rotateVel < 0.02){
+            if(rotateVel < 0.03){
                 rotateVel = 0;
                 console.log("stopped");
                 spinning = false;
@@ -76,7 +76,7 @@ $(function () {
             }
             // LOWERS THE BALL UNTIL IT'S WITHIN A 360 PIXEL RADIUS OF THE CENTER
             if (ballHeight > 360) {
-                ballHeight = ballHeight * 0.98;
+                ballHeight = ballHeight * 0.99;
             }
         }
 

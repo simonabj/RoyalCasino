@@ -18,12 +18,12 @@ window.onload = function () {
     rmh.id = "rmh";
     rmh.classList.add("container");
     rmh.innerHTML = '' +
-        '        <img id="rmh_handle" src="https://i.imgur.com/KIEjXV8.png">\n' +
+        '        <img id="rmh_handle" src="https://i.imgur.com/KIEjXV8.png" alt="universal menu handle">\n' +
         '\n' +
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="/* KJØR SAVE SESSION USER OG SQL GREIA */window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
@@ -35,6 +35,8 @@ window.onload = function () {
         '                <button class="retroButton" onclick="">get more</button>\n' +
         '            </div>\n' +
         '        </div>\n';
+
+    /* TODO: KJØR SAVE SESSION USER OG SQL GREIA AT HOME BUTTONNN*/
 
     document.body.appendChild(rmh);
 

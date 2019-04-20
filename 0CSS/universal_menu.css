@@ -40,6 +40,10 @@
 
 #rmh .row { flex-direction : row; }
 
+#rmh p{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    }
 
 #rmh i {
     font-family         : "Font Awesome 5 Free" !important;
@@ -88,6 +92,7 @@
     height        : 25px;
     border        : black 1px solid;
     border-radius : 50%;
+    margin: 5px 0;
     }
 
 #rmh #rmh_tokenCountItem {
@@ -203,6 +208,8 @@
     transition-duration : 0.1s;
     box-shadow          : 0 5px 0 black;
     transform           : translate(0, -4px);
+    font-size: 14px;
+    font-weight: bold;
     }
 
 #rmh .retroButton:hover { transform : translate(0, -4px); }

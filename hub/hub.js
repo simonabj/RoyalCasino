@@ -11,7 +11,7 @@ $(function () {
         {
             title: "blackjack",
             image: "http://getgmailaccount.com/wp-content/uploads/2019/01/Panduan-Mudah-Bermain-Di-Situs-Poker-Online.jpg",
-            href: "../games/blackjack/index.php",
+            href: "../games/Blackjack/index.html",
         },
         {
             title: "monty Hall",

@@ -1,12 +1,4 @@
-<?php
-session_start();
 
-require_once "../0PHP/config.php";
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: ../0PHP/login.php");
-    exit;
-}
-?>
 
 <!DOCTYPE html>
 <html>
@@ -69,7 +61,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <img id="headerSymbol" src="../resources/redChip.png" draggable="false">
 
     <div id="toolbarTooltip" class="speech-bubble" style="display: none"> <p>Click me to open the toolbar.</p> </div>
-    <script> $(function(){if (get("firstTime")){ $("#toolbarTooltip").fadeIn(); $("#headerSymbol")[0].addEventListener("click", function (){$("#toolbarTooltip").fadeOut();});}}); </script>
+    <script> $(function(){if (get("firstTime")){ $("#toolbarTooltip").fadeIn(); $("#headerSymbol")[0].addEventListener("click", function (){$("#toolbarTooltip").hide();});}}); </script>
 
     <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">
         <h1>Casino Royale!</h1>

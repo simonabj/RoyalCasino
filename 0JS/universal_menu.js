@@ -1,26 +1,34 @@
 // APPENDING THE ICON-FONT TO HEAD
-$(function () {
-    $('head').append('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">');
+window.onload = function () {
+
+    let link = document.createElement("link");
+    link.integrity = "sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf";
+    link.href = "https://use.fontawesome.com/releases/v5.8.1/css/all.css";
+    link.crossOrigin = "anonymous";
+    link.rel = "stylesheet";
+    document.getElementsByTagName('head')[0].appendChild(link);
+
+
 
     // To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag). (not sure if this works yet)
-    let rmh_href = "../../hub/index.php";
+    let rmh_href = "/hub/index.php";
 
     // GENERATING THE HANDLE ELEMENT
     let rmh = document.createElement("div");
     rmh.id = "rmh";
     rmh.classList.add("container");
     rmh.innerHTML = '' +
-        '        <img id="rmh_handle" src="../../resources/redChip.png">\n' +
+        '        <img id="rmh_handle" src="https://i.imgur.com/KIEjXV8.png">\n' +
         '\n' +
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="/* KJØR SAVE SESSION USER OG SQL GREIA */window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
         '                <div class="container row">\n' +
-        '                    <img src="../../resources/redChip.png" alt="token" class="rmh_token">\n' +
+        '                    <img src="https://i.imgur.com/KIEjXV8.png" alt="token" class="rmh_token">\n' +
         '                    <p id="rmh_tokenCount"> x 400</p>\n' +
         '                    <script> document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount(); </script>\n' +
         '                </div>\n' +
@@ -58,9 +66,22 @@ $(function () {
 
     // DISPLAYS A TOOLTIP IF IT'S THE FIRST TIME THE USER IS LOGGED IN
     if (get("firstTime")) {
-        $(rmh).append('<div id="rmh_tooltip" class="speech-bubble-right" style="opacity: 0"> <p>Click me to toggle the menu.</p> </div>');
-        rmh.addEventListener("click", function () {$("#rmh_tooltip")[0].style.opacity = 0;});
-        setTimeout(function () { $("#rmh_tooltip")[0].style.opacity = 1; }, 3000);
+
+        let rmh_tooltip = document.createElement("div");
+        rmh_tooltip.id = "rmh_tooltip";
+        rmh_tooltip.classList.add("speech-bubble-right");
+        rmh_tooltip.style.opacity = 0;
+
+        let rmh_tooltip_text = document.createElement("p");
+        rmh_tooltip_text.innerText = "Click me to toggle the menu.";
+
+        rmh_tooltip.appendChild(rmh_tooltip_text);
+        rmh.appendChild(rmh_tooltip);
+
+        //$(rmh).append('<div id="rmh_tooltip" class="speech-bubble-right" style="opacity: 0"> <p>Click me to toggle the menu.</p> </div>');
+
+        rmh.addEventListener("click", function () {document.getElementById("rmh_tooltip").style.opacity = 0;});
+        setTimeout(function () { document.getElementById("rmh_tooltip").style.opacity = 1; }, 3000);
     }
 
 
@@ -105,7 +126,7 @@ $(function () {
     });
 
 
-    // MAKING THE MENU APPEAR ONLY AFTER 1 SECOND (giving the appended font time to load, and making it more noticable).
+    // MAKING THE MENU APPEAR AFTER 1 SECOND (giving the appended font time to load, and making it more noticable).
     rmh.style.opacity = 0;
     rmh.style.transitionDuration = "0.5s";
     setTimeout(function () {
@@ -121,4 +142,4 @@ $(function () {
 
 
 
-});
+};

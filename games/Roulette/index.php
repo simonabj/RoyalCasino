@@ -1,18 +1,8 @@
-<?php
-session_start();
-
-require_once "../../0PHP/config.php";
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: .0PHP/login.php");
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title> Casino Royale - Roulette </title>
+    <title> Roulette | Casino Royale</title>
     <link rel="icon" href="../../resources/redChip.png">
 
     <script src="../../0JS/jquery-3.3.1.js"></script>
@@ -59,9 +49,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 </div> <!-- end of document wrapper -->
 <script>
-    $(function(){
-
-    });
+    init_royale();
 </script>
 </body>
 </html>

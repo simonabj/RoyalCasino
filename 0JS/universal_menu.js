@@ -15,7 +15,7 @@ $(function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="window.location.href=\' '+rmh_href+' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
@@ -29,6 +29,7 @@ $(function () {
         '        </div>\n';
 
     document.body.appendChild(rmh);
+
 
     /* structure:
     <div id="rmh" class="container">
@@ -55,7 +56,16 @@ $(function () {
 
 
 
-    //let rmh = document.getElementById("rmh");
+    // DISPLAYS A TOOLTIP IF IT'S THE FIRST TIME THE USER IS LOGGED IN
+    if (get("firstTime")) {
+        $(rmh).append('<div id="rmh_tooltip" class="speech-bubble-right" style="opacity: 0"> <p>Click me to toggle the menu.</p> </div>');
+        rmh.addEventListener("click", function () {$("#rmh_tooltip")[0].style.opacity = 0;});
+        setTimeout(function () { $("#rmh_tooltip")[0].style.opacity = 1; }, 3000);
+    }
+
+
+
+    //REMOVING ANIMATIONS ON ANIMATION END
     rmh.addEventListener("animationend", function () {
         rmh.classList.remove("rmh_open");
         rmh.classList.remove("rmh_close");
@@ -67,6 +77,8 @@ $(function () {
         rmh_handle.classList.remove("rmh_handle_close");
     });
 
+
+    // TOGGLING THE MENU
     let isRmhOpen = true;
     $(rmh_handle).on({
         click: function () {
@@ -96,13 +108,13 @@ $(function () {
     // MAKING THE MENU APPEAR ONLY AFTER 1 SECOND (giving the appended font time to load, and making it more noticable).
     rmh.style.opacity = 0;
     rmh.style.transitionDuration = "0.5s";
-    setTimeout(function(){
+    setTimeout(function () {
         rmh.style.opacity = 1;
         rmh.classList.add("rmh_open");
         rmh.classList.add("rmh_opened");
         rmh_handle.classList.add("rmh_handle_open");
         rmh_handle.classList.add("rmh_handle_opened");
-        setTimeout(function() {
+        setTimeout(function () {
             rmh.style.transitionDuration = "initial";
         }, 500);
     }, 1000);

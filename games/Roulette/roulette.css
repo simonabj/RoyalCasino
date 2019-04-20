@@ -1,4 +1,123 @@
 
+#table {
+    margin-top        : 25px;
+    background-image  : url("../../resources/loops/felt-table-texture.jpg");
+    background-repeat : repeat;
+    background-size   : 250px;
+    padding           : 100px;
+    border-radius     : 75% 25% 75% 25% / 25% 75% 25% 75%;
+    }
+
+#rouletteWheelBorder_Outer {
+    background-image  : url("../../resources/loops/Wood/Mahagony dark.png");
+    background-repeat : repeat;
+    width             : 650px;
+    height            : 650px;
+    border-radius     : 50%;
+    }
+
+#rouletteWheelBorder_Outer * {
+    margin : 0;
+    }
+
+#rouletteWheelBorder_Inner {
+    box-shadow        : inset 0px 0px 30px 15px rgba(0, 0, 0, 0.9);
+    background-image  : url("../../resources/loops/Wood/Mahagony bendy.jpg");
+    background-repeat : repeat;
+    width             : 600px;
+    height            : 600px;
+    border-radius     : 50%;
+    position          : relative;
+    }
+
+
+#rouletteWheel {
+    background-image    : url("../../resources/istockphoto-495869310-612x612.jpg");
+    background-size     : cover;
+    width               : 500px;
+    height              : 500px;
+    border-radius       : 50%;
+    position            : absolute;
+    transition-duration : 0s /*16.6666667ms*/;
+    }
+
+#rouletteWheelCover {
+    background-image    : url("../../resources/istockphoto-993478608-612x612.jpg");
+    background-size     : 880px;
+    background-position : center;
+    transform           : rotate(17deg);
+    box-shadow          : 0 0 10px 12px rgba(0, 0, 0, .5);
+    width               : 66%;
+    height              : 66%;
+    border-radius       : 50%;
+    cursor              : pointer;
+    }
+
+#rouletteWheelCover:hover {
+    filter : brightness(115%);
+    }
+
+
+#ballDiv {
+    background-color    : transparent;
+    position            : relative;
+    padding             : 0;
+    box-shadow          : none;
+    height              : 600px; /* initial height, will shrink to make the ball go nearer the center. */
+    width               : auto;
+    transition-duration : 0s /*16.6666667ms*/;
+    }
+
+#ball {
+    background-color : navajowhite;
+    border-radius    : 50%;
+    height           : 25px;
+    width            : 25px;
+    margin           : 0;
+    padding          : 0;
+    top              : 0;
+    position         : absolute
+    }
+
+.r_reverse {
+    animation-direction : reverse !important;
+    }
+
+.r_rotating_linear {
+    animation : r_rotating 4s infinite linear;
+    }
+
+.r_rotating_linear_fast {
+    animation : r_rotating 2s infinite linear;
+    }
+
+.r_rotating_linear_slow {
+    animation : r_rotating 10s infinite linear;
+    }
+
+.r_rotating_ease {
+    animation : r_rotating 5s infinite ease-in-out;
+    }
+
+.r_rotating_ease-out {
+    animation : r_rotating 4s linear forwards ease-out;
+    }
+
+@keyframes r_rotating {
+    0% {
+        transform : rotate(0deg);
+        }
+    100% {
+        transform : rotate(360deg);
+        }
+    }
+
+
+
+
+
+
+
 
 
 
@@ -32,19 +151,16 @@ div {
     -webkit-box-shadow : 0 6px 8px 0 var(--shadowColor);
     }
 
+#documentWrapper {
+    width  : 100%;
+    height : 100%;
+    }
+
+
 div > p, div > h1, div > h2, div > h3, div > h4, div > h5, div > label, div > output {
     /*cursor: url("Resources/etc/cursors/Mario_Gant/Text_Select.cur"), text*/
     }
 
-/*.plainDiv > p, .plainDiv > h1, .plainDiv > h2, .plainDiv > h3, .plainDiv > h4, .plainDiv > h5, .plainDiv > label, .plainDiv > output { color: var(--onBackground) ! i m p o r t a n t; }*/
-/*.container > p, .container > h1, .container > h2, .container > h3, .container > h4, .container > h5, .container > label, .container > output { color: var(--onBackground) ! i m p o r t a n t; }*/
-
-
-
-#tableOfContents {
-    margin  : 15px 0 15px 0;
-    padding : 15px;
-    }
 
 h1, h2, h3, h4, h5 {
     font-weight : bolder;
@@ -501,9 +617,6 @@ input[type=range]::-webkit-slider-thumb:hover {
     z-index  : 13;
     }
 
-:root {
-    --speechBubbleColor : var(--secondaryVariant);
-    }
 
 
 
@@ -608,6 +721,14 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
+
+
+
+#spinBtn {
+    position : absolute;
+    top      : 50%;
+    left     : 50px;
+    }
 
 
 

@@ -42,7 +42,11 @@ function keys_preventCombinations(event) {
     }*/
 }
 
-
+function toLowestDeg(deg) {
+    if (deg > 360) while(deg > 360) deg = deg - 360;
+    if (deg < -360) while(deg < -360) deg = deg + 360;
+    return deg;
+}
 
 // ______________________________________ PROTOTYPES _________________________
 String.prototype.capitalize = function () { return this[0].toUpperCase() + this.slice(1); };

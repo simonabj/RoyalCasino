@@ -6,6 +6,19 @@
 
     <script src="/0JS/RoyaleSubsystem.js"></script>
     <script src="/0JS/CardSystem.js"></script>
+
+    <script src="../../0JS/jquery-3.3.1.js"></script>
+
+
+
+    <link rel="stylesheet" href="modal.css">
+    <script src="modal.js"></script>
+
+    <link rel="stylesheet" href="blackjack.css">
+    <script src="blackjack.js"></script>
+
+    <script src="../../0JS/universal_menu.js"></script>s
+    <link rel="stylesheet" href="../../0CSS/universal_menu.css">
 </head>
 <body>
 
@@ -15,9 +28,39 @@
     // Get user for stuffs later
     let user = getUser();
 
+    let mainMenuModal;
+    let rulesModal;
 
+    window.onload = () => {
+        mainMenuModal = new Modal(document.getElementById("modal_main_menu"), true);
+        rulesModal = new Modal(document.getElementById("modal_rules"));
+    }
 
 </script>
+
+<div id="modal_main_menu" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" onclick="mainMenuModal.close()">&times;</span>
+        <p>MainMenu!</p>
+    </div>
+</div>
+
+<div id="modal_rules" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" onclick="rulesModal.close()">&times;</span>
+        <p>Blackjack Rules:</p>
+    </div>
+</div>
+
+<button>Start Blackjack</button>
+<button onclick="rulesModal.open()">Show Rules</button>
+<button>Return</button>
+
+<div id="play-area">
+    <img src="/0JS/CardSystem/cards/BACK.png" alt="back of cards" width="170">
+</div>
 
 </body>
 </html>

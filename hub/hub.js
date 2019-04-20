@@ -37,6 +37,7 @@ $(function () {
     ];
 
 
+
     // ____________________________________ DISPLAYING GAMES ___________________________________
     /**
      * method createGameBox(object) creates and returns a HTML element containing an image, title and link from given object.

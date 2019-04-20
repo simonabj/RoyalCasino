@@ -392,11 +392,11 @@ div a { color : var(--secondaryVariant); }
 
 
 .noSelect {
-    user-select         : none; /* supported by Chrome and Opera */
+    user-select         : none; /* Chrome and Opera */
+    -moz-user-select    : none; /* Firefox */
     -webkit-user-select : none; /* Safari */
     -khtml-user-select  : none; /* Konqueror HTML */
-    -moz-user-select    : none; /* Firefox */
-    -ms-user-select     : none; /* Internet Explorer/Edge */
+    -ms-user-select     : none; /* Internet Explorer / MS Edge */
     }
 
 
@@ -1325,14 +1325,15 @@ Imma make these .fancyButton's simpler sometime
 .bordershape-hexagon:after { content : ""; position : absolute; bottom : -25px; left : 0; width : 0; height : 0; border-left : 50px solid transparent; border-right : 50px solid transparent; border-top : 25px solid var(--secondary); }
 
 
-
 :root {
-    --speechBubbleColor : #0AB;
+    --speechBubbleColor : var(--secondary);
     }
 
-.speech-bubble { position : relative; background : var(--speechBubbleColor); border-radius : .4em; }
+.speech-bubble{ color: white; font-weight: bold; position: relative; background: transparent; border: var(--speechBubbleColor) 5px solid; border-radius: 50px; }
 
 .speech-bubble:after { content : ''; position : absolute; left : 0; top : 50%; width : 0; height : 0; border : 30px solid transparent; border-right-color : var(--speechBubbleColor); border-left : 0; border-bottom : 0; margin-top : -15px; margin-left : -30px; }
+
+.speech-bubble-right { color: white; font-weight: bold;  position: relative; background: transparent; border: var(--speechBubbleColor) 5px solid; border-radius: 50px; } .speech-bubble-right:after { content: ''; position: absolute; right: 0; top: 50%; width: 0; height: 0; border: 30px solid transparent; border-radius: 200%; border-left-color: var(--speechBubbleColor); border-right: 0; border-top: 0; margin-top: -20px; margin-right: -30px; }
 
 .slowlyRotating {
     animation : rotate_360 20s

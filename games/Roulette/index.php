@@ -16,52 +16,53 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="icon" href="../../resources/redChip.png">
 
     <script src="../../0JS/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <script src="../../0JS/RoyaleSubsystem.js"></script>
-    <script src="../../0JS/juliansUtilitiesLib.js"></script>
     <link href="../../0CSS/universal.css" rel="stylesheet">
     <link href="../../0CSS/classes.css" rel="stylesheet">
 
-    <link href="roulette.css" rel="stylesheet">
-    <script src="roulette.js"></script>
-
     <script src="../../0JS/universal_menu.js"></script>
     <link href="../../0CSS/universal_menu.css" rel="stylesheet">
+
+    <link href="roulette.css" rel="stylesheet">
+    <script src="roulette.js"></script>
 
     <style>
 
     </style>
 </head>
 <body>
+<div id="documentWrapper">
 
-    <!--
-    <div id="rmh" class="container">
+    <div id="table">
+    <button id="spinBtn" class="fancyButtonSecondary">Spin!</button>
+        <div id="rouletteWheelBorder_Outer">
+            <div id="rouletteWheelBorder_Inner"> <!-- not rotating -->
 
-        <img id="rmh_handle" src="../../resources/redChip.png">
+                <div id="rouletteWheel">
 
-        <div id="rmh_bar">
+                    <div id="rouletteWheelCover"></div>
 
-            <div class="pointer rmh_item">
-                <i class="material-icons" onclick="window.location.href='../../hub/index.php'">home</i>
-            </div>
+                </div> <!-- rotating -->
 
-            <div class="rmh_item" id="rmh_tokenCountItem">
-                <div class="container row">
-                    <img src="../../resources/redChip.png" alt="token" class="rmh_token">
-                    <p id="rmh_tokenCount"> x 400</p>
-                    <script> document.getElementById("tokenCount").innerHTML = "x " + getUser().tokenManager.getCount(); </script>
+
+                <div id="ballDiv" class=""> <!-- rotating -->
+                    <div id="ball"></div>
                 </div>
-                <button class="retroButton" onclick="">get more</button>
+
             </div>
         </div>
     </div>
-    -->
 
 
-<div id="documentWrapper">
+
 
 </div> <!-- end of document wrapper -->
+<script>
+    $(function(){
+
+    });
+</script>
 </body>
 </html>
 

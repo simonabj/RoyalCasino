@@ -21,7 +21,7 @@ $(function () {
         {
             title: "Crash",
             image: "https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F480661%2Frising_stock_chart.jpg&w=700&op=resize",
-            href: "../games/pullOut/crash.php",
+            href: "../games/Crash/crash.php",
         },
         {
             title: "Royale Bros",
@@ -29,14 +29,20 @@ $(function () {
             href: "reddit.com",
         },
         {
-            title: "A Link to the Rich",
+            title: "Royale Adventures",
             image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",
-            href: "vg.no",
+            href: "http://nogginclontith.co.uk/index.htm",
         },
 
     ];
 
+    /*
+Det kan jeg gjøre! Her er linken: https://theRoyale.club/
 
+For øyeblikket er det bare det jeg har gjort som vises på siden, da jeg er den som står i ansvar for CSS og Hub'en, blandt annet.
+Spillene er ikke
+
+ */
 
     // ____________________________________ DISPLAYING GAMES ___________________________________
     /**
@@ -179,9 +185,10 @@ $(function () {
     let headerToggled = false;
     let shrinkOn = 25;
 
+    let doesFooterHide = false;
     let footer = document.getElementById("footer");
     let footerToggled = false;
-    footer.style.opacity = 0;
+    (doesFooterHide===true) ? footer.style.opacity = 0 : footer.style.opacity = 1;
 
     let textBox1 = document.getElementById("framedTextBox");
 
@@ -251,10 +258,10 @@ $(function () {
 
         // FOOTER
         /** If bottom of page reached, footer opacity is set to 1, else, footer opacity is set to 0. */
-        if (footerToggled === false && document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
+        if (doesFooterHide && footerToggled === false && document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
             footer.style.opacity = 1;
             footerToggled = true;
-        } else if (footerToggled) {
+        } else if (doesFooterHide && footerToggled) {
             footer.style.opacity = 0;
             footerToggled = false;
         }

@@ -13,7 +13,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <head>
     <meta charset="UTF-8">
     <title> Casino Royale - Hub </title>
-    <link rel="icon" href="/resources/redChip.png">
+    <link rel="icon" href="../resources/redChip.png">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
@@ -21,9 +21,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <script src="../0JS/jquery-3.3.1.js"></script>
     <script src="../0JS/RoyaleSubsystem.js"></script>
 
-    <script src="../0JS/juliansUtilitiesLib.js"></script>
+    <script src="../0JS/oddUtilities.js"></script>
     <link href="../0CSS/classes.css" rel="stylesheet">
     <link href="../0CSS/universal.css" rel="stylesheet">
+
+    <!--<link rel="stylesheet" href="../0CSS/universal_menu.css">
+    <script src="../0JS/universal_menu.js">rmh_href = "../0PHP/login.php";</script>-->
 
     <link href="hub.css" rel="stylesheet">
     <script src="hub.js"></script>
@@ -31,12 +34,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <body>
 
 
+<!-- HEADER -->
 <span id="headerSpan" class="clipPathShadow">
     <header style="position: fixed; z-index: 5;" class="clipPathShadow">
         <div class="column container div clipPathShadow"></div>
     </header>
 </span>
+<!-- END OF HEADER -->
 
+
+<!-- TOOLBAR -->
 <div id="toolbarLeft" class="toolbar">
     <div class="toolbarItem">
         <p id="tokenCount">Tokens: 3</p>
@@ -51,20 +58,21 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <div id="profileSettings" class="toolbarItem"> <p>Profile Settings</p> </div>
     <div id="logoutButton"> <p>logout</p> </div>
 </div>
+<!-- END OF TOOLBAR -->
 
 
-
+<!-- DOCUMENT WRAPPER -->
 <div id="documentWrapper" class="container column" style="margin-top: 325px">
+
+
     <!-- HEADER ELEMENTS -->
-    <img id="headerSymbol" src="../resources/redChip.png">
-    <div id="toolbarTooltip" class="speech-bubble" style="display: none"> <p>Click me to show the toolbar</p> </div>
-    <script>
-        if (get("firstTime")) { $("#toolbarTooltip").show(); $("#headerSymbol").addEventListener("click", function (){$("#toolbarTooltip").hide();});}
-    </script>
+    <img id="headerSymbol" src="../resources/redChip.png" draggable="false">
+
+    <div id="toolbarTooltip" class="speech-bubble" style="display: none"> <p>Click me to open the toolbar.</p> </div>
+    <script> $(function(){if (get("firstTime")){ $("#toolbarTooltip").slideDown(); $("#headerSymbol")[0].addEventListener("click", function (){$("#toolbarTooltip").slideUp();});}}); </script>
+
     <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">
-        <h1>
-            Casino Royale!
-        </h1>
+        <h1>Casino Royale!</h1>
     </div>
     <!-- END OF HEADER ELEMENTS -->
 
@@ -103,10 +111,22 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <!-- footer -->
     <div id="footer">
+
+        <div class="lowBound">
+            <p>CSS by Julian</p>
+            <p>Subsystems by Simon B</p>
+        </div>
+
         <div class="column square secondaryVariant">
             <p contenteditable="true"> This is a footer! Isn't it neat? </p>
             <p> ロイヤルカジノ™</p>
         </div>
+
+        <div class="lowBound">
+            <p>PHP by Simon L</p>
+            <p>Games by everyone</p>
+        </div>
+
     </div>
 
 </div> <!-- end of document wrapper -->

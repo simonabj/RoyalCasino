@@ -1,4 +1,6 @@
 let rmh_affectUser = true;
+// To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag). (not sure if this works yet)
+let rmh_href = "../../hub/index.php";
 
 // APPENDING THE ICON-FONT TO HEAD
 window.onload = function () {
@@ -12,8 +14,6 @@ window.onload = function () {
 
 
 
-    // To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag). (not sure if this works yet)
-    let rmh_href = "/hub/index.php";
 
     // GENERATING THE HANDLE ELEMENT
     let rmh = document.createElement("div");

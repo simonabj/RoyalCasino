@@ -10,8 +10,8 @@ $(function () {
         },
         {
             title: "blackjack",
-            image: "http://getgmailaccount.com/wp-content/uploads/2019/01/Panduan-Mudah-Bermain-Di-Situs-Poker-Online.jpg",
-            href: "../games/Blackjack/index.html",
+            image: "/games/Blackjack/banner.jpg",
+            href: "../games/Blackjack/",
         },
         {
             title: "monty Hall",

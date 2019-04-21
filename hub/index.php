@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <!--|Montserrat|Open+Sans|Raleway|Roboto-->
-    <script src="../0JS/jquery-3.4.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="../0JS/RoyaleSubsystem.js"></script>
 
     <script src="../0JS/oddUtilities.js"></script>

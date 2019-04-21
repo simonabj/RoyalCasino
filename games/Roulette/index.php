@@ -5,7 +5,8 @@
     <title> Roulette | Casino Royale</title>
     <link rel="icon" href="../../resources/redChip.png">
 
-    <script src="../../0JS/jquery-3.4.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 
     <script src="../../0JS/RoyaleSubsystem.js"></script>

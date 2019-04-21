@@ -23,7 +23,7 @@ window.onload = function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="saveUser(user); updateSQL(); window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
@@ -36,9 +36,8 @@ window.onload = function () {
         '            </div>\n' +
         '        </div>\n';
 
-    /* TODO: KJØR SAVE SESSION USER OG SQL GREIA AT HOME BUTTONNN*/
-
     document.body.appendChild(rmh);
+
 
 
     /* structure:
@@ -127,21 +126,36 @@ window.onload = function () {
         },
     });
 
+    // CLOSING THE MENU AT LOAD
+    isRmhOpen = false;
+    rmh.classList.remove("rmh_opened");
+    rmh.classList.add("rmh_closed");
+    rmh_handle.classList.remove("rmh_handle_opened");
+    rmh_handle.classList.add("rmh_handle_closed");
 
-    // MAKING THE MENU APPEAR AFTER 1 SECOND (giving the appended font time to load, and making it more noticable).
-    rmh.style.opacity = 0;
-    rmh.style.transitionDuration = "0.5s";
-    setTimeout(function () {
-        rmh.style.opacity = 1;
-        rmh.classList.add("rmh_open");
-        rmh.classList.add("rmh_opened");
-        rmh_handle.classList.add("rmh_handle_open");
-        rmh_handle.classList.add("rmh_handle_opened");
+    /**
+     * method rmh_openAfter closes the menu, and re-opens it after given amount of seconds. (giving the appended font time to load, and making it more noticable).
+     * @param seconds {Number} - the amount of seconds until the menu opens again.
+     */
+
+    window.rmh_openAfter = function (seconds) {
+        //rmh.style.opacity = 0;
+        //rmh.style.transitionDuration = "0.5s";
         setTimeout(function () {
-            rmh.style.transitionDuration = "initial";
-        }, 500);
-    }, 1000);
+            isRmhOpen = true;
+            rmh.style.opacity = 1;
+            rmh.classList.add("rmh_open");
+            rmh.classList.add("rmh_opened");
+            rmh.classList.remove("rmh_closed");
+            rmh_handle.classList.add("rmh_handle_open");
+            rmh_handle.classList.add("rmh_handle_opened");
+            rmh_handle.classList.remove("rmh_handle_closed");
+        }, seconds * 1000);
+    };
+    window.updateRmhTokenCount = function () {
+        document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();
+    };
 
-
+    // TODO - make tooltip only show when autoopened or when its minimized in the start or something i dunno
 
 };

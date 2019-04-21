@@ -33,7 +33,17 @@ window.addEventListener("keyup", function (event) {
     keysCS[event.key] = false;
 });
 
-
+/**
+ * get the angle between two 2D points.
+ * @param x1
+ * @param y1
+ * @param x2
+ * @param y2
+ * @returns {number}
+ */
+function getAngle(x1, y1, x2, y2) {
+    return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+}
 
 function keys_preventCombinations(event) {
     /*if (keys.control) {

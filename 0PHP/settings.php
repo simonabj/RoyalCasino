@@ -107,7 +107,7 @@ $datasett22 = mysqli_query($link, $sql3); /*Datasett*/
 
     /*Run a file to update values in database*/
     function updateSettings() {
-        var theme=document.querySelector("#txtOppdaterNavn1").value;
+        var theme=document.querySelector("#txtOppdaternavn1").value;
         console.log("Oppdaterer Innstillinger.");
         $.ajax({url: "refreshSettings.php?theme="+theme})
     }

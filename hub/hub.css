@@ -1,6 +1,9 @@
 /* NOTE: Veldig dokument-spesifikke forandringer er på bunnen av siden. */
 
 
+body{
+    background-image : radial-gradient(circle, var(--backgroundSecondary), var(--background) 75%);
+    }
 
 div {
     display            : flex; /* Alternative: "inline-flex". */
@@ -563,7 +566,7 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 
 
 #gamesContainer {
-    background-image  : url("loops/dotted velvet.jpg");
+    background-image  : url("../resources/textures/dotted velvet.jpg");
     background-repeat : repeat;
     flex-direction    : row;
     max-width         : 1000px;

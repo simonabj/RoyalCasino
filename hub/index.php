@@ -1,4 +1,14 @@
+<?php
+session_start(); /*Starte en session for å hente verdiene lagret*/
 
+require_once "config.php"; /*Hente konfigurasjonsbitene*/
+
+$id = $_SESSION["id"];
+$sql = "SELECT * FROM users WHERE id=$id";
+$query = mysqli_query($link, $sql);
+$value = mysqli_fetch_object($query);
+$theme = $value->theme;
+?>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +20,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <!--|Montserrat|Open+Sans|Raleway|Roboto-->
-    <script src="../0JS/jquery-3.3.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="../0JS/RoyaleSubsystem.js"></script>
 
     <script src="../0JS/oddUtilities.js"></script>
@@ -39,7 +49,7 @@
 <div id="toolbarLeft" class="toolbar">
     <div class="toolbarItem">
         <p id="tokenCount">Tokens: 3</p>
-        <script> document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount(); </script>
+        <script> $(function(){setTimeout(function(){document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount();}},100) </script>
 
         <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
         <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
@@ -124,6 +134,16 @@
 </div> <!-- end of document wrapper -->
 <script>
     init_royale();
+
+    // todo - expand on
+    let theme = <?php echo $theme; ?>;
+    if (theme.toLowerCase() === "dark") {
+        let root = $(':root');
+        root.css('--primary', 'black');
+        root.css('--secondary', 'darkblue');
+        root.css('--background', 'black');
+    }
+
 </script>
 </body>
 </html>

@@ -1,3 +1,7 @@
+body{
+    overflow-x: hidden;
+    }
+
 #rmh {
     padding             : 0;
     position            : fixed;
@@ -119,7 +123,7 @@
     }
 
 #rmh_handle:hover {
-    filter : brightness(150%);
+    filter : brightness(125%);
     }
 
 .rmh_open {
@@ -187,8 +191,9 @@
 #rmh_tooltip {
     transition-duration : 0.5s;
     position            : absolute;
-    top                 : -10px;
-    right               : 140px;
+    width: 100px;
+    top                 : -290px;
+    right               : 145px;
     z-index             : 13000;
     }
 

@@ -158,7 +158,8 @@ while ($row = mysqli_fetch_array($kjort)) {
         buttonEl.addEventListener("click", sluttVerdiFunksjon);
         utfallEl.innerHTML="Du trakk deg ut i tide, veddet "+betSatt+" og tjente "+Number(betSatt*ganger2-betSatt)+" Tokens. Innsatsen din ble ganget med "+ganger2+".";
         /*Kjøring av funksjon hvis man vinner*/
-        user.tokenManager.addTokenAmount(betSatt*ganger2-betSatt); /*Gi brukeren tokens hvis vinn*/
+        var verdi = betSatt*ganger2-betSatt;
+        user.tokenManager.addTokenAmount(verdi); /*Gi brukeren tokens hvis vinn*/
         saveUser(user); /*Oppdatere til session storage*/
         updateSQL(); /*Oppdater database*/
         document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/

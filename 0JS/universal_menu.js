@@ -39,6 +39,7 @@ window.onload = function () {
     document.body.appendChild(rmh);
 
 
+
     /* structure:
     <div id="rmh" class="container">
 
@@ -137,7 +138,7 @@ window.onload = function () {
      * @param seconds {Number} - the amount of seconds until the menu opens again.
      */
 
-     window.rmh_openAfter = function(seconds) {
+    window.rmh_openAfter = function (seconds) {
         //rmh.style.opacity = 0;
         //rmh.style.transitionDuration = "0.5s";
         setTimeout(function () {
@@ -149,7 +150,10 @@ window.onload = function () {
             rmh_handle.classList.add("rmh_handle_open");
             rmh_handle.classList.add("rmh_handle_opened");
             rmh_handle.classList.remove("rmh_handle_closed");
-        }, seconds*1000);
+        }, seconds * 1000);
+    };
+    window.updateRmhTokenCount = function () {
+        document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();
     };
 
     // TODO - make tooltip only show when autoopened or when its minimized in the start or something i dunno

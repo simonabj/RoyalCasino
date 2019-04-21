@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <!--|Montserrat|Open+Sans|Raleway|Roboto-->
-    <script src="../0JS/jquery-3.3.1.js"></script>
+    <script src="../0JS/jquery-3.4.0.min.js"></script>
     <script src="../0JS/RoyaleSubsystem.js"></script>
 
     <script src="../0JS/oddUtilities.js"></script>
@@ -39,7 +39,7 @@
 <div id="toolbarLeft" class="toolbar">
     <div class="toolbarItem">
         <p id="tokenCount">Tokens: 3</p>
-        <script> document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount(); </script>
+        <script> $(function(){setTimeout(function(){document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount();}},100) </script>
 
         <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
         <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->

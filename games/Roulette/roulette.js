@@ -1,3 +1,5 @@
+let affectUser = true;
+
 // DOCUMENT LOAD
 $(function () {
     let title = $("#table .title")[0];
@@ -42,7 +44,7 @@ $(function () {
 
 
     // _______ VARIABLES _______
-    let rotateVelMax = 4;
+    let rotateVelMax = 6; /* 4 is best for 144hz */
     let rotateVel = 0;
     // THE BALL
     let ball = new Rotatable($("#ballDiv")[0]);
@@ -60,7 +62,7 @@ $(function () {
     function gameloop() {
 
         // RETURNING VALUES TO MAX SMOOTHLY (Makes the rotation and ball return to correct velocity and height smoothly).
-        if (rotateVel < rotateVelMax && !stop) rotateVel += 0.25;
+        if (rotateVel < rotateVelMax && !stop) rotateVel += 0.4;
         if (ballHeight < ballHeightMax && !stop) ballHeight += 10;
 
         // ROTATING
@@ -82,7 +84,7 @@ $(function () {
                 return false;
             }
             // LOWERS THE BALL UNTIL IT'S WITHIN A 360 PIXEL RADIUS OF THE CENTER
-            if (ballHeight > 360) { ballHeight = ballHeight * 0.99; }
+            if (ballHeight > 360) { ballHeight = ballHeight * 0.975; } /* 0.99 is best for 144hz */
         }
         requestAnimationFrame(gameloop);
     }
@@ -100,8 +102,9 @@ $(function () {
     function spin() {
         if (!spinning && betInput.value !== "" && numberInput.value !== "") {
 
+            winningAlert.style.display = "none";
             // If the user has betted on more than 17 numbers, prevents spinning.
-            if($("#whatNumbers")[0].value.split(',').map(Number).length > 17){
+            if ($("#whatNumbers")[0].value.split(',').map(Number).length > 17) {
                 numberInput.classList.remove("jello-horizontal");
                 betInput.classList.remove("jello-horizontal");
                 bettingAlert[0].classList.add("shake-horizontal");
@@ -110,7 +113,7 @@ $(function () {
                 numberInput.classList.add("jello-horizontal");
                 return false;
             }
-            winningAlert.style.display = "none";
+
             console.log("");
             console.log("Spinning");
             spinning = true;
@@ -134,45 +137,51 @@ $(function () {
             ball.el.style.height = ballHeight + "px";
 
             sfx_spinning = new Audio("sfx/spinning.ogg");
+            sfx_spinning.volume = 0.5;
             sfx_spinning.play();
 
             betInput.disabled = true;
             numberInput.disabled = true;
             betInput.classList.add("shadow-inset-center");
             numberInput.classList.add("shadow-inset-center");
-            bettingAlert.hide();
             bettingAlert[0].classList.remove("shake-horizontal");
-
+            bettingAlert.hide();
 
             gameloop();
+
         } else if (betInput.value === "" || numberInput.value === "") {
+
+            winningAlert.style.display = "none";
 
             numberInput.classList.remove("jello-horizontal");
             betInput.classList.remove("jello-horizontal");
+
             bettingAlert[0].classList.add("shake-horizontal");
             bettingAlert.show();
 
-            if (numberInput.value === "" && betInput.value === "") {
+            setTimeout(function () {
 
-                bettingAlert[0].querySelector("h3").innerHTML = "You need to bet something on something.";
+                if (numberInput.value === "" && betInput.value === "") {
 
-                numberInput.classList.add("jello-horizontal");
-                betInput.classList.add("jello-horizontal");
+                    bettingAlert[0].querySelector("h3").innerHTML = "You need to bet something on something.";
 
-            } else if (numberInput.value === "") {
+                    numberInput.classList.add("jello-horizontal");
+                    betInput.classList.add("jello-horizontal");
 
-                bettingAlert[0].querySelector("h3").innerHTML = "You need to bet on something.";
+                } else if (numberInput.value === "") {
 
-                numberInput.classList.add("jello-horizontal");
+                    bettingAlert[0].querySelector("h3").innerHTML = "You need to bet on something.";
 
-            } else if (betInput.value === "") {
+                    numberInput.classList.add("jello-horizontal");
 
+                } else if (betInput.value === "") {
 
-                bettingAlert[0].querySelector("h3").innerHTML = "You need to bet something.";
+                    bettingAlert[0].querySelector("h3").innerHTML = "You need to bet something.";
 
-                betInput.classList.add("jello-horizontal");
+                    betInput.classList.add("jello-horizontal");
 
-            }
+                }
+            }, 100);
 
         }
     }
@@ -187,6 +196,7 @@ $(function () {
     let ballEndDeg, wheelEndDeg, difference, realValue;
 
     betInput.addEventListener("animationend", function () { betInput.classList.remove("flip-scale-up-hor"); });
+
     //winningAlert.addEventListener("animationend", function () { winningAlert.classList.remove("slide-in-elliptic-top-fwd"); winningAlert.classList.remove("bounce-in-top"); });
 
 
@@ -230,7 +240,6 @@ $(function () {
             if (isNaN(wonAmount) || wonAmount === undefined) wonAmount = 0;
             console.log("You won " + wonAmount + " tokens!");
 
-            // tokenmanager.add shit tokens yeet
 
             betInput.classList.add("flip-scale-up-hor");
             betInput.value = "";
@@ -238,8 +247,16 @@ $(function () {
             winningAlert.classList.remove("bounce-in-top");
             winningAlert.style.display = "block";
             winningAlert.style.backgroundColor = "rgba(71, 15, 121, 0.95)";
-            winningAlert.querySelector("h1").innerHTML = "YOU WON "+wonAmount+" TOKENS!";
+            winningAlert.querySelector("h1").innerHTML = "YOU WON " + wonAmount + " TOKENS!";
             winningAlert.classList.add("slide-in-elliptic-top-fwd");
+
+            // __ ADDING THE WON TOKENS TO THE USERS BALANCE __
+            if (affectUser) {
+                user.tokenManager.addTokenAmount(wonAmount);
+                saveUser(user); //Updates session storage
+                updateSQL(); // Updates database
+                document.getElementById("tokenCount").innerText = "" + getUser().tokenManager.getCount(); //Updates the token count display with the new token balance.
+            }
 
         } else {
             // __ LOSING __
@@ -252,8 +269,17 @@ $(function () {
             winningAlert.classList.remove("slide-in-elliptic-top-fwd");
             winningAlert.style.display = "block";
             winningAlert.style.backgroundColor = "rgba(121, 18, 21, 0.95)";
-            winningAlert.querySelector("h1").innerHTML = "You lost "+bet+" tokens :(";
+            winningAlert.querySelector("h1").innerHTML = "You lost " + bet + " tokens :( ";
             winningAlert.classList.add("bounce-in-top");
+
+            // __ REMOVING THE BET TOKENS FROM THE USERS BALANCE __
+            if (affectUser) {
+                user.tokenManager.subTokenAmount(bet);
+                saveUser(user); // Updates session storage
+                updateSQL(); // Updates database
+                document.getElementById("tokenCount").innerText = "" + getUser().tokenManager.getCount(); //Updates the token count display with the new token balance.
+            }
+
 
         }
 

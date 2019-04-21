@@ -5,7 +5,7 @@
     <title> Roulette | Casino Royale</title>
     <link rel="icon" href="../../resources/redChip.png">
 
-    <script src="../../0JS/jquery-3.3.1.js"></script>
+    <script src="../../0JS/jquery-3.4.0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 
     <script src="../../0JS/RoyaleSubsystem.js"></script>
@@ -48,7 +48,8 @@
         <div class="container">
             <input id="whatNumbers" type="text"> <span><p>What numbers will you bet on? Separate with commas.<br>
                     (Remember, the fewer you bet on, the more you win)</p></span>
-            <input id="howMuch" type="number"> <span><p>How many tokens will you bet?</p></span>
+            <input id="howMuch" type="number"> <span><p>You have <span id="tokenCount">99</span> tokens, how many will you bet?</p></span>
+            <script>//$(function () {document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();})</script>
             <button id="spinBtn" class="retroButton">Spin the wheel!</button>
         </div>
 
@@ -61,11 +62,10 @@
 
 </div> <!-- end of document wrapper -->
 <script>
+    affectUser = true;
     $(function () {
-        init_royale();
-        rmh_openAfter(3);
-
-
+        if(affectUser) init_royale();
+        setTimeout(function(){rmh_openAfter(3);},250);
 
     });
 </script>

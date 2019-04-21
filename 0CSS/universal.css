@@ -1,5 +1,3 @@
-
-
 /* _________________ variables _________________ */
 :root {
     /* COLOR PALETTE  */
@@ -24,8 +22,8 @@
     alt. background gradient: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%),
     */
 
-    --red: #C80E0F;
-    --redOpaque: rgba(200, 14, 15, 0.65);
+    --red                 : #C80E0F;
+    --redOpaque           : rgba(200, 14, 15, 0.65);
 
     --borderRadius        : 15px;
     --shadowColor         : rgba(0, 0, 0, .5); /* alternatives: rgba(0,0,0,.5) [fargen tar på fargen til bakgrunnen pga. opacity, beste alternativ] - #ccc - grey */
@@ -49,24 +47,7 @@ body {
     flex-wrap        : wrap; /* Wrapper elementer ned til ny linje om det blir overflow */
     overflow         : auto;
 
-    background-image : radial-gradient(circle, var(--backgroundSecondary), var(--background) 75%);
-    /*background-image : radial-gradient(var(--background) 75%, var(--backgroundSecondary));
-    /*
-    background: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%);
-     */
-    /*
-    background-image: radial-gradient(circle, var(--backgroundSecondary), var(--background) 75%);
-    /*
-    background-image: url("Resources/loops/space\ nebula.jpg");
-    background-color: var(--background);
-    background-repeat: repeat;
-    */
-
-
-    cursor           : url("Resources/etc/cursors/Numix_Cursors/NumixLight/Arrow.cur"), auto;
     font-family      : Arial, sans-serif; /* Første font er foretrukket, følgende fonter er fallbacks, om nettleseren ikke støtter fonten. */
-    /* Web-safe alternatives:  "Lucida Sans Unicode", Georgia, Palatino, Garamond, Bookman, Helvetica.
-    Other alternatives: "Century Gothic" / "Adobe Garamond"(Custom font (facefont), veldig ofte brukt i  magasiner) / "Verdana" (Uprofesjonelt, men bra readability: flere studier hevder det er den lettest-leste fonten.) */
     }
 
 /*  neat html ting: contenteditable="true" */
@@ -76,3 +57,10 @@ body {
     box-sizing          : border-box;
     transition-duration : 0.5s;
     }
+
+
+h1, h2, h3, h4, h5 {
+    font-family : 'Playfair Display', serif;
+    }
+
+p { font-family : "Lucida Sans Unicode", Arial, serif; }

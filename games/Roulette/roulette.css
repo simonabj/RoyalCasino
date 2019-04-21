@@ -1,22 +1,16 @@
-
 body {
     background-image  : url("../../resources/loops/Dark_Wood_Floor.jpg");
     background-repeat : repeat;
-    filter            : drop-shadow(0 20px 10px rgba(0, 0, 0, 0.5))
+    filter            : drop-shadow(0 15px 10px rgba(0, 0, 0, 0.8))
     }
 
-
-
-
-
-
-
-
+p{ font-family: "Lucida Sans Unicode", serif; }
 
 #table {
     position          : relative;
 
     margin-top        : 25px;
+    margin-bottom     : 100px;
     background-image  : url("../../hub/loops/felt-table-texture.jpg");
     background-repeat : repeat;
     background-size   : 250px;
@@ -25,6 +19,7 @@ body {
 
     -webkit-clip-path : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
     clip-path         : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+
     }
 
 #table .title {
@@ -150,6 +145,7 @@ body {
 #table .retroButton {
     background-color : var(--secondaryVariant);
     margin-top       : 25px;
+    padding          : 15px 25px;
     }
 
 #whatNumbers {
@@ -157,7 +153,7 @@ body {
     }
 
 #howMuch {
-    min-width : 60%;
+    min-width : 85%;
     }
 
 #bettingAlert {

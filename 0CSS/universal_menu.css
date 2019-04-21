@@ -1,3 +1,7 @@
+body{
+    overflow-x: hidden;
+    }
+
 #rmh {
     padding             : 0;
     position            : fixed;

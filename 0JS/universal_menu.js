@@ -23,7 +23,7 @@ window.onload = function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="saveUser(user); updateSQL(); window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
@@ -36,9 +36,6 @@ window.onload = function () {
         '            </div>\n' +
         '        </div>\n';
 
-    /* TODO: KJØR SAVE SESSION USER OG SQL GREIA AT HOME BUTTONNN*/
-
-    console.log(rmh);
     document.body.appendChild(rmh);
 
 

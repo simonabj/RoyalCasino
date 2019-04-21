@@ -6,6 +6,7 @@
     <link rel="icon" href="../../resources/redChip.png">
 
     <script src="../../0JS/jquery-3.3.1.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 
     <script src="../../0JS/RoyaleSubsystem.js"></script>
     <link href="../../0CSS/universal.css" rel="stylesheet">
@@ -25,7 +26,10 @@
 <div id="documentWrapper">
 
     <div id="table">
-    <!--<button id="spinBtn" class="fancyButtonSecondary">Spin!</button>-->
+        <h1 class="title">Roulette</h1>
+        <div class="space"></div>
+        <div class="space"></div>
+        <div class="space"></div>
         <div id="rouletteWheelBorder_Outer">
             <div id="rouletteWheelBorder_Inner"> <!-- not rotating -->
                 <div id="rouletteWheel"> <!-- rotating -->
@@ -33,32 +37,37 @@
                 </div>
 
                 <div id="ballDiv" class=""> <!-- rotating -->
-                    <div id="ball"></div>
+                    <div id="ball" class="ball"></div>
                 </div>
+
+                <div id="bettingAlert"><h3>yet</h3></div>
+
             </div>
         </div>
 
         <div class="container">
-            <input id="whatNumbers" type="text"> <span><p>What number will you bet on? Separate with commas. (Remember, the fewer you bet on, the more you win)</p></span>
-            <input id="howMuch" type="number"> <span><p>How much will you bet?</p></span>
-            <button id="spinBtn" class="retroButton">Spin the roulette</button>
+            <input id="whatNumbers" type="text"> <span><p>What numbers will you bet on? Separate with commas.<br>
+                    (Remember, the fewer you bet on, the more you win)</p></span>
+            <input id="howMuch" type="number"> <span><p>How many tokens will you bet?</p></span>
+            <button id="spinBtn" class="retroButton">Spin the wheel!</button>
         </div>
 
     </div>
 
+    <div id="winningAlert" class="smoothEdges"> <h1></h1> </div>
 
 
 
 
 </div> <!-- end of document wrapper -->
 <script>
-    $(function(){
+    $(function () {
         init_royale();
-        //rmh_openAfter(2);
+        rmh_openAfter(3);
 
 
 
-    });        
+    });
 </script>
 </body>
 </html>

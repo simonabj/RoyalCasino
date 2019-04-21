@@ -1,5 +1,10 @@
 // DOCUMENT LOAD
 $(function () {
+    let title = $("#table .title")[0];
+    setTimeout(function () {
+        title.style.opacity = 1;
+        title.classList.add("tracking-in-expand");
+    }, 500);
 
     /**
      * method normalizeAngle returns the lowest possible degree with which to describe the given degree, between 0 and 359.
@@ -13,9 +18,9 @@ $(function () {
         return newDeg;
     }
 
-    function getAngle(x1, y1, x2, y2) {
+    /*function getAngle(x1, y1, x2, y2) {
         return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-    }
+    }*/
 
 
     class Rotatable {
@@ -50,6 +55,7 @@ $(function () {
 
 
 
+
     // ________ GAMELOOP ________
     function gameloop() {
 
@@ -65,9 +71,7 @@ $(function () {
         // STOPPING
         if (stop) {
 
-
-            console.log("stopping");
-            rotateVel = rotateVel * 0.99;
+            rotateVel *= 0.99;
 
             // BREAKS THE GAMELOOP IF THE BALL HAS STOPPED.
             if (rotateVel < 0.03) {
@@ -84,21 +88,40 @@ $(function () {
     }
 
 
+
+
     // SIGNIFYING WHEN TO STOP
-    let stop, stopTime, spinning = false, sfx_spinning;
+    let stop, stopTime, spinning = false, sfx_spinning, betInput = $("#howMuch")[0], numberInput = $("#whatNumbers")[0],
+        bettingAlert = $("#bettingAlert"), winningAlert = $("#winningAlert")[0];
+    numberInput.addEventListener("animationend", function () {numberInput.classList.remove("jello-horizontal");});
+    numberInput.addEventListener("animationend", function () {betInput.classList.remove("jello-horizontal");});
+
 
     function spin() {
-        if (!spinning) {
+        if (!spinning && betInput.value !== "" && numberInput.value !== "") {
+
+            // If the user has betted on more than 17 numbers, prevents spinning.
+            if($("#whatNumbers")[0].value.split(',').map(Number).length > 17){
+                numberInput.classList.remove("jello-horizontal");
+                betInput.classList.remove("jello-horizontal");
+                bettingAlert[0].classList.add("shake-horizontal");
+                bettingAlert.show();
+                bettingAlert[0].querySelector("h3").innerHTML = "You can't bet on more than 18 numbers.";
+                numberInput.classList.add("jello-horizontal");
+                return false;
+            }
+            winningAlert.style.display = "none";
+            console.log("");
+            console.log("Spinning");
             spinning = true;
             stop = false;
             stopTime = Math.random() * 6000 + 1500;
-            console.log((stopTime / 1000).toFixed(1) + " seconds.");
+            console.log("The wheel will spin for " + (stopTime / 1000).toFixed(1) + " seconds.");
 
             // stopping the roulette wheel
             setTimeout(function () {
                 // signifies it's time to stop, for the gameloop.
                 stop = true;
-
                 // plays the end of the spinning audio.
                 sfx_spinning.pause();
                 sfx_spinning.currentTime = 0;
@@ -113,20 +136,66 @@ $(function () {
             sfx_spinning = new Audio("sfx/spinning.ogg");
             sfx_spinning.play();
 
+            betInput.disabled = true;
+            numberInput.disabled = true;
+            betInput.classList.add("shadow-inset-center");
+            numberInput.classList.add("shadow-inset-center");
+            bettingAlert.hide();
+            bettingAlert[0].classList.remove("shake-horizontal");
+
+
             gameloop();
+        } else if (betInput.value === "" || numberInput.value === "") {
+
+            numberInput.classList.remove("jello-horizontal");
+            betInput.classList.remove("jello-horizontal");
+            bettingAlert[0].classList.add("shake-horizontal");
+            bettingAlert.show();
+
+            if (numberInput.value === "" && betInput.value === "") {
+
+                bettingAlert[0].querySelector("h3").innerHTML = "You need to bet something on something.";
+
+                numberInput.classList.add("jello-horizontal");
+                betInput.classList.add("jello-horizontal");
+
+            } else if (numberInput.value === "") {
+
+                bettingAlert[0].querySelector("h3").innerHTML = "You need to bet on something.";
+
+                numberInput.classList.add("jello-horizontal");
+
+            } else if (betInput.value === "") {
+
+
+                bettingAlert[0].querySelector("h3").innerHTML = "You need to bet something.";
+
+                betInput.classList.add("jello-horizontal");
+
+            }
+
         }
     }
+
+
 
     $("#spinBtn").click(function () {spin();});
     $("#rouletteWheelCover").click(function () {spin();});
 
+
+
     let ballEndDeg, wheelEndDeg, difference, realValue;
+
+    betInput.addEventListener("animationend", function () { betInput.classList.remove("flip-scale-up-hor"); });
+    //winningAlert.addEventListener("animationend", function () { winningAlert.classList.remove("slide-in-elliptic-top-fwd"); winningAlert.classList.remove("bounce-in-top"); });
+
 
     function stopped() {
         wheelEndDeg = normalizeAngle(rWheel.deg).toFixed(0);
         ballEndDeg = normalizeAngle(ball.deg).toFixed(0);
         difference = normalizeAngle(wheelEndDeg - ballEndDeg);
-        console.log("difference = " + difference + "deg");
+        console.log("");
+        console.log("Difference = " + difference + "deg");
 
         // Loops through the real values from the bottom, and the first time differenceDeg is smaller than the current realValues starting-degree, it breaks the loop and sets realValue to the previous realValues real-value.
         // This is because, when the difference(deg) is smaller than the starting-degree of one of the roulette-table-value-cells, it means that the previous roulette-table-value-cell is the one the ball landed on, as the ball's degree is between the current and previous cell.
@@ -137,32 +206,71 @@ $(function () {
             }
         }
 
-        console.log(realValue);
+        console.log("Your ball landed on " + realValue);
 
-        let bettedValues = $("#whatNumbers")[0].value.split(',').map(Number);
-        console.log("you bet on "+bettedValues);
-        if(bettedValues.includes(realValue)){
+        // WINNING OR LOSING
+
+        let bet, bettedValues, wonAmount;
+
+        bet = betInput.value;
+        betInput.disabled = false;
+        numberInput.disabled = false;
+        betInput.classList.remove("shadow-inset-center");
+        numberInput.classList.remove("shadow-inset-center");
+        bettedValues = $("#whatNumbers")[0].value.split(',').map(Number);
+
+        // __ WINNING __
+        if (bettedValues.includes(realValue)) {
             console.log("YOU WON!");
 
-            let wonAmount;
-            let bet = $("#howMuch")[0].value;
-            let payoff = function(){
-                for (let i = 0; i < betPayoffs.length; i++) {
-                    // todo - make work or something
-                    if (bettedValues.length < betPayoffs[i][0]) return betPayoffs[i - 1];
-                }
-                return 5; //fallback return value if no match found.
-            };
-            wonAmount = bet * payoff();
-            console.log(wonAmount);
+            //let payoffRatio =  bettedValues.length
+            //let payoff = function () { for (let i = 0; i < betPayoffs.length; i++) { /* tod o - make work or something */ if (bettedValues.length < betPayoffs[i][0]) return betPayoffs[i - 1]; } return 5; //fallback return value if no match found (as it would return if it did).};
+
+            wonAmount = (bet * (35 / bettedValues.length)).toFixed(0); //there are 38 slots, so on average you will lose by a little bit.
+            if (isNaN(wonAmount) || wonAmount === undefined) wonAmount = 0;
+            console.log("You won " + wonAmount + " tokens!");
+
+            // tokenmanager.add shit tokens yeet
+
+            betInput.classList.add("flip-scale-up-hor");
+            betInput.value = "";
+
+            winningAlert.classList.remove("bounce-in-top");
+            winningAlert.style.display = "block";
+            winningAlert.style.backgroundColor = "rgba(71, 15, 121, 0.95)";
+            winningAlert.querySelector("h1").innerHTML = "YOU WON "+wonAmount+" TOKENS!";
+            winningAlert.classList.add("slide-in-elliptic-top-fwd");
+
+        } else {
+            // __ LOSING __
+
+            console.log("YOU LOST " + bet + " TOKENS :(");
+            // tokenmanager.remove shit tokens yeet
+            betInput.classList.add("flip-scale-up-hor");
+            betInput.value = "";
+
+            winningAlert.classList.remove("slide-in-elliptic-top-fwd");
+            winningAlert.style.display = "block";
+            winningAlert.style.backgroundColor = "rgba(121, 18, 21, 0.95)";
+            winningAlert.querySelector("h1").innerHTML = "You lost "+bet+" tokens :(";
+            winningAlert.classList.add("bounce-in-top");
+
         }
+
+        console.log("You're betting " + bet + " tokens on " + bettedValues);
+
+        console.log("");
 
         //can currently just change number when you see what its gonna land on, make the bets bve set and disabled at spin. todo.
 
     }
 
+
+
+
     // [startDeg, endDeg, realValue]
     let realValues = [
+        [0, 5, 0],
         [5, 14, 1],
         [14, 24, 13],
         [24, 33, 36],
@@ -201,15 +309,16 @@ $(function () {
         [336, 346, 10],
         [346, 355, 27],
         [355, 5, 0],
+        [361, 5, 0]
     ];
 
-    let betPayoffs = [
+    /*let betPayoffs = [
         [1, 35],
         [2, 17],
         [3, 11],
         [4, 8],
         [6, 5],
-    ];
+    ];*/
 
 });
 

@@ -1,11 +1,38 @@
 
+body {
+    background-image  : url("../../resources/loops/Dark_Wood_Floor.jpg");
+    background-repeat : repeat;
+    filter            : drop-shadow(0 20px 10px rgba(0, 0, 0, 0.5))
+    }
+
+
+
+
+
+
+
+
+
 #table {
+    position          : relative;
+
     margin-top        : 25px;
     background-image  : url("../../hub/loops/felt-table-texture.jpg");
     background-repeat : repeat;
     background-size   : 250px;
     padding           : 100px;
-    border-radius     : 75% 25% 75% 25% / 25% 75% 25% 75%;
+    border-radius     : 0;
+
+    -webkit-clip-path : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+    clip-path         : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+    }
+
+#table .title {
+    position            : absolute;
+    top                 : 0;
+    opacity             : 0;
+    user-select         : none;
+    -webkit-user-select : none;
     }
 
 #rouletteWheelBorder_Outer {
@@ -14,7 +41,7 @@
     width             : 650px;
     height            : 650px;
     border-radius     : 50%;
-    box-shadow          : 0 0 5px 5px rgba(0,0,0,.5);
+    box-shadow        : 0 0 5px 5px rgba(0, 0, 0, .5);
     }
 
 #rouletteWheelBorder_Outer * {
@@ -33,7 +60,7 @@
 
 
 #rouletteWheel {
-    box-shadow        : inset 0 0 5px 5px rgba(0, 0, 0, 0.9);
+    box-shadow          : inset 0 0 5px 5px rgba(0, 0, 0, 0.9);
     background-image    : url("../../resources/istockphoto-495869310-612x612.jpg");
     background-size     : cover;
     width               : 500px;
@@ -71,14 +98,16 @@
     }
 
 #ball {
-    background-color : navajowhite;
-    border-radius    : 50%;
-    height           : 25px;
-    width            : 25px;
-    margin           : 0;
-    padding          : 0;
-    top              : 0;
-    position         : absolute
+    box-shadow          : inset -5px -5px 10px rgba(0, 0, 0, .5);
+    background-color    : navajowhite;
+    /*background-image: radial-gradient(circle at 40% 25%, navajowhite, #303030);
+    */border-radius : 50%;
+    height              : 25px;
+    width               : 25px;
+    margin              : 0;
+    padding             : 0;
+    top                 : 0;
+    position            : absolute
     }
 
 .r_reverse {
@@ -114,8 +143,52 @@
         }
     }
 
+#table input {
+    margin-top : 25px;
+    }
 
+#table .retroButton {
+    background-color : var(--secondaryVariant);
+    margin-top       : 25px;
+    }
 
+#whatNumbers {
+    min-width : 100%;
+    }
+
+#howMuch {
+    min-width : 60%;
+    }
+
+#bettingAlert {
+    display          : none;
+    position         : absolute;
+    background-color : var(--error);
+    color            : var(--onError);
+    top              : calc(50% - 34px);
+    }
+
+#winningAlert {
+    display          : none;
+    position         : absolute;
+    top              : 400px;
+    padding          : 0 10px 10px 10px;
+    border-radius    : 100px;
+    background-color : rgba(121, 18, 21, 0.95);
+    }
+
+#winningAlert h1 {
+    user-select         : none;
+    -webkit-user-select : none;
+    color               : var(--secondary);
+    white-space         : nowrap;
+    font-family         : 'Playfair Display', serif;
+    font-weight         : bolder;
+    font-size           : 60pt;
+    letter-spacing      : 3px;
+    -webkit-animation   : heartbeat 5s ease-in-out infinite both;
+    animation           : heartbeat 5s ease-in-out infinite both
+    }
 
 
 
@@ -390,7 +463,7 @@ button, select, input[type=radio], input[type=checkbox], label {
 
 
 /* __________ < TEXT INPUTS > __________ */
-input[type=text] {
+input[type=text], input[type=number] {
     margin              : 5px 0;
     padding             : 5px 0;
     border              : 1px solid var(--secondaryVariant);
@@ -400,7 +473,7 @@ input[type=text] {
     font-weight         : bold;
     }
 
-input[type=text]:focus {
+input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[type=number]:focus {
     padding          : 5px 0;
     background-color : var(--secondaryVariant);
     margin           : 5px 0;

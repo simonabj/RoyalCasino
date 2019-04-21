@@ -136,8 +136,8 @@ $theme = $value->theme;
     init_royale();
 
     // todo - expand on
-    let theme = <?php echo $theme; ?>;
-    if (theme.toLowerCase() === "dark") {
+    let theme = "<?php echo $theme; ?>";
+    if (theme === "Dark") {
         let root = $(':root');
         root.css('--primary', 'black');
         root.css('--secondary', 'darkblue');

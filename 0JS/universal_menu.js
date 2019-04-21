@@ -1,3 +1,5 @@
+let rmh_affectUser = true;
+
 // APPENDING THE ICON-FONT TO HEAD
 window.onload = function () {
 
@@ -23,7 +25,7 @@ window.onload = function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="saveUser(user); updateSQL(); window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="if(rmh_affectUser){saveUser(user); updateSQL();}; window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +

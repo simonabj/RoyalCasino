@@ -364,7 +364,7 @@ $(function () {
     let isProfileHover = false;
     $("#profileSettings").on({
         click: function(){
-            window.location.href="https://visitjulian.com";
+            window.location.href="../0PHP/settings.php";
         },
         mouseenter: function(){
             isProfileHover = true;

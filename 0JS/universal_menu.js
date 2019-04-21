@@ -1,4 +1,4 @@
-let rmh_affectUser = true;
+let rmh_affectUser = false;
 // To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag). (not sure if this works yet)
 let rmh_href = "../../hub/index.php";
 

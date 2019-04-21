@@ -1,6 +1,6 @@
-let rmh_affectUser = false;
+let rmh_affectUser = true;
 // To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag). (not sure if this works yet)
-let rmh_href = "../../hub/index.php";
+let rmh_href = "/hub/index.php";
 
 // APPENDING THE ICON-FONT TO HEAD
 window.onload = function () {

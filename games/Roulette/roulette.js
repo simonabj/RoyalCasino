@@ -346,5 +346,18 @@ $(function () {
         [6, 5],
     ];*/
 
+
+
+
+
+    // PRACTICE MODE
+
+    $("#practiceModeToggle")[0].checked = false;
+    $("#practiceModeToggle").click(function(){
+        affectUser = !affectUser;
+        console.log(affectUser);
+    });
+
+
 });
 

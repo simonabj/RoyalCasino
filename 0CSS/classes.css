@@ -1371,6 +1371,65 @@ Imma make these .fancyButton's simpler sometime
     }
 
 
+/* ________________________ TOGGLE BUTTON ___________________ */
+/* Hide default input */
+.toggle input {
+    display: none;
+    }
+
+/* The container and background */
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 68px;
+    height: 30px;
+    margin-left: 15px;
+    }
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--error);
+    border: 1px solid #aaa;
+    border-radius: 30px;
+    transition: all 0.4s;
+    }
+
+/* The sliding button */
+.slider:before {
+    position: absolute;
+    content: "";
+    width: 24px;
+    height: 24px;
+    left: 2px;
+    top: 2px;
+    background-color: #eee;
+    border-radius: 24px;
+    transition: all 0.4s;
+    }
+
+/* On checked */
+input:checked + .slider {
+    background-color: #009d00;
+    }
+input:checked + .slider:before {
+    transform: translateX(37px);
+    }
+/*
+<label class="toggle">
+      <input type="checkbox"/>
+      <span class="slider"></span>
+    </label>
+ */
+/* ( https://code-boxx.com/pure-simple-css-toggle-button/ ) */
+/* ________________________ END OF TOGGLE BUTTON ___________________ */
+
+
+
+
 .slide-in-elliptic-top-fwd{-webkit-animation:slide-in-elliptic-top-fwd .7s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-elliptic-top-fwd .7s cubic-bezier(.25,.46,.45,.94) both}
 @-webkit-keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(0) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}@keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(0) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}
 

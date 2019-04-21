@@ -13,7 +13,7 @@ $(function () {
         return newDeg;
     }
 
-    function getAngle(x1,y1,x2,y2){
+    function getAngle(x1, y1, x2, y2) {
         return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
     }
 
@@ -53,9 +53,9 @@ $(function () {
     // ________ GAMELOOP ________
     function gameloop() {
 
-        // Makes the rotation and ball return to correct velocity and height smoothly.
-        if(rotateVel < rotateVelMax && !stop) rotateVel += 0.25;
-        if(ballHeight < ballHeightMax && !stop) ballHeight += 10;
+        // RETURNING VALUES TO MAX SMOOTHLY (Makes the rotation and ball return to correct velocity and height smoothly).
+        if (rotateVel < rotateVelMax && !stop) rotateVel += 0.25;
+        if (ballHeight < ballHeightMax && !stop) ballHeight += 10;
 
         // ROTATING
         rWheel.rotate(rotateVel * 0.4);
@@ -64,102 +64,152 @@ $(function () {
 
         // STOPPING
         if (stop) {
+
+
             console.log("stopping");
             rotateVel = rotateVel * 0.99;
 
             // BREAKS THE GAMELOOP IF THE BALL HAS STOPPED.
-            if(rotateVel < 0.03){
+            if (rotateVel < 0.03) {
                 rotateVel = 0;
                 console.log("stopped");
+                stopped();
                 spinning = false;
                 return false;
             }
             // LOWERS THE BALL UNTIL IT'S WITHIN A 360 PIXEL RADIUS OF THE CENTER
-            if (ballHeight > 360) {
-                ballHeight = ballHeight * 0.99;
-            }
+            if (ballHeight > 360) { ballHeight = ballHeight * 0.99; }
         }
-
         requestAnimationFrame(gameloop);
     }
 
 
     // SIGNIFYING WHEN TO STOP
-    let stop, stopTime, spinning = false;
+    let stop, stopTime, spinning = false, sfx_spinning;
 
-    function spin(){
-        if(!spinning){
-
+    function spin() {
+        if (!spinning) {
             spinning = true;
             stop = false;
-
             stopTime = Math.random() * 6000 + 1500;
             console.log((stopTime / 1000).toFixed(1) + " seconds.");
 
-            setTimeout(function () { stop = true; }, stopTime);
+            // stopping the roulette wheel
+            setTimeout(function () {
+                // signifies it's time to stop, for the gameloop.
+                stop = true;
+
+                // plays the end of the spinning audio.
+                sfx_spinning.pause();
+                sfx_spinning.currentTime = 0;
+                sfx_spinning = new Audio("sfx/spinning_stopping.ogg");
+                sfx_spinning.play();
+            }, stopTime);
 
             rotateVel = 0;
+
             ball.el.style.height = ballHeight + "px";
+
+            sfx_spinning = new Audio("sfx/spinning.ogg");
+            sfx_spinning.play();
 
             gameloop();
         }
     }
-    $("#spinBtn").click(function(){spin();});
-    $("#rouletteWheelCover").click(function(){spin();});
 
+    $("#spinBtn").click(function () {spin();});
+    $("#rouletteWheelCover").click(function () {spin();});
 
-    // CALLING THE GAME LOOP AFTER ALL VARIABLES ARE SET.
-    //spin();
+    let ballEndDeg, wheelEndDeg, difference, realValue;
 
+    function stopped() {
+        wheelEndDeg = normalizeAngle(rWheel.deg).toFixed(0);
+        ballEndDeg = normalizeAngle(ball.deg).toFixed(0);
+        difference = normalizeAngle(wheelEndDeg - ballEndDeg);
+        console.log("difference = " + difference + "deg");
 
-    /*
-        let values = [
-            {from: 0, to: 10, is: 18},
-            {from: 10, to: 19, is: 31},
-            {from: 19,to: 29,is: 19},
-            {from: 29,to: 38,is: 8},
-            {from: 38,to: 48,is: 12},
-            {from: 48,to: 57,is: 29},
-            {from: 57,to: 66,is: 25},
-            {from: 66,to: 76,is: 10},
-            {from: 76,to: 85,is: 27},
-            {from: 85,to: 95,is: 0},
-            {from: 95,to: 104,is:1},
-            {from: 104,to: 114,is: 13},
-            {from: 114,to: 123,is: 36},
-            {from: 123,to: 133,is: 24},
-            {from: 133,to: 142,is: 3},
-            {from: 142,to: 151,is: 15},
-            {from: 151,to: 161,is: 34},
-            {from: 161,to: 170,is: 22},
-            {from: 170,to: 180,is: 5},
-            {from: ,to: ,is: },
-            {from: ,to: ,is: },
-            {from: ,to: ,is: },
-            {from: ,to: ,is: },
-            {from: ,to: ,is: },
+        // Loops through the real values from the bottom, and the first time differenceDeg is smaller than the current realValues starting-degree, it breaks the loop and sets realValue to the previous realValues real-value.
+        // This is because, when the difference(deg) is smaller than the starting-degree of one of the roulette-table-value-cells, it means that the previous roulette-table-value-cell is the one the ball landed on, as the ball's degree is between the current and previous cell.
+        for (let i = 0; i < realValues.length; i++) {
+            if (difference < realValues[i][0]) {
+                realValue = realValues[i - 1][2];
+                break;
+            }
+        }
 
-            inverted
-            180 - 171 = 17
-            171-161 = 32
-            161-152 = 20
-            152-142 = 7
-            142-133 = 11
-            133-123 = 30
-            123-114 = 26
-            114-104 = 9
-            104-95 = 28
-            95-85 = 0
-            85-76 = 2
-            76-66 = 14
-            66-57 = 35
-            57-47 = 32
-            47-37 = 4
-            37-28 = 16
-            28-18 = 33
-            18-9 = 21
-            9-0 = 6
-        ]
-    */
+        console.log(realValue);
+
+        let bettedValues = $("#whatNumbers")[0].value.split(',').map(Number);
+        console.log("you bet on "+bettedValues);
+        if(bettedValues.includes(realValue)){
+            console.log("YOU WON!");
+
+            let wonAmount;
+            let bet = $("#howMuch")[0].value;
+            let payoff = function(){
+                for (let i = 0; i < betPayoffs.length; i++) {
+                    // todo - make work or something
+                    if (bettedValues.length < betPayoffs[i][0]) return betPayoffs[i - 1];
+                }
+                return 5; //fallback return value if no match found.
+            };
+            wonAmount = bet * payoff();
+            console.log(wonAmount);
+        }
+
+        //can currently just change number when you see what its gonna land on, make the bets bve set and disabled at spin. todo.
+
+    }
+
+    // [startDeg, endDeg, realValue]
+    let realValues = [
+        [5, 14, 1],
+        [14, 24, 13],
+        [24, 33, 36],
+        [33, 43, 24],
+        [43, 52, 3],
+        [52, 62, 15],
+        [62, 71, 34],
+        [71, 80, 22],
+        [80, 90, 5],
+        [90, 100, 17],
+        [100, 109, 32],
+        [109, 118, 20],
+        [118, 128, 7],
+        [128, 137, 11],
+        [137, 147, 30],
+        [147, 156, 26],
+        [156, 165, 9],
+        [165, 175, 28],
+        [175, 184, 0],
+        [184, 194, 2],
+        [194, 203, 14],
+        [203, 213, 35],
+        [213, 222, 23],
+        [222, 232, 4],
+        [232, 241, 16],
+        [241, 251, 33],
+        [251, 260, 21],
+        [260, 270, 6],
+        [270, 279, 18],
+        [279, 289, 31],
+        [289, 298, 19],
+        [298, 308, 8],
+        [308, 317, 12],
+        [317, 327, 29],
+        [237, 336, 25],
+        [336, 346, 10],
+        [346, 355, 27],
+        [355, 5, 0],
+    ];
+
+    let betPayoffs = [
+        [1, 35],
+        [2, 17],
+        [3, 11],
+        [4, 8],
+        [6, 5],
+    ];
+
 });
 

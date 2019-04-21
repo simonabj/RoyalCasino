@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Blackjack | Casino Royale</title>
 
-    <script src="../../0JS/jquery-3.3.1.js"></script>
+    <script src="/0JS/RoyaleSubsystem.js"></script>
+    <script src="/0JS/CardSystem.js"></script>
+
+    <script src="/0JS/jquery-3.3.1.js"></script>
 
     <script src="../../0JS/universal_menu.js"></script>
     <link href="../../0CSS/universal_menu.css" rel="stylesheet">
@@ -15,13 +18,61 @@
 
 <script>
     init_royale();
+  
+    let mainMenuModal;
+    let rulesModal;
 
-    // Get user for stuffs later
-    //let user = getUser();
+    window.onload = () => {
+        mainMenuModal = new Modal(document.getElementById("modal_main_menu"), true);
+        rulesModal = new Modal(document.getElementById("modal_rules"));
+    };
 
+    function openRules() {
+        if(mainMenuModal.isOpen) {mainMenuModal.close()}
+        rulesModal.open();
+    }
 
+    function closeRules() {
+        rulesModal.close();
+        mainMenuModal.open();
+    }
+
+    function returnToHub() {
+        saveUser(user);
+        updateSQL();
+
+        window.location.replace("/hub/");
+    }
 
 </script>
+
+<div id="modal_main_menu" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" onclick="mainMenuModal.close()">&times;</span>
+        <p>MainMenu!</p>
+        <button onclick="mainMenuModal.close();">Start Blackjack</button>
+        <button onclick="openRules();">Show Rules</button>
+        <button onclick="returnToHub();">Return to Hub</button>
+    </div>
+
+</div>
+
+<div id="modal_rules" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <p>Blackjack Rules:</p>
+        <button onclick="closeRules();"><- Back to menu</button>
+    </div>
+</div>
+
+<img src="logo.png" alt="blackjack logo" id="logo" width="500">
+
+<div id="play-area">
+    <button onclick="mainMenuModal.open();">Open Menu</button>
+    <br>
+    <img src="/0JS/CardSystem/cards/BACK.png" alt="back of cards" width="170">
+</div>
 
 </body>
 </html>

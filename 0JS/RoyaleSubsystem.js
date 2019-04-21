@@ -327,6 +327,15 @@ const validateLogin = async (callback) => {
     return new Promise((resolve,reject)=>callback(result.test === 1, resolve, reject));
 };
 
+let user = undefined;
+
+/**
+ * @desc Checks availability of user variable
+ * @function
+ * @memberOf RoyaleSubsystem
+ * @return {boolean} - User availability
+ */
+const userAvailable = () => {return (user !== undefined);};
 
 /**
  * @desc Confirm login, and initialize subsystem
@@ -335,4 +344,7 @@ const validateLogin = async (callback) => {
  */
 const init_royale = () => {
     updateSession();
+
+    // Get updated user object
+    user = getUser();
 };

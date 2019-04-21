@@ -23,7 +23,7 @@ window.onload = function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="saveUser(user); updateSQL(); window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
@@ -36,10 +36,8 @@ window.onload = function () {
         '            </div>\n' +
         '        </div>\n';
 
-    /* TODO: KJØR SAVE SESSION USER OG SQL GREIA AT HOME BUTTONNN*/
-
-    console.log(rmh);
     document.body.appendChild(rmh);
+
 
 
     /* structure:
@@ -140,7 +138,7 @@ window.onload = function () {
      * @param seconds {Number} - the amount of seconds until the menu opens again.
      */
 
-     window.rmh_openAfter = function(seconds) {
+    window.rmh_openAfter = function (seconds) {
         //rmh.style.opacity = 0;
         //rmh.style.transitionDuration = "0.5s";
         setTimeout(function () {
@@ -152,7 +150,10 @@ window.onload = function () {
             rmh_handle.classList.add("rmh_handle_open");
             rmh_handle.classList.add("rmh_handle_opened");
             rmh_handle.classList.remove("rmh_handle_closed");
-        }, seconds*1000);
+        }, seconds * 1000);
+    };
+    window.updateRmhTokenCount = function () {
+        document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();
     };
 
     // TODO - make tooltip only show when autoopened or when its minimized in the start or something i dunno

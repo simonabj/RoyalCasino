@@ -1,6 +1,9 @@
 /* NOTE: Veldig dokument-spesifikke forandringer er på bunnen av siden. */
 
 
+body{
+    background-image : radial-gradient(circle, var(--backgroundSecondary), var(--background) 75%);
+    }
 
 div {
     display            : flex; /* Alternative: "inline-flex". */

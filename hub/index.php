@@ -1,7 +1,7 @@
 <?php
 session_start(); /*Starte en session for å hente verdiene lagret*/
 
-require_once "config.php"; /*Hente konfigurasjonsbitene*/
+require_once "../0PHP/config.php"; /*Hente konfigurasjonsbitene*/
 
 $id = $_SESSION["id"];
 $sql = "SELECT * FROM users WHERE id=$id";

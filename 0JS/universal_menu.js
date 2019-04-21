@@ -1,3 +1,7 @@
+let rmh_affectUser = true;
+// To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag). (not sure if this works yet)
+let rmh_href = "/hub/index.php";
+
 // APPENDING THE ICON-FONT TO HEAD
 window.onload = function () {
 
@@ -10,8 +14,6 @@ window.onload = function () {
 
 
 
-    // To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag). (not sure if this works yet)
-    let rmh_href = "/hub/index.php";
 
     // GENERATING THE HANDLE ELEMENT
     let rmh = document.createElement("div");
@@ -23,7 +25,7 @@ window.onload = function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="saveUser(user); updateSQL(); window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="if(rmh_affectUser){saveUser(user); updateSQL();}; window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +

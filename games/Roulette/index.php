@@ -50,10 +50,19 @@
             <input id="whatNumbers" type="text"> <span><p>What numbers will you bet on? Separate with commas.<br>
                     (Remember, the fewer you bet on, the more you win)</p></span>
             <input id="howMuch" type="number"> <span><p>You have <span id="tokenCount">501</span> tokens, how many will you bet?</p></span>
-            <script>$(function(){if(affectUser){document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();}})</script>
+            <script>$(function(){if(affectUser) document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();})</script>
             <button id="spinBtn" class="retroButton">Spin the wheel!</button>
+            <div class="space"></div>
+            <div class="space"></div>
+            <div class="space"></div>
+            <div id="cheatModeDiv" class="row container opaqueOnHover50"">
+                <p>Practice mode </p>
+                <label class="toggle">
+                    <input type="checkbox" id="practiceModeToggle"/>
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
-
     </div>
 
     <div id="winningAlert" class="smoothEdges"> <h1></h1> </div>
@@ -63,10 +72,9 @@
 
 </div> <!-- end of document wrapper -->
 <script>
-    affectUser = true;
     $(function () {
         if(affectUser) init_royale();
-        setTimeout(function(){rmh_openAfter(3);},250);
+        //setTimeout(function(){rmh_openAfter(3);},250);
 
     });
 </script>

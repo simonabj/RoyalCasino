@@ -49,13 +49,12 @@ $theme = $value->theme;
 <div id="toolbarLeft" class="toolbar">
     <div class="toolbarItem">
         <p id="tokenCount">Tokens: 3</p>
-        <script> $(function(){setTimeout(function(){document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount();}},100) </script>
+        <script> $(function(){setTimeout(function(){document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount();}},100)) </script>
 
-        <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">BUY</button>
+        <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">GET MORE</button>
         <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
     </div>
 </div>
-
 <div id="toolbarRight" class="toolbar">
     <div id="profileSettings" class="toolbarItem"> <p>Profile Settings</p> </div>
     <div id="logoutButton"> <p>logout</p> </div>
@@ -136,11 +135,14 @@ $theme = $value->theme;
     init_royale();
 
     // todo - expand on
-    let theme = <?php echo $theme; ?>;
-    if (theme.toLowerCase() === "dark") {
-        let root = $(':root');
+    let theme = "<?php echo $theme; ?>";
+    if (theme === "Dark") {
+        let root = $(':root')[0];
         root.css('--primary', 'black');
-        root.css('--secondary', 'darkblue');
+        root.css('--primaryVariant', 'black');
+        root.css('--secondary', 'blue');
+        root.css('--secondaryVariant', 'blue');
+        root.css('--background', 'black');
         root.css('--background', 'black');
     }
 

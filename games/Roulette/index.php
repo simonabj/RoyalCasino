@@ -49,7 +49,7 @@
             <input id="whatNumbers" type="text"> <span><p>What numbers will you bet on? Separate with commas.<br>
                     (Remember, the fewer you bet on, the more you win)</p></span>
             <input id="howMuch" type="number"> <span><p>You have <span id="tokenCount">99</span> tokens, how many will you bet?</p></span>
-            <script>//$(function () {document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();})</script>
+            <script>$(function(){if(affectUser){document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();}})</script>
             <button id="spinBtn" class="retroButton">Spin the wheel!</button>
         </div>
 

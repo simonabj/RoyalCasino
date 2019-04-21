@@ -1,4 +1,14 @@
+<?php
+session_start(); /*Starte en session for å hente verdiene lagret*/
 
+require_once "config.php"; /*Hente konfigurasjonsbitene*/
+
+$id = $_SESSION["id"];
+$sql = "SELECT * FROM users WHERE id=$id";
+$query = mysqli_query($link, $sql);
+$value = mysqli_fetch_object($query);
+$theme = $value->theme;
+?>
 
 <!DOCTYPE html>
 <html>
@@ -124,6 +134,16 @@
 </div> <!-- end of document wrapper -->
 <script>
     init_royale();
+
+    // todo - expand on
+    let theme = <?php echo $theme; ?>;
+    if (theme.toLowerCase() === "dark") {
+        let root = $(':root');
+        root.css('--primary', 'black');
+        root.css('--secondary', 'darkblue');
+        root.css('--background', 'black');
+    }
+
 </script>
 </body>
 </html>

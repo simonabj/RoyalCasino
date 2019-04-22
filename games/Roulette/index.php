@@ -61,6 +61,7 @@
 
         </div>
     </div>
+
     <div id="cheatModeDiv" class="opaqueOnHover50 black whiteText">
         <img src="http://www.stickpng.com/assets/images/588a64d8d06f6719692a2d0f.png" alt="">
         <div class="row container">
@@ -83,7 +84,7 @@
     affectUser = false;
     $(function () {
         if (affectUser) init_royale();
-        setTimeout(function(){rmh_openAfter(2.5);},250);
+        setTimeout(function(){rmh_openAfter(2);},1000);
 
     });
 </script>

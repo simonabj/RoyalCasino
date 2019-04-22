@@ -277,7 +277,7 @@ div a { color : var(--secondaryVariant); }
 
 .circle { border-radius : 50% !important; }
 
-.rounded { border-radius : var(--borderRadius) !important; }
+.rounded, .roundedBorders { border-radius : var(--borderRadius) !important; }
 
 .shadow {
     box-shadow         : 3px 3px 5px var(--shadowColor) !important; /* Kompatibel med det meste */
@@ -1433,6 +1433,95 @@ input:checked + .slider:before {
 
 
 
+
+
+
+
+
+
+
+/* _____________________________________________________ ANIMISTA.NET ANIMATIONS ____________________________________________________ */
+.slit-out-diagonal-1{-webkit-animation:slit-out-diagonal-1 .5s ease-in both;animation:slit-out-diagonal-1 .5s ease-in both}
+@-webkit-keyframes slit-out-diagonal-1{0%{-webkit-transform:translateZ(0) rotate3d(1,1,0,0);transform:translateZ(0) rotate3d(1,1,0,0);opacity:1}54%{-webkit-transform:translateZ(-160px) rotate3d(1,1,0,87deg);transform:translateZ(-160px) rotate3d(1,1,0,87deg);opacity:1}100%{-webkit-transform:translateZ(-800px) rotate3d(1,1,0,90deg);transform:translateZ(-800px) rotate3d(1,1,0,90deg);opacity:0}}@keyframes slit-out-diagonal-1{0%{-webkit-transform:translateZ(0) rotate3d(1,1,0,0);transform:translateZ(0) rotate3d(1,1,0,0);opacity:1}54%{-webkit-transform:translateZ(-160px) rotate3d(1,1,0,87deg);transform:translateZ(-160px) rotate3d(1,1,0,87deg);opacity:1}100%{-webkit-transform:translateZ(-800px) rotate3d(1,1,0,90deg);transform:translateZ(-800px) rotate3d(1,1,0,90deg);opacity:0}}
+.slit-out-diagonal-2{-webkit-animation:slit-out-diagonal-2 .5s ease-in both;animation:slit-out-diagonal-2 .5s ease-in both}
+@-webkit-keyframes slit-out-diagonal-2{0%{-webkit-transform:translateZ(0) rotate3d(-1,1,0,0);transform:translateZ(0) rotate3d(-1,1,0,0);opacity:1}54%{-webkit-transform:translateZ(-160px) rotate3d(-1,1,0,-87deg);transform:translateZ(-160px) rotate3d(-1,1,0,-87deg);opacity:1}100%{-webkit-transform:translateZ(-800px) rotate3d(-1,1,0,-90deg);transform:translateZ(-800px) rotate3d(-1,1,0,-90deg);opacity:0}}@keyframes slit-out-diagonal-2{0%{-webkit-transform:translateZ(0) rotate3d(-1,1,0,0);transform:translateZ(0) rotate3d(-1,1,0,0);opacity:1}54%{-webkit-transform:translateZ(-160px) rotate3d(-1,1,0,-87deg);transform:translateZ(-160px) rotate3d(-1,1,0,-87deg);opacity:1}100%{-webkit-transform:translateZ(-800px) rotate3d(-1,1,0,-90deg);transform:translateZ(-800px) rotate3d(-1,1,0,-90deg);opacity:0}}
+
+.slide-fwd-center {-webkit-animation : slide-fwd-center .45s cubic-bezier(.25, .46, .45, .94) both;animation : slide-fwd-center .45s cubic-bezier(.25, .46, .45, .94) both}
+@-webkit-keyframes slide-fwd-center{
+    0% {-webkit-transform : translateZ(0) !important;
+        transform : translateZ(0) !important}
+    100% {-webkit-transform : translateZ(160px) !important;
+        transform : translateZ(160px) !important}
+    }
+
+@keyframes slide-fwd-center {
+    0% {-webkit-transform : translateZ(0) !important;
+        transform : translateZ(0) !important}
+    100% {-webkit-transform : translateZ(160px) !important;
+        transform : translateZ(160px) !important}
+    }
+
+.roll-out-left {-webkit-animation : roll-out-left .6s ease-in both;animation : roll-out-left .6s ease-in both}
+
+.roll-out-right {-webkit-animation : roll-out-right .6s ease-in both;animation : roll-out-right .6s ease-in both}
+
+@-webkit-keyframes roll-out-right {
+    0% {-webkit-transform : translateX(0) rotate(0deg);transform : translateX(0) rotate(0deg);opacity : 1}
+    100% {-webkit-transform : translateX(1000px) rotate(540deg);transform : translateX(1000px) rotate(540deg);opacity : 0}
+    }
+
+@keyframes roll-out-right {
+    0% {-webkit-transform : translateX(0) rotate(0deg);transform : translateX(0) rotate(0deg);opacity : 1}
+    100% {-webkit-transform : translateX(1000px) rotate(540deg);transform : translateX(1000px) rotate(540deg);opacity : 0}
+    }
+
+@-webkit-keyframes roll-out-left {
+    0% {-webkit-transform : translateX(0) rotate(0deg);transform : translateX(0) rotate(0deg);opacity : 1}
+    100% {-webkit-transform : translateX(-1000px) rotate(-540deg);transform : translateX(-1000px) rotate(-540deg);opacity : 0}
+    }
+
+@keyframes roll-out-left {
+    0% {-webkit-transform : translateX(0) rotate(0deg);transform : translateX(0) rotate(0deg);opacity : 1}
+    100% {-webkit-transform : translateX(-1000px) rotate(-540deg);transform : translateX(-1000px) rotate(-540deg);opacity : 0}
+    }
+
+
+.puff-out-center {-webkit-animation : puff-out-center 1s cubic-bezier(.165, .84, .44, 1.000) both;animation : puff-out-center 1s cubic-bezier(.165, .84, .44, 1.000) both}
+
+@-webkit-keyframes puff-out-center {
+    0% {-webkit-transform : scale(1);transform : scale(1);-webkit-filter : blur(0);filter : blur(0);opacity : 1}
+    100% {-webkit-transform : scale(1.25);transform : scale(1.25);-webkit-filter : blur(2px);filter : blur(2px);opacity : 0}
+    }
+
+@keyframes puff-out-center {
+    0% {-webkit-transform : scale(1);transform : scale(1);-webkit-filter : blur(0);filter : blur(0);opacity : 1}
+    100% {-webkit-transform : scale(1.25);transform : scale(1.25);-webkit-filter : blur(2px);filter : blur(2px);opacity : 0}
+    }
+
+.bg-pan-bottom {
+    -webkit-animation : bg-pan-bottom 8s both;
+    animation         : bg-pan-bottom 8s both;
+    }
+
+@-webkit-keyframes bg-pan-bottom {
+    0% {
+        background-position : 50% 0%;
+        }
+    100% {
+        background-position : 50% 100%;
+        }
+    }
+
+@keyframes bg-pan-bottom {
+    0% {
+        background-position : 50% 0%;
+        }
+    100% {
+        background-position : 50% 100%;
+        }
+    }
+
+
 .slide-out-elliptic-bottom-bck {-webkit-animation : slide-out-elliptic-bottom-bck .7s ease-in both;animation : slide-out-elliptic-bottom-bck .7s ease-in both}
 
 @-webkit-keyframes slide-out-elliptic-bottom-bck {
@@ -1612,13 +1701,71 @@ input:checked + .slider:before {
         }
     }
 
+.puff-out-tl {-webkit-animation : puff-out-tl .9s cubic-bezier(.165, .84, .44, 1.000) both;animation : puff-out-tl .9s cubic-bezier(.165, .84, .44, 1.000) both}
+
+.puff-out-tr {-webkit-animation : puff-out-tr .9s cubic-bezier(.165, .84, .44, 1.000) both;animation : puff-out-tr .9s cubic-bezier(.165, .84, .44, 1.000) both}
+
+@-webkit-keyframes puff-out-tl {
+    0% {-webkit-transform : scale(1);transform : scale(1);-webkit-transform-origin : 0 0;transform-origin : 0 0;-webkit-filter : blur(0);filter : blur(0);opacity : 1}
+    100% {-webkit-transform : scale(1.2);transform : scale(1.2);-webkit-transform-origin : 0 0;transform-origin : 0 0;-webkit-filter : blur(2px);filter : blur(2px);opacity : 0}
+    }
+
+@keyframes puff-out-tl {
+    0% {-webkit-transform : scale(1);transform : scale(1);-webkit-transform-origin : 0 0;transform-origin : 0 0;-webkit-filter : blur(0);filter : blur(0);opacity : 1}
+    100% {-webkit-transform : scale(1.2);transform : scale(1.2);-webkit-transform-origin : 0 0;transform-origin : 0 0;-webkit-filter : blur(2px);filter : blur(2px);opacity : 0}
+    }
+
+@-webkit-keyframes puff-out-tr {
+    0% {-webkit-transform : scale(1);transform : scale(1);-webkit-transform-origin : 100% 0;transform-origin : 100% 0;-webkit-filter : blur(0);filter : blur(0);opacity : 1}
+    100% {-webkit-transform : scale(1.2);transform : scale(1.2);-webkit-transform-origin : 100% 0;transform-origin : 100% 0;-webkit-filter : blur(2px);filter : blur(2px);opacity : 0}
+    }
+
+@keyframes puff-out-tr {
+    0% {-webkit-transform : scale(1);transform : scale(1);-webkit-transform-origin : 100% 0;transform-origin : 100% 0;-webkit-filter : blur(0);filter : blur(0);opacity : 1}
+    100% {-webkit-transform : scale(1.2);transform : scale(1.2);-webkit-transform-origin : 100% 0;transform-origin : 100% 0;-webkit-filter : blur(2px);filter : blur(2px);opacity : 0}
+    }
+
+.swing-out-right-bck {
+    -webkit-animation : swing-out-right-bck 1s linear both;
+    animation         : swing-out-right-bck 1s linear both}
+
+.swing-out-left-bck {
+    -webkit-animation : swing-out-left-bck 1s linear both;
+    animation         : swing-out-left-bck 1s linear both}
+
+.swing-out-right-bck-forwards {
+    -webkit-animation : forwards swing-out-right-bck 1s ease-in;
+    animation         : forwards swing-out-right-bck 1s ease-in}
+
+.swing-out-left-bck-forwards {
+    -webkit-animation : swing-out-left-bck 1s ease-in forwards;
+    animation         : swing-out-left-bck 1s ease-in forwards}
 
 
+@-webkit-keyframes swing-out-right-bck {
+    0% {-webkit-transform : rotateY(0);transform : rotateY(0);-webkit-transform-origin : right;transform-origin : right;opacity : 1}
+    100% {-webkit-transform : rotateY(-100deg);transform : rotateY(-100deg);-webkit-transform-origin : right;transform-origin : right;opacity : 0}
+    }
+
+@keyframes swing-out-right-bck {
+    0% {-webkit-transform : rotateY(0);transform : rotateY(0);-webkit-transform-origin : right;transform-origin : right;opacity : 1}
+    100% {-webkit-transform : rotateY(-100deg);transform : rotateY(-100deg);-webkit-transform-origin : right;transform-origin : right;opacity : 0}
+    }
 
 
-.tracking-in-expand_fast {
-    -webkit-animation : tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-    animation         : tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+@-webkit-keyframes swing-out-left-bck {
+    0% {-webkit-transform : rotateY(0);transform : rotateY(0);-webkit-transform-origin : left;transform-origin : left;opacity : 1}
+    100% {-webkit-transform : rotateY(100deg);transform : rotateY(100deg);-webkit-transform-origin : left;transform-origin : left;opacity : 0}
+    }
+
+@keyframes swing-out-left-bck {
+    0% {-webkit-transform : rotateY(0);transform : rotateY(0);-webkit-transform-origin : left;transform-origin : left;opacity : 1}
+    100% {-webkit-transform : rotateY(100deg);transform : rotateY(100deg);-webkit-transform-origin : left;transform-origin : left;opacity : 0}
+    }
+
+.tracking-in-expand-fast {
+    -webkit-animation : tracking-in-expand 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    animation         : tracking-in-expand 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
     }
 
 .tracking-in-expand {

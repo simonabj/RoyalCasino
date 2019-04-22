@@ -33,7 +33,8 @@ $theme = $value -> theme;
     <script src="../0JS/universal_menu.js">rmh_href = "../0PHP/login.php";</script>-->
 
     <link href="hub.css" rel="stylesheet">
-    <script src="hub.js"></script>
+    <script src="hub_games.js"></script>
+    <script src="hub_scrolling-and-toolbar.js"></script>
 </head>
 <body>
 
@@ -84,7 +85,9 @@ $theme = $value -> theme;
 
 
     <!-- the games -->
-    <div id="gamesContainer"></div>
+    <div id="gamesTableBorder">
+        <div id="gamesTable"></div>
+    </div>
 
 
 

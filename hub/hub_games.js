@@ -74,37 +74,24 @@ $(function () {
         $(button).on({
             click: function () {
                 // PLAYS AN ANIMATION ON EACH GAME BOX THAT ISN'T THIS ONE
-                let tempVar = 0;
+                /* let tempVar = 0; for--> tempVar++; if (tempVar === 2) tempVar = 0;   if-->(notcontainer-->if     (tempVar === 0) { gameBoxes[i].classList.add("shadow-inset-center"); } else { gameBoxes[i].classList.add("shadow-inset-center"); }*/
+                container.style.transform = "scale(1.2)";
                 for (let i = 0; i < gameBoxes.length; i++) {
-                    tempVar++;
-                    if (tempVar === 2) tempVar = 0;
                     if (gameBoxes[i] !== container) {
                         gameBoxes[i].querySelector(".hubGame_image").style.filter = "";
                         gameBoxes[i].style.transform = "scale(0.9)";
-                        if (tempVar === 0) {
-                            gameBoxes[i].classList.add("shadow-inset-center");
-                        } else {
-                            gameBoxes[i].classList.add("shadow-inset-center");
-                        }
                     }
                 }
-
-                container.style.transform = "scale(1.2)";
-
                 setTimeout(function () {
                     for (let i = 0; i < gameBoxes.length; i++) {
                         if (gameBoxes[i] !== container) {
-                            gameBoxes[i].classList.remove("shadow-inset-center");
-                            gameBoxes[i].classList.remove("slit-out-diagonal-2");
                             gameBoxes[i].style.transform = "";
                         }
                     }
                     container.style.transform = "";
-
-
-                }, 1500);
+                    window.location.href = object.href;
+                }, 650);
             },
-
             // BLURS OTHER GAME-IMAGES ON HOVER
             mouseenter: function () {
                 // BLURS EACH GAME BOX THAT ISN'T THIS ONE
@@ -114,7 +101,6 @@ $(function () {
                     }
                 }
             },
-
             // DE-BLURS OTHER GAME-IMAGES WHEN NO LONGER HOVERING
             mouseleave: function () {
                 // DE-BLURS EACH GAME BOX THAT ISN'T THIS ONE

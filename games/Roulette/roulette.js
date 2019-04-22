@@ -108,7 +108,8 @@ $(function () {
 
 
     // SIGNIFYING WHEN TO STOP
-    let _gameloop, stop, stopTime, spinning = false, sfx_spinning, betInput = $("#howMuch")[0], numberInput = $("#whatNumbers")[0],
+    let _gameloop, stop, stopTime, spinning = false, sfx_spinning, betInput = $("#howMuch")[0],
+        numberInput = $("#whatNumbers")[0],
         bettingAlert = $("#bettingAlert"), winningAlert = $("#winningAlert")[0];
     numberInput.addEventListener("animationend", function () {numberInput.classList.remove("jello-horizontal");});
     numberInput.addEventListener("animationend", function () {betInput.classList.remove("jello-horizontal");});
@@ -125,7 +126,7 @@ $(function () {
             bettingAlert[0].classList.remove("shake-horizontal");
 
             if ($("#whatNumbers")[0].value.split(',').map(Number).length > 17) {
-                setTimeout(function(){
+                setTimeout(function () {
                     numberInput.classList.add("jello-horizontal");
                     bettingAlert[0].classList.add("shake-horizontal");
                     bettingAlert[0].querySelector("h3").innerHTML = "You can't bet on more than 18 numbers.";
@@ -133,11 +134,36 @@ $(function () {
                 }, 50);
                 return false;
             }
-            if(Number(betInput.value) < 1){
-                setTimeout(function(){
+            if (Number(betInput.value) < 1) {
+                setTimeout(function () {
                     betInput.classList.add("jello-horizontal");
                     bettingAlert[0].classList.add("shake-horizontal");
                     bettingAlert[0].querySelector("h3").innerHTML = "You must bet a number above zero.";
+                    bettingAlert.show();
+                }, 50);
+                return false;
+            }
+
+            /**
+             * method isThereAWrongNumber checks if all the numbers that the user has placed a bet on exist on the wheel, and returns the number which conforms with said requirements if so.
+             * @returns {number} - The number that doesn't exist on the wheel. Undefined if all numbers exist on the wheel.
+             */
+            let isThereAWrongNumber = function () {
+                let bettedNumbers = $("#whatNumbers")[0].value.split(',').map(Number);
+                for (let i = 0; i < bettedNumbers.length; i++) {
+                    let tempVar = false;
+                    for (let j = 0; j < realValues.length; j++) if (realValues[j][2] === bettedNumbers[i]) {
+                        tempVar = true;
+                        break;
+                    }
+                    if (tempVar === false) return bettedNumbers[i];
+                }
+            };
+            if (isThereAWrongNumber()) {
+                setTimeout(function () {
+                    numberInput.classList.add("jello-horizontal");
+                    bettingAlert[0].classList.add("shake-horizontal");
+                    bettingAlert[0].querySelector("h3").innerHTML = isThereAWrongNumber() + " isn't a number on the wheel.";
                     bettingAlert.show();
                 }, 50);
                 return false;

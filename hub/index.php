@@ -1,3 +1,4 @@
+<!--
 <?php
 session_start(); /*Starte en session for å hente verdiene lagret*/
 
@@ -7,15 +8,16 @@ $id = $_SESSION["id"];
 $sql = "SELECT * FROM users WHERE id=$id";
 $query = mysqli_query($link, $sql);
 $value = mysqli_fetch_object($query);
-$theme = $value->theme;
+$theme = $value -> theme;
 ?>
+-->
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title> Casino Royale - Hub </title>
-    <link rel="icon" href="../resources/redChip.png">
+    <link rel="icon" href="https://i.imgur.com/KIEjXV8.png">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
@@ -48,11 +50,13 @@ $theme = $value->theme;
 <!-- TOOLBAR -->
 <div id="toolbarLeft" class="toolbar">
     <div class="toolbarItem">
-        <p id="tokenCount">Tokens: 3</p>
-        <script> $(function(){setTimeout(function(){document.getElementById("tokenCount").innerText = "Tokens: " + getUser().tokenManager.getCount();}},100)) </script>
-
-        <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton" style="background-color: purple; color: yellow; margin: 0 0 4px 15px">GET MORE</button>
+        <div class="container row" id="tokenCountDiv">
+            <img src="https://i.imgur.com/KIEjXV8.png" alt="token" id="tokenCountToken">
+            <p id="tokenCount">x 2500</p>
+        </div>
+        <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton" style="background-color: purple; color: yellow; margin-bottom: 4px;">BUY</button>
         <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
+        <script> $(function(){setTimeout(function(){document.getElementById("tokenCount").innerText = "x " + getUser().tokenManager.getCount();},100)}); </script>
     </div>
 </div>
 <div id="toolbarRight" class="toolbar">
@@ -88,24 +92,18 @@ $theme = $value->theme;
     <span><br><br><br><br><br><br><br><br></span>
     <div id="framedTextBox" class="whiteFrame whiteText"
             style="width: 600px; background-color: var(--red); transition-duration: 1s">
-        <h1>Lorem Ipsum</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <h1 contenteditable="true">Click me to write here</h1>
+        <p contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
             magna aliqua. Cursus euismod quis viverra nibh cras pulvinar mattis nunc sed. Consequat semper viverra nam
             libero justo laoreet. Et pharetra pharetra massa massa ultricies mi quis hendrerit. Ultrices gravida dictum
             fusce ut. Ipsum consequat nisl vel pretium lectus quam. Aenean et tortor at risus. Risus pretium quam
             vulputate dignissim. Cursus metus aliquam eleifend mi in. Metus dictum at tempor commodo ullamcorper.
             Facilisis sed odio morbi quis commodo odio.</p>
-        <p>Interdum velit laoreet id donec ultrices. In mollis nunc sed id semper. Neque vitae tempus quam pellentesque
+        <p contenteditable="true">Interdum velit laoreet id donec ultrices. In mollis nunc sed id semper. Neque vitae tempus quam pellentesque
             nec nam. Venenatis lectus magna fringilla urna porttitor. Turpis massa tincidunt dui ut ornare lectus. Eget
             egestas purus viverra accumsan in nisl nisi scelerisque eu. Consectetur adipiscing elit pellentesque
             habitant morbi tristique senectus et. Quis enim lobortis scelerisque fermentum dui faucibus in ornare quam.
-            Morbi blandit cursus risus at ultrices mi tempus imperdiet nulla. Massa tempor nec feugiat nisl pretium
-            fusce id velit ut. Porta non pulvinar neque laoreet suspendisse interdum consectetur. Mauris pellentesque
-            pulvinar pellentesque habitant morbi tristique senectus. Sed nisi lacus sed viverra tellus in. Orci a
-            scelerisque purus semper eget duis at tellus at. Dui id ornare arcu odio ut sem nulla pharetra diam. Nunc
-            eget lorem dolor sed viverra ipsum nunc aliquet bibendum. Et pharetra pharetra massa massa ultricies mi.
-            Nulla facilisi nullam vehicula ipsum a arcu cursus. Porta lorem mollis aliquam ut porttitor leo a diam
-            sollicitudin.</p>
+            Morbi blandit cursus risus at ultrices mi tempus imperdiet nulla.</p>
     </div>
     <span><br><br><br><br><br><br><br><br></span>
 

@@ -41,40 +41,49 @@
                     <div id="ball" class="ball"></div>
                 </div>
 
-                <div id="bettingAlert"><h3>yet</h3></div>
+                <div id="bettingAlert"><h3></h3></div>
 
             </div>
         </div>
 
         <div class="container">
-            <input id="whatNumbers" type="text"> <span><p>What numbers will you bet on? Separate with commas.<br>
-                    (Remember, the fewer you bet on, the more you win)</p></span>
+            <input id="whatNumbers" type="text">
+            <div class="container"><p>What numbers will you bet on? Separate with commas, up to 18.</p>
+                <p class="smallText">(Remember, the fewer you bet on, the more you'll gain)</p>
+                <p class="smallText">(But the more numbers you bet on, the more often you'll win.)</p>
+            </div>
             <input id="howMuch" type="number"> <span><p>You have <span id="tokenCount">501</span> tokens, how many will you bet?</p></span>
-            <script>$(function(){if(affectUser) document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();})</script>
+            <script>$(function () {if (affectUser) document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();})</script>
             <button id="spinBtn" class="retroButton">Spin the wheel!</button>
             <div class="space"></div>
             <div class="space"></div>
-            <div class="space"></div>
-            <div id="cheatModeDiv" class="row container opaqueOnHover50"">
-                <p>Practice mode </p>
-                <label class="toggle">
-                    <input type="checkbox" id="practiceModeToggle"/>
-                    <span class="slider"></span>
-                </label>
-            </div>
+
+
         </div>
     </div>
+    <div id="cheatModeDiv" class="opaqueOnHover50 black whiteText">
+        <img src="http://www.stickpng.com/assets/images/588a64d8d06f6719692a2d0f.png" alt="">
+        <div class="row container">
+            <p>Practice mode</p>
+            <label class="toggle">
+                <input type="checkbox" id="practiceModeToggle"/>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <p id="practiceModeTip" class="smallText">When enabled, you won't lose or gain any tokens.</p>
+    </div>
 
-    <div id="winningAlert" class="smoothEdges"> <h1></h1> </div>
+    <div id="winningAlert" class="smoothEdges"><h1></h1></div>
 
 
 
 
 </div> <!-- end of document wrapper -->
 <script>
+    affectUser = false;
     $(function () {
-        if(affectUser) init_royale();
-        //setTimeout(function(){rmh_openAfter(3);},250);
+        if (affectUser) init_royale();
+        setTimeout(function(){rmh_openAfter(2.5);},250);
 
     });
 </script>

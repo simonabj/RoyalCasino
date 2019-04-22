@@ -1,33 +1,37 @@
 body {
     background-image  : url("https://i.imgur.com/FHgMiQS.jpg");
     background-repeat : repeat;
-    filter            : drop-shadow(0 15px 10px rgba(0, 0, 0, 0.8))
+    overflow-y        : hidden;
     }
 
-p{ font-family: "Lucida Sans Unicode", serif; }
+#documentWrapper {
+    filter : drop-shadow(0 15px 10px rgba(0, 0, 0, 0.8));
+    }
+
+p { font-family : "Lucida Sans Unicode", serif; }
 
 #table {
     position          : relative;
 
     margin-top        : 25px;
-    margin-bottom     : 100px;
+    margin-bottom     : 150px;
     background-image  : url("https://i.imgur.com/prp3zE7.jpg");
     background-repeat : repeat;
     background-size   : 250px;
-    padding           : 100px 150px;
+    padding           : 125px 150px 75px 150px;
     border-radius     : 0;
 
-    -webkit-clip-path : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
     clip-path         : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+    -webkit-clip-path : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
 
+    color             : white;
     }
 
 #table .title {
     position            : absolute;
-    top                 : 0;
-    opacity             : 0;
-    user-select         : none;
-    -webkit-user-select : none;
+    top                 : 12.75px;
+    display             : none;
+    -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
     }
 
 #rouletteWheelBorder_Outer {
@@ -794,6 +798,45 @@ input[type=range]::-webkit-slider-thumb:hover {
     top      : 50%;
     left     : 50px;
     }*/
+
+#cheatModeDiv {
+    justify-content     : center;
+    align-content       : center;
+    bottom              : -85px;
+    padding-top         : 40px;
+    width               : 300px;
+    position            : absolute;
+    transition-duration : 0.25s;
+    border-radius       : 50% 50% 10% 10% / 100% 100% 0% 0%;
+    }
+
+#cheatModeDiv:hover {
+    bottom      : -10px;
+    padding-top : 15px;
+    width       : 400px;
+    }
+
+#cheatModeDiv img {
+    position         : absolute;
+    top              : -40px;
+    height           : 33px;
+    width            : 33px;
+    background-color : transparent;
+    }
+
+#practiceModeTip {
+    opacity     : 0;
+    white-space : nowrap;
+    }
+
+#cheatModeDiv:hover #practiceModeTip {
+    opacity : 1;
+    }
+
+
+
+
+
 
 
 

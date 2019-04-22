@@ -1,6 +1,10 @@
 let rmh_affectUser = true;
-// To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag). (not sure if this works yet)
-let rmh_href = "/hub/index.php";
+
+// To disable the tooltip for first-time users, run "rmh_firstTimeTooltip = false;" on your page, before the body loads (in the head tag).
+let rmh_firstTimeTooltip = true;
+
+// To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag, in the head tag). (not sure if this works yet)
+let rmh_href = "../../hub/index.php";
 
 // APPENDING THE ICON-FONT TO HEAD
 window.onload = function () {
@@ -13,14 +17,12 @@ window.onload = function () {
     document.getElementsByTagName('head')[0].appendChild(link);
 
 
-
-
     // GENERATING THE HANDLE ELEMENT
     let rmh = document.createElement("div");
     rmh.id = "rmh";
     rmh.classList.add("container");
     rmh.innerHTML = '' +
-        '        <img id="rmh_handle" src="https://i.imgur.com/KIEjXV8.png" alt="universal menu handle">\n' +
+        '        <img id="rmh_handle" src="https://i.imgur.com/KIEjXV8.png" alt="universal menu handle" onmousedown="if(event.preventDefault)event.preventDefault()" onmouseenter="this.style.filter=\'brightness(125%)\'" onmouseleave="this.style.filter=\'brightness(100%)\'">\n' +
         '\n' +
         '        <div id="rmh_bar">\n' +
         '\n' +
@@ -68,7 +70,7 @@ window.onload = function () {
 
 
     // DISPLAYS A TOOLTIP IF IT'S THE FIRST TIME THE USER IS LOGGED IN
-    if (get("firstTime")) {
+    if (get("firstTime") && rmh_firstTimeTooltip) {
 
         let rmh_tooltip = document.createElement("div");
         rmh_tooltip.id = "rmh_tooltip";
@@ -104,29 +106,27 @@ window.onload = function () {
 
     // TOGGLING THE MENU
     let isRmhOpen = true;
-    $(rmh_handle).on({
-        click: function () {
-            if (!isRmhOpen) {
-                isRmhOpen = true;
-                rmh.classList.remove("rmh_closed");
-                rmh.classList.add("rmh_open");
-                rmh.classList.add("rmh_opened");
+    rmh_handle.onclick = function () {
+        if (!isRmhOpen) {
+            isRmhOpen = true;
+            rmh.classList.remove("rmh_closed");
+            rmh.classList.add("rmh_open");
+            rmh.classList.add("rmh_opened");
 
-                rmh_handle.classList.remove("rmh_handle_closed");
-                rmh_handle.classList.add("rmh_handle_open");
-                rmh_handle.classList.add("rmh_handle_opened");
-            } else {
-                isRmhOpen = false;
-                rmh.classList.remove("rmh_opened");
-                rmh.classList.add("rmh_close");
-                rmh.classList.add("rmh_closed");
+            rmh_handle.classList.remove("rmh_handle_closed");
+            rmh_handle.classList.add("rmh_handle_open");
+            rmh_handle.classList.add("rmh_handle_opened");
+        } else {
+            isRmhOpen = false;
+            rmh.classList.remove("rmh_opened");
+            rmh.classList.add("rmh_close");
+            rmh.classList.add("rmh_closed");
 
-                rmh_handle.classList.remove("rmh_handle_opened");
-                rmh_handle.classList.add("rmh_handle_close");
-                rmh_handle.classList.add("rmh_handle_closed")
-            }
-        },
-    });
+            rmh_handle.classList.remove("rmh_handle_opened");
+            rmh_handle.classList.add("rmh_handle_close");
+            rmh_handle.classList.add("rmh_handle_closed")
+        }
+    };
 
     // CLOSING THE MENU AT LOAD
     isRmhOpen = false;
@@ -144,14 +144,16 @@ window.onload = function () {
         //rmh.style.opacity = 0;
         //rmh.style.transitionDuration = "0.5s";
         setTimeout(function () {
-            isRmhOpen = true;
-            rmh.style.opacity = 1;
-            rmh.classList.add("rmh_open");
-            rmh.classList.add("rmh_opened");
-            rmh.classList.remove("rmh_closed");
-            rmh_handle.classList.add("rmh_handle_open");
-            rmh_handle.classList.add("rmh_handle_opened");
-            rmh_handle.classList.remove("rmh_handle_closed");
+            if (!isRmhOpen) {
+                isRmhOpen = true;
+                rmh.style.opacity = 1;
+                rmh.classList.add("rmh_open");
+                rmh.classList.add("rmh_opened");
+                rmh.classList.remove("rmh_closed");
+                rmh_handle.classList.add("rmh_handle_open");
+                rmh_handle.classList.add("rmh_handle_opened");
+                rmh_handle.classList.remove("rmh_handle_closed");
+            }
         }, seconds * 1000);
     };
     window.updateRmhTokenCount = function () {

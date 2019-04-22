@@ -1,7 +1,7 @@
 /* NOTE: Veldig dokument-spesifikke forandringer er på bunnen av siden. */
 
 
-body{
+body {
     background-image : radial-gradient(circle, var(--backgroundSecondary), var(--background) 75%);
     }
 
@@ -521,9 +521,6 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
     cursor              : pointer;
     }
 
-#headerSymbol:hover {
-    filter : brightness(125%);
-    }
 
 .symbolHideAnimation {
     animation : spinBehindTitle 0.45s ease-in;
@@ -703,12 +700,16 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 
 #toolbarRight .toolbarItem * { transform : rotateY(180deg); }
 
+#tokenCountDiv { margin-right : 5px; margin-left : 15px; }
+
+#tokenCountToken { height : 25px; width : 25px; }
 
 .toolbarItem {
     justify-content     : center;
+    align-content       : center;
     flex-direction      : row;
     height              : 92px;
-    width               : 260px;
+    width               : 300px;
     margin              : 5px;
     clip-path           : polygon(100% 0%, 85% 50%, 100% 100%, 25% 75%, 15% 50%, 25% 25%);
     padding             : 30px 0;
@@ -720,7 +721,7 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
     -khtml-user-select  : none; /* Konqueror HTML */
     -moz-user-select    : none; /* Firefox */
     -ms-user-select     : none; /* Internet Explorer/Edge */
-    font-size           : 12pt;
+    font-size           : 100%;
     }
 
 #toolbarLeft, #toolbarRight {
@@ -729,11 +730,9 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 
 #toolbarRight .toolbarItem {
     cursor : pointer;
-
     }
 
 #toolbarRight *:hover {
-
     font-size : 14pt;
     }
 

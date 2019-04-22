@@ -10,7 +10,7 @@ $(function () {
         },
         {
             title: "blackjack",
-            image: "/games/Blackjack/banner.jpg",
+            image: "../games/Blackjack/banner.jpg",
             href: "../games/Blackjack/",
         },
         {
@@ -208,6 +208,8 @@ $(function () {
             symbol.classList.add("symbolHideAnimation");
 
             setTimeout(function () {
+                toolbarLeft.style.zIndex = "-100";
+                toolbarRight.style.zIndex = "-100";
                 symbol.style.opacity = 0;
                 //document.getElementById("gamesContainer").scrollIntoView({block: "center", behavior: "smooth"});
                 header.style.clipPath = "polygon(0 0, 100% 0, 50vw 35%, 0 calc(50% - 50%))";
@@ -220,6 +222,7 @@ $(function () {
                     symbol.style.top = "-15px";
                 }, 250)
             }, 250);
+
 
             // OPENING HEADER
         } else if (distanceY < shrinkOn && headerToggled) {
@@ -235,6 +238,8 @@ $(function () {
             //symbol.style.transform = "scale(0.2)";
 
             setTimeout(function () {
+                toolbarLeft.style.zIndex = "9";
+                toolbarRight.style.zIndex = "9";
                 symbol.style.opacity = 1;
                 div.style.position = "fixed";
                 div.style.top = "4px";
@@ -262,7 +267,7 @@ $(function () {
 
         //TEXT BOX
         /** If textBox1 reached, remove the class "leanUpPermaMild", else, add class "leanUpPermaMild". */
-        (distanceY > textBox1.getBoundingClientRect().top + 1250/*textBox1.getBoundingClientRect().height*/) ? textBox1.classList.remove("leanUpPermaMild") : textBox1.classList.add("leanUpPermaMild");
+        (distanceY > textBox1.getBoundingClientRect().top + 1000/*textBox1.getBoundingClientRect().height*/) ? textBox1.classList.remove("leanUpPermaMild") : textBox1.classList.add("leanUpPermaMild");
     };
 
 
@@ -312,6 +317,7 @@ $(function () {
         toolbarItem[1].style.clipPath = openedClipPath;
         toolbarLeft.style.opacity = 1;
         toolbarRight.style.opacity = 1;
+
     }
 
 
@@ -347,8 +353,18 @@ $(function () {
 
 
 
-    // RUNS FUNCTION toolbarToggle() WHEN THE HEADER IS CLICKED.
-    document.getElementById("headerSymbol").onclick = function () {toolbarToggle(); /*$("#toolbarTooltip").hide()*/};
+    // RUNS FUNCTION toolbarToggle() WHEN THE HEADER IS CLICKED. And brightens it when hovered. Done with JS instead of CSS, as the CSS psuedoselector :hover made the animations stutter.
+    $("#headerSymbol").on({
+        click: function(){
+            toolbarToggle();
+        },
+        mouseenter: function(){
+            $(this).css("filter", "brightness(115%)");
+        },
+        mouseleave: function(){
+            $(this).css("filter", "brightness(100%)");
+        }
+    });
 
     symbol.addEventListener("animationend", function() {
         symbol.classList.remove("toolbarOpenAnimation");
@@ -360,11 +376,10 @@ $(function () {
 
 
 
-
     let isProfileHover = false;
     $("#profileSettings").on({
         click: function(){
-            window.location.href="/0PHP/settings.php";
+            window.location.href="../0PHP/settings.php";
         },
         mouseenter: function(){
             isProfileHover = true;
@@ -382,7 +397,7 @@ $(function () {
     let isLogoutHover = false;
     $("#logoutButton").on({
         click: function(){
-            window.location.href="/0PHP/logout.php";
+            window.location.href="../0PHP/logout.php";
         },
         mouseenter: function(){
             isLogoutHover = true;

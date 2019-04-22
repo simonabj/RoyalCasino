@@ -1,4 +1,4 @@
-<!--
+
 <?php
 session_start(); /*Starte en session for å hente verdiene lagret*/
 
@@ -10,7 +10,7 @@ $query = mysqli_query($link, $sql);
 $value = mysqli_fetch_object($query);
 $theme = $value -> theme;
 ?>
--->
+
 
 <!DOCTYPE html>
 <html>

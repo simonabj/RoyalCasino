@@ -81,9 +81,6 @@ p { font-family : "Lucida Sans Unicode", serif; }
     cursor              : pointer;
     }
 
-#rouletteWheelCover:hover {
-    filter : brightness(115%);
-    }
 
 
 #ballDiv {

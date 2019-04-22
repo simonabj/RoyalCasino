@@ -81,7 +81,6 @@
 
 </div> <!-- end of document wrapper -->
 <script>
-    affectUser = false;
     $(function () {
         if (affectUser) init_royale();
         setTimeout(function(){rmh_openAfter(2);},1000);

@@ -24,14 +24,13 @@ $seBrukerID=$_SESSION["id"];
 
 <!-- Valg av tokens man vil vedde -->
 <select id="bet">
-    <option value="50">50tokens</option>
-    <option value="100">100tokens</option>
-    <option value="200">200tokens</option>
-    <option value="250">250tokens</option>
+    <option value="1">1tokens</option>
+    <option value="5">5tokens</option>
+    <option value="10">10tokens</option>
 </select>
 
 <!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
-<button onclick="kjorBet()">Gjett!</button>
+<button onclick="kjorBet()">Guess!</button>
 
 <!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
 <p id="hendelse"></p>
@@ -46,13 +45,13 @@ $seBrukerID=$_SESSION["id"];
 
     var vinnertall; /*Definere variablen vinnertall*/
 
-    var user = getUser();
+    init_royale();
 
     document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Vis balansen din av tokens på siden*/
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
-        if (valgtTallEl.value<100 && 0<valgtTallEl.value && (betEl.value==50 || betEl.value==100 || betEl.value==200 || betEl.value==250)) {
+        if (valgtTallEl.value<100 && 0<valgtTallEl.value && (betEl.value==1 || betEl.value==5 || betEl.value==10)) {
             vinnerTall = Math.floor(Math.random() * 99 + 1); /*Valg av vinnertall*/
 
             if (vinnerTall == valgtTallEl.value) {

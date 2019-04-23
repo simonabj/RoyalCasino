@@ -122,9 +122,6 @@ body{
     user-drag : none; -webkit-user-drag : none;
     }
 
-#rmh_handle:hover {
-    filter : brightness(125%);
-    }
 
 .rmh_open {
     animation : rmh_open 0.7s ease-in-out;

@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_array($kjort)) {
 <div id="chartContainer" style="height: 360px; width: 100%;"></div>
 
 <button id="button">Start</button> <!-- Knapp for å starte bettet -->
-<button id="button2">Pull Out</button> <!-- Knapp for å gi seg med profitt -->
+<button id="button2">Widraw</button> <!-- Knapp for å gi seg med profitt -->
 <input type="number" id="bet" placeholder="Hvor mye vedder du?" /> <!-- Input for hvor mye penger du vedder -->
 <p id="utfall"></p>
 <p>Balanse: <span id="tokenCount"></span></p>
@@ -48,7 +48,7 @@ while ($row = mysqli_fetch_array($kjort)) {
     var betSatt;
     var stopp=false;
 
-    var user = getUser();/*Definere user*/
+    init_royale();/*Definere user*/
     document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Vis balansen din av tokens på siden*/
 
     /*Funksjonen for å sette sluttverdien og ordne event listerne så man ikke kan gjenta flere prosesser*/

@@ -1,74 +1,15 @@
-/* _________________ variables _________________ */
-:root {
-    /* COLOR PALETTE  */
-    --primary             : #470F79;
-    --primaryVariant      : #451469;
-    --secondary           : #F8A917;
-    --secondaryVariant    : #E0D273;
-    --background          : #2B2B2B;
-    --backgroundSecondary : #393939;
-    --surface             : #F5F1ED;
-    --error               : #C53426;
+/* NOTE: Veldig dokument-spesifikke forandringer er på bunnen av siden. */
 
-    /* Fargen til elementer som ligger "på" gitt annet element */
-    --onPrimary           : white;
-    --onSecondary         : black;
-    --onBackground        : black;
-    --onSurface           : black;
-    --onError             : #F5F1ED;
-
-
-    /* alt. neutral background color e2e1e0 / 2B2B2B
-    alt. background gradient: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%),
-    */
-
-    --borderRadius        : 15px;
-    --shadowColor         : rgba(0, 0, 0, .5); /* alternatives: rgba(0,0,0,.5) [fargen tar på fargen til bakgrunnen pga. opacity, beste alternativ] - #ccc - grey */
-    --shadowColorSides    : rgba(0, 0, 0, .5);
-    }
-
-
-/* ______________ page-wide ______________ */
-html {
-    overflow        : scroll;
-    overflow-x      : hidden;
-    scrollbar-width : none; /* for firefox */
-    scroll-behavior : smooth;
-    }
 
 body {
-    width            : 100vw;
-    height           : auto; /* Gjør at <body> fyller hele siden, siden Firefox ikke gjør dette automatisk */
-    min-height       : 100vh;
-    margin           : 0;
-    flex-wrap        : wrap; /* Wrapper elementer ned til ny linje om det blir overflow */
-    overflow         : auto;
-
-    background-image : radial-gradient(var(--background) 75%, var(--backgroundSecondary));
+    background-image : url("../resources/poker-table-red-felt.jpg");
     /*
-    background: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%);
-     */
-    /*
-    background-image: radial-gradient(circle, var(--backgroundSecondary), var(--background) 75%);
-    /*
-    background-image: url("Resources/loops/space\ nebula.jpg");
-    background-color: var(--background);
-    background-repeat: repeat;
+    background-image : radial-gradient(circle, var(--backgroundSecondary), var(--background) 75%);
+    background-image: linear-gradient(to bottom, var(--background), var(--backgroundSecondary), var(--backgroundTertiary), var(--backgroundSecondary), var(--background));
+    background-size: 100% 1000%;
+    -webkit-animation: bg-pan-bottom 15s both infinite;
+    animation: bg-pan-bottom 15s both infinite;
     */
-
-
-    cursor           : url("Resources/etc/cursors/Numix_Cursors/NumixLight/Arrow.cur"), auto;
-    font-family      : Arial, sans-serif; /* Første font er foretrukket, følgende fonter er fallbacks, om nettleseren ikke støtter fonten. */
-    /* Web-safe alternatives:  "Lucida Sans Unicode", Georgia, Palatino, Garamond, Bookman, Helvetica.
-    Other alternatives: "Century Gothic" / "Adobe Garamond"(Custom font (facefont), veldig ofte brukt i  magasiner) / "Verdana" (Uprofesjonelt, men bra readability: flere studier hevder det er den lettest-leste fonten.) */
-    }
-
-/*  neat html ting: contenteditable="true" */
-* {
-    max-width           : 100vw;
-    flex-wrap           : wrap;
-    box-sizing          : border-box;
-    transition-duration : 0.5s;
     }
 
 div {
@@ -94,14 +35,15 @@ div {
     -webkit-box-shadow : 0 6px 8px 0 var(--shadowColor);
     }
 
-div > p, div > h1, div > h2, div > h3, div > h4, div > h5, div > label, div > output {
-    color : var(--onPrimary);
-    /*cursor: url("Resources/etc/cursors/Mario_Gant/Text_Select.cur"), text*/
+
+/* __________________________ document specific ___________________________ */
+
+#headerSpan {
+    position : fixed;
+    top      : 0;
+    left     : 0;
+    z-index  : 2;
     }
-
-/*.plainDiv > p, .plainDiv > h1, .plainDiv > h2, .plainDiv > h3, .plainDiv > h4, .plainDiv > h5, .plainDiv > label, .plainDiv > output { color: var(--onBackground) ! i m p o r t a n t; }*/
-/*.container > p, .container > h1, .container > h2, .container > h3, .container > h4, .container > h5, .container > label, .container > output { color: var(--onBackground) ! i m p o r t a n t; }*/
-
 
 header {
     background-image   : linear-gradient(var(--primary), var(--primaryVariant));
@@ -129,22 +71,348 @@ header h1, header h2, header h3 {
 
 header img { max-height : 100% !important; /* for å ikke exceede parent element */ }
 
-header .div {
+.titleDiv {
     position              : fixed;
     top                   : 35px;
-    padding               : 15px 40px 15px 40px;
     min-width             : 200px;
     min-height            : 100px;
     -webkit-border-radius : 50px;
     -moz-border-radius    : 50px;
     background-color      : var(--secondary);
-    /*background-image: linear-gradient(-120deg, var(--primaryVariant), var(--secondary) 75%);
-    */}
-
-header .titleDiv {
-    background-image : linear-gradient(-180deg, var(--secondaryVariant), var(--secondary) 25%);
-    padding          : 30px 50px 30px 50px;
+    background-image      : linear-gradient(-180deg, var(--secondaryVariant), var(--secondary) 25%);
+    padding               : 30px 50px 30px 50px;
+    z-index               : 12;
+    -webkit-user-select   : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
     }
+
+.titleDiv h1 {
+    white-space : nowrap;
+    font-family : 'Playfair Display', serif;
+    font-weight : bolder;
+    font-size   : 27pt;
+    }
+
+
+
+.clipPathShadow {
+    filter : drop-shadow(0px 10px 5px var(--shadowColor));
+    }
+
+
+
+#headerSymbol {
+    -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
+    user-drag           : none;
+    -webkit-user-drag   : none;
+    height              : 100px;
+    width               : 100px;
+    position            : fixed;
+    justify-self        : center;
+    z-index             : 10;
+    border-bottom-color : var(--secondary);
+    display             : flex;
+    top                 : 160px;
+    cursor              : pointer;
+    }
+
+
+.symbolHideAnimation {
+    animation : both spinBehindTitle 0.45s ease-in;
+    }
+
+.symbolShowAnimation {
+    animation : both spinBehindTitle 0.65s reverse cubic-bezier(.35, -0.52, .73, .09);
+    }
+
+@keyframes spinBehindTitle {
+    0% {
+        transform : rotate(0) scale(1);
+        top       : 160px;
+        z-index   : 10;
+        opacity   : 1;
+        }
+    99% {
+        transform : rotate(270deg) scale(0.5);
+        top       : -15px;
+        z-index   : 10;
+        opacity   : 1;
+        }
+    100% {
+        transform : scale(0.5);
+        top       : -15px;
+        z-index   : -10;
+        opacity   : 0;
+        }
+    }
+
+
+#toolbarTooltip {
+    position : fixed;
+    top      : 155px;
+    left     : 57%;
+    z-index  : 13;
+    }
+
+
+:root {
+    --tableRadius : 75px;
+    }
+
+#gamesTable {
+    background-image  : url("https://i.imgur.com/prp3zE7.jpg");
+    background-repeat : repeat;
+    background-size   : 300px;
+    flex-direction    : row;
+    max-width         : 1000px;
+    padding           : 30px;
+    margin            : 25px;
+    border-radius     : var(--tableRadius);
+    justify-content   : space-evenly;
+    align-content     : space-around;
+    box-shadow        : inset 0 5px 5px 4px rgba(0, 0, 0, 0.75);
+    /*
+    box-shadow        : 0 0 25px 10px rgba(0, 0, 0, 0.8), inset 0 2px 4px 3px rgba(0, 0, 0, 0.7);
+     */
+    }
+
+#gamesTableBorder {
+    background-image  : url("https://i.imgur.com/7hTJN0t.png");
+    background-repeat : repeat;
+    border-radius     : var(--tableRadius);
+    box-shadow        : 0 25px 25px 10px rgba(0, 0, 0, 0.6), inset 0 -3px 4px 3px rgba(0, 0, 0, 0.7);
+
+    }
+
+
+.hubGame_container {
+    flex-direction      : column;
+    position            : relative;
+    padding             : 0;
+    border-radius       : 30px;
+    margin              : 25px 20px;
+    transition-duration : 0.25s;
+    background-color    : transparent;
+    }
+
+.hubGame_container:hover {
+    box-shadow : 0 14px 12px 2px rgba(0, 0, 0, 0.5);
+    }
+
+.hubGame_imageContainer {
+    flex-direction   : column;
+    margin           : 0;
+    padding          : 0;
+    background-color : transparent;
+    border           : none transparent 0;
+    border-radius    : 0;
+    box-shadow       : none;
+    }
+
+.hubGame_image {
+    width                 : 400px;
+    height                : 200px;
+    margin                : 0;
+    padding               : 0;
+    background-color      : transparent;
+    border                : none transparent 0;
+    border-radius         : 30px 30px 0 0;
+    box-shadow            : none;
+    background-size       : cover;
+    background-position-x : center;
+    background-position-y : top;
+    }
+
+
+.hubGame_imageTitleContainer {
+    position         : absolute;
+    bottom           : 20%;
+    background-color : var(--redOpaque) /*rgba(130, 42, 147, 0.75)*/;
+    padding          : 2px 5px 2px 5px;
+    cursor           : default;
+    z-index          : 1;
+
+    }
+
+.hubGame_imageTitleContainer:hover { filter : brightness(125%); }
+
+
+.hubGame_imageTitleContainer h1,
+.hubGame_imageTitleContainer h2,
+.hubGame_imageTitleContainer h3,
+.hubGame_imageTitleContainer h4,
+.hubGame_imageTitleContainer h5,
+.hubGame_imageTitleContainer p {
+    color               : var(--onPrimary);
+    margin              : 0 5px;
+    user-select         : none;
+    -webkit-user-select : none;
+    -moz-user-select    : none;
+    }
+
+.hubGame_container button {
+    background-color : var(--primary);
+    color            : var(--onPrimary);
+    width            : 100%;
+    margin           : 0;
+    padding          : 15px;
+    border-radius    : 0 0 30px 30px;
+    }
+
+.hubGame_container button:hover {
+    filter  : brightness(125%);
+    z-index : 0;
+    }
+
+
+
+#footer {
+    flex-direction      : row;
+    width               : 100vw;
+    min-height          : 50px;
+    margin              : 15px 0 0 0;
+    padding             : 2px;
+    border-radius       : 0;
+    box-shadow          : none;
+    background-image    : linear-gradient(var(--primaryVariant), var(--primary));
+    transition-duration : 0.25s;
+    }
+
+#footer .lowBound {
+    flex-direction   : column;
+    width            : auto;
+    bottom           : 1em;
+    background-color : transparent;
+    box-shadow       : none;
+    color            : white;
+    }
+
+
+
+.toolbar {
+    margin                     : 0;
+    background-color           : transparent;
+    box-shadow                 : none;
+    position                   : fixed;
+    z-index                    : 5;
+    top                        : 162px;
+    opacity                    : 1;
+    flex-direction             : row;
+    justify-content            : center;
+    transition-duration        : 0.75s;
+    padding                    : 0;
+    transition-timing-function : cubic-bezier(.18, .89, .47, 1.39);
+    }
+
+
+/* mirrors the right-side toolbar so that the clip-path is pointed in the right direction, and mirrors the content so that it's rotated in the normal direction. */
+#toolbarRight .toolbarItem { transform : rotateY(180deg); }
+
+#toolbarRight .toolbarItem * { transform : rotateY(180deg); }
+
+#tokenCountDiv { margin-right : 5px; margin-left : 15px; }
+
+#tokenCountToken { height : 25px; width : 25px; }
+
+.toolbarItem {
+    justify-content     : center;
+    align-content       : center;
+    flex-direction      : row;
+    height              : 92px;
+    width               : 300px;
+    margin              : 5px;
+    clip-path           : polygon(100% 0%, 85% 50%, 100% 100%, 25% 75%, 15% 50%, 25% 25%);
+    padding             : 30px 0;
+    background-color    : var(--secondary);
+    color               : var(--onSecondary);
+    border-radius       : 0;
+    user-select         : none; /* Chrome and Opera */
+    -webkit-user-select : none; /* Safari */
+    -khtml-user-select  : none; /* Konqueror HTML */
+    -moz-user-select    : none; /* Firefox */
+    -ms-user-select     : none; /* Internet Explorer/Edge */
+    font-size           : 100%;
+    }
+
+#toolbarLeft, #toolbarRight {
+    opacity : 0;
+    }
+
+#toolbarRight .toolbarItem {
+    cursor : pointer;
+    }
+
+#toolbarRight *:hover {
+    font-size : 14pt;
+    }
+
+
+.toolbarOpenAnimation {
+    animation : both ease-in-out toolbarOpenAnimation 0.75s;
+    }
+
+.toolbarCloseAnimation {
+    animation : both ease-in-out toolbarCloseAnimation 0.75s;
+    }
+
+@keyframes toolbarOpenAnimation {
+    0% {
+        transform : rotateY(0deg) scale(1);
+        }
+    50% {
+        transform : rotate(180deg) scale(0.8);
+        top       : 250px;
+        }
+    100% {
+        transform : rotate(360deg) scale(1);
+        }
+    }
+
+@keyframes toolbarCloseAnimation {
+    50% {
+        transform : rotateY(180deg) scale(1.25);
+        top       : 155px;
+        }
+    75% {
+        transform : rotateY(180deg) scale(1.25);
+        top       : 155px;
+        }
+    }
+
+
+
+#logoutButton {
+
+    display          : none;
+    background-color : var(--red);
+    color            : white;
+    padding          : 6px 12px;
+    border-radius    : 2px;
+    z-index          : 15;
+    cursor           : pointer;
+    }
+
+
+
+
+
+
+
+
+
+
+/* generic: */
+
+
+
+
+div > p, div > h1, div > h2, div > h3, div > h4, div > h5, div > label, div > output {
+    /*cursor: url("Resources/etc/cursors/Mario_Gant/Text_Select.cur"), text*/
+    }
+
+/*.plainDiv > p, .plainDiv > h1, .plainDiv > h2, .plainDiv > h3, .plainDiv > h4, .plainDiv > h5, .plainDiv > label, .plainDiv > output { color: var(--onBackground) ! i m p o r t a n t; }*/
+/*.container > p, .container > h1, .container > h2, .container > h3, .container > h4, .container > h5, .container > label, .container > output { color: var(--onBackground) ! i m p o r t a n t; }*/
+
+
 
 #tableOfContents {
     margin  : 15px 0 15px 0;
@@ -533,10 +801,6 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
-/* __________________________ DOC CLASSES ___________________________ */
-
-
-
 /* __________ < COLOURS > __________ */
 .primary { background-color : var(--primary); color : var(--onPrimary)}
 
@@ -556,186 +820,24 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 
 
-.spin {
-    animation : spin 0.3s linear;
+
+
+
+.wobble-hor-bottom {animation : wobble-hor-bottom .8s both}
+
+
+/* ----------------------------------------------
+ * Generated by Animista on 2019-4-20 15:33:46
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+@keyframes wobble-hor-bottom {
+    0%, 100% {transform : translateX(0);transform-origin : 50% 50%}
+    15% {transform : translateX(-30px) rotate(-6deg)}
+    30% {transform : translateX(15px) rotate(6deg)}
+    45% {transform : translateX(-15px) rotate(-3.6deg)}
+    60% {transform : translateX(9px) rotate(2.4deg)}
+    75% {transform : translateX(-6px) rotate(-1.2deg)}
     }
-
-@keyframes spin {
-    from {transform : rotateY(0deg) scale(1)}
-    to {transform : rotateY(180deg) scale(2)}
-    }
-
-
-.bordershape-diamond {
-    transition-duration : 0.05s;
-    }
-
-/*.bordershape-diamond:hover {
-    border-width : 25px;
-    transform    : scale(1.05);
-    }
-
-.bordershape-diamond:active {
-    border-width : 0;
-    transform    : scale(1.15);
-    }
-*/
-.animation-bordershape-diamond {
-    animation : borderShapeDiamondAnimation 0.5s linear;
-    }
-
-@keyframes borderShapeDiamondAnimation {
-    from {
-        }
-    to {
-        transform : rotateY(180deg) translate(0, 100px);
-        }
-    }
-
-
-
-
-
-#gamesContainer {
-    background-image  : url("loops/dotted velvet.jpg");
-    background-repeat : repeat;
-    flex-direction    : row;
-    max-width         : 1000px;
-    padding           : 30px;
-    margin            : 25px;
-    border-radius     : 75px;
-    justify-content   : space-evenly;
-    align-content     : space-around;
-    }
-
-.hubGame_container {
-    flex-direction      : column;
-    position            : relative;
-    padding             : 0;
-    border-radius       : 30px;
-    margin              : 25px 20px;
-    transition-duration : 0.25s;
-    }
-
-.hubGame_container:hover {
-    box-shadow : 0 14px 12px 2px rgba(0, 0, 0, 0.5);
-    }
-
-.hubGame_imageContainer {
-    flex-direction   : column;
-    margin           : 0;
-    padding          : 0;
-    background-color : transparent;
-    border           : none transparent 0;
-    border-radius    : 0;
-    box-shadow       : none;
-    }
-
-.hubGame_image {
-    width                 : 400px;
-    height                : 200px;
-    margin                : 0;
-    padding               : 0;
-    background-color      : transparent;
-    border                : none transparent 0;
-    border-radius         : 30px 30px 0 0;
-    box-shadow            : none;
-    background-size       : cover;
-    background-position-x : center;
-    background-position-y : top;
-    }
-
-
-.hubGame_imageTitleContainer {
-    position         : absolute;
-    bottom           : 20%;
-    background-color : rgba(130, 42, 147, 0.75);
-    padding          : 2px 5px 2px 5px;
-    cursor           : default;
-    z-index          : 1;
-    }
-
-.hubGame_imageTitleContainer:hover { filter : brightness(125%); }
-
-
-.hubGame_imageTitleContainer h1,
-.hubGame_imageTitleContainer h2,
-.hubGame_imageTitleContainer h3,
-.hubGame_imageTitleContainer h4,
-.hubGame_imageTitleContainer h5,
-.hubGame_imageTitleContainer p {
-    color               : var(--onPrimary);
-    margin              : 0 5px;
-    user-select         : none;
-    -webkit-user-select : none;
-    -moz-user-select    : none;
-    }
-
-.hubGame_container button {
-    background-color : var(--primary);
-    color            : var(--onPrimary);
-    width            : 100%;
-    margin           : 0;
-    padding          : 15px;
-    border-radius    : 0 0 30px 30px;
-    }
-
-.hubGame_container button:hover {
-    filter  : brightness(125%);
-    z-index : 0;
-    }
-
-
-
-#footer {
-    justify-content     : end;
-    width               : 100vw;
-    min-height          : 50px;
-    margin              : 15px 0 0 0;
-    padding             : 2px;
-    border-radius       : 0;
-    box-shadow          : none;
-    background-image    : linear-gradient(var(--primaryVariant), var(--primary));
-    transition-duration : 0.25s;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

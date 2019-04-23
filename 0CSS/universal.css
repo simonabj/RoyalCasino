@@ -1,0 +1,67 @@
+/* _________________ variables _________________ */
+:root {
+    /* COLOR PALETTE  */
+    --primary             : #470F79;
+    --primaryVariant      : #451469;
+    --secondary           : #F8A917;
+    --secondaryVariant    : #FFDF00;
+    --background          : #2B2B2B;
+    --backgroundSecondary : #393939;
+    /*--backgroundTertiary : #393939;*/
+    --surface             : #F5F1ED;
+    --error               : #C53426;
+
+    /* Fargen til elementer som ligger "på" (over) gitt annet element */
+    --onPrimary           : white;
+    --onSecondary         : black;
+    --onBackground        : black;
+    --onSurface           : black;
+    --onError             : #F5F1ED;
+
+
+    /* alt. neutral background color e2e1e0 / 2B2B2B
+    alt. background gradient: linear-gradient(135deg, rgb(247, 202, 201) 0%, rgb(146, 168, 209) 100%),
+    */
+
+    --red                 : #C80E0F;
+    --redOpaque           : rgba(200, 14, 15, 0.65);
+
+    --borderRadius        : 15px;
+    --shadowColor         : rgba(0, 0, 0, .5); /* alternatives: rgba(0,0,0,.5) [fargen tar på fargen til bakgrunnen pga. opacity, beste alternativ] - #ccc - grey */
+    --shadowColorSides    : rgba(0, 0, 0, .5);
+    }
+
+
+/* ______________ page-wide ______________ */
+html {
+    overflow        : scroll;
+    overflow-x      : hidden;
+    scrollbar-width : none; /* for firefox */
+    scroll-behavior : smooth;
+    }
+
+body {
+    width            : 100vw;
+    height           : auto; /* Gjør at <body> fyller hele siden, siden Firefox ikke gjør dette automatisk */
+    min-height       : 100vh;
+    margin           : 0;
+    flex-wrap        : wrap; /* Wrapper elementer ned til ny linje om det blir overflow */
+    overflow         : auto;
+
+    font-family      : Arial, sans-serif; /* Første font er foretrukket, følgende fonter er fallbacks, om nettleseren ikke støtter fonten. */
+    }
+
+/*  neat html ting: contenteditable="true" */
+* {
+    max-width           : 100vw;
+    flex-wrap           : wrap;
+    box-sizing          : border-box;
+    transition-duration : 0.5s;
+    }
+
+
+h1, h2, h3, h4, h5 {
+    font-family : 'Playfair Display', serif;
+    }
+
+p { font-family : "Lucida Sans Unicode", Arial, serif; }

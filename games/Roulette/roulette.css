@@ -1,0 +1,841 @@
+body {
+    background-image  : url("https://i.imgur.com/FHgMiQS.jpg");
+    background-repeat : repeat;
+    overflow-y        : hidden;
+    }
+
+#documentWrapper {
+    filter : drop-shadow(0 15px 10px rgba(0, 0, 0, 0.8));
+    }
+
+p { font-family : "Lucida Sans Unicode", serif; }
+
+#table {
+    position          : relative;
+
+    margin-top        : 30px;
+    margin-bottom     : 0;
+    background-image  : url("https://i.imgur.com/prp3zE7.jpg");
+    background-repeat : repeat;
+    background-size   : 250px;
+    padding           : 125px 11% 100px 11%;
+
+    /*clip-path         : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+    -webkit-clip-path : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+    */
+    border-radius: 100% 100% 0% 0% / 75% 75% 100% 100%;
+    color             : white;
+    }
+
+#table .title {
+    position            : absolute;
+    top                 : 12.75px;
+    display             : none;
+    -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
+    }
+
+#rouletteWheelBorder_Outer {
+    background-image  : url("https://i.imgur.com/7hTJN0t.png");
+    background-repeat : repeat;
+    width             : 650px;
+    height            : 650px;
+    border-radius     : 50%;
+    box-shadow        : 0 0 5px 5px rgba(0, 0, 0, .5);
+    }
+
+#rouletteWheelBorder_Outer * {
+    margin : 0;
+    }
+
+#rouletteWheelBorder_Inner {
+    box-shadow        : inset 0px 0px 30px 15px rgba(0, 0, 0, 0.9);
+    background-image  : url("https://i.imgur.com/LCPl13k.jpg");
+    background-repeat : repeat;
+    width             : 600px;
+    height            : 600px;
+    border-radius     : 50%;
+    position          : relative;
+    }
+
+
+#rouletteWheel {
+    box-shadow          : inset 0 0 5px 5px rgba(0, 0, 0, 0.9);
+    background-image    : url("https://i.imgur.com/y6dJZ5C.jpg");
+    background-size     : cover;
+    width               : 500px;
+    height              : 500px;
+    border-radius       : 50%;
+    position            : absolute;
+    transition-duration : 0s /*16.6666667ms*/;
+    }
+
+#rouletteWheelCover {
+    background-image    : url("https://i.imgur.com/xCjmIM6.jpg");
+    background-size     : 880px;
+    background-position : center;
+    transform           : rotate(17deg);
+    box-shadow          : 0 0 10px 12px rgba(0, 0, 0, .5);
+    width               : 66%;
+    height              : 66%;
+    border-radius       : 50%;
+    cursor              : pointer;
+    }
+
+
+
+#ballDiv {
+    background-color    : transparent;
+    position            : relative;
+    padding             : 0;
+    box-shadow          : none;
+    height              : 600px; /* initial height, will shrink to make the ball go nearer the center. */
+    width               : auto;
+    transition-duration : 0s /*16.6666667ms*/;
+    }
+
+#ball {
+    box-shadow          : inset -5px -5px 10px rgba(0, 0, 0, .5);
+    background-color    : navajowhite;
+    /*background-image: radial-gradient(circle at 40% 25%, navajowhite, #303030);
+    */border-radius : 50%;
+    height              : 25px;
+    width               : 25px;
+    margin              : 0;
+    padding             : 0;
+    top                 : 0;
+    position            : absolute
+    }
+
+.r_reverse {
+    animation-direction : reverse !important;
+    }
+
+.r_rotating_linear {
+    animation : r_rotating 4s infinite linear;
+    }
+
+.r_rotating_linear_fast {
+    animation : r_rotating 2s infinite linear;
+    }
+
+.r_rotating_linear_slow {
+    animation : r_rotating 10s infinite linear;
+    }
+
+.r_rotating_ease {
+    animation : r_rotating 5s infinite ease-in-out;
+    }
+
+.r_rotating_ease-out {
+    animation : r_rotating 4s linear forwards ease-out;
+    }
+
+@keyframes r_rotating {
+    0% {
+        transform : rotate(0deg);
+        }
+    100% {
+        transform : rotate(360deg);
+        }
+    }
+
+#table input {
+    margin-top : 25px;
+    }
+
+#table .retroButton {
+    background-color : var(--secondaryVariant);
+    margin-top       : 25px;
+    padding          : 15px 25px;
+    }
+
+#whatNumbers {
+    min-width : 100%;
+    }
+
+#howMuch {
+    min-width : 85%;
+    }
+
+#bettingAlert {
+    display          : none;
+    position         : absolute;
+    background-color : var(--error);
+    color            : var(--onError);
+    top              : calc(50% - 34px);
+    }
+
+#winningAlert {
+    display          : none;
+    position         : absolute;
+    top              : 400px;
+    padding          : 0 10px 10px 10px;
+    border-radius    : 100px;
+    background-color : rgba(121, 18, 21, 0.95);
+    }
+
+#winningAlert h1 {
+    user-select         : none;
+    -webkit-user-select : none;
+    color               : var(--secondary);
+    white-space         : nowrap;
+    font-family         : 'Playfair Display', serif;
+    font-weight         : bolder;
+    font-size           : 60pt;
+    letter-spacing      : 3px;
+    -webkit-animation   : heartbeat 5s ease-in-out infinite both;
+    animation           : heartbeat 5s ease-in-out infinite both
+    }
+
+
+
+
+
+
+
+* {
+    max-width           : 100vw;
+    flex-wrap           : wrap;
+    box-sizing          : border-box;
+    transition-duration : 0.5s;
+    }
+
+div {
+    display            : flex; /* Alternative: "inline-flex". */
+    flex-direction     : column;
+    align-items        : center;
+    flex-wrap          : wrap;
+    overflow-wrap      : break-word;
+    word-wrap          : break-word;
+
+    justify-content    : center;
+
+    margin             : 10px;
+    padding            : 20px;
+
+    background-color   : var(--primaryVariant);
+    border-color       : var(--onBackground);
+    border-radius      : var(--borderRadius);
+    border-width       : 0;
+    border-style       : solid;
+
+    box-shadow         : 0 /*X*/ 6px /*Y*/ 8px /*uklarhet*/ 0 /*spredning (optional)*/ var(--shadowColor);
+    -webkit-box-shadow : 0 6px 8px 0 var(--shadowColor);
+    }
+
+#documentWrapper {
+    width  : 100%;
+    height : 100%;
+    }
+
+
+div > p, div > h1, div > h2, div > h3, div > h4, div > h5, div > label, div > output {
+    /*cursor: url("Resources/etc/cursors/Mario_Gant/Text_Select.cur"), text*/
+    }
+
+
+h1, h2, h3, h4, h5 {
+    font-weight : bolder;
+    font-family : "Lucida Sans Unicode", Palatino, Arial, serif;
+    margin      : 0.25em;
+    /*line-break: auto;*/
+    }
+
+p {
+    /* 4autolinebreak width: 100% */
+    margin-top    : 5px;
+    margin-bottom : 5px;
+    }
+
+/* cssfontstack.com presets (cssfontstack.com/<PALETTENAME>):
+/* palatino
+h1 { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; }
+
+lucida
+h1 { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; }
+
+segue
+h1 { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; } h3 { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; } p { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } blockquote { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } pre { font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }
+
+optima
+h1 { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; }
+
+Book-Antiqua
+h1 { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; }
+
+Georgia
+h1 { font-family: Georgia, Times, "Times New Roman", serif; font-size: 23px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } h3 { font-family: Georgia, Times, "Times New Roman", serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; } p { font-family: Georgia, Times, "Times New Roman", serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } blockquote { font-family: Georgia, Times, "Times New Roman", serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px; } pre { font-family: Georgia, Times, "Times New Roman", serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 23px;
+ */
+
+
+a {
+    word-break          : break-all;
+    color               : var(--secondaryVariant);
+    text-decoration     : none;
+    text-shadow         : 0 2px 1px var(--shadowColor);
+    transition-duration : 0.3s;
+    }
+
+a:hover {
+    filter          : brightness(110%);
+    text-decoration : underline dashed;
+    text-shadow     : 0 5px 2px var(--shadowColor);
+    }
+
+a::before {
+    content   : "🔗";
+    opacity   : 0.5;
+    font-size : 0.8em;
+    }
+
+img {
+    /*border-style:solid;
+    border-color:black;
+    border-radius: var(--borderRadius);
+    border-width: 1px;*/
+
+    max-width           : 100%; /* Bilder vil aldri bli større enn parent element */
+    max-height          : 100%;
+
+    margin              : 5px;
+
+    transition-duration : .5s;
+
+    /* sikrer at aspect ratio ikke forandres */
+    display             : block;
+
+    border-radius       : var(--borderRadius)
+
+    }
+
+#documentWrapper {
+    flex-direction   : column;
+    margin           : 0;
+    padding          : 0;
+    background-color : transparent;
+    border-style     : none; border-radius : 0; border-width : 0;
+    box-shadow       : none;
+    }
+
+
+
+marquee {
+    margin  : 0;
+    padding : 0;
+    }
+
+/* OBSOLETE - bruk class .scroll eller marquee class i stedet. */
+
+
+::-webkit-scrollbar {
+    background : transparent;
+    }
+
+::-webkit-scrollbar-thumb {
+    background-color : rgba(0, 0, 0, .25); /* Slightly opaque, tar på fargen som er bak den. */
+    border-radius    : 30px 0 0 30px / 100% 0 0 100%; /* curves the scrollbar so that the entire left side is gently curved. */
+    }
+
+::-webkit-scrollbar-thumb:hover { background-color : rgba(0, 0, 0, .5); }
+
+
+
+/* __________ < lists > __________ */
+
+ul, ol {
+    padding : 0 1em 0 2em;
+    }
+
+/* __________ < Tables > __________ */
+table {
+    margin             : 15px;
+    background-color   : var(--primary);
+
+    border-collapse    : collapse;
+
+    border-radius      : 25px;
+    border-style       : hidden;
+
+    box-shadow         : 0 6px 8px 0 var(--shadowColor);
+    -webkit-box-shadow : 0 6px 8px 0 var(--shadowColor);
+    }
+
+table, th, td {
+    padding : 10px;
+    }
+
+th {
+    border          : 1px solid var(--background);
+    text-decoration : var(--background) underline;
+    border-radius   : 0;
+    }
+
+td {
+    border     : 1px solid var(--background);
+    text-align : center;
+    }
+
+td:first-child {
+    text-align   : left;
+    padding-left : 25px;
+    }
+
+tr:nth-child(odd) {
+    background : var(--primaryVariant);
+    }
+
+
+
+/* ***************************************************
+   **                    INPUTS                     **
+   ***************************************************/
+
+input, select, button, textarea {
+    background-color : var(--secondary);
+    outline          : none;
+    margin           : 5px;
+    padding          : 5px;
+    text-align       : center;
+    /*border: 1px solid var(--onBackground);*/
+    border-radius    : var(--borderRadius);
+    border-style     : none;
+    overflow         : hidden;
+    /* max-width: 90%;  */
+    }
+
+textarea {
+    resize : none;
+    }
+
+button {
+    font-size           : 14px;
+    font-weight         : bold;
+    border              : solid 1px var(--onBackground) var(--borderRadius);
+    padding             : 7px 10px;
+    transition-duration : 0.05s;
+    }
+
+button h1, button h2 {
+    text-shadow         : 0 4px 3px var(--shadowColor);
+    transition-duration : 0.05s;
+    }
+
+button:hover h1, button:hover h2 {
+    transform   : scale(1.05);
+    text-shadow : 0 7px 4px var(--shadowColor);
+    }
+
+button:active h1, button:active h2 {
+    text-shadow         : none;
+    transform           : scale(0.95) translate(0, 4px) !important;
+    transition-duration : 0.02s;
+    }
+
+/*button:hover {
+    transform : scale(1.05);
+    }
+
+button:active {
+    /*transform           : scale(1.1);
+    transition-duration : 0.1s;
+    box-shadow          : none !imp ortant;
+    -webkit-box-shadow  : none !imp ortant;
+    }
+
+/* removes mozilla button outline */
+button::-moz-focus-inner { border : 0; }
+
+
+button, select, input[type=radio], input[type=checkbox], label {
+    cursor              : url("Resources/etc/cursors/Mario_Gant/Normal_Select.cur"), pointer !important;
+    transition-duration : 0.5s;
+    }
+
+::placeholder { /*placeholder teksten i inputs*/
+    padding-left : 3px;
+    color        : var(--onSecondary);
+    opacity      : 0.5;
+    }
+
+
+
+/* __________ < TEXT INPUTS > __________ */
+input[type=text], input[type=number] {
+    margin              : 5px 0;
+    padding             : 5px 0;
+    border              : 1px solid var(--secondaryVariant);
+    border-radius       : 5px;
+    background-color    : transparent;
+    transition-duration : 0.5s;
+    font-weight         : bold;
+    }
+
+input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[type=number]:focus {
+    padding          : 5px 0;
+    background-color : var(--secondaryVariant);
+    margin           : 5px 0;
+    box-shadow       : 0 10px 10px var(--shadowColor);
+    }
+
+
+
+/* __________ < SELECT > __________ */
+select {
+    padding             : 7px 25px 7px 10px;
+    text-align-last     : center;
+    border              : solid var(--secondary) 2px;
+    border-radius       : 10px;
+    outline             : none;
+    font-weight         : 600;
+    appearance          : none; /* fjerner pilen (som ikke kan styles) */
+    -webkit-appearance  : none;
+    background          : transparent url("../resources/img/icons/iOS/popular/menu-filled.png") 90% no-repeat; /* bildet er custom ikonet, 95% to the right. */
+    color               : var(--onPrimary);
+    background-size     : 1em; /* størrelsen på ikonet */
+    transition-duration : 0.5s;
+    }
+
+select:hover {
+    color               : var(--onSecondary);
+    border-color        : var(--secondaryVariant);
+    background-color    : var(--secondaryVariant);
+    /*border-radius    : 100% 100% 15px 15px / 20px 20px 15px 15px; /* ( x-radius / y-radius )
+    */border-radius : 50% 50% 10px 10px / 10px 10px 20px 20px; */ filter : brightness(125%);
+    }
+
+select:focus {
+    color            : var(--onSecondary);
+    background-color : var(--secondaryVariant);
+    border-radius    : /*20px 20px 0*/ 4px;
+    }
+
+option {
+    text-align       : center;
+    background-color : var(--secondary);
+    }
+
+option:nth-child(odd) {
+    background-color : var(--secondaryVariant)
+    }
+
+
+
+/* Gjemmer opp & ned pilene på input type "number" */
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance : none; margin : 0; }
+
+/* For Chrome & etc. */
+input[type="number"] { -moz-appearance : textfield; }
+
+/* For Firefox: */
+/*input[text], textArea{ cursor: url("Resources/etc/cursors/0etc/Zelda_Pen.png"), text; }*/
+
+
+
+/* __________ < RADIO > __________ */
+input[type=radio], input[type=checkbox] {
+    -webkit-appearance  : none; /* hides the normal radio button */
+    -moz-appearance     : none;
+    background-color    : var(--secondary) !important;
+
+    outline             : none; /*fjerner firkantet selection outline, native i html. */
+    border-style        : none;
+    border-radius       : 50% !important;
+
+    position            : relative; /*for å tillate absolute text content */
+    height              : 30px;
+    width               : 30px;
+    transition-duration : 0.3s;
+    }
+
+input[type=radio]:hover, input[type=checkbox]:hover {
+    transform           : scale(1.5);
+    background-color    : var(--primaryVariant) !important;
+    box-shadow          : 0 5px 7px var(--shadowColor);
+    transition-duration : 0.2s;
+    }
+
+input[type=radio]:active, input[type=checkbox]:active {
+    transform           : scale(1.8);
+    transition-duration : 0.1s;
+    }
+
+input[type=radio]:checked::before, input[type=checkbox]:checked::before { /* inserts text before the content on checked radios */
+    position  : absolute;
+    content   : '✔';
+    font-size : 20px;
+    color     : var(--onPrimary);
+    left      : 6px;
+    top       : 0;
+    }
+
+
+
+
+
+/* __________ < ranges > __________ */
+input[type=range] {
+    -webkit-appearance  : none; /* Override default CSS styles */
+    outline             : none;
+    appearance          : none;
+    padding             : 0;
+    border-radius       : 50px;
+    height              : 12.5px;
+    filter              : brightness(90%);
+    background-color    : #666;
+    transition-duration : 0.5s;
+    overflow            : visible;
+    }
+
+input[type=range]:hover {
+    filter              : brightness(100%);
+    transition-duration : 0.5s;
+    }
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance  : none;
+    position            : relative;
+    bottom              : 5px;
+    width               : 20px;
+    height              : 20px;
+    border-style        : none;
+    border-radius       : 50%;
+    background-color    : var(--secondaryVariant);
+    transition-duration : 0.5s;
+    box-shadow          : 3px 2px 3px var(--shadowColor);
+    }
+
+input[type=range]::-moz-range-thumb {
+    box-shadow          : 3px 2px 3px var(--shadowColor);
+    border-style        : none;
+    -webkit-appearance  : none;
+    width               : 20px; /* the size is slightly different for firefox, so I'm manually making up for that here */
+    height              : 20px;
+    border-radius       : 50%;
+    background-color    : var(--secondaryVariant);
+    transition-duration : 0.5s;
+    }
+
+input[type=range]::-moz-range-thumb:hover {
+    transform           : scale(1.3);
+    transition-duration : 0.3s;
+    box-shadow          : 5px 5px 5px var(--shadowColor);
+    }
+
+input[type=range]::-webkit-slider-thumb:hover {
+    box-shadow          : 5px 5px 5px var(--shadowColor);
+    transform           : scale(1.3);
+    transition-duration : 0.3s;
+    }
+
+
+
+/* __________ < COLOURS > __________ */
+.primary { background-color : var(--primary); color : var(--onPrimary)}
+
+.primaryVariant { background-color : var(--primaryVariant); color : var(--onPrimary)}
+
+.secondary { background-color : var(--secondary); color : var(--onSecondary)}
+
+.secondaryVariant { background-color : var(--secondaryVariant); color : var(--onSecondary);}
+
+.primary > p, .primary > h1, .primary > h2, .primary > h3, .primary > h4, .primary > h5 { color : var(--onPrimary) !important; }
+
+.primaryVariant > p, .primaryVariant > h1, .primaryVariant > h2, .primaryVariant > h3, .primaryVariant > h4, .primaryVariant > h5 { color : var(--onPrimary) !important; }
+
+.secondary > p, .secondary > h1, .secondary > h2, .secondary > h3, .secondary > h4, .secondary > h5 { color : var(--onSecondary) !important; }
+
+.secondaryVariant > p, .secondaryVariant > h1, .secondaryVariant > h2, .secondaryVariant > h3, .secondaryVariant > h4, .secondaryVariant > h5 { color : var(--onSecondary) !important; }
+
+
+.clipPathShadow {
+    filter : drop-shadow(0px 10px 5px var(--shadowColor));
+    }
+
+/* __________________________ DOC ___________________________ */
+
+
+.menuHideAnimation {
+    animation : spinUp 0.45s ease-in;
+    }
+
+.menuShowAnimation {
+    animation : spinUp 0.65s reverse cubic-bezier(.35, -0.52, .73, .09);
+    }
+
+@keyframes spinUp {
+    0% {
+        transform : rotate(0) scale(1);
+        top       : 160px;
+        z-index   : 10;
+        opacity   : 1;
+        }
+    99% {
+        transform : rotate(270deg) scale(0.5);
+        top       : -15px;
+        z-index   : 10;
+        opacity   : 1;
+        }
+    100% {
+        transform : scale(0.5);
+        top       : -15px;
+        z-index   : -10;
+        opacity   : 0;
+        }
+    }
+
+
+
+
+#footer {
+    width               : 100vw;
+    min-height          : 50px;
+    margin              : 15px 0 0 0;
+    padding             : 2px;
+    border-radius       : 0;
+    box-shadow          : none;
+    background-image    : linear-gradient(var(--primaryVariant), var(--primary));
+    transition-duration : 0.25s;
+    }
+
+
+
+.toolbar {
+    margin                     : 0;
+    background-color           : transparent;
+    box-shadow                 : none;
+    position                   : fixed;
+    z-index                    : 5;
+    top                        : 162px;
+    opacity                    : 1;
+    flex-direction             : row;
+    justify-content            : center;
+    transition-duration        : 0.75s;
+    padding                    : 0;
+    transition-timing-function : cubic-bezier(.18, .89, .47, 1.39);
+    }
+
+
+/* mirrors the right-side toolbar so that the clip-path is pointed in the right direction, and mirrors the content so that it's rotated in the normal direction. */
+#toolbarRight .toolbarItem { transform : rotateY(180deg); }
+
+#toolbarRight .toolbarItem * { transform : rotateY(180deg); }
+
+
+.toolbarItem {
+    justify-content     : center;
+    flex-direction      : row;
+    height              : 92px;
+    width               : 260px;
+    margin              : 5px;
+    clip-path           : polygon(100% 0%, 85% 50%, 100% 100%, 25% 75%, 15% 50%, 25% 25%);
+    padding             : 30px 0;
+    background-color    : var(--secondary);
+    color               : var(--onSecondary);
+    border-radius       : 0;
+    user-select         : none; /* supported by Chrome and Opera */
+    -webkit-user-select : none; /* Safari */
+    -khtml-user-select  : none; /* Konqueror HTML */
+    -moz-user-select    : none; /* Firefox */
+    -ms-user-select     : none; /* Internet Explorer/Edge */
+    font-size           : 12pt;
+    }
+
+#toolbarLeft .toolbarItem {
+    }
+
+#toolbarRight .toolbarItem {
+    cursor : pointer;
+    }
+
+#toolbarRight *:hover {
+    }
+
+
+.toolbarOpenAnimation {
+    animation : ease-in-out toolbarOpenAnimation 0.75s;
+    }
+
+.toolbarCloseAnimation {
+    animation : ease-in-out toolbarCloseAnimation 0.75s;
+    }
+
+@keyframes toolbarOpenAnimation {
+    0% {
+        transform : rotateY(0deg) scale(1);
+        }
+    50% {
+        transform : rotate(180deg) scale(0.8);
+        top       : 248px;
+        }
+    100% {
+        transform : rotate(360deg) scale(1);
+        }
+    }
+
+@keyframes toolbarCloseAnimation {
+    50% {
+        transform : rotateY(180deg) scale(1.25);
+        top       : 155px;
+        }
+    75% {
+        transform : rotateY(180deg) scale(1.25);
+        top       : 155px;
+        }
+    }
+
+
+
+
+
+
+
+
+/*#spinBtn {
+    position : absolute;
+    top      : 50%;
+    left     : 50px;
+    }*/
+
+#cheatModeDiv {
+    justify-content     : center;
+    align-content       : center;
+    bottom              : -85px;
+    padding-top         : 40px;
+    width               : 300px;
+    position            : absolute;
+    transition-duration : 0.25s;
+    border-radius       : 50% 50% 10% 10% / 100% 100% 0% 0%;
+    }
+
+#cheatModeDiv:hover {
+    bottom      : -10px;
+    padding-top : 15px;
+    width       : 400px;
+    }
+
+#cheatModeDiv img {
+    position         : absolute;
+    top              : -50px;
+    height           : 50px;
+    width            : 50px;
+    background-color : transparent;
+    border: solid transparent 8px;
+    }
+
+#practiceModeTip {
+    opacity     : 0;
+    white-space : nowrap;
+    }
+
+#cheatModeDiv:hover #practiceModeTip {
+    opacity : 1;
+    }
+
+
+
+
+
+
+
+
+

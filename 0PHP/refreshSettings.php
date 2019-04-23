@@ -33,7 +33,6 @@ $link->query($sql); /*Kjøre spørringen til databasen og oppdatere den*/
 <head>
   <meta charset="UTF-8">
   <title>Casino Royale | Update Settings</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
 </head>
 <body>
 

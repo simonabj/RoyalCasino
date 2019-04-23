@@ -9,7 +9,7 @@ $(function () {
         {
             title: "blackjack",
             image: "../games/Blackjack/banner.jpg",
-            href: "../games/Blackjack/",
+            href: "../games/Blackjack/index.html",
         },
         {
             title: "monty Hall",
@@ -19,16 +19,17 @@ $(function () {
         {
             title: "Crash",
             image: "https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F480661%2Frising_stock_chart.jpg&w=700&op=resize",
-            href: "../games/Crash/crash.php",
+            href: "../games/Crash/index.php",
         },
         {
-            title: "Royale Bros",
-            image: "https://bonusstagemagazine.files.wordpress.com/2015/09/anime-mario-portada2.png",
-            href: "reddit.com",
+            title: "S・N・A・K・E",
+            image: "https://i.ytimg.com/vi/f0chIP_5RdQ/maxresdefault.jpg",
+            href: "../games/Snake/index.php",
         },
         {
             title: "Royale Adventures",
-            image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",
+            image: "https://bonusstagemagazine.files.wordpress.com/2015/09/anime-mario-portada2.png",
+            //image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",
             href: "http://nogginclontith.co.uk/index.htm",
         },
 
@@ -75,22 +76,25 @@ $(function () {
             click: function () {
                 // PLAYS AN ANIMATION ON EACH GAME BOX THAT ISN'T THIS ONE
                 /* let tempVar = 0; for--> tempVar++; if (tempVar === 2) tempVar = 0;   if-->(notcontainer-->if     (tempVar === 0) { gameBoxes[i].classList.add("shadow-inset-center"); } else { gameBoxes[i].classList.add("shadow-inset-center"); }*/
-                container.style.transform = "scale(1.2)";
+                //container.style.transform = "scale(1.2)";
+                /*
                 for (let i = 0; i < gameBoxes.length; i++) {
                     if (gameBoxes[i] !== container) {
-                        gameBoxes[i].querySelector(".hubGame_image").style.filter = "";
-                        gameBoxes[i].style.transform = "scale(0.9)";
+                        //gameBoxes[i].querySelector(".hubGame_image").style.filter = "";
+                        gameBoxes[i].style.transform = "scale(0.95)";
                     }
                 }
+                */
                 setTimeout(function () {
-                    for (let i = 0; i < gameBoxes.length; i++) {
+                    /*for (let i = 0; i < gameBoxes.length; i++) {
                         if (gameBoxes[i] !== container) {
                             gameBoxes[i].style.transform = "";
                         }
                     }
                     container.style.transform = "";
+                    */
                     window.location.href = object.href;
-                }, 650);
+                }, 150);
             },
             // BLURS OTHER GAME-IMAGES ON HOVER
             mouseenter: function () {

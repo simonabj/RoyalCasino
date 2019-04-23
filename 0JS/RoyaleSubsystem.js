@@ -147,7 +147,7 @@ class TokenManager {
      * @desc Subtract an amount of tokens from tokenBalance
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
-     * @param amount - Amount to subtract from tokens
+     * @param amount {number}- Amount to subtract from tokens
      */
     subTokenAmount(amount) {
         console.assert(this.tokenBalance >= amount, "Resulting amount must be greater or equal to 0");

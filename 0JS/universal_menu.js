@@ -6,9 +6,13 @@ let rmh_firstTimeTooltip = true;
 // To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag, in the head tag). (not sure if this works yet)
 let rmh_href = "../../hub/index.php";
 
-// APPENDING THE ICON-FONT TO HEAD
-window.onload = function () {
+let isRmhOpen;
 
+
+
+window.addEventListener("load", function(){
+
+// APPENDING THE ICON-FONT TO HEAD
     let link = document.createElement("link");
     link.integrity = "sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf";
     link.href = "https://use.fontawesome.com/releases/v5.8.1/css/all.css";
@@ -33,8 +37,8 @@ window.onload = function () {
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
         '                <div class="container row">\n' +
         '                    <img src="https://i.imgur.com/KIEjXV8.png" alt="token" class="rmh_token">\n' +
-        '                    <p id="rmh_tokenCount"> x 400</p>\n' +
-        '                    <script> document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount(); </script>\n' +
+        '                    <p id="rmh_tokenCount"> x nothing</p>\n' +
+        '                    <script> setTimeout(function(){document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();}, 500);</script>\n' +
         '                </div>\n' +
         '                <button class="retroButton" onclick="">get more</button>\n' +
         '            </div>\n' +
@@ -105,7 +109,7 @@ window.onload = function () {
 
 
     // TOGGLING THE MENU
-    let isRmhOpen = true;
+    isRmhOpen = true;
     rmh_handle.onclick = function () {
         if (!isRmhOpen) {
             isRmhOpen = true;
@@ -135,31 +139,35 @@ window.onload = function () {
     rmh_handle.classList.remove("rmh_handle_opened");
     rmh_handle.classList.add("rmh_handle_closed");
 
-    /**
-     * method rmh_openAfter closes the menu, and re-opens it after given amount of seconds. (giving the appended font time to load, and making it more noticable).
-     * @param seconds {Number} - the amount of seconds until the menu opens again.
-     */
 
-    window.rmh_openAfter = function (seconds) {
-        //rmh.style.opacity = 0;
-        //rmh.style.transitionDuration = "0.5s";
-        setTimeout(function () {
-            if (!isRmhOpen) {
-                isRmhOpen = true;
-                rmh.style.opacity = 1;
-                rmh.classList.add("rmh_open");
-                rmh.classList.add("rmh_opened");
-                rmh.classList.remove("rmh_closed");
-                rmh_handle.classList.add("rmh_handle_open");
-                rmh_handle.classList.add("rmh_handle_opened");
-                rmh_handle.classList.remove("rmh_handle_closed");
-            }
-        }, seconds * 1000);
-    };
-    window.updateRmhTokenCount = function () {
-        document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();
-    };
+});
 
-    // TODO - make tooltip only show when autoopened or when its minimized in the start or something i dunno
 
-};
+
+/**
+ * @function
+ * @desc automatically opens it after given amount of seconds. (giving the appended font time to load, and making it more noticable).
+ * @param seconds {number} - the amount of seconds until the menu opens again.
+ */
+function rmh_openAfter(seconds) {
+    //rmh.style.opacity = 0;
+    //rmh.style.transitionDuration = "0.5s";
+    setTimeout(function () {
+        let rmh  = document.getElementById("rmh");
+        let rmh_handle  = document.getElementById("rmh_handle");
+        if (rmh.classList.contains("rmh_closed") === true) {
+            isRmhOpen = true;
+            rmh.style.opacity = 1;
+            rmh.classList.add("rmh_open");
+            rmh.classList.add("rmh_opened");
+            rmh.classList.remove("rmh_closed");
+            rmh_handle.classList.add("rmh_handle_open");
+            rmh_handle.classList.add("rmh_handle_opened");
+            rmh_handle.classList.remove("rmh_handle_closed");
+        }
+    }, seconds * 1000);
+}
+
+function rmh_update() {
+    document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();
+}

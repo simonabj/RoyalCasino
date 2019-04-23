@@ -31,7 +31,7 @@ for ($i = 0; $i < $length; $i++) {
 	$new_password .= $characters[$rand];
 }
 
-/*Sending av mail om nytt passord*/
+/*Mail om nytt passord*/
 ini_set( 'display_errors', 1 );
 error_reporting( E_ALL );
 $from = "vidrate@rateateachernorway.com";

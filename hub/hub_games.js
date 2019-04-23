@@ -19,7 +19,7 @@ $(function () {
         {
             title: "Crash",
             image: "https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F480661%2Frising_stock_chart.jpg&w=700&op=resize",
-            href: "../games/Crash/crash.php",
+            href: "../games/Crash/index.php",
         },
         {
             title: "Royale Bros",

@@ -2,6 +2,7 @@ body {
     background-image  : url("https://i.imgur.com/FHgMiQS.jpg");
     background-repeat : repeat;
     overflow-y        : hidden;
+    background-size   : 512px;
     }
 
 #documentWrapper {

@@ -10,9 +10,9 @@ let isRmhOpen;
 
 
 
-window.addEventListener("load", function(){
+window.addEventListener("load", function () {
 
-// APPENDING THE ICON-FONT TO HEAD
+    // APPENDING THE ICON-FONT TO HEAD
     let link = document.createElement("link");
     link.integrity = "sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf";
     link.href = "https://use.fontawesome.com/releases/v5.8.1/css/all.css";
@@ -74,23 +74,29 @@ window.addEventListener("load", function(){
 
 
     // DISPLAYS A TOOLTIP IF IT'S THE FIRST TIME THE USER IS LOGGED IN
-    if (get("firstTime") && rmh_firstTimeTooltip) {
+    if (rmh_affectUser) {
+        if (get("firstTime") && rmh_firstTimeTooltip) {
 
-        let rmh_tooltip = document.createElement("div");
-        rmh_tooltip.id = "rmh_tooltip";
-        rmh_tooltip.classList.add("speech-bubble-right");
-        rmh_tooltip.style.opacity = 0;
+            let rmh_tooltip = document.createElement("div");
+            rmh_tooltip.id = "rmh_tooltip";
+            rmh_tooltip.classList.add("speech-bubble-right");
+            rmh_tooltip.style.opacity = 0;
 
-        let rmh_tooltip_text = document.createElement("p");
-        rmh_tooltip_text.innerText = "Click me to toggle the menu.";
+            let rmh_tooltip_text = document.createElement("p");
+            rmh_tooltip_text.innerText = "Click me to toggle the menu.";
 
-        rmh_tooltip.appendChild(rmh_tooltip_text);
-        rmh.appendChild(rmh_tooltip);
+            rmh_tooltip.appendChild(rmh_tooltip_text);
+            rmh.appendChild(rmh_tooltip);
 
-        //$(rmh).append('<div id="rmh_tooltip" class="speech-bubble-right" style="opacity: 0"> <p>Click me to toggle the menu.</p> </div>');
+            //$(rmh).append('<div id="rmh_tooltip" class="speech-bubble-right" style="opacity: 0"> <p>Click me to toggle the menu.</p> </div>');
 
-        rmh.addEventListener("click", function () {document.getElementById("rmh_tooltip").style.opacity = 0;});
-        setTimeout(function () { document.getElementById("rmh_tooltip").style.opacity = 1; }, 3000);
+            rmh.addEventListener("click", function () {
+                document.getElementById("rmh_tooltip").style.opacity = 0;
+            });
+            setTimeout(function () {
+                document.getElementById("rmh_tooltip").style.opacity = 1;
+            }, 3000);
+        }
     }
 
 
@@ -153,8 +159,8 @@ function rmh_openAfter(seconds) {
     //rmh.style.opacity = 0;
     //rmh.style.transitionDuration = "0.5s";
     setTimeout(function () {
-        let rmh  = document.getElementById("rmh");
-        let rmh_handle  = document.getElementById("rmh_handle");
+        let rmh = document.getElementById("rmh");
+        let rmh_handle = document.getElementById("rmh_handle");
         if (rmh.classList.contains("rmh_closed") === true) {
             isRmhOpen = true;
             rmh.style.opacity = 1;

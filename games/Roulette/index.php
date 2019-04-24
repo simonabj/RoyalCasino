@@ -28,13 +28,8 @@
 
     <div id="table">
         <h1 class="title">Roulette</h1>
-        <div class="space"></div>
-        <div class="space"></div>
-        <div class="space"></div>
         <div id="rouletteWheelBorder_Outer">
-            <div id="rouletteWheelBorder_Inner"> <!-- not rotating -->
                 <div id="rouletteWheel"> <!-- rotating -->
-                    <div id="rouletteWheelCover"></div>
                 </div>
 
                 <div id="ballDiv" class=""> <!-- rotating -->
@@ -43,7 +38,6 @@
 
                 <div id="bettingAlert"><h3></h3></div>
 
-            </div>
         </div>
 
         <div class="container">
@@ -57,8 +51,6 @@
             <input id="howMuch" type="number"> <span><p>You have <span id="tokenCount">no</span> tokens, how many will you bet?</p></span>
             <script>$(function () {if (affectUser) document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();})</script>
             <button id="spinBtn" class="retroButton">Spin the wheel!</button>
-            <div class="space"></div>
-            <div class="space"></div>
 
 
         </div>

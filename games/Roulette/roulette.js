@@ -50,7 +50,7 @@ $(function () {
     let rotateVel_wheel = 0;
     // THE BALL
     let ball = new Rotatable($("#ballDiv")[0]);
-    let ballHeightMax = 600;
+    let ballHeightMax = 595;
     let ballHeight = ballHeightMax;
     ball.el.style.height = ballHeight + "px";
 
@@ -175,19 +175,27 @@ $(function () {
                 return false;
             }
             // CHECKING I THE USER HAS BET ON BOTH COLORS, OR A COLOR AND A NUMBER.
-            let nbo = getNumbersBettedOn();    
-            if(nbo.includes("red") || nbo.includes("black")){
-                if(nbo.includes("red") && nbo.includes("black")){
+            let betNumbs = getNumbersBettedOn();
+            if(betNumbs.includes("red") || betNumbs.includes("black")){
+                console.log(betNumbs);
+                if((betNumbs.includes("red") && betNumbs.includes("black")) || (betNumbs.includes("black") && betNumbs.includes("red"))){
                     bettingAlert[0].querySelector("h3").innerHTML = "You can't bet on two colors.";
-                } else if(function(){for(let i = 0; i < nbo.length; i++) if(typeof nbo[i] === "number") return true;}){
                     bettingAlert[0].querySelector("h3").innerHTML = "You can't bet on a color and numbers.";
+                    setTimeout(function () {
+                        numberInput.classList.add("jello-horizontal");
+                        bettingAlert[0].classList.add("shake-horizontal");
+                        bettingAlert.show();
+                    }, 50);
+                    return false;
+                } else if(betNumbs.length>1){ //if(function(){for(let i = 0; i < betNumbs.length; i++) if(typeof betNumbs[i] === "number") return true;})
+                    bettingAlert[0].querySelector("h3").innerHTML = "You can't bet on a color and numbers.";
+                    setTimeout(function () {
+                        numberInput.classList.add("jello-horizontal");
+                        bettingAlert[0].classList.add("shake-horizontal");
+                        bettingAlert.show();
+                    }, 50);
+                    return false;
                 }
-                setTimeout(function () {
-                    betInput.classList.add("jello-horizontal");
-                    bettingAlert[0].classList.add("shake-horizontal");
-                    bettingAlert.show();
-                }, 50);
-                return false;
             }
 
 
@@ -261,7 +269,7 @@ $(function () {
     $("#spinBtn").click(function () {
         spin();
     });
-    $("#rouletteWheelCover").click(function () {
+    $("#rouletteWheel").click(function () {
         spin();
     });
     betInput.addEventListener("keyup", function (event) {

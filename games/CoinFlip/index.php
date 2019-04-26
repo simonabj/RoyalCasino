@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="coinFlip.css">
     <link rel="stylesheet" href="../../0CSS/classes.css">
+    <link rel="stylesheet" href="../../0CSS/universal.css">
 
     <meta charset="utf-8">
     <title></title>
@@ -34,8 +35,8 @@
         Select a side to bet on:  <br>
 
         <div id="velg" class="container row">
-            <div id="gul"> </div>
-            <div id="gronn"> </div>
+            <div id="lilla"> </div>
+            <div id="rod"> </div>
         </div>
         <br>
 

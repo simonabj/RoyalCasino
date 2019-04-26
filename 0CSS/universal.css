@@ -7,6 +7,7 @@
     --secondaryVariant    : #FFDF00;
     --background          : #2B2B2B;
     --backgroundSecondary : #393939;
+    /*--backgroundTertiary : #393939;*/
     --surface             : #F5F1ED;
     --error               : #C53426;
 
@@ -60,7 +61,265 @@ body {
 
 
 h1, h2, h3, h4, h5 {
-    font-family : 'Playfair Display', serif;
+    font-family : 'Playfair Display', Arial, serif;
     }
 
 p { font-family : "Lucida Sans Unicode", Arial, serif; }
+
+
+
+
+
+
+
+
+
+
+
+
+/* ***************************************************
+   **                    INPUTS                     **
+   ***************************************************/
+
+   input, select, button, textarea {
+    background-color : var(--secondary);
+    outline          : none;
+    margin           : 5px;
+    padding          : 5px;
+    text-align       : center;
+    /*border: 1px solid var(--onBackground);*/
+    border-radius    : var(--borderRadius);
+    border-style     : none;
+    overflow         : hidden;
+    /* max-width: 90%;  */
+    }
+
+textarea {
+    resize : none;
+    }
+
+button {
+    font-size           : 14px;
+    font-weight         : bold;
+    border              : solid 1px var(--onBackground) var(--borderRadius);
+    padding             : 7px 10px;
+    transition-duration : 0.05s;
+    }
+
+button h1, button h2 {
+    text-shadow         : 0 4px 3px var(--shadowColor);
+    transition-duration : 0.05s;
+    }
+
+button:hover h1, button:hover h2 {
+    transform   : scale(1.05);
+    text-shadow : 0 7px 4px var(--shadowColor);
+    }
+
+button:active h1, button:active h2 {
+    text-shadow         : none;
+    transform           : scale(0.95) translate(0, 4px) !important;
+    transition-duration : 0.02s;
+    }
+
+/*button:hover {
+    transform : scale(1.05);
+    }
+
+button:active {
+    /*transform           : scale(1.1);
+    transition-duration : 0.1s;
+    box-shadow          : none !imp ortant;
+    -webkit-box-shadow  : none !imp ortant;
+    }
+
+/* removes mozilla button outline */
+button::-moz-focus-inner { border : 0; }
+
+
+button, select, input[type=radio], input[type=checkbox], label {
+    cursor              : url("Resources/etc/cursors/Mario_Gant/Normal_Select.cur"), pointer !important;
+    transition-duration : 0.5s;
+    }
+
+::placeholder { /*placeholder teksten i inputs*/
+    padding-left : 3px;
+    color        : var(--onSecondary);
+    opacity      : 0.5;
+    }
+
+
+
+/* __________ < TEXT INPUTS > __________ */
+input[type=text], input[type=number] {
+    margin              : 5px 0;
+    padding             : 5px 0;
+    border              : 1px solid var(--secondaryVariant);
+    border-radius       : 5px;
+    background-color    : transparent;
+    transition-duration : 0.5s;
+    font-weight         : bold;
+    }
+
+input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[type=number]:focus {
+    padding          : 5px 0;
+    background-color : var(--secondaryVariant);
+    margin           : 5px 0;
+    box-shadow       : 0 10px 10px var(--shadowColor);
+    }
+
+
+
+/* __________ < SELECT > __________ */
+select {
+    padding             : 7px 25px 7px 10px;
+    text-align-last     : center;
+    border              : solid var(--secondary) 2px;
+    border-radius       : 10px;
+    outline             : none;
+    font-weight         : 600;
+    appearance          : none; /* fjerner pilen (som ikke kan styles) */
+    -webkit-appearance  : none;
+    background          : transparent url("../resources/img/icons/iOS/popular/menu-filled.png") 90% no-repeat; /* bildet er custom ikonet, 95% to the right. */
+    color               : var(--onPrimary);
+    background-size     : 1em; /* størrelsen på ikonet */
+    transition-duration : 0.5s;
+    }
+
+select:hover {
+    color               : var(--onSecondary);
+    border-color        : var(--secondaryVariant);
+    background-color    : var(--secondaryVariant);
+    /*border-radius    : 100% 100% 15px 15px / 20px 20px 15px 15px; /* ( x-radius / y-radius )
+    */border-radius : 50% 50% 10px 10px / 10px 10px 20px 20px; */ filter : brightness(125%);
+    }
+
+select:focus {
+    color            : var(--onSecondary);
+    background-color : var(--secondaryVariant);
+    border-radius    : /*20px 20px 0*/ 4px;
+    }
+
+option {
+    text-align       : center;
+    background-color : var(--secondary);
+    }
+
+option:nth-child(odd) {
+    background-color : var(--secondaryVariant)
+    }
+
+
+
+/* Gjemmer opp & ned pilene på input type "number" */
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance : none; margin : 0; }
+
+/* For Chrome & etc. */
+input[type="number"] { -moz-appearance : textfield; }
+
+/* For Firefox: */
+/*input[text], textArea{ cursor: url("Resources/etc/cursors/0etc/Zelda_Pen.png"), text; }*/
+
+
+
+/* __________ < RADIO > __________ */
+input[type=radio], input[type=checkbox] {
+    -webkit-appearance  : none; /* hides the normal radio button */
+    -moz-appearance     : none;
+    background-color    : var(--secondary) !important;
+
+    outline             : none; /*fjerner firkantet selection outline, native i html. */
+    border-style        : none;
+    border-radius       : 50% !important;
+
+    position            : relative; /*for å tillate absolute text content */
+    height              : 30px;
+    width               : 30px;
+    transition-duration : 0.3s;
+    }
+
+input[type=radio]:hover, input[type=checkbox]:hover {
+    transform           : scale(1.5);
+    background-color    : var(--primaryVariant) !important;
+    box-shadow          : 0 5px 7px var(--shadowColor);
+    transition-duration : 0.2s;
+    }
+
+input[type=radio]:active, input[type=checkbox]:active {
+    transform           : scale(1.8);
+    transition-duration : 0.1s;
+    }
+
+input[type=radio]:checked::before, input[type=checkbox]:checked::before { /* inserts text before the content on checked radios */
+    position  : absolute;
+    content   : '✔';
+    font-size : 20px;
+    color     : var(--onPrimary);
+    left      : 6px;
+    top       : 0;
+    }
+
+
+
+
+
+/* __________ < ranges > __________ */
+input[type=range] {
+    -webkit-appearance  : none; /* Override default CSS styles */
+    outline             : none;
+    appearance          : none;
+    padding             : 0;
+    border-radius       : 50px;
+    height              : 12.5px;
+    filter              : brightness(90%);
+    background-color    : #666;
+    transition-duration : 0.5s;
+    overflow            : visible;
+    }
+
+input[type=range]:hover {
+    filter              : brightness(100%);
+    transition-duration : 0.5s;
+    }
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance  : none;
+    position            : relative;
+    bottom              : 5px;
+    width               : 20px;
+    height              : 20px;
+    border-style        : none;
+    border-radius       : 50%;
+    background-color    : var(--secondaryVariant);
+    transition-duration : 0.5s;
+    box-shadow          : 3px 2px 3px var(--shadowColor);
+    }
+
+input[type=range]::-moz-range-thumb {
+    box-shadow          : 3px 2px 3px var(--shadowColor);
+    border-style        : none;
+    -webkit-appearance  : none;
+    width               : 20px; /* the size is slightly different for firefox, so I'm manually making up for that here */
+    height              : 20px;
+    border-radius       : 50%;
+    background-color    : var(--secondaryVariant);
+    transition-duration : 0.5s;
+    }
+
+input[type=range]::-moz-range-thumb:hover {
+    transform           : scale(1.3);
+    transition-duration : 0.3s;
+    box-shadow          : 5px 5px 5px var(--shadowColor);
+    }
+
+input[type=range]::-webkit-slider-thumb:hover {
+    box-shadow          : 5px 5px 5px var(--shadowColor);
+    transform           : scale(1.3);
+    transition-duration : 0.3s;
+    }
+
+
+
+
+
+

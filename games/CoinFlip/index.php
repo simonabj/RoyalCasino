@@ -1,52 +1,98 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="/0JS/RoyaleSubsystem.js"></script> <!-- Subsystemet -->
+<head>
+    <script src="../../0JS/RoyaleSubsystem.js"></script> <!-- Subsystemet -->
 
-      <link href="../../0CSS/universal.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
+    <link href="../../0CSS/universal.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 
-      <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
-      <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
-
-    <script src="coinFlip.js"></script>
+    <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
+    <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 
     <link rel="stylesheet" href="coinFlip.css">
     <link rel="stylesheet" href="../../0CSS/classes.css">
     <link rel="stylesheet" href="../../0CSS/universal.css">
 
     <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+    <title> Casino Royale | Coinflip </title>
+</head>
+<body>
 <div id="documentWrapper">
 
-  <div id="container">
+    <div id="container">
 
 
         <div id="penge">
-          <div class="side1"></div>
-          <div class="side2"></div>
+            <div class="side1"></div>
+            <div class="side2"></div>
         </div>
 
-          <div id="input">
-        Tokens: <input type="number" name="" value=""> <br>
+        <div id="input">
+            Tokens: <input type="number" id="bet"> <br>
 
-        Select a side to bet on:  <br>
+            Select a side to bet on:  <br>
 
-        <div id="velg" class="container row">
-            <div id="lilla"> </div>
-            <div id="rod"> </div>
+            <div id="velg" class="container row">
+                <div id="lilla"> </div>
+                <div id="rod"> </div>
+            </div>
+            <br>
+
+            <button class="retroButton" type="button" id="flip">Flip</button>
         </div>
-        <br>
-
-        <button class="retroButton" type="button" id="flip" name="button">Flip</button>
-      </div>
-  </div>
+    </div>
 </div>
 
-  <script type="text/javascript">
-      init_royale();
-  </script>
-      </body>
+<script>
+    init_royale();
+    var betEl=document.getElementById("bet");
+    var valgtSide;
+
+    var knappEl=document.querySelector("#flip");
+    knappEl.addEventListener("click", gjett);
+
+    var pengeEl=document.getElementById("penge");
+
+    var lillaEl=document.getElementById("lilla");
+    lillaEl.addEventListener("click", velgLilla);
+    function velgLilla() {
+        valgtSide="Tails";
+    }
+    var rodEl=document.getElementById("rod");
+    rodEl.addEventListener("click", velgRod);
+    function velgRod() {
+        valgtSide="Heads";
+    }
+
+    function gjett() {
+        var vinnerTall=Math.random();
+        if (vinnerTall<=0.5) {
+            pengeEl.className="heads";
+            if (valgtSide=="Tails") {
+                var vinn=2*Number(betEl.value)-Number(betEl.value);
+                user.tokenManager.addTokenAmount(vinn); /*Gi brukeren tokens hvis vinn*/
+                console.log("WIN TAILS");
+            } else {
+                user.tokenManager.subTokenAmount(Number(betEl.value)); /*Fjern tokens hvis tap*/
+                console.log("LOSS HEADS");
+            }
+            saveUser(user); /*Oppdatere til session storage*/
+            updateSQL(); /*Oppdater database*/
+            rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
+        } else {
+            pengeEl.className="tails";
+            if (valgtSide=="Heads") {
+                var vinn=2*Number(betEl.value)-Number(betEl.value);
+                user.tokenManager.addTokenAmount(vinn); /*Gi brukeren tokens hvis vinn*/
+                console.log("WIN HEADS");
+            } else {
+                user.tokenManager.subTokenAmount(Number(betEl.value)); /*Fjern tokens hvis tap*/
+                console.log("LOSS TAILS");
+            }
+            saveUser(user); /*Oppdatere til session storage*/
+            updateSQL(); /*Oppdater database*/
+            rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
+        }
+    }
+</script>
+</body>
 </html>

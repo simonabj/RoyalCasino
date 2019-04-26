@@ -9,7 +9,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 
-    <script src="../../0JS/RoyaleSubsystem.js"></script>
+    <!--<script src="../../0JS/RoyaleSubsystem.js"></script>-->
     <link href="../../0CSS/universal.css" rel="stylesheet">
     <link href="../../0CSS/classes.css" rel="stylesheet">
 
@@ -28,13 +28,8 @@
 
     <div id="table">
         <h1 class="title">Roulette</h1>
-        <div class="space"></div>
-        <div class="space"></div>
-        <div class="space"></div>
         <div id="rouletteWheelBorder_Outer">
-            <div id="rouletteWheelBorder_Inner"> <!-- not rotating -->
                 <div id="rouletteWheel"> <!-- rotating -->
-                    <div id="rouletteWheelCover"></div>
                 </div>
 
                 <div id="ballDiv" class=""> <!-- rotating -->
@@ -43,20 +38,19 @@
 
                 <div id="bettingAlert"><h3></h3></div>
 
-            </div>
         </div>
 
         <div class="container">
             <input id="whatNumbers" type="text">
-            <div class="container"><p>What numbers will you bet on? Separate with commas, up to 18.</p>
+            <div class="container" style="margin-bottom: 15px">
+                <p style="margin: 5px 0 2px 0">What numbers will you bet on? Separate with commas, up to 18.</p>
+                <p style="margin: 0 0 10px 0">Alternatively you can bet on red or black.</p>
                 <p class="smallText">(Remember, the fewer you bet on, the more you'll gain)</p>
                 <p class="smallText">(But the more numbers you bet on, the more often you'll win.)</p>
             </div>
-            <input id="howMuch" type="number"> <span><p>You have <span id="tokenCount">501</span> tokens, how many will you bet?</p></span>
+            <input id="howMuch" type="number"> <span><p>You have <span id="tokenCount">no</span> tokens, how many will you bet?</p></span>
             <script>$(function () {if (affectUser) document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount();})</script>
             <button id="spinBtn" class="retroButton">Spin the wheel!</button>
-            <div class="space"></div>
-            <div class="space"></div>
 
 
         </div>
@@ -81,9 +75,11 @@
 
 </div> <!-- end of document wrapper -->
 <script>
+    affectUser = false;
+    rmh_affectUser = false;
     $(function () {
         if (affectUser) init_royale();
-        setTimeout(function(){rmh_openAfter(2);},1000);
+        rmh_openAfter(3);
 
     });
 </script>

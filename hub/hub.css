@@ -43,9 +43,11 @@ div {
     top      : 0;
     left     : 0;
     z-index  : 2;
+    will-change: scroll-position; /*todo*/
     }
 
 header {
+    will-change: scroll-position; /*todo*/
     background-image   : linear-gradient(var(--primary), var(--primaryVariant));
     display            : flex;
     flex-direction     : column;
@@ -101,6 +103,7 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 
 
 #headerSymbol {
+    will-change: scroll-position; /*todo*/
     -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
     user-drag           : none;
     -webkit-user-drag   : none;
@@ -147,6 +150,7 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 
 
 #toolbarTooltip {
+    will-change: scroll-position;
     position : fixed;
     top      : 155px;
     left     : 57%;

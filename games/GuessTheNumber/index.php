@@ -28,22 +28,22 @@ $seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
 
 <div id="game">
     <!-- Input for valgt tall, med minimum 1 og maximum 99 -->
-    <input type="number" id="valgtTall" placeholder="Hvilket tall tror du det blir?" max="99" min="1" style="width:200px;">
+    <input type="number" id="valgtTall" placeholder="Guess Number" max="99" min="1"><br />
 
     <!-- Valg av tokens man vil vedde -->
-    <input type="number" id="bet" placeholder="Bet">
+    <input type="number" id="bet" placeholder="Bet(Tokens)"><br />
 
     <!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
     <button onclick="kjorBet()">Guess!</button>
 
     <div id="utfall">
         <h2 style="text-align:center;">The Number Is:</h2>
-        <p style="text-align:center;" id="vinnerTall">X</p>
+        <p id="vinnerTall">X</p>
     </div>
 
     <!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
     <p id="hendelse"></p>
-    <p>Balanse: <span id="tokenCount"></span></p>
+    <p>Balanse: <span id="tokenCount"></span> tokens</p>
 </div>
 
 <script>

@@ -32,6 +32,18 @@ $(function () {
             //image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",
             href: "http://nogginclontith.co.uk/index.htm",
         },
+        {
+            title: "Coinflip",
+            image: "https://media.istockphoto.com/photos/coin-flip-picture-id173242927?k=6&m=173242927&s=612x612&w=0&h=2xElyeRe6hOGwelEbyxLTk3GcRp-PjBVKRKwVDVOZF0=",
+            //image: "https://media.istockphoto.com/photos/coin-flip-picture-id173242927?k=6&m=173242927&s=612x612&w=0&h=2xElyeRe6hOGwelEbyxLTk3GcRp-PjBVKRKwVDVOZF0=",
+            href: "../games/CoinFlip/index.php",
+        },
+        {
+            title: "Guess The Number",
+            image: "https://www.funbrain.com/assets/img/content-cards/F2qRmLhRnmebc8jJAUjr_GuessTheNumber%403x.png",
+            //image: "https://www.funbrain.com/assets/img/content-cards/F2qRmLhRnmebc8jJAUjr_GuessTheNumber%403x.png",
+            href: "../games/GuessNumber/index.php",
+        },
 
     ];
 

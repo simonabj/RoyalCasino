@@ -59,7 +59,6 @@ $seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
 
     init_royale();
     document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Vis balansen din av tokens på siden*/
-    updateRmhTokenCount();
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
@@ -78,7 +77,7 @@ $seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
             document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
-            updateRmhTokenCount();/*Oppdater antall tokens i toppmeny*/
+            rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
         } else {
             hendelseEl.innerHTML="The number must be between 1 and 99. And the bet value must be one of the selected ones.";
         }

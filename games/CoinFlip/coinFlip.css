@@ -121,10 +121,12 @@ body{
   min-height: 100vh;
   min-width: 100vw;
 }
-* {
+div {
   display: flex;
 }
 #input{
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 

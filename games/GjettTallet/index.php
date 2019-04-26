@@ -10,7 +10,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-$seBrukerID=$_SESSION["id"];
+$seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
 ?>
 <html>
 <head>

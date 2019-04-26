@@ -16,6 +16,11 @@ $seBrukerID=$_SESSION["id"];
 <head>
     <title> Casino Royale | Guess The Number </title>
     <script src="/0JS/RoyaleSubsystem.js"></script>
+
+    <link href="../../0CSS/universal.css" rel="stylesheet">
+
+    <script src="../../0JS/universal_menu.js"></script>
+    <link href="../../0CSS/universal_menu.css" rel="stylesheet">
 </head>
 <body>
 
@@ -32,6 +37,9 @@ $seBrukerID=$_SESSION["id"];
 <!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
 <button onclick="kjorBet()">Guess!</button>
 
+<h2 style="text-align:center;">The Number Is:</h2>
+<p style="text-align:center;" id="vinnerTall">X</p>
+
 <!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
 <p id="hendelse"></p>
 <p id="tokenCount">Balanse: <span id="tokenCount"></span></p>
@@ -43,16 +51,19 @@ $seBrukerID=$_SESSION["id"];
     var balanceEl=document.querySelector("#balance");
     var hendelseEl=document.querySelector("#hendelse");
 
+    var vinnerTallEl=document.getElementById("vinnerTall");
+
     var vinnertall; /*Definere variablen vinnertall*/
 
     init_royale();
-
     document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Vis balansen din av tokens på siden*/
+    updateRmhTokenCount();
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
         if (valgtTallEl.value<100 && 0<valgtTallEl.value && (betEl.value==1 || betEl.value==5 || betEl.value==10)) {
             vinnerTall = Math.floor(Math.random() * 99 + 1); /*Valg av vinnertall*/
+            vinnerTallEl.innerHTML=vinnerTall;
 
             if (vinnerTall == valgtTallEl.value) {
                 hendelseEl.innerHTML = "You guessed the number " + valgtTallEl.value + ". And it was correct! You betted " + betEl.value + " and recieved 75x as much.";/*Tekst til eventuelt vinn*/
@@ -65,8 +76,9 @@ $seBrukerID=$_SESSION["id"];
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
             document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
+            updateRmhTokenCount();/*Oppdater antall tokens i toppmeny*/
         } else {
-            hendelseEl.innerHTML="The number must be between 1 and 99. And the bet value must be one of teh selected ones."
+            hendelseEl.innerHTML="The number must be between 1 and 99. And the bet value must be one of the selected ones.";
         }
     }
 

@@ -65,7 +65,8 @@ $seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
 
             if (vinnerTall == valgtTallEl.value) {
                 hendelseEl.innerHTML = "You guessed the number " + valgtTallEl.value + ". And it was correct! You betted " + betEl.value + " and recieved 75x as much.";/*Tekst til eventuelt vinn*/
-                user.tokenManager.addTokenAmount(75 * betEl.value); // Gi brukeren tokens hvis vinn
+                var winValue=75 * betEl.value-betEl.value;
+                user.tokenManager.addTokenAmount(winValue); // Gi brukeren tokens hvis vinn
             } else {
                 hendelseEl.innerHTML = "You guessed " + valgtTallEl.value + ". The number was " + vinnerTall + ". You lost " + betEl.value + " tokens.";/*Tekst til tap*/
                 user.tokenManager.subTokenAmount(betEl.value);/* Fjern tokens hvis tap*/

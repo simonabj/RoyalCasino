@@ -94,6 +94,7 @@ const get = (key, parent = undefined, location = "session") => {
  */
 const getUser = () => {
     let result = JSON.parse(sessionStorage.getItem("user"));
+    result.tokenManager.tokenBalance = Number(result.tokenManager.tokenBalance);
     result.tokenManager.__proto__ = TokenManager.prototype; // Fix TokenManager instance
     result.__proto__ = User.prototype; // Fix User instance
     console.assert(result instanceof User &amp;&amp; result.tokenManager instanceof TokenManager);
@@ -114,10 +115,63 @@ const getUser = () => {
 const System = {
     /**
      * @type {number}
-     * @desc Value of each token in NOK
+     * @desc Amount of tokens you get for invites
+     * @memberOf RoyaleSubsystem.System
      */
-    TokenValue: 1.25
+    InviteTokenGift: 500
 };
+
+/////////////////////////////////////////
+//                                     //
+//  -----===== EXCEPTIONS  =====-----  //
+//                                     //
+/////////////////////////////////////////
+
+/**
+ * @name Exceptions
+ * @namespace
+ * @desc Contains descriptive exceptions for error handling
+ */
+
+/**
+ * @desc A basic exception. Superclass of all subsystem-exception
+ * @memberOf Exceptions
+ */
+class Exception {
+    constructor(message) {
+        this.message = message;
+        this.type = "Exception";
+    }
+    toValue() {
+        console.error(this.type + ": " + this.message);
+    }
+}
+
+/**
+ * @extends Exception
+ * @desc An exception which indicates that a number is not valid for a given operation.
+ * An example might be when a number is too large or too small.
+ * @memberOf Exceptions
+ */
+class InvalidNumberException extends Exception {
+    constructor(message) {
+        super(message);
+        this.type = "InvalidNumberException";
+    }
+}
+
+/**
+ * @extends Exception
+ * @desc An exception which indicates that the type of a variable is not what is
+ * expected. An example might be passing a string to an addition function.
+ * @memberOf Exceptions
+ */
+class InvalidTypeException extends Exception {
+    constructor(message) {
+        super(message);
+        this.type = "InvalidTypeException";
+    }
+}
 
 //////////////////////////////////////
 //                                  //
@@ -142,12 +196,15 @@ class TokenManager {
      * @constructor
      * @method
      * @param initialAmount {number} - Initial token count
+     * @throws Exceptions.InvalidTypeException
      */
     constructor(initialAmount = 0) {
         /**
          * @member {RoyaleSubsystem.TokenBalance}
          * @desc The amount of tokens a user has.
          */
+        if(typeof(initialAmount) !== "number")
+            throw new InvalidTypeException("Initial amount must be of type number");
         this.tokenBalance = initialAmount;
     }
 
@@ -166,8 +223,13 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - The amount to add
+     * @throws InvalidNumberException|InvalidTypeException
      */
     addTokenAmount(amount) {
+        if(typeof(amount) !== "number")
+            throw new InvalidTypeException("Amount must be of type number");
+        if(this.tokenBalance &lt; 0)
+            throw new InvalidNumberException("Amount must be greater than 0");
         this.tokenBalance += amount;
     }
 
@@ -175,10 +237,12 @@ class TokenManager {
      * @desc Subtract an amount of tokens from tokenBalance
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
-     * @param amount - Amount to subtract from tokens
+     * @param amount {number} - Amount to subtract from tokens
+     * @throws Exceptions.InvalidNumberException
      */
     subTokenAmount(amount) {
-        console.assert(this.tokenBalance >= amount, "Resulting amount must be greater or equal to 0");
+        if(this.tokenBalance &lt; amount &amp;&amp; this.tokenBalance > 0)
+            throw new InvalidNumberException("Number must be less than balance and greater than 0");
         this.tokenBalance -= amount;
     }
 
@@ -187,20 +251,12 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - Amount to set token to
+     * @throws Exceptions.InvalidNumberException
      */
     setTokenAmount(amount) {
-        console.assert(amount >= 0, "Amount must be greater or equal to 0");
+        if(amount &lt; 0)
+            throw new InvalidNumberException("Amount must be greater than or equal to 0");
         this.tokenBalance = amount;
-    }
-
-    /**
-     * @desc Returns the value of all tokenBalance in tokenBalance, based of the token value in the config.
-     * @method
-     * @memberOf RoyaleSubsystem.TokenBalance
-     * @returns {number} The total value of tokens in tokenBalance.
-     */
-    getTokenValue() {
-        return this.tokenBalance * System.TokenValue;
     }
 }
 
@@ -355,6 +411,15 @@ const validateLogin = async (callback) => {
     return new Promise((resolve,reject)=>callback(result.test === 1, resolve, reject));
 };
 
+let user = undefined;
+
+/**
+ * @desc Checks availability of user variable
+ * @function
+ * @memberOf RoyaleSubsystem
+ * @return {boolean} - User availability
+ */
+const userAvailable = () => {return (user !== undefined);};
 
 /**
  * @desc Confirm login, and initialize subsystem
@@ -363,6 +428,9 @@ const validateLogin = async (callback) => {
  */
 const init_royale = () => {
     updateSession();
+
+    // Get updated user object
+    user = getUser();
 };</code></pre>
         </article>
     </section>
@@ -373,13 +441,13 @@ const init_royale = () => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RoyaleSubsystem.CardManager.html">CardManager</a></li><li><a href="RoyaleSubsystem.TokenBalance.html">TokenBalance</a></li><li><a href="RoyaleSubsystem.TokenManager.html">TokenManager</a></li><li><a href="RoyaleSubsystem.User.html">User</a></li></ul><h3>Namespaces</h3><ul><li><a href="BigWise.html">BigWise</a></li><li><a href="CardSystem.html">CardSystem</a></li><li><a href="RoyaleSubsystem.html">RoyaleSubsystem</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getRandomInt">getRandomInt</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Exceptions.Exception.html">Exception</a></li><li><a href="Exceptions.InvalidNumberException.html">InvalidNumberException</a></li><li><a href="Exceptions.InvalidTypeException.html">InvalidTypeException</a></li><li><a href="RoyaleSubsystem.CardManager.html">CardManager</a></li><li><a href="RoyaleSubsystem.TokenBalance.html">TokenBalance</a></li><li><a href="RoyaleSubsystem.TokenManager.html">TokenManager</a></li><li><a href="RoyaleSubsystem.User.html">User</a></li></ul><h3>Namespaces</h3><ul><li><a href="BigWise.html">BigWise</a></li><li><a href="CardSystem.html">CardSystem</a></li><li><a href="Exceptions.html">Exceptions</a></li><li><a href="RoyaleSubsystem.html">RoyaleSubsystem</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getRandomInt">getRandomInt</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Apr 19 2019 15:21:59 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 23 2019 14:53:44 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

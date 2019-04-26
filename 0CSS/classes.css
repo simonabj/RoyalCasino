@@ -707,6 +707,8 @@ div a { color : var(--secondaryVariant); }
     }
 
 .retroButton {
+
+    outline: none;
     min-width           : 2em;
     min-height          : 2em;
     border              : black solid 1px;

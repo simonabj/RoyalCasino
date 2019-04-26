@@ -15,3 +15,20 @@ jQuery(document).ready(function($){
     }, 100);
   });
 });
+
+var greenEl=document.querySelector("#gronn");
+greenEl.addEventListener("click",selected("green"));
+
+var yellowEl=document.querySelector("#gul");
+yellowEl.addEventListener("click",selected("yellow"));
+
+function selected(color) {
+  if(color==="green"){
+    yellowEl.style.borderWidth = "0px";
+    greenEl.style.borderWidth = "5px";
+  } else {
+    greenEl.style.borderWidth = "0px";
+    yellowEl.style.borderWidth = "5px";
+
+  }
+}

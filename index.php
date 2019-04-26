@@ -1,3 +1,21 @@
+<?php
+session_start(); /*Starte session og hente session stored values*/
+
+require_once "0PHP/config.php"; /*Koble seg til config*/
+/*Hvis ikke logget inn*/
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: 0PHP/login.php");
+    exit;
+}
+
+/*Hvis logget inn*/
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: /hub/");
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>    

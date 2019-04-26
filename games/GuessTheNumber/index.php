@@ -14,35 +14,37 @@ $seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
 ?>
 <html>
 <head>
-    <title> Casino Royale | Guess The Number </title>
-    <script src="/0JS/RoyaleSubsystem.js"></script>
+    <title> Casino Royale | Guess The Number </title> <!-- Sidetittel -->
+    <script src="/0JS/RoyaleSubsystem.js"></script> <!-- Subsystemet -->
 
-    <link href="../../0CSS/universal.css" rel="stylesheet">
+    <link href="../../0CSS/universal.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 
-    <script src="../../0JS/universal_menu.js"></script>
-    <link href="../../0CSS/universal_menu.css" rel="stylesheet">
+    <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
+    <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
+
+    <link href="stilark.css" rel="stylesheet"> <!-- Stilark for siden -->
 </head>
 <body>
 
-<!-- Input for valgt tall, med minimum 1 og maximum 99 -->
-<input type="number" id="valgtTall" placeholder="Hvilket tall tror du det blir?" max="99" min="1" style="width:200px;">
+<div id="game">
+    <!-- Input for valgt tall, med minimum 1 og maximum 99 -->
+    <input type="number" id="valgtTall" placeholder="Hvilket tall tror du det blir?" max="99" min="1" style="width:200px;">
 
-<!-- Valg av tokens man vil vedde -->
-<select id="bet">
-    <option value="1">1tokens</option>
-    <option value="5">5tokens</option>
-    <option value="10">10tokens</option>
-</select>
+    <!-- Valg av tokens man vil vedde -->
+    <input type="number" id="bet" placeholder="Bet">
 
-<!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
-<button onclick="kjorBet()">Guess!</button>
+    <!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
+    <button onclick="kjorBet()">Guess!</button>
 
-<h2 style="text-align:center;">The Number Is:</h2>
-<p style="text-align:center;" id="vinnerTall">X</p>
+    <div id="utfall">
+        <h2 style="text-align:center;">The Number Is:</h2>
+        <p style="text-align:center;" id="vinnerTall">X</p>
+    </div>
 
-<!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
-<p id="hendelse"></p>
-<p id="tokenCount">Balanse: <span id="tokenCount"></span></p>
+    <!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
+    <p id="hendelse"></p>
+    <p>Balanse: <span id="tokenCount"></span></p>
+</div>
 
 <script>
     /*Definerer variablene man trenger*/
@@ -61,7 +63,7 @@ $seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
-        if (valgtTallEl.value<100 && 0<valgtTallEl.value && (betEl.value==1 || betEl.value==5 || betEl.value==10)) {
+        if (valgtTallEl.value<100 && 0<valgtTallEl.value) {
             vinnerTall = Math.floor(Math.random() * 99 + 1); /*Valg av vinnertall*/
             vinnerTallEl.innerHTML=vinnerTall;
 

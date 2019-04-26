@@ -1,0 +1,21 @@
+body {
+    background-image: url("../../resources/loops/Dark_Wood_Floor.jpg");
+}
+input {
+    color: white;
+}
+#utfall {
+    background-color: #C53426;
+    border: #F8A917 2px solid;
+    width: 25vw;
+    min-width: 150px;
+    border-radius: 50px;
+}
+#game {
+    background-image: url("../../resources/textures/felt-table-texture.jpg");
+    width: 50vw;
+    min-width: 300px;
+    margin-top: 40px;
+    border-radius: 20px;
+    text-align: center;
+}

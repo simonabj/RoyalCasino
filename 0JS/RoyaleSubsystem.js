@@ -66,6 +66,7 @@ const get = (key, parent = undefined, location = "session") => {
  */
 const getUser = () => {
     let result = JSON.parse(sessionStorage.getItem("user"));
+    result.tokenManager.tokenBalance = Number(result.tokenManager.tokenBalance);
     result.tokenManager.__proto__ = TokenManager.prototype; // Fix TokenManager instance
     result.__proto__ = User.prototype; // Fix User instance
     console.assert(result instanceof User && result.tokenManager instanceof TokenManager);
@@ -86,10 +87,64 @@ const getUser = () => {
 const System = {
     /**
      * @type {number}
-     * @desc Value of each token in NOK
+     * @desc Amount of tokens you get for invites
+     * @memberOf RoyaleSubsystem.System
      */
-    TokenValue: 1.25
+    InviteTokenGift: 500
 };
+
+/////////////////////////////////////////
+//                                     //
+//  -----===== EXCEPTIONS  =====-----  //
+//                                     //
+/////////////////////////////////////////
+
+/**
+ * @name Exceptions
+ * @namespace
+ * @desc Contains descriptive exceptions for error handling
+ */
+
+/**
+ * @desc A basic exception. Superclass of all subsystem-exception
+ * @memberOf Exceptions
+ */
+class Exception {
+    constructor(message) {
+        this.message = message;
+        this.type = "Exception";
+        this.name = this.type + ": " + this.message;
+    }
+    toString() {
+        console.error(this.type + ": " + this.message);
+    }
+}
+
+/**
+ * @extends Exception
+ * @desc An exception which indicates that a number is not valid for a given operation.
+ * An example might be when a number is too large or too small.
+ * @memberOf Exceptions
+ */
+class InvalidNumberException extends Exception {
+    constructor(message) {
+        super(message);
+        this.type = "InvalidNumberException";
+    }
+}
+
+/**
+ * @extends Exception
+ * @desc An exception which indicates that the type of a variable is not what is
+ * expected. An example might be passing a string to an addition function.
+ * @memberOf Exceptions
+ */
+class InvalidTypeException extends Exception {
+    constructor(message) {
+        super(message);
+        this.type = "InvalidTypeException";
+    }
+}
 
 //////////////////////////////////////
 //                                  //
@@ -114,12 +169,15 @@ class TokenManager {
      * @constructor
      * @method
      * @param initialAmount {number} - Initial token count
+     * @throws InvalidTypeException
      */
     constructor(initialAmount = 0) {
         /**
          * @member {RoyaleSubsystem.TokenBalance}
          * @desc The amount of tokens a user has.
          */
+        if(typeof(initialAmount) !== "number")
+            throw new InvalidTypeException("Initial amount must be of type number");
         this.tokenBalance = initialAmount;
     }
 
@@ -138,8 +196,13 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - The amount to add
+     * @throws InvalidNumberException|InvalidTypeException
      */
     addTokenAmount(amount) {
+        if(typeof(amount) !== "number")
+            throw new InvalidTypeException("Amount must be of type number");
+        if(this.tokenBalance < 0)
+            throw new InvalidNumberException("Amount must be greater than 0");
         this.tokenBalance += amount;
     }
 
@@ -147,10 +210,12 @@ class TokenManager {
      * @desc Subtract an amount of tokens from tokenBalance
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
-     * @param amount - Amount to subtract from tokens
+     * @param amount {number} - Amount to subtract from tokens
+     * @throws Exceptions.InvalidNumberException
      */
     subTokenAmount(amount) {
-        console.assert(this.tokenBalance >= amount, "Resulting amount must be greater or equal to 0");
+        if(this.tokenBalance < amount && this.tokenBalance > 0)
+            throw new InvalidNumberException("Number must be less than balance and greater than 0");
         this.tokenBalance -= amount;
     }
 
@@ -159,20 +224,12 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - Amount to set token to
+     * @throws Exceptions.InvalidNumberException
      */
     setTokenAmount(amount) {
-        console.assert(amount >= 0, "Amount must be greater or equal to 0");
+        if(amount < 0)
+            throw new InvalidNumberException("Amount must be greater than or equal to 0");
         this.tokenBalance = amount;
-    }
-
-    /**
-     * @desc Returns the value of all tokenBalance in tokenBalance, based of the token value in the config.
-     * @method
-     * @memberOf RoyaleSubsystem.TokenBalance
-     * @returns {number} The total value of tokens in tokenBalance.
-     */
-    getTokenValue() {
-        return this.tokenBalance * System.TokenValue;
     }
 }
 
@@ -233,7 +290,7 @@ const updateSession = () => {
                         getUser().username,
                         response.mail,
                         getUser().isLoggedIn,
-                        response.balance,
+                        Number(response.balance),
                         response.profilePicture,
                         response.amountInvites
                     );

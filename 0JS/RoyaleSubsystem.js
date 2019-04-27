@@ -169,9 +169,11 @@ class TokenManager {
      * @constructor
      * @method
      * @param initialAmount {number} - Initial token count
+     * @param tokensGained {number} - Amount of tokens won in total
+     * @param tokensLost {number} - Amount of tokens lost in total
      * @throws InvalidTypeException
      */
-    constructor(initialAmount = 0) {
+    constructor(initialAmount = 0, tokensGained = 0, tokensLost = 0) {
         /**
          * @member {RoyaleSubsystem.TokenBalance}
          * @desc The amount of tokens a user has.
@@ -179,6 +181,12 @@ class TokenManager {
         if(typeof(initialAmount) !== "number")
             throw new InvalidTypeException("Initial amount must be of type number");
         this.tokenBalance = initialAmount;
+        if(typeof(tokensGained) !== "number")
+            throw new InvalidTypeException("Tokens gained must be of type number");
+        this.tokensGained = tokensGained;
+        if(typeof(tokensLost) !== "number")
+            throw new InvalidTypeException("Tokens lost must be of type number");
+        this.tokensLost = tokensLost;
     }
 
     /**
@@ -204,6 +212,7 @@ class TokenManager {
         if(this.tokenBalance < 0)
             throw new InvalidNumberException("Amount must be greater than 0");
         this.tokenBalance += amount;
+        this.tokensGained += amount;
     }
 
     /**
@@ -217,6 +226,7 @@ class TokenManager {
         if(this.tokenBalance < amount && this.tokenBalance > 0)
             throw new InvalidNumberException("Number must be less than balance and greater than 0");
         this.tokenBalance -= amount;
+        this.tokensLost += amount;
     }
 
     /**
@@ -245,11 +255,10 @@ class TokenManager {
  * @memberOf RoyaleSubsystem
  */
 class User {
-    constructor(username = "testUser", email = "test@mail.it", isLoggedIn = false, balance = 0, portraitURL = "", inviteAmount = 0) {
+    constructor(username = "testUser", email = "test@mail.it", balance = 0, portraitURL = "", inviteAmount = 0, tokensGained = 0, tokensLost = 0) {
         this.username = username;
         this.email = email;
-        this.tokenManager = new TokenManager(balance);
-        this.isLoggedIn = isLoggedIn;
+        this.tokenManager = new TokenManager(balance, tokensGained, tokensLost);
         this.portrait = portraitURL;
         this.invites = inviteAmount;
     }
@@ -260,12 +269,12 @@ class User {
  * @memberOf RoyaleSubsystem
  * @desc Updates session from SQL database
  */
-const updateSession = () => {
+const updateSession = (username = undefined) => {
 
-    let promise = validateLogin((result, resolve) => {
+    let promise = validateLogin((result, resolve, reject) => {
         if(!result) {
-            window.location.replace("/0PHP/logout.php");
-        }
+            reject("Not logged in");
+    }
         resolve(result);
     });
 
@@ -281,18 +290,19 @@ const updateSession = () => {
 
                 /**
                  * @private
-                 * @type {{mail:string,balance:number,profilePicture:string,amountInvites:number}|number}
+                 * @type {{mail:string,balance:number,tokensGained:number,tokensLost:number,profilePicture:string,amountInvites:number}|number}
                  */
                 let response = JSON.parse(xhttp.responseText);
 
                 if (response !== 0) {
                     let newUserData = new User(
-                        getUser().username,
+                        (username === undefined) ? getUser().username : username,
                         response.mail,
-                        getUser().isLoggedIn,
                         Number(response.balance),
                         response.profilePicture,
-                        response.amountInvites
+                        response.amountInvites,
+                        Number(response.tokensGained),
+                        Number(response.tokensLost)
                     );
                     saveUser(newUserData);
                     console.log("UserSession updated from SQL successfully!");
@@ -302,8 +312,9 @@ const updateSession = () => {
 
             }
         };
-
         xhttp.send();
+    }, () => {
+        window.location.replace("/0PHP/logout.php");
     });
 };
 
@@ -320,6 +331,8 @@ const updateSQL = () => {
         "username=" + userObject.username +
         "&mail=" + userObject.email +
         "&balance=" + userObject.tokenManager.getCount() +
+        "&gained=" + userObject.tokenManager.tokensGained +
+        "&lost=" + userObject.tokenManager.tokensLost +
         "&profilePicture=" + userObject.portrait +
         "&amountInvites=" + userObject.invites;
 

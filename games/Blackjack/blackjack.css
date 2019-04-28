@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
 body {
 
     overflow: hidden;
@@ -12,6 +14,12 @@ body {
 
     display: flex;
     flex-direction: column;
+
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+button {
+    width: 150px;
 }
 
 img#logo {
@@ -27,4 +35,18 @@ img#logo {
     text-align: center;
 
     align-self: center;
+}
+
+#menu {
+    transition: all 800ms ease-out;
+    width: 200px;
+}
+
+@keyframes fadeIn{
+    from {opacity: 0;}
+    to {opacity:1;}
+}
+@keyframes fadeOut{
+    from {opacity: 1;}
+    to {opacity:0;}
 }

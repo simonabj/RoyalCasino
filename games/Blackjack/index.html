@@ -5,7 +5,6 @@
     <title>Blackjack | Casino Royale</title>
 
     <script src="/0JS/RoyaleSubsystem.js"></script>
-    <script src="/0JS/CardSystem.js"></script>
 
     <script src="/0JS/jquery-3.3.1.js"></script>
 
@@ -17,6 +16,7 @@
 
     <script src="/0JS/universal_menu.js"></script>
     <link rel="stylesheet" href="/0CSS/universal_menu.css">
+
 </head>
 <body>
 
@@ -24,21 +24,38 @@
     init_royale();
 
     let mainMenuModal;
-    let rulesModal;
 
     window.onload = () => {
         mainMenuModal = new Modal(document.getElementById("modal_main_menu"), true);
-        rulesModal = new Modal(document.getElementById("modal_rules"));
+
+        g("menu-main").onanimationend  = () => {g("menu-main").style.animation  = "none";};
+        g("menu-rules").onanimationend = () => {g("menu-rules").style.animation = "none";};
+
     };
 
     function openRules() {
-        if(mainMenuModal.isOpen) {mainMenuModal.close()}
-        rulesModal.open();
+
+        g("menu-main").style.animationDelay = "0";
+        g("menu-main").style.animation = "fadeOut 500ms ease-in forwards";
+        g("menu-rules").style.animationDelay = "1000ms";
+        g("menu-rules").style.animation = "fadeIn 500ms ease-in forwards";
+
+        g("menu").style.width = "500px";
+        g("menu-main").classList.remove("selected");
+        g("menu-rules").classList.add("selected");
+
+
     }
 
     function closeRules() {
-        rulesModal.close();
-        mainMenuModal.open();
+        g("menu-rules").style.animationDelay = "0";
+        g("menu-rules").style.animation = "fadeOut 500ms ease-in forwards";
+        g("menu-main").style.animationDelay = "1000ms";
+        g("menu-main").style.animation = "fadeIn 500ms ease-in forwards";
+
+        g("menu").style.width = "200px";
+        g("menu-main").classList.add("selected");
+        g("menu-rules").classList.remove("selected");
     }
 
     function returnToHub() {
@@ -52,21 +69,17 @@
 
 <div id="modal_main_menu" class="modal">
     <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close" onclick="mainMenuModal.close()">&times;</span>
-        <p>MainMenu!</p>
-        <button onclick="mainMenuModal.close();">Start Blackjack</button>
-        <button onclick="openRules();">Show Rules</button>
-        <button onclick="returnToHub();">Return to Hub</button>
-    </div>
-
-</div>
-
-<div id="modal_rules" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-        <p>Blackjack Rules:</p>
-        <button onclick="closeRules();"><- Back to menu</button>
+    <div id="menu" class="modal-content">
+        <div class="menu-item selected" id="menu-main">
+            <p>MainMenu!</p>
+            <button onclick="mainMenuModal.close(); start();">Start Blackjack</button>
+            <button onclick="openRules();">Show Rules</button>
+            <button onclick="returnToHub();">Return to Hub</button>
+        </div>
+        <div class="menu-item" id="menu-rules">
+            <p>Blackjack Rules:</p>
+            <button onclick="closeRules();">← Back to menu</button>
+        </div>
     </div>
 </div>
 
@@ -75,7 +88,7 @@
 <div id="play-area">
     <button onclick="mainMenuModal.open();">Open Menu</button>
     <br>
-    <img src="/0JS/CardSystem/cards/BACK.png" alt="back of cards" width="170">
+    <img src="/games/Blackjack/img/BACK.png" alt="back of cards" width="170">
 </div>
 
 

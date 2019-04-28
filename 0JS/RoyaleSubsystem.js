@@ -48,6 +48,7 @@ const saveUser = (userObject) => {
  */
 const get = (key, parent = undefined, location = "session") => {
     if (location === "session") {
+        if(sessionStorage.getItem(key) === null) return false;
         let result = JSON.parse(sessionStorage.getItem(key));
         if (parent !== undefined) {
             console.assert(result instanceof parent, "Parent must be class of expected result!");
@@ -115,6 +116,7 @@ class Exception {
         this.type = "Exception";
         this.name = this.type + ": " + this.message;
     }
+
     toString() {
         console.error(this.type + ": " + this.message);
     }
@@ -145,6 +147,33 @@ class InvalidTypeException extends Exception {
         this.type = "InvalidTypeException";
     }
 }
+
+/////////////////////////////////////////////////
+//                                             //
+//  -----=====  EXCEPTION HELPERS  =====-----  //
+//                                             //
+/////////////////////////////////////////////////
+
+/**
+ * @desc Error handling for numbers
+ * @memberOf RoyaleSubsystem
+ * @param number {number} - The variable to check
+ * @param min {number|undefined}[undefined] - The minimum value the number should be
+ * @param max {number|undefined}[undefined] - The maximum value the number should be
+ * @param minMessage {string}[Number is too small] - Exception message when number is too small
+ * @param maxMessage {string}[Number is too big] - Exception message when number is too big
+ * @param typeMessage {string}[Value must be of type number] - Exception message when variable is not a number
+ */
+const checkNumber = (number=1, min=undefined, max=undefined, minMessage = "Number too small", maxMessage = "Number too big", typeMessage = "Value must be of type number") => {
+
+    if(typeof(number) !== "number")
+        throw new InvalidTypeException(typeMessage);
+    if(min !== undefined && number < min)
+        throw new InvalidNumberException(minMessage);
+    if(max !== undefined && number > max)
+        throw new InvalidNumberException(maxMessage);
+
+};
 
 //////////////////////////////////////
 //                                  //
@@ -178,15 +207,17 @@ class TokenManager {
          * @member {RoyaleSubsystem.TokenBalance}
          * @desc The amount of tokens a user has.
          */
-        if(typeof(initialAmount) !== "number")
+        if (typeof (initialAmount) !== "number")
             throw new InvalidTypeException("Initial amount must be of type number");
         this.tokenBalance = initialAmount;
-        if(typeof(tokensGained) !== "number")
+        if (typeof (tokensGained) !== "number")
             throw new InvalidTypeException("Tokens gained must be of type number");
         this.tokensGained = tokensGained;
-        if(typeof(tokensLost) !== "number")
+        if (typeof (tokensLost) !== "number")
             throw new InvalidTypeException("Tokens lost must be of type number");
         this.tokensLost = tokensLost;
+
+        this.pendingBet = 0;
     }
 
     /**
@@ -207,10 +238,7 @@ class TokenManager {
      * @throws InvalidNumberException|InvalidTypeException
      */
     addTokenAmount(amount) {
-        if(typeof(amount) !== "number")
-            throw new InvalidTypeException("Amount must be of type number");
-        if(this.tokenBalance < 0)
-            throw new InvalidNumberException("Amount must be greater than 0");
+        checkNumber(amount, 0,undefined, "Amount must be greater than 0");
         this.tokenBalance += amount;
         this.tokensGained += amount;
     }
@@ -223,8 +251,7 @@ class TokenManager {
      * @throws Exceptions.InvalidNumberException
      */
     subTokenAmount(amount) {
-        if(this.tokenBalance < amount && this.tokenBalance > 0)
-            throw new InvalidNumberException("Number must be less than balance and greater than 0");
+        checkNumber(amount, 1, this.tokenBalance, "Amount must be greater than 0", "Amount must be less than tokenBalance");
         this.tokenBalance -= amount;
         this.tokensLost += amount;
     }
@@ -234,12 +261,39 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - Amount to set token to
-     * @throws Exceptions.InvalidNumberException
+     * @throws Exceptions.InvalidNumberException|Exceptions.InvalidTypeException
      */
     setTokenAmount(amount) {
-        if(amount < 0)
-            throw new InvalidNumberException("Amount must be greater than or equal to 0");
+        checkNumber(amount,0,undefined);
         this.tokenBalance = amount;
+    }
+
+    bet(amount) {
+        checkNumber(amount,1, this.tokenBalance, "Cannot bet 0 tokens", "Bet cannot be greater than balance");
+        this.tokenBalance -= amount;
+        this.pendingBet += amount;
+    }
+
+    /**
+     * @desc Confirms the pending bet. Either returning the tokens or subtracting them from account.
+     * @method
+     * @memberOf RoyaleSubsystem.TokenBalance
+     * @param result {boolean} - Should the bet be returned?
+     * @param payout {number|undefined}[undefined] - Payout from the bet. Will be set equal to bet size if undefined.
+     */
+    resolveBet(result, payout=undefined) {
+        if(result) {
+            this.tokenBalance += this.pendingBet;
+            if(payout === undefined)
+                this.addTokenAmount(this.pendingBet);
+            else {
+                checkNumber(payout);
+                this.addTokenAmount(payout);
+            }
+        } else {
+            this.tokensLost += this.pendingBet;
+        }
+        this.pendingBet = 0;
     }
 }
 
@@ -267,14 +321,15 @@ class User {
 /**
  * @method
  * @memberOf RoyaleSubsystem
+ * @async
  * @desc Updates session from SQL database
  */
-const updateSession = (username = undefined) => {
+const updateSession = async (username = undefined) => {
 
     let promise = validateLogin((result, resolve, reject) => {
-        if(!result) {
+        if (!result) {
             reject("Not logged in");
-    }
+        }
         resolve(result);
     });
 
@@ -287,12 +342,11 @@ const updateSession = (username = undefined) => {
 
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4 && xhttp.status === 200) {
-
                 /**
                  * @private
                  * @type {{mail:string,balance:number,tokensGained:number,tokensLost:number,profilePicture:string,amountInvites:number}|number}
                  */
-                let response = JSON.parse(xhttp.responseText);
+                let response = JSON.parse(xhttp.response);
 
                 if (response !== 0) {
                     let newUserData = new User(
@@ -304,8 +358,11 @@ const updateSession = (username = undefined) => {
                         Number(response.tokensGained),
                         Number(response.tokensLost)
                     );
+
                     saveUser(newUserData);
                     console.log("UserSession updated from SQL successfully!");
+
+                    user = newUserData;
                 } else {
                     console.error("Bad request!");
                 }
@@ -343,7 +400,7 @@ const updateSQL = () => {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhttp.onreadystatechange = () => {
-        if(xhttp.readyState === 4 && xhttp.status === 200) {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
             console.log("Update response: " + xhttp.response);
         }
     };
@@ -383,7 +440,7 @@ const validateLogin = async (callback) => {
         xhttp.timeout = 2000;
 
         xhttp.onreadystatechange = () => {
-            if(xhttp.readyState === 4 && xhttp.status === 200) {
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
                 resolve(JSON.parse(xhttp.response));
             }
         };
@@ -394,7 +451,9 @@ const validateLogin = async (callback) => {
         xhttp.send();
     });
 
-    return new Promise((resolve,reject)=>callback(result.test === 1, resolve, reject));
+    let localSession = get("user");
+
+    return new Promise((resolve, reject) => callback(result.test === 1 && localSession !== false, resolve, reject));
 };
 
 let user = undefined;
@@ -405,7 +464,9 @@ let user = undefined;
  * @memberOf RoyaleSubsystem
  * @return {boolean} - User availability
  */
-const userAvailable = () => {return (user !== undefined);};
+const userAvailable = () => {
+    return (user !== undefined);
+};
 
 /**
  * @desc Confirm login, and initialize subsystem
@@ -413,8 +474,5 @@ const userAvailable = () => {return (user !== undefined);};
  * @memberOf RoyaleSubsystem
  */
 const init_royale = () => {
-    updateSession();
-
-    // Get updated user object
-    user = getUser();
+    updateSession()
 };

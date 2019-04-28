@@ -157,9 +157,10 @@ class InvalidTypeException extends Exception {
 /**
  * @desc Error handling for numbers
  * @memberOf RoyaleSubsystem
+ * @function
  * @param number {number} - The variable to check
- * @param min {number|undefined}[undefined] - The minimum value the number should be
- * @param max {number|undefined}[undefined] - The maximum value the number should be
+ * @param min {(number|undefined)} - The minimum value the number should be
+ * @param max {(number|undefined)} - The maximum value the number should be
  * @param minMessage {string}[Number is too small] - Exception message when number is too small
  * @param maxMessage {string}[Number is too big] - Exception message when number is too big
  * @param typeMessage {string}[Value must be of type number] - Exception message when variable is not a number
@@ -224,7 +225,7 @@ class TokenManager {
      * @desc Returns the amount of tokens a user has.
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
-     * @returns {number|*}
+     * @returns {(number|*)}
      */
     getCount() {
         return this.tokenBalance
@@ -235,7 +236,7 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - The amount to add
-     * @throws InvalidNumberException|InvalidTypeException
+     * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
     addTokenAmount(amount) {
         checkNumber(amount, 0,undefined, "Amount must be greater than 0");
@@ -248,7 +249,7 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - Amount to subtract from tokens
-     * @throws Exceptions.InvalidNumberException
+     * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
     subTokenAmount(amount) {
         checkNumber(amount, 1, this.tokenBalance, "Amount must be greater than 0", "Amount must be less than tokenBalance");
@@ -261,7 +262,7 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - Amount to set token to
-     * @throws Exceptions.InvalidNumberException|Exceptions.InvalidTypeException
+     * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
     setTokenAmount(amount) {
         checkNumber(amount,0,undefined);
@@ -279,7 +280,8 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param result {boolean} - Should the bet be returned?
-     * @param payout {number|undefined}[undefined] - Payout from the bet. Will be set equal to bet size if undefined.
+     * @param payout {(number|undefined)}[undefined] - Payout from the bet. Will be set equal to bet size if undefined.
+     * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
     resolveBet(result, payout=undefined) {
         if(result) {
@@ -323,6 +325,7 @@ class User {
  * @memberOf RoyaleSubsystem
  * @async
  * @desc Updates session from SQL database
+ * @param username {(string|undefined)} [undefined] - Username to fetch from Database
  */
 const updateSession = async (username = undefined) => {
 
@@ -418,7 +421,7 @@ const updateSQL = () => {
  * @function
  * @name ValidationCallback
  * @param {boolean} result - Result of validation
- * @param {PromiseLike<*>|*} resolve - Promise when callback is complete
+ * @param {(PromiseLike<*>|*)} resolve - Promise when callback is complete
  * @param {*} [reject] - Rejection reason. Used to determine outcome of promise
  * @memberOf RoyaleSubsystem
  */

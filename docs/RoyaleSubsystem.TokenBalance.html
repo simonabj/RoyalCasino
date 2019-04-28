@@ -94,7 +94,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line154">line 154</a>
+        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line185">line 185</a>
     </li></ul></dd>
     
 
@@ -249,7 +249,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line200">line 200</a>
+        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line241">line 241</a>
     </li></ul></dd>
     
 
@@ -276,7 +276,7 @@
 
     <div class="param-desc">
     
-        InvalidNumberException|InvalidTypeException
+        (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
     
     </div>
 
@@ -347,7 +347,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line189">line 189</a>
+        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line230">line 230</a>
     </li></ul></dd>
     
 
@@ -391,6 +391,179 @@
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="resolveBet"><span class="type-signature">(static) </span>TokenManager#resolveBet<span class="signature">(result, payout)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Confirms the pending bet. Either returning the tokens or subtracting them from account.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>result</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Should the bet be returned?</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>payout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">[undefined] - Payout from the bet. Will be set equal to bet size if undefined.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line286">line 286</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+    <div class="param-desc">
+    
+        (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
+    
+    </div>
+
+
+    
+
+
 
 
 
@@ -503,7 +676,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line228">line 228</a>
+        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line267">line 267</a>
     </li></ul></dd>
     
 
@@ -530,7 +703,7 @@
 
     <div class="param-desc">
     
-        Exceptions.InvalidNumberException
+        (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
     
     </div>
 
@@ -650,7 +823,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line215">line 215</a>
+        <a href="RoyaleSubsystem.js.html">RoyaleSubsystem.js</a>, <a href="RoyaleSubsystem.js.html#line254">line 254</a>
     </li></ul></dd>
     
 
@@ -677,7 +850,7 @@
 
     <div class="param-desc">
     
-        Exceptions.InvalidNumberException
+        (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
     
     </div>
 
@@ -706,13 +879,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Exceptions.Exception.html">Exception</a></li><li><a href="Exceptions.InvalidNumberException.html">InvalidNumberException</a></li><li><a href="Exceptions.InvalidTypeException.html">InvalidTypeException</a></li><li><a href="RoyaleSubsystem.CardManager.html">CardManager</a></li><li><a href="RoyaleSubsystem.TokenBalance.html">TokenBalance</a></li><li><a href="RoyaleSubsystem.TokenManager.html">TokenManager</a></li><li><a href="RoyaleSubsystem.User.html">User</a></li></ul><h3>Namespaces</h3><ul><li><a href="BigWise.html">BigWise</a></li><li><a href="CardSystem.html">CardSystem</a></li><li><a href="Exceptions.html">Exceptions</a></li><li><a href="RoyaleSubsystem.html">RoyaleSubsystem</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getRandomInt">getRandomInt</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Exceptions.Exception.html">Exception</a></li><li><a href="Exceptions.InvalidNumberException.html">InvalidNumberException</a></li><li><a href="Exceptions.InvalidTypeException.html">InvalidTypeException</a></li><li><a href="RoyaleSubsystem.TokenBalance.html">TokenBalance</a></li><li><a href="RoyaleSubsystem.TokenManager.html">TokenManager</a></li><li><a href="RoyaleSubsystem.User.html">User</a></li></ul><h3>Namespaces</h3><ul><li><a href="Exceptions.html">Exceptions</a></li><li><a href="RoyaleSubsystem.html">RoyaleSubsystem</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 23 2019 14:53:45 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 28 2019 20:56:58 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

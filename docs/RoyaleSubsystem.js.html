@@ -76,6 +76,7 @@ const saveUser = (userObject) => {
  */
 const get = (key, parent = undefined, location = "session") => {
     if (location === "session") {
+        if(sessionStorage.getItem(key) === null) return false;
         let result = JSON.parse(sessionStorage.getItem(key));
         if (parent !== undefined) {
             console.assert(result instanceof parent, "Parent must be class of expected result!");
@@ -141,8 +142,10 @@ class Exception {
     constructor(message) {
         this.message = message;
         this.type = "Exception";
+        this.name = this.type + ": " + this.message;
     }
-    toValue() {
+
+    toString() {
         console.error(this.type + ": " + this.message);
     }
 }
@@ -173,6 +176,34 @@ class InvalidTypeException extends Exception {
     }
 }
 
+/////////////////////////////////////////////////
+//                                             //
+//  -----=====  EXCEPTION HELPERS  =====-----  //
+//                                             //
+/////////////////////////////////////////////////
+
+/**
+ * @desc Error handling for numbers
+ * @memberOf RoyaleSubsystem
+ * @function
+ * @param number {number} - The variable to check
+ * @param min {(number|undefined)} - The minimum value the number should be
+ * @param max {(number|undefined)} - The maximum value the number should be
+ * @param minMessage {string}[Number is too small] - Exception message when number is too small
+ * @param maxMessage {string}[Number is too big] - Exception message when number is too big
+ * @param typeMessage {string}[Value must be of type number] - Exception message when variable is not a number
+ */
+const checkNumber = (number=1, min=undefined, max=undefined, minMessage = "Number too small", maxMessage = "Number too big", typeMessage = "Value must be of type number") => {
+
+    if(typeof(number) !== "number")
+        throw new InvalidTypeException(typeMessage);
+    if(min !== undefined &amp;&amp; number &lt; min)
+        throw new InvalidNumberException(minMessage);
+    if(max !== undefined &amp;&amp; number > max)
+        throw new InvalidNumberException(maxMessage);
+
+};
+
 //////////////////////////////////////
 //                                  //
 //  -----=====  TOKENS  =====-----  //
@@ -196,23 +227,33 @@ class TokenManager {
      * @constructor
      * @method
      * @param initialAmount {number} - Initial token count
-     * @throws Exceptions.InvalidTypeException
+     * @param tokensGained {number} - Amount of tokens won in total
+     * @param tokensLost {number} - Amount of tokens lost in total
+     * @throws InvalidTypeException
      */
-    constructor(initialAmount = 0) {
+    constructor(initialAmount = 0, tokensGained = 0, tokensLost = 0) {
         /**
          * @member {RoyaleSubsystem.TokenBalance}
          * @desc The amount of tokens a user has.
          */
-        if(typeof(initialAmount) !== "number")
+        if (typeof (initialAmount) !== "number")
             throw new InvalidTypeException("Initial amount must be of type number");
         this.tokenBalance = initialAmount;
+        if (typeof (tokensGained) !== "number")
+            throw new InvalidTypeException("Tokens gained must be of type number");
+        this.tokensGained = tokensGained;
+        if (typeof (tokensLost) !== "number")
+            throw new InvalidTypeException("Tokens lost must be of type number");
+        this.tokensLost = tokensLost;
+
+        this.pendingBet = 0;
     }
 
     /**
      * @desc Returns the amount of tokens a user has.
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
-     * @returns {number|*}
+     * @returns {(number|*)}
      */
     getCount() {
         return this.tokenBalance
@@ -223,14 +264,12 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - The amount to add
-     * @throws InvalidNumberException|InvalidTypeException
+     * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
     addTokenAmount(amount) {
-        if(typeof(amount) !== "number")
-            throw new InvalidTypeException("Amount must be of type number");
-        if(this.tokenBalance &lt; 0)
-            throw new InvalidNumberException("Amount must be greater than 0");
+        checkNumber(amount, 0,undefined, "Amount must be greater than 0");
         this.tokenBalance += amount;
+        this.tokensGained += amount;
     }
 
     /**
@@ -238,12 +277,12 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - Amount to subtract from tokens
-     * @throws Exceptions.InvalidNumberException
+     * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
     subTokenAmount(amount) {
-        if(this.tokenBalance &lt; amount &amp;&amp; this.tokenBalance > 0)
-            throw new InvalidNumberException("Number must be less than balance and greater than 0");
+        checkNumber(amount, 1, this.tokenBalance, "Amount must be greater than 0", "Amount must be less than tokenBalance");
         this.tokenBalance -= amount;
+        this.tokensLost += amount;
     }
 
     /**
@@ -251,12 +290,40 @@ class TokenManager {
      * @method
      * @memberOf RoyaleSubsystem.TokenBalance
      * @param amount {number} - Amount to set token to
-     * @throws Exceptions.InvalidNumberException
+     * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
     setTokenAmount(amount) {
-        if(amount &lt; 0)
-            throw new InvalidNumberException("Amount must be greater than or equal to 0");
+        checkNumber(amount,0,undefined);
         this.tokenBalance = amount;
+    }
+
+    bet(amount) {
+        checkNumber(amount,1, this.tokenBalance, "Cannot bet 0 tokens", "Bet cannot be greater than balance");
+        this.tokenBalance -= amount;
+        this.pendingBet += amount;
+    }
+
+    /**
+     * @desc Confirms the pending bet. Either returning the tokens or subtracting them from account.
+     * @method
+     * @memberOf RoyaleSubsystem.TokenBalance
+     * @param result {boolean} - Should the bet be returned?
+     * @param payout {(number|undefined)}[undefined] - Payout from the bet. Will be set equal to bet size if undefined.
+     * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
+     */
+    resolveBet(result, payout=undefined) {
+        if(result) {
+            this.tokenBalance += this.pendingBet;
+            if(payout === undefined)
+                this.addTokenAmount(this.pendingBet);
+            else {
+                checkNumber(payout);
+                this.addTokenAmount(payout);
+            }
+        } else {
+            this.tokensLost += this.pendingBet;
+        }
+        this.pendingBet = 0;
     }
 }
 
@@ -272,11 +339,10 @@ class TokenManager {
  * @memberOf RoyaleSubsystem
  */
 class User {
-    constructor(username = "testUser", email = "test@mail.it", isLoggedIn = false, balance = 0, portraitURL = "", inviteAmount = 0) {
+    constructor(username = "testUser", email = "test@mail.it", balance = 0, portraitURL = "", inviteAmount = 0, tokensGained = 0, tokensLost = 0) {
         this.username = username;
         this.email = email;
-        this.tokenManager = new TokenManager(balance);
-        this.isLoggedIn = isLoggedIn;
+        this.tokenManager = new TokenManager(balance, tokensGained, tokensLost);
         this.portrait = portraitURL;
         this.invites = inviteAmount;
     }
@@ -285,13 +351,15 @@ class User {
 /**
  * @method
  * @memberOf RoyaleSubsystem
+ * @async
  * @desc Updates session from SQL database
+ * @param username {(string|undefined)} [undefined] - Username to fetch from Database
  */
-const updateSession = () => {
+const updateSession = async (username = undefined) => {
 
-    let promise = validateLogin((result, resolve) => {
-        if(!result) {
-            window.location.replace("/0PHP/logout.php");
+    let promise = validateLogin((result, resolve, reject) => {
+        if (!result) {
+            reject("Not logged in");
         }
         resolve(result);
     });
@@ -305,32 +373,36 @@ const updateSession = () => {
 
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState === 4 &amp;&amp; xhttp.status === 200) {
-
                 /**
                  * @private
-                 * @type {{mail:string,balance:number,profilePicture:string,amountInvites:number}|number}
+                 * @type {{mail:string,balance:number,tokensGained:number,tokensLost:number,profilePicture:string,amountInvites:number}|number}
                  */
-                let response = JSON.parse(xhttp.responseText);
+                let response = JSON.parse(xhttp.response);
 
                 if (response !== 0) {
                     let newUserData = new User(
-                        getUser().username,
+                        (username === undefined) ? getUser().username : username,
                         response.mail,
-                        getUser().isLoggedIn,
-                        response.balance,
+                        Number(response.balance),
                         response.profilePicture,
-                        response.amountInvites
+                        response.amountInvites,
+                        Number(response.tokensGained),
+                        Number(response.tokensLost)
                     );
+
                     saveUser(newUserData);
                     console.log("UserSession updated from SQL successfully!");
+
+                    user = newUserData;
                 } else {
                     console.error("Bad request!");
                 }
 
             }
         };
-
         xhttp.send();
+    }, () => {
+        window.location.replace("/0PHP/logout.php");
     });
 };
 
@@ -347,6 +419,8 @@ const updateSQL = () => {
         "username=" + userObject.username +
         "&amp;mail=" + userObject.email +
         "&amp;balance=" + userObject.tokenManager.getCount() +
+        "&amp;gained=" + userObject.tokenManager.tokensGained +
+        "&amp;lost=" + userObject.tokenManager.tokensLost +
         "&amp;profilePicture=" + userObject.portrait +
         "&amp;amountInvites=" + userObject.invites;
 
@@ -357,7 +431,7 @@ const updateSQL = () => {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhttp.onreadystatechange = () => {
-        if(xhttp.readyState === 4 &amp;&amp; xhttp.status === 200) {
+        if (xhttp.readyState === 4 &amp;&amp; xhttp.status === 200) {
             console.log("Update response: " + xhttp.response);
         }
     };
@@ -375,7 +449,7 @@ const updateSQL = () => {
  * @function
  * @name ValidationCallback
  * @param {boolean} result - Result of validation
- * @param {PromiseLike&lt;*>|*} resolve - Promise when callback is complete
+ * @param {(PromiseLike&lt;*>|*)} resolve - Promise when callback is complete
  * @param {*} [reject] - Rejection reason. Used to determine outcome of promise
  * @memberOf RoyaleSubsystem
  */
@@ -397,7 +471,7 @@ const validateLogin = async (callback) => {
         xhttp.timeout = 2000;
 
         xhttp.onreadystatechange = () => {
-            if(xhttp.readyState === 4 &amp;&amp; xhttp.status === 200) {
+            if (xhttp.readyState === 4 &amp;&amp; xhttp.status === 200) {
                 resolve(JSON.parse(xhttp.response));
             }
         };
@@ -408,7 +482,9 @@ const validateLogin = async (callback) => {
         xhttp.send();
     });
 
-    return new Promise((resolve,reject)=>callback(result.test === 1, resolve, reject));
+    let localSession = get("user");
+
+    return new Promise((resolve, reject) => callback(result.test === 1 &amp;&amp; localSession !== false, resolve, reject));
 };
 
 let user = undefined;
@@ -419,7 +495,9 @@ let user = undefined;
  * @memberOf RoyaleSubsystem
  * @return {boolean} - User availability
  */
-const userAvailable = () => {return (user !== undefined);};
+const userAvailable = () => {
+    return (user !== undefined);
+};
 
 /**
  * @desc Confirm login, and initialize subsystem
@@ -427,10 +505,7 @@ const userAvailable = () => {return (user !== undefined);};
  * @memberOf RoyaleSubsystem
  */
 const init_royale = () => {
-    updateSession();
-
-    // Get updated user object
-    user = getUser();
+    updateSession()
 };</code></pre>
         </article>
     </section>
@@ -441,13 +516,13 @@ const init_royale = () => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Exceptions.Exception.html">Exception</a></li><li><a href="Exceptions.InvalidNumberException.html">InvalidNumberException</a></li><li><a href="Exceptions.InvalidTypeException.html">InvalidTypeException</a></li><li><a href="RoyaleSubsystem.CardManager.html">CardManager</a></li><li><a href="RoyaleSubsystem.TokenBalance.html">TokenBalance</a></li><li><a href="RoyaleSubsystem.TokenManager.html">TokenManager</a></li><li><a href="RoyaleSubsystem.User.html">User</a></li></ul><h3>Namespaces</h3><ul><li><a href="BigWise.html">BigWise</a></li><li><a href="CardSystem.html">CardSystem</a></li><li><a href="Exceptions.html">Exceptions</a></li><li><a href="RoyaleSubsystem.html">RoyaleSubsystem</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getRandomInt">getRandomInt</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Exceptions.Exception.html">Exception</a></li><li><a href="Exceptions.InvalidNumberException.html">InvalidNumberException</a></li><li><a href="Exceptions.InvalidTypeException.html">InvalidTypeException</a></li><li><a href="RoyaleSubsystem.TokenBalance.html">TokenBalance</a></li><li><a href="RoyaleSubsystem.TokenManager.html">TokenManager</a></li><li><a href="RoyaleSubsystem.User.html">User</a></li></ul><h3>Namespaces</h3><ul><li><a href="Exceptions.html">Exceptions</a></li><li><a href="RoyaleSubsystem.html">RoyaleSubsystem</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 23 2019 14:53:44 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 28 2019 20:56:58 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

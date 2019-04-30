@@ -59,7 +59,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
-        if (valgtTallEl.value<100 && 0<valgtTallEl.value) {
+        if (valgtTallEl.value<100 && 0<valgtTallEl.value && (user.tokenManager.getCount())>betEl.value) {
             vinnerTall = Math.floor(Math.random() * 99 + 1); /*Valg av vinnertall*/
             vinnerTallEl.innerHTML=vinnerTall;
 
@@ -77,7 +77,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
             rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
         } else {
-            hendelseEl.innerHTML="The number must be between 1 and 99. And the bet value must be one of the selected ones.";
+            hendelseEl.innerHTML="The number must be between 1 and 99. You also need to have enough tokens.";
         }
     }
 

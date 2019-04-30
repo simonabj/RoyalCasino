@@ -1,18 +1,10 @@
 <?php
 /*Lage connection til databasen*/
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr");
 session_start(); /*Starte session og hente lagrede variabler for å kommunisere med databasen*/
 require_once "../../0PHP/config.php"; /*Sjekk på at man er innlogget, hvis ikke blir man redirectet til login siden*/
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../../0PHP/login.php");
     exit;
-}
-$seBrukerID=$_SESSION["id"];
-/*Finne balansen man har på konto for å bruke den senere i filen*/
-$sql="SELECT * FROM users WHERE id=$seBrukerID";
-$kjort=mysqli_query($tilkobling, $sql);
-while ($row = mysqli_fetch_array($kjort)) {
-    $balanse=$row['balance'];
 }
 ?>
 

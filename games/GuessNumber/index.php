@@ -59,7 +59,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
-        if (valgtTallEl.value<100 && 0<valgtTallEl.value && (user.tokenManager.getCount())>betEl.value) {
+        if (valgtTallEl.value<100 && 0<valgtTallEl.value && (user.tokenManager.getCount())>betEl.value && betEl.value>0) {
             vinnerTall = Math.floor(Math.random() * 99 + 1); /*Valg av vinnertall*/
             vinnerTallEl.innerHTML=vinnerTall;
 

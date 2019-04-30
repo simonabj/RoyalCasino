@@ -102,44 +102,48 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             user.tokenManager.subTokenAmount(betSatt);/* Fjern tokens hvis tap*/
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
-            document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
+            document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
         } else {
-            ganger2=1+0.01*n;
-            gangerEl.innerHTML=ganger2.toFixed(2);
-            dataArray.push(ganger2); /*Legg til verdien i en array*/
-            
-            /*Oppdater charten ved hver kjøring*/
-             var dps = [];   //dataPoints.
-        
-        	 var chart = new CanvasJS.Chart("chartContainer",{
-              	title :{
-              		text: "Crash"
-              	},
-              	axisX: {						
-              		title: ""
-              	},
-              	axisY: {						
-              		title: "X times bet"
-              	},
-              	data: [{
-              		type: "line",
-              		dataPoints : dps
-              	}]
-              });
-        
-        
-             function parseDataPoints () {
-                for (var i = 0; i <= dataArray.length; i++)
-                  dps.push({y: dataArray[i]});     
-             };
-           		
-           	 parseDataPoints();
-             chart.options.data[0].dataPoints = dps;
-             chart.render();
-     
-            if (stopp==false) { /*Hvis stopp er satt til ja på grunn av pullOut() stopper den å kjøre*/
-                setTimeout(rullNummer, (300-0.4*n)); /*Gjenta prosessen, øk tallet raskere og raskere*/
-                n++;
+            if (betSatt>0 && betSatt<(user.tokenManager.getCount())) {
+                ganger2 = 1 + 0.01 * n;
+                gangerEl.innerHTML = ganger2.toFixed(2);
+                dataArray.push(ganger2); /*Legg til verdien i en array*/
+
+                /*Oppdater charten ved hver kjøring*/
+                var dps = [];   //dataPoints.
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    title: {
+                        text: "Crash"
+                    },
+                    axisX: {
+                        title: ""
+                    },
+                    axisY: {
+                        title: "X times bet"
+                    },
+                    data: [{
+                        type: "line",
+                        dataPoints: dps
+                    }]
+                });
+
+
+                function parseDataPoints() {
+                    for (var i = 0; i <= dataArray.length; i++)
+                        dps.push({y: dataArray[i]});
+                };
+
+                parseDataPoints();
+                chart.options.data[0].dataPoints = dps;
+                chart.render();
+
+                if (stopp == false) { /*Hvis stopp er satt til ja på grunn av pullOut() stopper den å kjøre*/
+                    setTimeout(rullNummer, (300 - 0.4 * n)); /*Gjenta prosessen, øk tallet raskere og raskere*/
+                    n++;
+                }
+            } else {
+                utfallEl.innerHTML="Verdien du vil vedde er enten ikke over 0 eller så har du ikke nok penger.";
             }
         }
     }

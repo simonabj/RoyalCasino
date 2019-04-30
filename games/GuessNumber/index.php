@@ -76,7 +76,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
             document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
-            rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
+            rmh_tokenCount(); /*Oppdater antall tokens i toppmeny*/
         } else {
             hendelseEl.innerHTML="The number must be between 1 and 99. You also need to have enough tokens.";
         }

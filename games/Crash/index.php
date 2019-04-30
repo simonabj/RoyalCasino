@@ -99,7 +99,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             chart.render();
 
             /*Kjøring av funksjon hvis man taper*/
-            user.tokenManager.subTokenAmount(betSatt);/* Fjern tokens hvis tap*/
+            user.tokenManager.subTokenAmount(Number(betSatt));/* Fjern tokens hvis tap*/
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
             document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
@@ -140,7 +140,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 chart.render();
 
                 if (stopp == false) { /*Hvis stopp er satt til ja på grunn av pullOut() stopper den å kjøre*/
-                    setTimeout(rullNummer, (300 - 0.4 * n)); /*Gjenta prosessen, øk tallet raskere og raskere*/
+                    var tid=400 - (2^n);
+                    console.log(tid);
+                    setTimeout(rullNummer, Number(tid)); /*Gjenta prosessen, øk tallet raskere og raskere*/
                     n++;
                 }
             } else {
@@ -158,7 +160,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         utfallEl.innerHTML="Du trakk deg ut i tide, veddet "+betSatt+" og tjente "+Number(betSatt*ganger2-betSatt)+" Tokens. Innsatsen din ble ganget med "+ganger2+".";
         /*Kjøring av funksjon hvis man vinner*/
         var verdi = betSatt*ganger2-betSatt;
-        user.tokenManager.addTokenAmount(verdi); /*Gi brukeren tokens hvis vinn*/
+        user.tokenManager.addTokenAmount(Number(verdi)); /*Gi brukeren tokens hvis vinn*/
         saveUser(user); /*Oppdatere til session storage*/
         updateSQL(); /*Oppdater database*/
         document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/

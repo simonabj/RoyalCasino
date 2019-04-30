@@ -1,18 +1,10 @@
 <?php
 /*Lage connection til databasen*/
-$tilkobling = mysqli_connect("mysql.hostinger.com", "u201393012_cr", "1EjjQpVKmAMa", "u201393012_cr");
 session_start(); /*Starte session og hente lagrede variabler for å kommunisere med databasen*/
 require_once "../../0PHP/config.php"; /*Sjekk på at man er innlogget, hvis ikke blir man redirectet til login siden*/
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../../0PHP/login.php");
     exit;
-}
-$seBrukerID=$_SESSION["id"];
-/*Finne balansen man har på konto for å bruke den senere i filen*/
-$sql="SELECT * FROM users WHERE id=$seBrukerID";
-$kjort=mysqli_query($tilkobling, $sql);
-while ($row = mysqli_fetch_array($kjort)) {
-    $balanse=$row['balance'];
 }
 ?>
 
@@ -110,44 +102,48 @@ while ($row = mysqli_fetch_array($kjort)) {
             user.tokenManager.subTokenAmount(betSatt);/* Fjern tokens hvis tap*/
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
-            document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
+            document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
         } else {
-            ganger2=1+0.01*n;
-            gangerEl.innerHTML=ganger2.toFixed(2);
-            dataArray.push(ganger2); /*Legg til verdien i en array*/
-            
-            /*Oppdater charten ved hver kjøring*/
-             var dps = [];   //dataPoints.
-        
-        	 var chart = new CanvasJS.Chart("chartContainer",{
-              	title :{
-              		text: "Crash"
-              	},
-              	axisX: {						
-              		title: ""
-              	},
-              	axisY: {						
-              		title: "X times bet"
-              	},
-              	data: [{
-              		type: "line",
-              		dataPoints : dps
-              	}]
-              });
-        
-        
-             function parseDataPoints () {
-                for (var i = 0; i <= dataArray.length; i++)
-                  dps.push({y: dataArray[i]});     
-             };
-           		
-           	 parseDataPoints();
-             chart.options.data[0].dataPoints = dps;
-             chart.render();
-     
-            if (stopp==false) { /*Hvis stopp er satt til ja på grunn av pullOut() stopper den å kjøre*/
-                setTimeout(rullNummer, (300-0.4*n)); /*Gjenta prosessen, øk tallet raskere og raskere*/
-                n++;
+            if (betSatt>0 && betSatt<(user.tokenManager.getCount())) {
+                ganger2 = 1 + 0.01 * n;
+                gangerEl.innerHTML = ganger2.toFixed(2);
+                dataArray.push(ganger2); /*Legg til verdien i en array*/
+
+                /*Oppdater charten ved hver kjøring*/
+                var dps = [];   //dataPoints.
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    title: {
+                        text: "Crash"
+                    },
+                    axisX: {
+                        title: ""
+                    },
+                    axisY: {
+                        title: "X times bet"
+                    },
+                    data: [{
+                        type: "line",
+                        dataPoints: dps
+                    }]
+                });
+
+
+                function parseDataPoints() {
+                    for (var i = 0; i <= dataArray.length; i++)
+                        dps.push({y: dataArray[i]});
+                };
+
+                parseDataPoints();
+                chart.options.data[0].dataPoints = dps;
+                chart.render();
+
+                if (stopp == false) { /*Hvis stopp er satt til ja på grunn av pullOut() stopper den å kjøre*/
+                    setTimeout(rullNummer, (300 - 0.4 * n)); /*Gjenta prosessen, øk tallet raskere og raskere*/
+                    n++;
+                }
+            } else {
+                utfallEl.innerHTML="Verdien du vil vedde er enten ikke over 0 eller så har du ikke nok penger.";
             }
         }
     }

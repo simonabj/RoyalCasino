@@ -99,7 +99,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             chart.render();
 
             /*Kjøring av funksjon hvis man taper*/
-            user.tokenManager.subTokenAmount(Number(betSatt));/* Fjern tokens hvis tap*/
+            user.tokenManager.subTokenAmount(Math.floor(Number(betSatt)));/* Fjern tokens hvis tap*/
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
             document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
@@ -159,7 +159,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         buttonEl.addEventListener("click", sluttVerdiFunksjon);
         utfallEl.innerHTML="Du trakk deg ut i tide, veddet "+betSatt+" og tjente "+Number(betSatt*ganger2-betSatt)+" Tokens. Innsatsen din ble ganget med "+ganger2+".";
         /*Kjøring av funksjon hvis man vinner*/
-        var verdi = betSatt*ganger2-betSatt;
+        var verdi = Math.floor(betSatt*ganger2-betSatt);
         user.tokenManager.addTokenAmount(Number(verdi)); /*Gi brukeren tokens hvis vinn*/
         saveUser(user); /*Oppdatere til session storage*/
         updateSQL(); /*Oppdater database*/

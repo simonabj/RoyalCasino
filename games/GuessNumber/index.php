@@ -22,6 +22,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
 
 <div id="game">
+    <!-- Informasjon om spillets kjerne -->
+    <p>Guess a number between 1 and 99. If you get the correct number you get 75x your bet.</p>
     <!-- Input for valgt tall, med minimum 1 og maximum 99 -->
     <input type="number" id="valgtTall" placeholder="Guess Number" max="99" min="1"><br />
 

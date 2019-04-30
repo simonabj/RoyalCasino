@@ -8,7 +8,7 @@
     <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
     <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 
-    <link rel="stylesheet" href="coinFlip.css">
+    <link rel="stylesheet" href="coinFlip.css"> <!-- Stilark til siden -->
     <link rel="stylesheet" href="../../0CSS/classes.css">
     <link rel="stylesheet" href="../../0CSS/universal.css">
 
@@ -38,6 +38,7 @@
             <br>
 
             <button class="retroButton" type="button" id="flip">Flip</button>
+            <p id="melding"></p>
         </div>
     </div>
 </div>
@@ -51,46 +52,59 @@
     knappEl.addEventListener("click", gjett);
 
     var pengeEl=document.getElementById("penge");
+    var meldingEl=document.getElementById("melding");
 
     var lillaEl=document.getElementById("lilla");
     lillaEl.addEventListener("click", velgLilla);
     function velgLilla() {
         valgtSide="Tails";
+        rodEl.style.display="none";
     }
     var rodEl=document.getElementById("rod");
     rodEl.addEventListener("click", velgRod);
     function velgRod() {
         valgtSide="Heads";
+        lillaEl.style.display="none";
+    }
+    function valgt(){
+        lillaEl.style.display="block";
+        rodEl.style.display="block";
     }
 
     function gjett() {
-        var vinnerTall=Math.random();
-        if (vinnerTall<=0.5) {
-            pengeEl.className="heads";
-            if (valgtSide=="Tails") {
-                var vinn=2*Number(betEl.value)-Number(betEl.value);
-                user.tokenManager.addTokenAmount(vinn); /*Gi brukeren tokens hvis vinn*/
-                console.log("WIN TAILS");
+        setTimeout(valgt, 5000);
+        if ((user.tokenManager.getCount())>Number(betEl.value) && Number(0<betEl.value)) {
+
+            var vinnerTall = Math.random();
+            if (vinnerTall <= 0.5) {
+                pengeEl.className = "heads";
+                if (valgtSide == "Tails") {
+                    var vinn = 2 * Number(betEl.value) - Number(betEl.value);
+                    user.tokenManager.addTokenAmount(vinn); /*Gi brukeren tokens hvis vinn*/
+                    console.log("WIN TAILS");
+                } else {
+                    user.tokenManager.subTokenAmount(Number(betEl.value)); /*Fjern tokens hvis tap*/
+                    console.log("LOSS HEADS");
+                }
+                saveUser(user); /*Oppdatere til session storage*/
+                updateSQL(); /*Oppdater database*/
+                rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
             } else {
-                user.tokenManager.subTokenAmount(Number(betEl.value)); /*Fjern tokens hvis tap*/
-                console.log("LOSS HEADS");
+                pengeEl.className = "tails";
+                if (valgtSide == "Heads") {
+                    var vinn = 2 * Number(betEl.value) - Number(betEl.value);
+                    user.tokenManager.addTokenAmount(vinn); /*Gi brukeren tokens hvis vinn*/
+                    console.log("WIN HEADS");
+                } else {
+                    user.tokenManager.subTokenAmount(Number(betEl.value)); /*Fjern tokens hvis tap*/
+                    console.log("LOSS TAILS");
+                }
+                saveUser(user); /*Oppdatere til session storage*/
+                updateSQL(); /*Oppdater database*/
+                rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
             }
-            saveUser(user); /*Oppdatere til session storage*/
-            updateSQL(); /*Oppdater database*/
-            rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
         } else {
-            pengeEl.className="tails";
-            if (valgtSide=="Heads") {
-                var vinn=2*Number(betEl.value)-Number(betEl.value);
-                user.tokenManager.addTokenAmount(vinn); /*Gi brukeren tokens hvis vinn*/
-                console.log("WIN HEADS");
-            } else {
-                user.tokenManager.subTokenAmount(Number(betEl.value)); /*Fjern tokens hvis tap*/
-                console.log("LOSS TAILS");
-            }
-            saveUser(user); /*Oppdatere til session storage*/
-            updateSQL(); /*Oppdater database*/
-            rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
+            meldingEl.innerHTML="Du kan ikke bette 0 ellers har du ikke nok penger!"
         }
     }
 </script>

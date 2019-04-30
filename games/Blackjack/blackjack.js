@@ -1,3 +1,16 @@
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+};
+
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(let i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
+
+
 const Cards = {
     SA: 0, S2: 1, S3: 2, S4: 3, S5: 4, S6: 5, S7: 6, S8: 7, S9: 8, S10: 9, SJ: 10, SQ: 11, SK: 12,
     HA: 13, H2: 14, H3: 15, H4: 16, H5: 17, H6: 18, H7: 19, H8: 20, H9: 21, H10: 22, HJ: 23, HQ: 24, HK: 25,
@@ -12,7 +25,14 @@ const CardValues = {
     DA: 1, D2: 2, D3: 3, D4: 4, D5: 5, D6: 6, D7: 7, D8: 8, D9: 9, D10: 10, DJ: 10, DQ: 10, DK: 10
 };
 
+const cardWidth = 170;
+const cardHeight = 238;
 let profit = 0;
+
+let userCardIndex = 0;
+let dealerCardIndex = 0;
+
+let dealerCards = [];
 
 function getKeyFromValue(object, val) {
 
@@ -123,12 +143,37 @@ class CardManager {
         console.log(cardsToDeal);
 
 
-        if (deck === "player")
-            this.playerDeck = this.playerDeck.concat(cardsToDeal); // Add the cards to player deck
-        else if (deck === "dealer")
-            this.dealerDeck = this.dealerDeck.concat(cardsToDeal); // Add the cards to player deck
-        else
-            this.discard = this.discard.concat(cardsToDeal); // Add the cards to player deck
+        if (deck === "player") { // Add the cards to player deck
+            this.playerDeck = this.playerDeck.concat(cardsToDeal);
+            for(let i = 0; i < cardsToDeal.length; i++) {
+                let card = createCard(cardsToDeal[i],"player", true);
+                g("cardContainer").appendChild(card);
+
+                let box = g("playerArea").getBoundingClientRect();
+
+                card.style.top = box.top + 5 + "px";
+                card.style.left = box.left + (userCardIndex * (cardWidth + 5)) + 2 + "px";
+                userCardIndex++;
+            }
+        }
+        else if (deck === "dealer") { // Add the cards to player deck
+            this.dealerDeck = this.dealerDeck.concat(cardsToDeal);
+            for(let i = 0; i < cardsToDeal.length; i++) {
+                let card = createCard(cardsToDeal[i],"player", i===0);
+                g("cardContainer").appendChild(card);
+
+                dealerCards.push(card);
+
+                let box = g("dealerArea").getBoundingClientRect();
+
+                card.style.top = box.top + 5 + "px";
+                card.style.left = box.left + (dealerCardIndex * (cardWidth + 5)) + 2 + "px";
+                dealerCardIndex++;
+            }
+        }
+        else {  // Add the cards to player deck
+            this.discard = this.discard.concat(cardsToDeal);
+        }
 
         return cardsToDeal;
     }
@@ -145,6 +190,28 @@ function g(id) {
     return document.getElementById(id);
 }
 
+
+function createCard(cardId,owner, reveal=false) {
+
+    let code = getKeyFromValue(Cards,cardId);
+
+    let img = document.createElement("img");
+
+    console.log("Creating card!");
+
+    img.setAttribute("width", ""+cardWidth);
+    img.setAttribute("height", ""+cardHeight);
+    img.setAttribute("face", code);
+
+    img.src = (!reveal)?"./img/BACK.png" : "./img/"+code+".svg";
+    img.classList.add("bj-card");
+    img.setAttribute("owner",owner);
+    img.setAttribute("id", "Card-"+code);
+
+    return img;
+}
+
+
 let cm = undefined;
 
 function start() {
@@ -154,6 +221,12 @@ function start() {
     profit = 0;
 
     do {
+
+        g("cardContainer").childNodes.remove();
+        userCardIndex = 0;
+        dealerCardIndex = 0;
+        dealerCards = [];
+
         let result = playRound();
 
         if (result === "PUSH") {
@@ -192,11 +265,14 @@ function start() {
 
         }
 
+        saveUser(user);
+        updateSQL();
+
         cm.retrieveCards();
     } while(confirm("Play again?"));
 
     console.log();
-    console.log("You " + ((profit >= 0)?"earned":"lost") + " a total of " + profit + " tokens!");
+    console.log("You " + ((profit >= 0)?"earned":"lost") + " a total of " + Math.abs(profit) + " tokens!");
     console.log();
     console.log("Thanks for playing!");
 }
@@ -253,7 +329,16 @@ function playRound() {
     // Stand
     //
 
-    // Show dealer cards
+    let dealer1Card = dealerCards[1].getAttribute("face");
+    console.log("Dealer has " + dealer1Card);
+    document.getElementById("Card-"+dealer1Card).remove();
+
+    let card = createCard(cm.dealerDeck[1],"dealer", true);
+    let box = g("dealerArea").getBoundingClientRect();
+    card.style.top = box.top + 5 + "px";
+    card.style.left = box.left + ((dealerCardIndex-1) * (cardWidth + 5)) + 2 + "px";
+    g("cardContainer").appendChild(card);
+
 
     // Blackjack
     if(score === 21 && cm.playerDeck.length === 2) {

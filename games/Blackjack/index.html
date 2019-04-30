@@ -14,8 +14,10 @@
     <link rel="stylesheet" href="blackjack.css">
     <script src="blackjack.js"></script>
 
+
     <script src="/0JS/universal_menu.js"></script>
-    <link rel="stylesheet" href="/0CSS/universal_menu.css">
+    <link rel="stylesheet" href="../../0CSS/universal_menu.css">
+
 
 </head>
 <body>
@@ -25,13 +27,13 @@
 
     let mainMenuModal;
 
-    window.onload = () => {
+    window.addEventListener("load", () => {
         mainMenuModal = new Modal(document.getElementById("modal_main_menu"), true);
 
         g("menu-main").onanimationend  = () => {g("menu-main").style.animation  = "none";};
         g("menu-rules").onanimationend = () => {g("menu-rules").style.animation = "none";};
 
-    };
+    });
 
     function openRules() {
 
@@ -43,7 +45,6 @@
         g("menu").style.width = "500px";
         g("menu-main").classList.remove("selected");
         g("menu-rules").classList.add("selected");
-
 
     }
 
@@ -75,6 +76,7 @@
             <button onclick="mainMenuModal.close(); start();">Start Blackjack</button>
             <button onclick="openRules();">Show Rules</button>
             <button onclick="returnToHub();">Return to Hub</button>
+            <button onclick="mainMenuModal.close();">Exit Menu</button>
         </div>
         <div class="menu-item" id="menu-rules">
             <p>Blackjack Rules:</p>
@@ -89,6 +91,11 @@
     <button onclick="mainMenuModal.open();">Open Menu</button>
     <br>
     <img src="/games/Blackjack/img/BACK.png" alt="back of cards" width="170">
+
+    <div id="dealerArea"></div>
+    <div id="playerArea"></div>
+    <div id="cardContainer"></div>
+
 </div>
 
 

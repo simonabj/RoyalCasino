@@ -59,17 +59,18 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
-        if (valgtTallEl.value<100 && 0<valgtTallEl.value && (user.tokenManager.getCount())>betEl.value && 0<betEl.value) {
+        var balanse = user.tokenManager.getCount();
+        if (valgtTallEl.value<100 && 0<valgtTallEl.value && balanse>betEl.value && 0<betEl.value) {
             vinnerTall = Math.floor(Math.random() * 99 + 1); /*Valg av vinnertall*/
             vinnerTallEl.innerHTML=vinnerTall;
 
             if (vinnerTall == valgtTallEl.value) {
                 hendelseEl.innerHTML = "You guessed the number " + valgtTallEl.value + ". And it was correct! You betted " + betEl.value + " and recieved 75x as much.";/*Tekst til eventuelt vinn*/
                 var winValue=75 * betEl.value-betEl.value;
-                user.tokenManager.addTokenAmount(winValue); // Gi brukeren tokens hvis vinn
+                user.tokenManager.addTokenAmount(Number(winValue)); // Gi brukeren tokens hvis vinn
             } else {
                 hendelseEl.innerHTML = "You guessed " + valgtTallEl.value + ". The number was " + vinnerTall + ". You lost " + betEl.value + " tokens.";/*Tekst til tap*/
-                user.tokenManager.subTokenAmount(betEl.value);/* Fjern tokens hvis tap*/
+                user.tokenManager.subTokenAmount(Number(betEl.value));/* Fjern tokens hvis tap*/
             }
 
             saveUser(user); /*Oppdatere til session storage*/

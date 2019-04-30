@@ -68,43 +68,44 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             stopp=true; /*Ekstra stoppe for kjøring av funksjon*/
             utfallEl.innerHTML="Du trakk IKKE ut i tide, tapte "+betSatt+".";
             dataArray.push(0); /*Sette verdien i charten til 0, for å indikere tap*/
-            
+
             /*Oppdater tabellen ved tap*/
             var dps = [];   //dataPoints.
-        
-        	 var chart = new CanvasJS.Chart("chartContainer",{
-              	title :{
-              		text: "Crash"
-              	},
-              	axisX: {						
-              		title: ""
-              	},
-              	axisY: {						
-              		title: "X times bet"
-              	},
-              	data: [{
-              		type: "line",
-              		dataPoints : dps
-              	}]
-              });
-        
-        
-             function parseDataPoints () {
+
+            var chart = new CanvasJS.Chart("chartContainer",{
+                title :{
+                    text: "Crash"
+                },
+                axisX: {
+                    title: ""
+                },
+                axisY: {
+                    title: "X times bet"
+                },
+                data: [{
+                    type: "line",
+                    dataPoints : dps
+                }]
+            });
+
+
+            function parseDataPoints () {
                 for (var i = 0; i <= dataArray.length; i++)
-                  dps.push({y: dataArray[i]});     
-             };
-           		
-           	 parseDataPoints();
-             chart.options.data[0].dataPoints = dps;
-             chart.render();
-            
+                    dps.push({y: dataArray[i]});
+            };
+
+            parseDataPoints();
+            chart.options.data[0].dataPoints = dps;
+            chart.render();
+
             /*Kjøring av funksjon hvis man taper*/
             user.tokenManager.subTokenAmount(betSatt);/* Fjern tokens hvis tap*/
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
             document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
         } else {
-            if (betSatt>0 && betSatt<(user.tokenManager.getCount())) {
+            var balanse = user.tokenManager.getCount();
+            if (betSatt>0 && betSatt<Number(balanse)) {
                 ganger2 = 1 + 0.01 * n;
                 gangerEl.innerHTML = ganger2.toFixed(2);
                 dataArray.push(ganger2); /*Legg til verdien i en array*/
@@ -144,6 +145,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 }
             } else {
                 utfallEl.innerHTML="Verdien du vil vedde er enten ikke over 0 eller så har du ikke nok penger.";
+                buttonEl.addEventListener("click", sluttVerdiFunksjon);
+                button2El.removeEventListener("click", pullOut);
             }
         }
     }
@@ -162,35 +165,35 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         n=0;
         stopp=true; /*Stopp kjøringen av funksjon*/
     }
- 
- /*Kjøring av funksjon for tabell on load*/   
- var dps = [];   //dataPoints.
-        
- var chart = new CanvasJS.Chart("chartContainer",{
-  	title :{
-  		text: "Crash"
-  	},
-  	axisX: {						
-  		title: ""
-  	},
-  	axisY: {						
-  		title: "X times bet"
-  	},
-  	data: [{
-  		type: "line",
-  		dataPoints : dps
-  	}]
-  });
+
+    /*Kjøring av funksjon for tabell on load*/
+    var dps = [];   //dataPoints.
+
+    var chart = new CanvasJS.Chart("chartContainer",{
+        title :{
+            text: "Crash"
+        },
+        axisX: {
+            title: ""
+        },
+        axisY: {
+            title: "X times bet"
+        },
+        data: [{
+            type: "line",
+            dataPoints : dps
+        }]
+    });
 
 
- function parseDataPoints () {
-    for (var i = 0; i <= dataArray.length; i++)
-      dps.push({y: dataArray[i]});     
- };
-   	
- parseDataPoints();
- chart.options.data[0].dataPoints = dps;
- chart.render();
-    
+    function parseDataPoints () {
+        for (var i = 0; i <= dataArray.length; i++)
+            dps.push({y: dataArray[i]});
+    };
+
+    parseDataPoints();
+    chart.options.data[0].dataPoints = dps;
+    chart.render();
+
 </script>
 </body>

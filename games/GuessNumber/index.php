@@ -6,8 +6,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../../0PHP/login.php");
     exit;
 }
-
-$seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
 ?>
 <html>
 <head>
@@ -55,7 +53,7 @@ $seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
     var vinnertall; /*Definere variablen vinnertall*/
 
     init_royale();
-    document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Vis balansen din av tokens på siden*/
+    document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Vis balansen din av tokens på siden*/
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
@@ -74,7 +72,7 @@ $seBrukerID=$_SESSION["id"]; /*Lagre bruker ID*/
 
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
-            document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
+            document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
             rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
         } else {
             hendelseEl.innerHTML="The number must be between 1 and 99. And the bet value must be one of the selected ones.";

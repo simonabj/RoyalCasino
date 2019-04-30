@@ -2,6 +2,7 @@ body {
     background-image  : url("https://i.imgur.com/FHgMiQS.jpg");
     background-repeat : repeat;
     overflow-y        : hidden;
+    background-size   : 512px; /* full img size = 512px */
     }
 
 #documentWrapper {
@@ -15,82 +16,63 @@ p { font-family : "Lucida Sans Unicode", serif; }
 
     margin-top        : 30px;
     margin-bottom     : 0;
-    background-image  : url("https://i.imgur.com/prp3zE7.jpg");
+    background-image  : url("../../resources/textures/felt-table-texture.jpg");
     background-repeat : repeat;
     background-size   : 250px;
-    padding           : 125px 11% 100px 11%;
+    padding           : 175px 11% 150px 11%;
 
     /*clip-path         : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
     -webkit-clip-path : polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
     */
-    border-radius: 100% 100% 0% 0% / 75% 75% 100% 100%;
+    border-radius     : 100% 100% 0% 0% / 75% 75% 100% 100%;
     color             : white;
     }
 
 #table .title {
     position            : absolute;
-    top                 : 12.75px;
+    top                 : 15px;
     display             : none;
     -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
     }
 
 #rouletteWheelBorder_Outer {
-    background-image  : url("https://i.imgur.com/7hTJN0t.png");
-    background-repeat : repeat;
-    width             : 650px;
-    height            : 650px;
-    border-radius     : 50%;
-    box-shadow        : 0 0 5px 5px rgba(0, 0, 0, .5);
+    background-image    : url("img/wheel border.jpg");
+    background-repeat   : repeat;
+    background-position : center;
+    background-size     : 655px;
+    width               : 650px;
+    height              : 650px;
+    border-radius       : 50%;
+    box-shadow          : 0 0 5px 5px rgba(0, 0, 0, .5);
+    position            : relative;
     }
 
 #rouletteWheelBorder_Outer * {
     margin : 0;
     }
 
-#rouletteWheelBorder_Inner {
-    box-shadow        : inset 0px 0px 30px 15px rgba(0, 0, 0, 0.9);
-    background-image  : url("https://i.imgur.com/LCPl13k.jpg");
-    background-repeat : repeat;
-    width             : 600px;
-    height            : 600px;
-    border-radius     : 50%;
-    position          : relative;
-    }
-
 
 #rouletteWheel {
     box-shadow          : inset 0 0 5px 5px rgba(0, 0, 0, 0.9);
-    background-image    : url("https://i.imgur.com/y6dJZ5C.jpg");
-    background-size     : cover;
+    background-image    : url("img/wheel.jpg");
+    background-size     : 505px;
+    background-position : center;
     width               : 500px;
     height              : 500px;
     border-radius       : 50%;
     position            : absolute;
-    transition-duration : 0s /*16.6666667ms*/;
+    transition-duration : 0s /*16.6666667ms*/; /* IMPORTANT TODO - BYTT OVER TIL 60FPS (eller bittelitt under) TRANSITION DURATION */
+    will-change         : transform;
     }
-
-#rouletteWheelCover {
-    background-image    : url("https://i.imgur.com/xCjmIM6.jpg");
-    background-size     : 880px;
-    background-position : center;
-    transform           : rotate(17deg);
-    box-shadow          : 0 0 10px 12px rgba(0, 0, 0, .5);
-    width               : 66%;
-    height              : 66%;
-    border-radius       : 50%;
-    cursor              : pointer;
-    }
-
-
 
 #ballDiv {
     background-color    : transparent;
     position            : relative;
     padding             : 0;
     box-shadow          : none;
-    height              : 600px; /* initial height, will shrink to make the ball go nearer the center. */
+    height              : 595px; /* initial height, will shrink to make the ball go nearer the center. */
     width               : auto;
-    transition-duration : 0s /*16.6666667ms*/;
+    transition-duration : 16.5ms; /*kan fjerne return-to-max greiene hvis trans-dur ikke er på 0*/
     }
 
 #ball {
@@ -105,6 +87,9 @@ p { font-family : "Lucida Sans Unicode", serif; }
     top                 : 0;
     position            : absolute
     }
+
+
+
 
 .r_reverse {
     animation-direction : reverse !important;
@@ -819,7 +804,7 @@ input[type=range]::-webkit-slider-thumb:hover {
     height           : 50px;
     width            : 50px;
     background-color : transparent;
-    border: solid transparent 8px;
+    border           : solid transparent 8px;
     }
 
 #practiceModeTip {

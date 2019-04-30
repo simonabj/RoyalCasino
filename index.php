@@ -1,3 +1,8 @@
+<?php
+session_start(); /*Starte session og hente session stored values*/
+require_once "0PHP/config.php"; /*Koble seg til config*/
+?>
+
 <!DOCTYPE html>
 <html>
 <head>    

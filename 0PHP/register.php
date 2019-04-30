@@ -103,7 +103,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             if(mysqli_stmt_execute($stmt)){
                 header("location: login.php"); /*Sendes tilbake til innloggingssiden*/
-                /*oppdaterOgVidereled();*/
             } else{
                 echo "Something went wrong. Please try again later."; /*Melding om at noe gikk galt i registreringsprosessen*/
             }
@@ -113,27 +112,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     mysqli_close($link);
 }
-
-/*
-$userInvite = $_GET['userInvite']; Definere hvem som har invitert deg
-function oppdaterOgVidereled() {
-    Hvis hvem som har invitert deg er definert skal verdien til antall inviterte personer økes med 1
-    if (!empty($userInvite)) {
-        $sqlQueryLine = "SELECT * FROM users WHERE id=$userInvite";
-        $sqlQuery = mysqli_query($tilkobling, $sqlQueryLine);
-        while ($row = mysqli_fetch_array($sqlQuery)) {
-            $amountOfInvites = $row['amountInvites']+1;
-        };
-
-        $updateAmountOfInvites = sprintf("UPDATE users SET amountInvites=%s WHERE id=%s",
-            $tilkobling->real_escape_string($amountOfInvites),
-            $tilkobling->real_escape_string($userInvite)
-        );
-        $tilkobling->query($updateAmountOfInvites); Oppdatere databasen
-    }
-    header("location: login.php"); Sendes tilbake til innloggingssiden
-}
-*/
 ?>
 
 <!DOCTYPE html>
@@ -141,7 +119,7 @@ function oppdaterOgVidereled() {
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> <!-- Utseende registrerings form -->
     <style type="text/css">
         body{ font: 14px sans-serif; }
         .wrapper{ width: 350px; padding: 20px; }

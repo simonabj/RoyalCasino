@@ -1,0 +1,30 @@
+/*Styling of body*/
+body {
+    background-image: url("../../resources/loops/Dark_Wood_Floor.jpg");
+}
+input {
+    color: white;
+    font-size: 20px;
+}
+#utfall {
+    background-color: #C53426;
+    border: #F8A917 2px solid;
+    width: 25vw;
+    min-width: 150px;
+    border-radius: 50px;
+}
+#game {
+    background-image: url("../../resources/textures/felt-table-texture.jpg");
+    width: 50vw;
+    min-width: 300px;
+    margin-top: 40px;
+    border-radius: 20px;
+    text-align: center;
+}
+#bet, #valgtTall {
+    width: 300px;
+}
+#vinnerTall {
+    text-align:center;
+    font-size: 40px;
+}

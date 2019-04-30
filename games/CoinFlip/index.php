@@ -73,17 +73,18 @@
 
     function gjett() {
         setTimeout(valgt, 5000);
-        if ((user.tokenManager.getCount())>Number(betEl.value) && Number(0<betEl.value)) {
 
+        try {
+            user.tokenManager.bet(Number(betEl));
             var vinnerTall = Math.random();
             if (vinnerTall <= 0.5) {
                 pengeEl.className = "heads";
                 if (valgtSide == "Tails") {
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
-                    user.tokenManager.addTokenAmount(vinn); /*Gi brukeren tokens hvis vinn*/
+                    user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN TAILS");
                 } else {
-                    user.tokenManager.subTokenAmount(Number(betEl.value)); /*Fjern tokens hvis tap*/
+                    user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS HEADS");
                 }
                 saveUser(user); /*Oppdatere til session storage*/
@@ -93,18 +94,18 @@
                 pengeEl.className = "tails";
                 if (valgtSide == "Heads") {
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
-                    user.tokenManager.addTokenAmount(vinn); /*Gi brukeren tokens hvis vinn*/
+                    user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN HEADS");
                 } else {
-                    user.tokenManager.subTokenAmount(Number(betEl.value)); /*Fjern tokens hvis tap*/
+                    user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS TAILS");
                 }
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/
                 rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
             }
-        } else {
-            meldingEl.innerHTML="Du kan ikke bette 0 ellers har du ikke nok penger!"
+        } catch (e) {
+            meldingEl.innerHTML = e.message;
         }
     }
 </script>

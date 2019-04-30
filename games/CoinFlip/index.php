@@ -46,7 +46,7 @@
 <script>
     init_royale();
     var betEl=document.getElementById("bet");
-    var valgtSide;
+    var valgtSide = undefined;
 
     var knappEl=document.querySelector("#flip");
     knappEl.addEventListener("click", gjett);
@@ -75,11 +75,13 @@
         setTimeout(valgt, 5000);
 
         try {
-            user.tokenManager.bet(Number(betEl));
+            meldingEl.innerHTML = "";
+            if(valgtSide === undefined) throw new Exception("Please pick red or purple");
+            user.tokenManager.bet(Number(betEl.value));
             var vinnerTall = Math.random();
             if (vinnerTall <= 0.5) {
                 pengeEl.className = "heads";
-                if (valgtSide == "Tails") {
+                if (valgtSide === "Tails") {
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
                     user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN TAILS");
@@ -89,10 +91,9 @@
                 }
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/
-                rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
             } else {
                 pengeEl.className = "tails";
-                if (valgtSide == "Heads") {
+                if (valgtSide === "Heads") {
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
                     user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN HEADS");
@@ -102,8 +103,8 @@
                 }
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/
-                rmh_tokenCount();/*Oppdater antall tokens i toppmeny*/
             }
+            valgtSide = undefined;
         } catch (e) {
             meldingEl.innerHTML = e.message;
         }

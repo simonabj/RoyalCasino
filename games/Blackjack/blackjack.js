@@ -8,7 +8,7 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
             this[i].parentElement.removeChild(this[i]);
         }
     }
-}
+};
 
 
 const Cards = {
@@ -27,12 +27,19 @@ const CardValues = {
 
 const cardWidth = 170;
 const cardHeight = 238;
+
 let profit = 0;
 
 let userCardIndex = 0;
 let dealerCardIndex = 0;
 
 let dealerCards = [];
+
+let cm = undefined;
+
+function g(id) {
+    return document.getElementById(id);
+}
 
 function getKeyFromValue(object, val) {
 
@@ -94,6 +101,43 @@ const getRandomInt = (min, max) => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+function createCard(cardId,owner, reveal=false) {
+
+    let code = getKeyFromValue(Cards,cardId);
+
+    let img = document.createElement("img");
+
+    console.log("Creating card!");
+
+    img.setAttribute("width", ""+cardWidth);
+    img.setAttribute("height", ""+cardHeight);
+    img.setAttribute("face", code);
+
+    img.src = (!reveal)?"./img/BACK.png" : "./img/"+code+".svg";
+    img.classList.add("bj-card");
+    img.setAttribute("owner",owner);
+    img.setAttribute("id", "Card-"+code);
+
+    return img;
+}
+
+function showChoices() {
+
+    g("hitBtn").style.width = "150px";
+    g("hitBtn").style.height = "100px";
+    g("hitBtn").style.opacity = "1";
+
+    g("standBtn").style.width = "150px";
+    g("standBtn").style.height = "100px";
+    g("standBtn").style.opacity = "1";
+
+
+}
+
+function getUserChoice() {
+
+}
 
 class CardManager {
     constructor() {
@@ -185,36 +229,7 @@ class CardManager {
     }
 }
 
-
-function g(id) {
-    return document.getElementById(id);
-}
-
-
-function createCard(cardId,owner, reveal=false) {
-
-    let code = getKeyFromValue(Cards,cardId);
-
-    let img = document.createElement("img");
-
-    console.log("Creating card!");
-
-    img.setAttribute("width", ""+cardWidth);
-    img.setAttribute("height", ""+cardHeight);
-    img.setAttribute("face", code);
-
-    img.src = (!reveal)?"./img/BACK.png" : "./img/"+code+".svg";
-    img.classList.add("bj-card");
-    img.setAttribute("owner",owner);
-    img.setAttribute("id", "Card-"+code);
-
-    return img;
-}
-
-
-let cm = undefined;
-
-function start() {
+async function start() {
 
     cm = new CardManager();
 
@@ -227,7 +242,7 @@ function start() {
         dealerCardIndex = 0;
         dealerCards = [];
 
-        let result = playRound();
+        let result = await playRound();
 
         if (result === "PUSH") {
 
@@ -277,7 +292,7 @@ function start() {
     console.log("Thanks for playing!");
 }
 
-function playRound() {
+async function playRound() {
 
     cm.shuffle();
     cm.shuffle();

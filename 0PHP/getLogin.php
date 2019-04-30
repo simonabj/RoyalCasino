@@ -80,7 +80,7 @@ if ($svar_sporring<1) {
 
         console.log("Logging in as <?php echo $_SESSION["username"];?>");
 
-        saveUser(new User());
+        saveUser(new User("<?PHP echo $_SESSION['username']; ?>"));
 
         updateSession("<?php echo $_SESSION["username"];?>").then(() => {
             window.location.replace("/hub/");

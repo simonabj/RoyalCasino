@@ -19,7 +19,6 @@
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
@@ -35,4 +34,17 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.menu-item {
+    display: none;
+
+    flex-direction: column;
+    align-items: center;
+
+    transition: all 1s ease-in-out;
+}
+
+.menu-item.selected {
+    display: flex;
 }

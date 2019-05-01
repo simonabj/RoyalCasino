@@ -48,7 +48,7 @@ img#logo {
     width: 200px;
 
     border-radius: 14px;
-    opacity: .8;
+    opacity: .9;
 }
 
 @keyframes fadeIn{
@@ -141,4 +141,42 @@ img#logo {
 #hitBtn {
     top: calc(50% - 100px);
     left: calc(50% - 75px - 100px);
+}
+
+#gameResultDisplay {
+    display: none;
+    position: absolute;
+
+    color: #e0e0e0;
+    background-color: darkred;
+
+    font-size: 24pt;
+
+    opacity: .7;
+
+    top: calc(50% - 50px);
+    left: calc(50% - 200px);
+
+
+    text-align: center;
+
+    border-radius: 75px;
+
+    animation: hover 1500ms infinite ease-in-out;
+}
+
+#gameResultDisplay > * {
+    margin: 10px 100px;
+}
+
+@keyframes hover {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }

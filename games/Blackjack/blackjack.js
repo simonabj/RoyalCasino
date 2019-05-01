@@ -132,6 +132,15 @@ function hideChoices() {
     g("standBtn").style.opacity = "0"
 }
 
+function showResult(result) {
+    g("gameResultDisplay").style.display = "block";
+    g("gameResultText").innerText = result;
+}
+
+function hideResult() {
+    g("gameResultDisplay").style.display = "none";
+}
+
 let userChoice = undefined;
 
 function choose() {
@@ -256,7 +265,7 @@ async function start() {
     profit = 0;
 
     do {
-
+        hideResult();
         g("cardContainer").childNodes.remove();
         userCardIndex = 0;
         dealerCardIndex = 0;
@@ -299,6 +308,10 @@ async function start() {
             user.tokenManager.resolveBet(true);
 
         }
+
+
+        let text = result.toLowerCase();
+        showResult(text.charAt(0).toUpperCase() + text.slice(1));
 
         saveUser(user);
         updateSQL();

@@ -382,7 +382,7 @@ async function playRound() {
     cm.shuffle();
     cm.shuffle();
 
-    let bet = 0;
+    let bet;
     let choice;
     let score;
 

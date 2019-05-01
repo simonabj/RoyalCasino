@@ -422,24 +422,26 @@ const updateSQL = () => {
  * @memberOf RoyaleSubsystem
  * @desc Posts an SQL query to the server, and returns a JSON array of the result.
  * @param SQL {string} - SQL search query to post
- * @return {Promise<void>} Async Promise from function
+ * @return Promise<*|string> Promise for JSON parse
  */
-const querySQL = async (SQL) => {
-    let xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/0JS/sub/querySQL.php", true);
+const querySQL = (SQL) => {
+    return new Promise( (resolve, reject) => {
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/0JS/sub/querySQL.php", true);
 
-    xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.setRequestHeader("Content-Type", "application/json");
 
-    xhttp.onreadystatechange = () => {
-        if (xhttp.readyState === 4 && xhttp.status === 200) {
-            try {
-                resolve(JSON.parse(xhttp.response));
-            }catch(e) {
-                reject(e);
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
+                try {
+                    resolve(JSON.parse(xhttp.response));
+                }catch(e) {
+                    reject(xhttp.response);
+                }
             }
-        }
-    };
-    xhttp.send(JSON.stringify({query:SQL}));
+        };
+        xhttp.send(JSON.stringify({query:SQL}));
+    });
 };
 
 //////////////////////////////////////////

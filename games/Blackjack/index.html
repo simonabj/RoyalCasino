@@ -96,20 +96,27 @@
     <h2 id="gameResultText">You Won!</h2>
 </div>
 
+<div id="notificationBackdrop">
+    <div id="notification">
+        <h3>NotificationHeader</h3>
+        <p>Notification description</p>
+    </div>
+</div>
+
 <img src="logo.png" alt="blackjack logo" id="logo" width="500">
 
 <div id="play-area">
     <div id="leftGUI">
-        <button onclick="mainMenuModal.open();">Open Menu</button>
+        <br>
         <img src="/games/Blackjack/img/BACK.png" alt="back of cards" width="170">
 
         <div class="controls" id="betMenu">
 
             <h3>Place Bet here</h3>
-            <p><em>Tokens: <span id="tokens">###</span></em></p>
+            <p><em>You have: <span id="tokenCount">###</span></em></p>
             <input type="text" id="betInput">
             <br>
-            <button>Confirm Bet</button>
+            <button onclick="setBet()">Confirm Bet</button>
             
         </div>
 
@@ -118,8 +125,8 @@
             <h3>Play Again?</h3>
             <br>
             <div>
-                <button>Yes</button>
-                <button>No</button>
+                <button onclick="playAgain = true;">Yes</button>
+                <button onclick="playAgain = false;">No</button>
             </div>
         </div>
 

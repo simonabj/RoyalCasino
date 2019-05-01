@@ -91,8 +91,6 @@ function calcScore(deck = []) {
     else if(numAce === 1 && score + 11 <= 21) { score += 11 }
     else if(numAce === 1) score++;
 
-    console.log("Score: " + score);
-
     return score;
 }
 
@@ -107,8 +105,6 @@ function createCard(cardId,owner, reveal=false) {
     let code = getKeyFromValue(Cards,cardId);
 
     let img = document.createElement("img");
-
-    console.log("Creating card!");
 
     img.setAttribute("width", ""+cardWidth);
     img.setAttribute("height", ""+cardHeight);
@@ -141,10 +137,23 @@ function hideResult() {
     g("gameResultDisplay").style.display = "none";
 }
 
-function notify(message) {
+function notify(header,message, time=1000) {
 
+    let backdrop = g("notificationBackdrop");
+    let notificationEl = g("notification");
 
+    notificationEl.children[0].innerHTML = header;
+    notificationEl.children[1].innerHTML = message;
 
+    backdrop.style.display = "block";
+
+    notificationEl.style.animation = "notifyOpen ease-out 400ms forwards";
+    notificationEl.onanimationend = () => {
+        setTimeout(() => {
+            notificationEl.onanimationend = () => {backdrop.style.display = "none";};
+            notificationEl.style.animation = "notifyClose ease-out 400ms forwards";
+        }, time);
+    };
 }
 
 let betValue = undefined;
@@ -155,12 +164,15 @@ function setBet() {
         checkNumber(value, 1, user.tokenManager.tokenBalance, "You must bet at least 1 token", "You don't have that many tokens");
         betValue = value;
     } catch (e) {
-        betValue = e.message;
+        betValue = e;
     }
 }
 
 function getBetValue() {
     betValue = undefined;
+
+    g("tokenCount").innerText = user.tokenManager.getCount();
+
     g("betMenu").style.display = "flex";
     return new Promise(resolve => {
 
@@ -172,7 +184,7 @@ function getBetValue() {
                     g("betMenu").style.display = "none";
                     resolve(betValue);
                 } else {
-                    alert(betValue);
+                    notify(betValue.type, betValue.message, 3000);
                     betValue = undefined;
                 }
 
@@ -182,15 +194,28 @@ function getBetValue() {
     });
 }
 
+let playAgain = undefined;
+
+function getPlayAgain() {
+    g("playAgainMenu").style.display = "flex";
+    return new Promise( resolve => {
+        let iter = setInterval( () => {
+            if(playAgain !== undefined) {
+                g("playAgainMenu").style.display = "none";
+                clearInterval(iter);
+                resolve(playAgain);
+            }
+        }, 300);
+    });
+}
+
 let userChoice = undefined;
 
 function choose() {
     return new Promise(resolve => {
         let id = setInterval(() => {
-            console.log("Check if clicked...");
             if (userChoice !== undefined) {
                 clearInterval(id);
-                console.log("User clicked on " + userChoice);
                 resolve(userChoice);
             }
         }, 200);
@@ -243,8 +268,6 @@ class CardManager {
             newDeckOrder[shuffleOrder[i]] = this.deck[i];
         }
 
-        console.log("ShuffleOrder:");
-        console.log(shuffleOrder);
         this.deck = newDeckOrder;
     }
 
@@ -252,10 +275,6 @@ class CardManager {
 
         // Dealing always happens from top => index 0
         let cardsToDeal = this.deck.splice(0, amount);
-
-        console.log("Dealing to " + deck);
-        console.log(cardsToDeal);
-
 
         if (deck === "player") { // Add the cards to player deck
             this.playerDeck = this.playerDeck.concat(cardsToDeal);
@@ -315,36 +334,25 @@ async function start() {
         let result = await playRound();
 
         if (result === "PUSH") {
-
-            console.log("PUSH!");
             user.tokenManager.resolveBet(true, 0);
 
         } else if (result === "PLAYER WIN") {
-
-            console.log("YOU WON!");
             profit += user.tokenManager.pendingBet;
             user.tokenManager.resolveBet(true);
 
         } else if (result === "PLAYER LOSE") {
-
-            console.log("YOU LOST!");
             profit -= user.tokenManager.pendingBet;
             user.tokenManager.resolveBet(false);
 
         } else if (result === "BLACKJACK") {
-
             profit += Math.floor(user.tokenManager.pendingBet * 1.5);
             user.tokenManager.resolveBet(true, Math.floor(user.tokenManager.pendingBet * 1.5));
 
         } else if (result === "BUST") {
-
-            console.log("YOU BUSTED!");
             profit -= user.tokenManager.pendingBet;
             user.tokenManager.resolveBet(false);
 
         } else if (result === "DEALER BUST") {
-
-            console.log("DEALER BUSTED!");
             profit += user.tokenManager.pendingBet;
             user.tokenManager.resolveBet(true);
 
@@ -357,12 +365,15 @@ async function start() {
         updateSQL();
 
         cm.retrieveCards();
-    } while(confirm("Play again?"));
+    } while(await getPlayAgain());
 
-    console.log();
-    console.log("You " + ((profit >= 0)?"earned":"lost") + " a total of " + Math.abs(profit) + " tokens!");
-    console.log();
-    console.log("Thanks for playing!");
+    setTimeout(() => {
+
+        notify("Thank you for playing!",
+            "You " + ((profit >= 0)?"earned":"lost") + " a total of " + Math.abs(profit) + " tokens!", 1000);
+        hideResult();
+        mainMenuModal.open();
+    }, 1000);
 }
 
 async function playRound() {
@@ -375,9 +386,7 @@ async function playRound() {
     let choice;
     let score;
 
-    do {
-        bet = Number(prompt("Place your bet:"));
-    } while (!(typeof (bet) === "number" && bet <= user.tokenManager.getCount() && bet > 0));
+    bet = await getBetValue();
 
     user.tokenManager.bet(bet);
 
@@ -413,7 +422,6 @@ async function playRound() {
     //
 
     let dealer1Card = dealerCards[1].getAttribute("face");
-    console.log("Dealer has " + dealer1Card);
     document.getElementById("Card-"+dealer1Card).remove();
 
     let card = createCard(cm.dealerDeck[1],"dealer", true);
@@ -459,19 +467,6 @@ async function playRound() {
         // Determine if dealer should hit
         dealerHit = (dealerScore <= 16 || (dealerScore <= 17 && dealerAces > 0));
     }
-
-    console.log(score);
-
-    console.log("\n\n");
-
-    console.log("Decks: ");
-    console.log("Player: ");
-    console.log(cm.playerDeck);
-    console.log("PlayerScore: " + score);
-    console.log();
-    console.log("Dealer: ");
-    console.log(cm.dealerDeck);
-    console.log("DealerScore: " + dealerScore);
 
     if(score > dealerScore) { // Win
         return "PLAYER WIN";

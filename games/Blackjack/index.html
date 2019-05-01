@@ -99,9 +99,31 @@
 <img src="logo.png" alt="blackjack logo" id="logo" width="500">
 
 <div id="play-area">
-    <button onclick="mainMenuModal.open();">Open Menu</button>
-    <br>
-    <img src="/games/Blackjack/img/BACK.png" alt="back of cards" width="170">
+    <div id="leftGUI">
+        <button onclick="mainMenuModal.open();">Open Menu</button>
+        <img src="/games/Blackjack/img/BACK.png" alt="back of cards" width="170">
+
+        <div class="controls" id="betMenu">
+
+            <h3>Place Bet here</h3>
+            <p><em>Tokens: <span id="tokens">###</span></em></p>
+            <input type="text" id="betInput">
+            <br>
+            <button>Confirm Bet</button>
+            
+        </div>
+
+        <div class="controls" id="playAgainMenu">
+
+            <h3>Play Again?</h3>
+            <br>
+            <div>
+                <button>Yes</button>
+                <button>No</button>
+            </div>
+        </div>
+
+    </div>
 
     <div id="dealerArea"></div>
     <div id="playerArea"></div>

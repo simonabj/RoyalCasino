@@ -141,6 +141,47 @@ function hideResult() {
     g("gameResultDisplay").style.display = "none";
 }
 
+function notify(message) {
+
+
+
+}
+
+let betValue = undefined;
+
+function setBet() {
+    let value = Number(g("betInput").value);
+    try {
+        checkNumber(value, 1, user.tokenManager.tokenBalance, "You must bet at least 1 token", "You don't have that many tokens");
+        betValue = value;
+    } catch (e) {
+        betValue = e.message;
+    }
+}
+
+function getBetValue() {
+    betValue = undefined;
+    g("betMenu").style.display = "flex";
+    return new Promise(resolve => {
+
+        let itr = setInterval(() => {
+            if(betValue !== undefined) {
+
+                if(typeof(betValue) === "number") {
+                    clearInterval(itr);
+                    g("betMenu").style.display = "none";
+                    resolve(betValue);
+                } else {
+                    alert(betValue);
+                    betValue = undefined;
+                }
+
+            }
+        }, 300);
+
+    });
+}
+
 let userChoice = undefined;
 
 function choose() {
@@ -308,7 +349,6 @@ async function start() {
             user.tokenManager.resolveBet(true);
 
         }
-
 
         let text = result.toLowerCase();
         showResult(text.charAt(0).toUpperCase() + text.slice(1));

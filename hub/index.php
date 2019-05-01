@@ -177,7 +177,7 @@ $theme = $value->theme;
 
         <div class="column square secondaryVariant">
             <p contenteditable="true"> This is a footer! Isn't it neat? </p>
-            <p> ロイヤルカジノ™</p>
+            <p style="font-family: 'MS PMincho',serif"> ロイヤルーカジノ</p>
         </div>
 
         <div class="lowBound">

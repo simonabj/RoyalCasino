@@ -148,6 +148,19 @@ class InvalidTypeException extends Exception {
     }
 }
 
+/**
+ * @extends Exception
+ * @desc An exception which indicates that the variable is NaN, which is not caught by
+ * regular conditions. An example might be the return from Number(alpha)
+ * @memberOf Exceptions
+ */
+class NanException extends Exception {
+    constructor(message) {
+        super(message);
+        this.type = "NanException";
+    }
+}
+
 /////////////////////////////////////////////////
 //                                             //
 //  -----=====  EXCEPTION HELPERS  =====-----  //
@@ -164,9 +177,11 @@ class InvalidTypeException extends Exception {
  * @param minMessage {string}[Number is too small] - Exception message when number is too small
  * @param maxMessage {string}[Number is too big] - Exception message when number is too big
  * @param typeMessage {string}[Value must be of type number] - Exception message when variable is not a number
+ * @param nanMessage {string}[Same as typeMessage] - Exception message when variable is NaN
  */
-const checkNumber = (number = 1, min = undefined, max = undefined, minMessage = "Number too small", maxMessage = "Number too big", typeMessage = "Value must be of type number") => {
+const checkNumber = (number = 1, min = undefined, max = undefined, minMessage = "Number too small", maxMessage = "Number too big", typeMessage = "Value must be of type number", nanMessage=typeMessage) => {
 
+    if (isNaN(number)) throw new NanException(nanMessage);
     if (typeof (number) !== "number")
         throw new InvalidTypeException(typeMessage);
     if (min !== undefined && number < min)

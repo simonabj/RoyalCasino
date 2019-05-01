@@ -2,14 +2,14 @@ $(function () {
 
     let games = [
         {
-            title: "roulette",
-            image: "https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip",
-            href: "../games/Roulette/index.php",
-        },
-        {
             title: "blackjack",
             image: "../games/Blackjack/banner.jpg",
             href: "../games/Blackjack/index.html",
+        },
+        {
+            title: "roulette",
+            image: "https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip",
+            href: "../games/Roulette/index.php",
         },
         {
             title: "monty Hall",

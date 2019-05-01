@@ -48,7 +48,7 @@ const saveUser = (userObject) => {
  */
 const get = (key, parent = undefined, location = "session") => {
     if (location === "session") {
-        if(sessionStorage.getItem(key) === null) return false;
+        if (sessionStorage.getItem(key) === null) return false;
         let result = JSON.parse(sessionStorage.getItem(key));
         if (parent !== undefined) {
             console.assert(result instanceof parent, "Parent must be class of expected result!");
@@ -165,13 +165,13 @@ class InvalidTypeException extends Exception {
  * @param maxMessage {string}[Number is too big] - Exception message when number is too big
  * @param typeMessage {string}[Value must be of type number] - Exception message when variable is not a number
  */
-const checkNumber = (number=1, min=undefined, max=undefined, minMessage = "Number too small", maxMessage = "Number too big", typeMessage = "Value must be of type number") => {
+const checkNumber = (number = 1, min = undefined, max = undefined, minMessage = "Number too small", maxMessage = "Number too big", typeMessage = "Value must be of type number") => {
 
-    if(typeof(number) !== "number")
+    if (typeof (number) !== "number")
         throw new InvalidTypeException(typeMessage);
-    if(min !== undefined && number < min)
+    if (min !== undefined && number < min)
         throw new InvalidNumberException(minMessage);
-    if(max !== undefined && number > max)
+    if (max !== undefined && number > max)
         throw new InvalidNumberException(maxMessage);
 
 };
@@ -239,7 +239,7 @@ class TokenManager {
      * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
     addTokenAmount(amount) {
-        checkNumber(amount, 0,undefined, "Amount must be greater than 0");
+        checkNumber(amount, 0, undefined, "Amount must be greater than 0");
         this.tokenBalance += amount;
         this.tokensGained += amount;
     }
@@ -265,12 +265,12 @@ class TokenManager {
      * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
     setTokenAmount(amount) {
-        checkNumber(amount,0,undefined);
+        checkNumber(amount, 0, undefined);
         this.tokenBalance = amount;
     }
 
     bet(amount) {
-        checkNumber(amount,1, this.tokenBalance, "Cannot bet 0 tokens", "Bet cannot be greater than balance");
+        checkNumber(amount, 1, this.tokenBalance, "Cannot bet 0 tokens", "Bet cannot be greater than balance");
         this.tokenBalance -= amount;
         this.pendingBet += amount;
     }
@@ -283,10 +283,10 @@ class TokenManager {
      * @param payout {(number|undefined)}[undefined] - Payout from the bet. Will be set equal to bet size if undefined.
      * @throws (Exceptions.InvalidNumberException|Exceptions.InvalidTypeException)
      */
-    resolveBet(result, payout=undefined) {
-        if(result) {
+    resolveBet(result, payout = undefined) {
+        if (result) {
             this.tokenBalance += this.pendingBet;
-            if(payout === undefined)
+            if (payout === undefined)
                 this.addTokenAmount(this.pendingBet);
             else {
                 checkNumber(payout);
@@ -319,6 +319,13 @@ class User {
         this.invites = inviteAmount;
     }
 }
+
+
+///////////////////////////////////////////
+//                                       //
+//  -----===== AJAX Handlers =====-----  //
+//                                       //
+///////////////////////////////////////////
 
 /**
  * @method
@@ -408,6 +415,33 @@ const updateSQL = () => {
         }
     };
     xhttp.send(_attr);
+};
+
+/**
+ * @method
+ * @memberOf RoyaleSubsystem
+ * @desc Posts an SQL query to the server, and returns a JSON array of the result.
+ * @param SQL {string} - SQL search query to post
+ * @return Promise<*|string> Promise for JSON parse
+ */
+const querySQL = (SQL) => {
+    return new Promise( (resolve, reject) => {
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/0JS/sub/querySQL.php", true);
+
+        xhttp.setRequestHeader("Content-Type", "application/json");
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
+                try {
+                    resolve(JSON.parse(xhttp.response));
+                }catch(e) {
+                    reject(xhttp.response);
+                }
+            }
+        };
+        xhttp.send(JSON.stringify({query:SQL}));
+    });
 };
 
 //////////////////////////////////////////

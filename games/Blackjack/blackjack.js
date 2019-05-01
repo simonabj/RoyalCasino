@@ -123,20 +123,40 @@ function createCard(cardId,owner, reveal=false) {
 }
 
 function showChoices() {
-
-    g("hitBtn").style.width = "150px";
-    g("hitBtn").style.height = "100px";
     g("hitBtn").style.opacity = "1";
-
-    g("standBtn").style.width = "150px";
-    g("standBtn").style.height = "100px";
     g("standBtn").style.opacity = "1";
-
-
 }
 
-function getUserChoice() {
+function hideChoices() {
+    g("hitBtn").style.opacity = "0";
+    g("standBtn").style.opacity = "0"
+}
 
+let userChoice = undefined;
+
+function choose() {
+    return new Promise(resolve => {
+        let id = setInterval(() => {
+            console.log("Check if clicked...");
+            if (userChoice !== undefined) {
+                clearInterval(id);
+                console.log("User clicked on " + userChoice);
+                resolve(userChoice);
+            }
+        }, 200);
+    });
+}
+
+async function getUserChoice() {
+    showChoices();
+
+    userChoice = undefined;
+
+    let result = await choose();
+
+    hideChoices();
+
+    return result;
 }
 
 class CardManager {
@@ -299,7 +319,7 @@ async function playRound() {
     cm.shuffle();
 
     let bet = 0;
-    let choice = "hit";
+    let choice;
     let score;
 
     do {
@@ -316,9 +336,7 @@ async function playRound() {
 
 
     // User choice
-    do {
-        choice = prompt("Hit|Stand").toLocaleLowerCase();
-    } while (!(choice === "hit" || choice === "stand"));
+    choice = await getUserChoice();
 
 
     // Hit loop
@@ -328,16 +346,13 @@ async function playRound() {
         // Hit
         cm.deal(1, "player");
 
-        console.log("Player: ");
         score = calcScore(cm.playerDeck);
 
         if(score > 21) {
             return "BUST";
         }
 
-        do {
-            choice = prompt("Hit|Stand").toLocaleLowerCase();
-        } while (!(choice === "hit" || choice === "stand"));
+        choice = await getUserChoice();
     }
 
     //
@@ -371,15 +386,24 @@ async function playRound() {
 
     while(dealerHit) {
 
+
+        // Wait for 1 second
+        await new Promise(resolve => {setTimeout(()=>resolve(1), 1000)});
+
+        // Deal a card
         cm.deal(1, "dealer");
 
+        // Calculate score and aces
         dealerScore = calcScore(cm.dealerDeck);
         dealerAces = hasCard(cm.dealerDeck, "A");
 
+        // Check if dealer bust
         if(dealerScore > 21) {
             dealerBust = true;
             return "DEALER BUST";
         }
+
+        // Determine if dealer should hit
         dealerHit = (dealerScore <= 16 || (dealerScore <= 17 && dealerAces > 0));
     }
 

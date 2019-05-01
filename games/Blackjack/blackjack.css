@@ -15,6 +15,7 @@ body {
     display: flex;
     flex-direction: column;
 
+
     font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -112,23 +113,11 @@ img#logo {
     transition: all 500ms ease-out;
 }
 
-#userChoices {
+#standBtn, #hitBtn {
     position: absolute;
-    top: 0;
-    left: 0;
-    display: none;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
 
-#userChoices > button {
     transition: all 100ms ease-out;
 
-    width: 50px;
-    height: 33px;
     opacity: 0;
 
     border-radius: 25px;
@@ -142,4 +131,14 @@ img#logo {
     font-weight: lighter;
     font-size: 36pt;
     font-variant: small-caps;
+}
+
+#standBtn {
+    top: calc(50% - 100px);
+    left: calc(50% - 75px + 100px);
+}
+
+#hitBtn {
+    top: calc(50% - 100px);
+    left: calc(50% - 75px - 100px);
 }

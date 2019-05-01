@@ -1,4 +1,3 @@
-
 <?php
 session_start(); /*Starte en session for å hente verdiene lagret*/
 
@@ -8,7 +7,7 @@ $id = $_SESSION["id"];
 $sql = "SELECT * FROM users WHERE id=$id";
 $query = mysqli_query($link, $sql);
 $value = mysqli_fetch_object($query);
-$theme = $value -> theme;
+$theme = $value->theme;
 ?>
 
 
@@ -35,6 +34,9 @@ $theme = $value -> theme;
     <link href="hub.css" rel="stylesheet">
     <script src="hub_games.js"></script>
     <script src="hub_scrolling-and-toolbar.js"></script>
+
+    <link href="hall_of_fame.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -55,14 +57,20 @@ $theme = $value -> theme;
             <img src="https://i.imgur.com/KIEjXV8.png" alt="token" id="tokenCountToken">
             <p id="tokenCount">x 2500</p>
         </div>
-        <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton" style="background-color: purple; color: yellow; margin-bottom: 4px;">BUY</button>
+        <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton"
+                style="background-color: purple; color: yellow; margin-bottom: 4px;">BUY
+        </button>
         <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
-        <script> $(function(){setTimeout(function(){document.getElementById("tokenCount").innerText = "x " + getUser().tokenManager.getCount();},100)}); </script>
+        <script> $(function () {
+                setTimeout(function () {
+                    document.getElementById("tokenCount").innerText = "x " + getUser().tokenManager.getCount();
+                }, 100)
+            }); </script>
     </div>
 </div>
 <div id="toolbarRight" class="toolbar">
-    <div id="profileSettings" class="toolbarItem"> <p>Profile Settings</p> </div>
-    <div id="logoutButton"> <p>logout</p> </div>
+    <div id="profileSettings" class="toolbarItem"><p>Profile Settings</p></div>
+    <div id="logoutButton"><p>logout</p></div>
 </div>
 <!-- END OF TOOLBAR -->
 
@@ -74,14 +82,20 @@ $theme = $value -> theme;
     <!-- HEADER ELEMENTS -->
     <img id="headerSymbol" src="../resources/redChip.png" draggable="false">
 
-    <div id="toolbarTooltip" class="speech-bubble" style="display: none"> <p>Click me to open the toolbar.</p> </div>
-    <script> $(function(){if (get("firstTime")){ $("#toolbarTooltip").fadeIn(); $("#headerSymbol")[0].addEventListener("click", function (){$("#toolbarTooltip").hide();});}}); </script>
+    <div id="toolbarTooltip" class="speech-bubble" style="display: none"><p>Click me to open the toolbar.</p></div>
+    <script> $(function () {
+            if (get("firstTime")) {
+                $("#toolbarTooltip").fadeIn();
+                $("#headerSymbol")[0].addEventListener("click", function () {
+                    $("#toolbarTooltip").hide();
+                });
+            }
+        }); </script>
 
     <div class="titleDiv shape-bat blackText div" style="border-radius: 0; min-height: 50px; top: 10px;">
         <h1>Casino Royale!</h1>
     </div>
     <!-- END OF HEADER ELEMENTS -->
-
 
 
     <!-- the games -->
@@ -90,24 +104,66 @@ $theme = $value -> theme;
     </div>
 
 
-
     <!-- text box -->
     <span><br><br><br><br><br><br><br><br></span>
-    <div id="framedTextBox" class="whiteFrame whiteText"
-            style="width: 600px; background-color: var(--red); transition-duration: 1s">
-        <h1 contenteditable="true">Click me to write here</h1>
-        <p contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Cursus euismod quis viverra nibh cras pulvinar mattis nunc sed. Consequat semper viverra nam
-            libero justo laoreet. Et pharetra pharetra massa massa ultricies mi quis hendrerit. Ultrices gravida dictum
-            fusce ut. Ipsum consequat nisl vel pretium lectus quam. Aenean et tortor at risus. Risus pretium quam
-            vulputate dignissim. Cursus metus aliquam eleifend mi in. Metus dictum at tempor commodo ullamcorper.
-            Facilisis sed odio morbi quis commodo odio.</p>
-        <p contenteditable="true">Interdum velit laoreet id donec ultrices. In mollis nunc sed id semper. Neque vitae tempus quam pellentesque
-            nec nam. Venenatis lectus magna fringilla urna porttitor. Turpis massa tincidunt dui ut ornare lectus. Eget
-            egestas purus viverra accumsan in nisl nisi scelerisque eu. Consectetur adipiscing elit pellentesque
-            habitant morbi tristique senectus et. Quis enim lobortis scelerisque fermentum dui faucibus in ornare quam.
-            Morbi blandit cursus risus at ultrices mi tempus imperdiet nulla.</p>
+    <div id="hof_container">
+        <h1 id="hof_title">Hall of Fame</h1>
+        <table id="hof_table">
+            <tr id="hof_headerRow">
+                <th>Rank</th>
+                <th>Username</th>
+                <th>Balance</th>
+                <th>Joined</th>
+            </tr>
+
+            <script>
+
+                (async () => {
+                    /**
+                     * @type {{username:string, balance:number, created_at:string}[]}
+                     */
+                    let top_players = await querySQL("SELECT username,balance,created_at FROM users ORDER BY balance DESC LIMIT 10");
+
+                    let i = 1;
+
+                    for(let player of top_players) {
+
+                        let tr = document.createElement("tr");
+
+                        if(i === 1) tr.setAttribute("id", "hof_1stPlace");
+                        else if(i === 2) tr.setAttribute("id", "hof_2ndPlace");
+                        else if(i === 3) tr.setAttribute("id", "hof_3rdPlace");
+                        else tr.setAttribute("class", "lowerRanked");
+
+                        let td1 = document.createElement("td");
+                        let td2 = document.createElement("td");
+                        let td3 = document.createElement("td");
+                        let td4 = document.createElement("td");
+
+                        td1.innerText = i + ".";
+                        td2.innerText = player.username;
+                        td3.innerText = player.balance;
+                        td4.innerText = (new Date(player.created_at.replace(/-/g, "/"))).toDateString();
+
+                        td2.setAttribute("id", "hof_rank" + i + "-username");
+                        td3.setAttribute("id", "hof_rank" + i + "-balance");
+                        td4.setAttribute("id", "hof_rank" + i + "-date");
+
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+                        tr.appendChild(td3);
+                        tr.appendChild(td4);
+
+                        document.getElementById("hof_table").appendChild(tr);
+
+                        i++;
+                    }
+
+                }).call();
+            </script>
+        </table>
     </div>
+
     <span><br><br><br><br><br><br><br><br></span>
 
 

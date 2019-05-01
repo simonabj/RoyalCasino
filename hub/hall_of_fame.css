@@ -1,0 +1,52 @@
+
+#hof_container {
+
+    color: white;
+    background-color: var(--backgroundSecondary);
+    text-align: center;
+}
+
+
+#hof_title {
+    font-variant: small-caps;
+    font-size: 48pt;
+}
+
+tr[id^="hof_"] > td:not([id^="hof_"]) , tr.hof_lowerRanked > td:first-child {
+    text-align: right;
+}
+
+tr[id^="hof_"] > td:nth-child(4) {
+    font-size: 12pt;
+}
+
+#hof_table {
+    width: 80vw;
+}
+
+#hof_headerRow {
+}
+
+
+#hof_1stPlace {
+    font-size: 24pt;
+    background-color: gold;
+    font-weight: bold;
+    font-variant: jis90;
+}
+
+#hof_2ndPlace {
+    font-size: 16pt;
+    background-color: silver;
+    font-weight: bold;
+}
+
+#hof_3rdPlace {
+    font-size: 12pt;
+    background-color: saddlebrown;
+    font-weight: bold;
+}
+
+.hof_lowerRanked {
+    font-size: 12pt;
+}

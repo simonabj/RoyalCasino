@@ -17,8 +17,6 @@ $(function () {
     let footerToggled = false;
     (doesFooterHide === true) ? footer.style.opacity = 0 : footer.style.opacity = 1;
 
-    let textBox1 = document.getElementById("framedTextBox");
-
 
 
 // SCROLLING
@@ -98,9 +96,6 @@ $(function () {
             footerToggled = false;
         }
 
-        //TEXT BOX
-        /** If textBox1 reached, remove the class "leanUpPermaMild", else, add class "leanUpPermaMild". */
-        (distanceY > textBox1.getBoundingClientRect().top + 1000/*textBox1.getBoundingClientRect().height*/) ? textBox1.classList.remove("leanUpPermaMild") : textBox1.classList.add("leanUpPermaMild");
     };
 
 

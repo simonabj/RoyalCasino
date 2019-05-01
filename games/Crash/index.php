@@ -141,7 +141,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
                 if (stopp == false) { /*Hvis stopp er satt til ja på grunn av pullOut() stopper den å kjøre*/
                     var tid=400 - (2^n);
-                    console.log(tid);
                     setTimeout(rullNummer, Number(tid)); /*Gjenta prosessen, øk tallet raskere og raskere*/
                     n++;
                 }

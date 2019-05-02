@@ -87,8 +87,8 @@ $(function () {
             } else {
                 rotateVel *= 0.99;
                 rotateVel_wheel *= 0.98;
-            
             }
+
             // LOWERING THE HEIGHT OF THE BALL
             if (ballHeight > 355) {
                 ballHeight = ballHeight * 0.988;
@@ -98,9 +98,9 @@ $(function () {
             }
             
         } else {
+            // RETURNING VALUES TO MAX SMOOTHLY (Makes the rotation and ball return to correct velocity and height smoothly).
             if (rotateVel < rotateVelMax) rotateVel += 0.4;
             if (rotateVel_wheel < rotateVelMax_wheel) rotateVel_wheel += 0.1;
-            // RETURNING VALUES TO MAX SMOOTHLY (Makes the rotation and ball return to correct velocity and height smoothly).
             if(ballHeight < ballHeightMax) ballHeight += 10
         }
         
@@ -118,16 +118,50 @@ $(function () {
     numberInput.addEventListener("animationend", function () { betInput.classList.remove("jello-horizontal"); });
 
     function spin() {
-        console.log("");
-        if (!spinning && betInput.value !== "" && numberInput.value !== "") {
+        // ****************************
+        // * IF NOT CURRENTLY SPINNIG *
+        // ****************************
+        if (!spinning) {
 
+            console.log("");
             winningAlert.style.display = "none";
-            // If the user has betted on more than 17 numbers, prevents spinning.
-
             numberInput.classList.remove("jello-horizontal");
             betInput.classList.remove("jello-horizontal");
             bettingAlert[0].classList.remove("shake-horizontal");
 
+
+            // ********************************
+            // * CHECKS IF INPUTS ARE CORRECT *
+            // ********************************
+
+            // IF INPUTS ARE NOT GIVEN *
+            if (betInput.value === "" || numberInput.value === "") {
+
+                winningAlert.style.display = "none";
+                numberInput.classList.remove("jello-horizontal");
+                betInput.classList.remove("jello-horizontal");
+
+                setTimeout(function () {
+                    if (numberInput.value === "" && betInput.value === "") {
+                        // IF NOTHING IS BET ON NOTHING
+                        bettingAlert[0].querySelector("h3").innerHTML = "You can't bet nothing on nothing.";
+                        numberInput.classList.add("jello-horizontal");
+                        betInput.classList.add("jello-horizontal");
+                    } else if (numberInput.value === "") {
+                        // IF NOTHING IS BET ON
+                        bettingAlert[0].querySelector("h3").innerHTML = "You need to bet on something.";
+                        numberInput.classList.add("jello-horizontal");
+                    } else if (betInput.value === "") {
+                        // IF NOTHING IS BET
+                        bettingAlert[0].querySelector("h3").innerHTML = "You need to bet something.";
+                        betInput.classList.add("jello-horizontal");
+                    }
+                    bettingAlert[0].classList.add("shake-horizontal");
+                    bettingAlert[0].style.display = "block";
+                }, 100);
+            }
+
+            // IF USER HAS BET ON MORE THAN 17 NUMBERs
             if ($("#whatNumbers")[0].value.split(',').map(Number).length > 17) {
                 setTimeout(function () {
                     numberInput.classList.add("jello-horizontal");
@@ -137,6 +171,7 @@ $(function () {
                 }, 50);
                 return false;
             }
+            // IF USER HAS BET A VALUE LOWER THAN 1
             if (Number(betInput.value) < 1) {
                 setTimeout(function () {
                     betInput.classList.add("jello-horizontal");
@@ -146,26 +181,36 @@ $(function () {
                 }, 50);
                 return false;
             }
-            
+            // IF USER HAS BET MORE THAN HIS CURRENT BALANC
+            if(affectUser) if(Number(betInput.value) > getUser().tokenManager.getCount()){
+                setTimeout(function () {
+                    betInput.classList.add("jello-horizontal");
+                    bettingAlert[0].classList.add("shake-horizontal");
+                    bettingAlert[0].querySelector("h3").innerHTML = "That bet is higher than your current balance.";
+                    bettingAlert.show();
+                }, 50);
+                return false;
+            }
 
-            // CHECKING IF AN INVALID NUMBER IS INPUT
+
+            let betNumbs = getNumbersBettedOn();
             /**
              * method isThereAWrongNumber checks if all the numbers that the user has placed a bet on exist on the wheel, and returns the number which conforms with said requirements if so.
              * @returns {number} - The number that doesn't exist on the wheel. Undefined if all numbers exist on the wheel.
              */
+            // IF USER HAS BET ON A NUMBER NOT ON THE WHEEL
             let isThereAWrongNumber = function () {
-                let bettedNumbers = $("#whatNumbers")[0].value.split(',').map(Number);
-                for (let i = 0; i < bettedNumbers.length; i++) {
+                //let bettedNumbers = $("#whatNumbers")[0].value.split(',').map(Number);
+                for (let i = 0; i < betNumbs.length; i++) {
                     let tempVar = false;
                     for (let j = 0; j < realValues.length; j++)
-                        if (realValues[j][2] === bettedNumbers[i]) {
+                        if (realValues[j][2] === betNumbs[i]) {
                             tempVar = true;
                             break;
                         }
-                    if (tempVar === false) return bettedNumbers[i];
+                    if (tempVar === false) return betNumbs[i];
                 }
-            };
-            if (isThereAWrongNumber()) {
+            }; if (isThereAWrongNumber()) {
                 setTimeout(function () {
                     numberInput.classList.add("jello-horizontal");
                     bettingAlert[0].classList.add("shake-horizontal");
@@ -175,7 +220,6 @@ $(function () {
                 return false;
             }
             // CHECKING I THE USER HAS BET ON BOTH COLORS, OR A COLOR AND A NUMBER.
-            let betNumbs = getNumbersBettedOn();
             if(betNumbs.includes("red") || betNumbs.includes("black")){
                 console.log(betNumbs);
                 if((betNumbs.includes("red") && betNumbs.includes("black")) || (betNumbs.includes("black") && betNumbs.includes("red"))){
@@ -200,6 +244,10 @@ $(function () {
 
 
 
+
+            // ********************************
+            // *        SPINS THE WHEEL       *
+            // ********************************
 
             spinning = true;
             stop = false;
@@ -237,31 +285,6 @@ $(function () {
             //enable to cap the framerate to 60fps: 
             _gameloop = setInterval(function(){gameloop()}, 1000/60); // alternative option - 30fps
 
-        } else if (betInput.value === "" || numberInput.value === "") {
-
-            winningAlert.style.display = "none";
-            numberInput.classList.remove("jello-horizontal");
-            betInput.classList.remove("jello-horizontal");
-
-            setTimeout(function () {
-                if (numberInput.value === "" && betInput.value === "") {
-                    // IF NOTHING IS BET ON NOTHING
-                    bettingAlert[0].querySelector("h3").innerHTML = "You can't bet nothing on nothing.";
-                    numberInput.classList.add("jello-horizontal");
-                    betInput.classList.add("jello-horizontal");
-                } else if (numberInput.value === "") {
-                    // IF NOTHING IS BET ON
-                    bettingAlert[0].querySelector("h3").innerHTML = "You need to bet on something.";
-                    numberInput.classList.add("jello-horizontal");
-                } else if (betInput.value === "") {
-                    // IF NOTHING IS BET
-                    bettingAlert[0].querySelector("h3").innerHTML = "You need to bet something.";
-                    betInput.classList.add("jello-horizontal");
-                }
-                bettingAlert[0].classList.add("shake-horizontal");
-                bettingAlert[0].style.display = "block";
-            }, 100);
-        }
     }
 
 
@@ -282,6 +305,14 @@ $(function () {
 
     //winningAlert.addEventListener("animationend", function () { winningAlert.classList.remove("slide-in-elliptic-top-fwd"); winningAlert.classList.remove("bounce-in-top"); });
 
+
+
+
+        /**
+         * @function
+         * @desc Returns the numbers the user has bet on.
+         * @returns {number[]} - The numbers
+         */
     let numbersBettedOn;
     function getNumbersBettedOn(){
         // REGISTERING THE NUMBERS THE USER HAS BET ON
@@ -347,22 +378,7 @@ $(function () {
             betInput.classList.add("flip-scale-up-hor");
             betInput.value = "";
 
-            winningAlert.classList.remove("bounce-in-top");
-            winningAlert.querySelector("h1").innerHTML = "YOU WON " + wonAmount + " TOKENS!";
-            winningAlert.style.display = "block";
-            winningAlert.style.backgroundColor = "rgba(71, 15, 121, 0.95)";
 
-            //sliding in
-            winningAlert.classList.add("slide-in-elliptic-top-fwd");
-            //sliding out
-            setTimeout(function () {
-                winningAlert.classList.remove("slide-in-elliptic-top-fwd");
-                winningAlert.classList.add("slide-out-elliptic-bottom-bck");
-                setTimeout(function () {
-                    winningAlert.style.display = "none";
-                    winningAlert.classList.remove("slide-out-elliptic-bottom-bck");
-                }, 700)
-            }, 3500);
 
             // __ ADDING THE WON TOKENS TO THE USERS BALANCE __
             if (affectUser) {
@@ -437,9 +453,6 @@ $(function () {
     function isOdd(n) {
         return Math.abs(n % 2) == 1;
     }
-
-    // todo - when betting on red or green, the value 0, and the values (realValues.length-1) && (realValues.length-2) should not be included.
-    // console.log(realValues[realValues.length-1]) to test if it's the right value, or if it should be -0 and -1
 
 
     // [startDeg, endDeg, realValue]

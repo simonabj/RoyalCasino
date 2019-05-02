@@ -12,25 +12,15 @@ $(function () {
             href: "../games/Roulette/index.php",
         },
         {
-            title: "monty Hall",
-            image: "https://media.boingboing.net/wp-content/uploads/2017/10/monty-hall.jpg",
-            href: "../games/montyHall/index.php",
-        },
-        {
             title: "Crash",
             image: "https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F480661%2Frising_stock_chart.jpg&w=700&op=resize",
             href: "../games/Crash/index.php",
         },
         {
-            title: "S・N・A・K・E",
-            image: "https://i.ytimg.com/vi/f0chIP_5RdQ/maxresdefault.jpg",
-            href: "../games/Snake/index.php",
-        },
-        {
             title: "Royale Adventures",
             image: "https://bonusstagemagazine.files.wordpress.com/2015/09/anime-mario-portada2.png",
             //image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",
-            href: "http://nogginclontith.co.uk/index.htm",
+            href: "../games/RPG tilemap/index.html",
         },
         {
             title: "Coinflip",

@@ -31,14 +31,14 @@ window.addEventListener("load", function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="if(rmh_affectUser){saveUser(user); updateSQL();}; window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="if(rmh_affectUser){ saveUser(user); updateSQL(); }; window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
         '                <div class="container row">\n' +
         '                    <img src="https://i.imgur.com/KIEjXV8.png" alt="token" class="rmh_token">\n' +
         '                    <p id="rmh_tokenCount"> x nothing</p>\n' +
-        '                    ' +
+        '                    <script> setTimeout(function(){document.getElementById("rmh_tokenCount").innerHTML = "x " + user.tokenManager.getCount();}, 500);</script>\n' +
         '                </div>\n' +
         '                <button class="retroButton" onclick="">get more</button>\n' +
         '            </div>\n' +
@@ -177,5 +177,5 @@ function rmh_openAfter(seconds) {
 }
 
 function rmh_update() {
-    document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();
+    document.getElementById("rmh_tokenCount").innerHTML = "x " + user.tokenManager.getCount();
 }

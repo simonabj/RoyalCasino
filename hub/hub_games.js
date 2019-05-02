@@ -17,11 +17,6 @@ $(function () {
             href: "../games/Crash/index.php",
         },
         {
-            title: "S・N・A・K・E",
-            image: "https://i.ytimg.com/vi/f0chIP_5RdQ/maxresdefault.jpg",
-            href: "../games/Snake/index.php",
-        },
-        {
             title: "Royale Adventures",
             image: "https://bonusstagemagazine.files.wordpress.com/2015/09/anime-mario-portada2.png",
             //image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",

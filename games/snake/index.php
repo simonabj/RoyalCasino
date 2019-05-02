@@ -13,12 +13,12 @@
 <body>
 
 <div id="">
-<div id="canvas">
-<canvas id="gc" width="400" height="400"></canvas>
+    <div id="canvas">
+        <canvas id="gc" width="400" height="400"></canvas>
     </div>
-<div id="count"> <img src="../../resources/redChip.png" id="chip"/>
-    <p id="counter">X  0</p>
-</div>
+    <div id="count"> <img src="../../resources/redChip.png" id="chip"/>
+        <p id="counter">X  0</p>
+    </div>
 </div>
 <script>
     init_royale();

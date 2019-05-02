@@ -11,6 +11,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <title>Casino Royale | Crash</title>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script><!-- Hente chart koden -->
     <script src="/0JS/RoyaleSubsystem.js"></script> <!-- Subsystem -->
+
+    <link href="../../0CSS/universal.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
+
+    <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
+    <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 </head>
 <body>
 
@@ -34,8 +39,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
       startEl.addEventListener("click", startCrash);
 
-      var betVerdi;
-      var sluttVerdi;
+      var betVerdi; /*Definere variablen til verdien av hva du vedder*/
+      var sluttVerdi; /*Definere variablen sluttverdi så man kan bruke den i resten av oppgaven.*/
       var n=1.00; /*Verdien av ganger nåtid.*/
       var running=false; /*Variabel som sier noe om funksjonen skal fortsette å kjøre.*/
       var dataArray = [1]; /*Definere arrayen av verdiene i charten.*/
@@ -82,8 +87,34 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
             document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
+            rmh_updateTokenCount(); /*Oppdater antall tokens i toppmeny*/
 
             dataArray.push(0);
+
+              /*Oppdater charten med at den crasher*/
+              var dps = [];   //dataPoints.
+              var chart = new CanvasJS.Chart("chartContainer", {
+                  title: {
+                      text: "Crash"
+                  },
+                  axisX: {
+                      title: ""
+                  },
+                  axisY: {
+                      title: "X times bet"
+                  },
+                  data: [{
+                      type: "line",
+                      dataPoints: dps
+                  }]
+              });
+              function parseDataPoints() {
+                  for (var i = 0; i <= dataArray.length; i++)
+                      dps.push({y: dataArray[i]});
+              };
+              parseDataPoints();
+              chart.options.data[0].dataPoints = dps;
+              chart.render();
           } else {
             n = n+0.01; /*Plusse på 0.01 til verdien av ganger utfallet.*/
             gangerEl.innerHTML=n.toFixed(2); /*Endre tallet på toppen som viser n i nåtid*/
@@ -134,6 +165,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         utfallEl.innerHTML="You managed to get out in time, you placed a bet on "+betVerdi+" tokens and earned "+Number(betVerdi*n-betVerdi).toFixed(2)+" Tokens. Your bet was multiplied by "+n.toFixed(2)+".";
 
         running=false; /*Skru av kjøringen av videre tabellagning.*/
+        rmh_updateTokenCount(); /*Oppdater antall tokens i toppmeny*/
       }
 
       /*Kjøring av funksjon for tabell on load*/

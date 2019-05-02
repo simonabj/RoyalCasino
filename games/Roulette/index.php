@@ -75,8 +75,8 @@
 
 </div> <!-- end of document wrapper -->
 <script>
-    affectUser = false;
-    rmh_affectUser = false;
+    //affectUser = false;
+    //rmh_affectUser = false;
     $(function () {
         if (affectUser) init_royale();
         rmh_openAfter(3);

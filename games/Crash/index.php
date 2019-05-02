@@ -34,8 +34,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
       startEl.addEventListener("click", startCrash);
 
-      var betVerdi;
-      var sluttVerdi;
+      var betVerdi; /*Definere variablen til verdien av hva du vedder*/
+      var sluttVerdi; /*Definere variablen sluttverdi så man kan bruke den i resten av oppgaven.*/
       var n=1.00; /*Verdien av ganger nåtid.*/
       var running=false; /*Variabel som sier noe om funksjonen skal fortsette å kjøre.*/
       var dataArray = [1]; /*Definere arrayen av verdiene i charten.*/

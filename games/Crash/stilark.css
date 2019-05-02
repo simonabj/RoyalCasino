@@ -18,3 +18,8 @@ button {
 #bet {
     font-size: 25px;
 }
+
+#tokenCount {
+    font-size: 25px;
+    color: white;
+}

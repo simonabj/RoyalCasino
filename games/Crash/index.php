@@ -11,6 +11,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <title>Casino Royale | Crash</title>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script><!-- Hente chart koden -->
     <script src="/0JS/RoyaleSubsystem.js"></script> <!-- Subsystem -->
+
+    <link href="../../0CSS/universal.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
+
+    <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
+    <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 </head>
 <body>
 
@@ -82,6 +87,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
             document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
+            rmh_updateTokenCount(); /*Oppdater antall tokens i toppmeny*/
 
             dataArray.push(0);
 
@@ -159,6 +165,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         utfallEl.innerHTML="You managed to get out in time, you placed a bet on "+betVerdi+" tokens and earned "+Number(betVerdi*n-betVerdi).toFixed(2)+" Tokens. Your bet was multiplied by "+n.toFixed(2)+".";
 
         running=false; /*Skru av kjøringen av videre tabellagning.*/
+        rmh_updateTokenCount(); /*Oppdater antall tokens i toppmeny*/
       }
 
       /*Kjøring av funksjon for tabell on load*/

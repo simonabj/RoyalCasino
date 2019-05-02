@@ -10,14 +10,19 @@ require_once "0PHP/config.php"; /*Koble seg til config*/
 	<title> Casino Royale </title>
     <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/interface-part-1/32/html-code-512.png">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="0JS/RoyaleSubsystem.js"></script>
+
 </head>
 <body>
+
+<h1 style="cursor:pointer;" onclick="window.location.replace('0PHP/logout.php');">  If you can see me, something's wrong. Click me to fix it. </h1>
+
 <script>
+
     init_royale();
-    window.location.replace("/0PHP/login.php");
+
+    window.onload= function(){ window.location.replace("0PHP/login.php"); };
+
 </script>
 </body>
 </html>

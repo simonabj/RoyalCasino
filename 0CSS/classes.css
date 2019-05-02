@@ -717,15 +717,15 @@ div a { color : var(--secondaryVariant); }
     background-color    : white;
     transition-duration : 0.1s;
     box-shadow          : 0 5px 0 black;
-    transform           : translate(0, -4px);
+    transform           : translate(0, -5px);
     }
 
 .retroButton:hover {
-    transform : translate(0, -4px);
+    transform : translate(0, -5px);
     }
 
 .retroButton:active {
-    transform           : translate(0, 3px);
+    transform           : translate(0, 0/*3px*/);
     box-shadow          : none;
     transition-duration : 0.05s;
     }

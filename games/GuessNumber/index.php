@@ -23,13 +23,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <div id="documentWrapper">
     <div id="container">
+        <h1 style="text-align: center;">Guess the number!</h1>
         <!-- Informasjon om spillets kjerne -->
         <p>Guess a number between 1 and 99. If you get the correct number you get 75x your bet.</p>
         <!-- Input for valgt tall, med minimum 1 og maximum 99 -->
-        <input type="number" id="valgtTall" placeholder="Guess Number" max="99" min="1"><br />
+        <input type="number" id="valgtTall" placeholder="Guess Number" max="99" min="1">
 
         <!-- Valg av tokens man vil vedde -->
-        <input type="number" id="bet" placeholder="Bet(Tokens)"><br />
+        <input type="number" id="bet" placeholder="Bet(Tokens)">
 
         <!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
         <button onclick="kjorBet()">Guess!</button>
@@ -41,7 +42,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
         <!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
         <p id="hendelse"></p>
-        <p>Balanse: <span id="tokenCount"></span> tokens</p>
     </div>
 </div>
 
@@ -57,7 +57,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     var vinnertall; /*Definere variablen vinnertall*/
 
     init_royale();
-    document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Vis balansen din av tokens på siden*/
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {
@@ -77,8 +76,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
-            document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
-            rmh_updateTokenCount(); /*Oppdater antall tokens i toppmeny*/
+            rmh_update(); /*Oppdater antall tokens i toppmeny*/
         } else {
             hendelseEl.innerHTML="The number must be between 1 and 99. You also need to have enough tokens.";
         }

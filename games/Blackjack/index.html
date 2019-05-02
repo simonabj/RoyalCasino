@@ -78,7 +78,62 @@
             <button onclick="returnToHub();">Return to Hub</button>
         </div>
         <div class="menu-item" id="menu-rules">
-            <p>Blackjack Rules:</p>
+            <h2>Blackjack Rules:</h2>
+
+            <p><b>Welcome</b> to the game of <em>Blackjack</em>! In this game, you
+                compete against the dealer. The goal is to come as close to (or equal)
+                a hand with a score of 21, without going over.
+            </p>
+
+            <h4>Starting the game</h4>
+
+
+            <p>At the start of the game, you place a bet, and are then dealt 2 cards.
+                the dealer then receives to cards, and one of them will be revealed to you.
+                There are then a few choices you can do. These are described bellow.
+            </p>
+
+            <p>Each numbered card has the same value as the number indicates and all
+                picture cards has the value 10. Ace has a value of 1 or 11, whichever
+                value is best for your hand.
+            </p>
+
+            <h4>Choices</h4>
+            <p>During the game, there are a few choices you can make. These are</p>
+            <ul>
+                <li><b>Hit</b> - When you hit, you receive another card. Be careful not to bust.</li>
+                <li><b>Stand</b> - When you stand, you end your turn and pass it to the dealer</li>
+                <li><b>Double Down</b> - You can also double down during your first round. This
+                will double your bet and deal you only one card, then end your turn.</li>
+            </ul>
+
+            <h4>Dealer's round</h4>
+
+            <p>During the dealer's round, the dealer will reveal his cards. The dealer will hit
+            if they have a hand of value 16 or less, or 17 with an Ace (Soft 17). This is known as
+            "Dealer hit on H17". When the dealer dealer has a hand of value 17 or greater, the
+            dealer will stand. If the dealer has a higher score than 21, the dealer bust. When
+            the dealer stand, the round ends.</p>
+
+            <h4>Winning the game</h4>
+            <p>You win the game if you are closer to 21 than the dealer. If your hand
+            has a value greater than 21, you bust, meaning you lose instantly and
+            your bet is lost. If you have the same value as the dealer, the round is a push.
+            On a push, you are returned your bet, and the game ends in a draw.<br>
+                - If you are closer to 21 than the dealer, you win an amount equal to your bet. <br>
+                - If the dealer bust, you also win. <br>
+                - If you win with an ace and a value 10 card, you have blackjack and win 3:2.
+                Giving you a reward of 150% of your initial bet. <br>
+                - If both you and the dealer have blackjack, then the round is a push. <br>
+            </p>
+
+            <h4>End note</h4>
+            <p>There is only 52 cards in play (1 complete deck). After every round, the cards
+            are retrieved, and the deck is shuffled. This is to counteract card-counting.</p>
+            <p>Now that you know the fundamentals of Blackjack, get in a game, and have fun!</p>
+
+            <p style="text-align: center"><em>Developed by Simon</em></p>
+
             <button onclick="closeRules();">← Back to menu</button>
         </div>
     </div>

@@ -84,6 +84,31 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
 
             dataArray.push(0);
+
+              /*Oppdater charten med at den crasher*/
+              var dps = [];   //dataPoints.
+              var chart = new CanvasJS.Chart("chartContainer", {
+                  title: {
+                      text: "Crash"
+                  },
+                  axisX: {
+                      title: ""
+                  },
+                  axisY: {
+                      title: "X times bet"
+                  },
+                  data: [{
+                      type: "line",
+                      dataPoints: dps
+                  }]
+              });
+              function parseDataPoints() {
+                  for (var i = 0; i <= dataArray.length; i++)
+                      dps.push({y: dataArray[i]});
+              };
+              parseDataPoints();
+              chart.options.data[0].dataPoints = dps;
+              chart.render();
           } else {
             n = n+0.01; /*Plusse på 0.01 til verdien av ganger utfallet.*/
             gangerEl.innerHTML=n.toFixed(2); /*Endre tallet på toppen som viser n i nåtid*/

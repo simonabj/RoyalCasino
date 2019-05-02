@@ -21,26 +21,28 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </head>
 <body>
 
-<div id="game">
-    <!-- Informasjon om spillets kjerne -->
-    <p>Guess a number between 1 and 99. If you get the correct number you get 75x your bet.</p>
-    <!-- Input for valgt tall, med minimum 1 og maximum 99 -->
-    <input type="number" id="valgtTall" placeholder="Guess Number" max="99" min="1"><br />
+<div id="documentWrapper">
+    <div id="container">
+        <!-- Informasjon om spillets kjerne -->
+        <p>Guess a number between 1 and 99. If you get the correct number you get 75x your bet.</p>
+        <!-- Input for valgt tall, med minimum 1 og maximum 99 -->
+        <input type="number" id="valgtTall" placeholder="Guess Number" max="99" min="1"><br />
 
-    <!-- Valg av tokens man vil vedde -->
-    <input type="number" id="bet" placeholder="Bet(Tokens)"><br />
+        <!-- Valg av tokens man vil vedde -->
+        <input type="number" id="bet" placeholder="Bet(Tokens)"><br />
 
-    <!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
-    <button onclick="kjorBet()">Guess!</button>
+        <!-- Knapp for kjøring av funksjonen som oppdaterer databasen og forteller deg om du vinner. -->
+        <button onclick="kjorBet()">Guess!</button>
 
-    <div id="utfall">
-        <h2 style="text-align:center;">The Number Is:</h2>
-        <p id="vinnerTall">X</p>
+        <div id="utfall">
+            <h2 style="text-align:center;">The Number Is:</h2>
+            <p id="vinnerTall">X</p>
+        </div>
+
+        <!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
+        <p id="hendelse"></p>
+        <p>Balanse: <span id="tokenCount"></span> tokens</p>
     </div>
-
-    <!-- Viser hendelsesforløpet, tap/vinn og balansen du har -->
-    <p id="hendelse"></p>
-    <p>Balanse: <span id="tokenCount"></span> tokens</p>
 </div>
 
 <script>

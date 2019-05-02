@@ -528,3 +528,6 @@ const userAvailable = () => {
 const init_royale = () => {
     updateSession()
 };
+
+// Generate user object
+if(!userAvailable()) init_royale();

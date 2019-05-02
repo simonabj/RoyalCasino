@@ -49,6 +49,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     document.getElementById("tokenCount").innerHTML=getUser().tokenManager.getCount(); /*Sett verdien av antall tokens*/
     init_royale();/*Definere user*/
+    
+    rmh_update(); /*Oppdater token visning i universel menu*/
 
     function startCrash() {
         /*Definere antall tokens på brukeren ved en variabel.*/

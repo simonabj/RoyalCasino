@@ -26,6 +26,7 @@ $datasett22 = mysqli_query($link, $sql3); /*Datasett*/
     <link href="stilark.css" rel="stylesheet" type="text/css"> <!-- Stilark -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> <!-- jQuery -->
     
+    <script src="/0JS/RoyaleSubsystem.js"></script> <!-- Subsystemet -->
     <link href="../../0CSS/universal.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
     <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
     <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->

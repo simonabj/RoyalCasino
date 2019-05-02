@@ -375,6 +375,8 @@ async function start() {
         saveUser(user);
         updateSQL();
 
+        rmh_update();
+
         cm.retrieveCards();
     } while(await getPlayAgain());
 
@@ -417,7 +419,7 @@ async function playRound() {
 
 
     // User choice
-    choice = await getUserChoice(true);
+    choice = await getUserChoice(bet <= user.tokenManager.getCount());
 
     //
     // Check for Double Down
@@ -472,14 +474,18 @@ async function playRound() {
     g("cardContainer").insertBefore(card, g("cardContainer").children[0].nextSibling);
 
 
-    // Blackjack
-    if(score === 21 && cm.playerDeck.length === 2) {
-        return "BLACKJACK";
-    }
-
     // Amount of aces dealer has
     let dealerAces = hasCard(cm.dealerDeck, "A");
     let dealerScore = calcScore(cm.dealerDeck);
+
+
+    // Blackjack
+    if(score === 21 && cm.playerDeck.length === 2) {
+
+        if (dealerScore === 21 && cm.dealerDeck.length === 2)
+            return "PUSH";
+        return "BLACKJACK";
+    }
 
     // Dealer hit on Soft 17
     let dealerHit = (dealerScore <= 16 || (dealerScore <= 17 && dealerScore > 0));

@@ -21,15 +21,19 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </head>
 <body>
 
-  <p style="text-align:center;font-size:40px;"><span id="ganger">1.00</span>x</p> <!-- Det som viser verdien til ganger tallet -->
-  <div id="chartContainer" style="height: 360px; width: 100%;"></div> <!-- Viser Charten av økingen -->
+<div id="documentWrapper">
+    <div id="container">
+      <p style="text-align:center;font-size:40px;"><span id="ganger">1.00</span>x</p> <!-- Det som viser verdien til ganger tallet -->
+      <div id="chartContainer" style="height: 360px; width: 100%;"></div> <!-- Viser Charten av økingen -->
 
-  <button id="button">Start</button> <!-- Knapp for å starte bettet -->
-  <button id="button2">Widraw</button> <!-- Knapp for å gi seg med profitt -->
+      <button id="button">Start</button> <!-- Knapp for å starte bettet -->
+      <button id="button2">Widraw</button> <!-- Knapp for å gi seg med profitt -->
 
-  <input type="number" id="bet" placeholder="Hvor mye vedder du?" /> <!-- Input for hvor mye penger du vedder -->
-  <p id="utfall"></p>
-  <p>Balanse: <span id="tokenCount"></span></p>
+      <input type="number" id="bet" placeholder="Hvor mye vedder du?" /> <!-- Input for hvor mye penger du vedder -->
+      <p id="utfall"></p>
+      <p>Balanse: <span id="tokenCount"></span></p>
+    </div>
+</div>
 
   <script>
       /*Lage variabler for å kunne bruke dem senere i spillet*/

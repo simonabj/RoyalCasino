@@ -6,6 +6,9 @@ input {
     color: white;
     font-size: 20px;
 }
+div{
+    display: flex;
+}
 
 #documentWrapper {
     flex-direction: column;
@@ -19,11 +22,12 @@ input {
 #utfall {
     background-color: #C53426;
     border: #F8A917 2px solid;
-    width: 400px;
+    width: 300px;
     border-radius: 50px;
     text-align: center;
     display: flex;
     flex-direction: column;
+    margin-top: 25px;
 }
 #container {
     flex-direction: column;
@@ -35,7 +39,6 @@ input {
     border-radius: 50px;
     padding: 30px;
     width: 750px;
-    margin-top: 50px;
 }
 #bet, #valgtTall {
     width: 300px;

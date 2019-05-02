@@ -71,7 +71,7 @@
             user.tokenManager.addTokenAmount(1); /*Fjern tokens hvis tap*/
             saveUser(user); /*Oppdatere til session storage*/
             updateSQL(); /*Oppdater database*/
-            rmh_updateTokenCount();
+            rmh_update();
 
             ax=Math.floor(Math.random()*tc);
             ay=Math.floor(Math.random()*tc);

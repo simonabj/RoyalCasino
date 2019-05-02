@@ -93,7 +93,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/
                 document.getElementById("tokenCount").innerHTML = user.tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
-                rmh_updateTokenCount(); /*Oppdater antall tokens i toppmeny*/
+                rmh_update(); /*Oppdater antall tokens i toppmeny*/
 
                 dataArray.push(0);
 
@@ -171,7 +171,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         utfallEl.innerHTML="You managed to get out in time, you placed a bet on "+betVerdi+" tokens and earned "+Number(betVerdi*n-betVerdi).toFixed(2)+" Tokens. Your bet was multiplied by "+n.toFixed(2)+".";
 
         running=false; /*Skru av kjøringen av videre tabellagning.*/
-        rmh_updateTokenCount(); /*Oppdater antall tokens i toppmeny*/
+        rmh_update(); /*Oppdater antall tokens i toppmeny*/
     }
 
     /*Kjøring av funksjon for tabell on load*/

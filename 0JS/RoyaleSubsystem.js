@@ -255,8 +255,8 @@ class TokenManager {
      */
     addTokenAmount(amount) {
         checkNumber(amount, 0, undefined, "Amount must be greater than 0");
-        this.tokenBalance += amount;
-        this.tokensGained += amount;
+        this.tokenBalance += Math.floor(amount);
+        this.tokensGained += Math.floor(amount);
     }
 
     /**
@@ -268,8 +268,8 @@ class TokenManager {
      */
     subTokenAmount(amount) {
         checkNumber(amount, 1, this.tokenBalance, "Amount must be greater than 0", "Amount must be less than tokenBalance");
-        this.tokenBalance -= amount;
-        this.tokensLost += amount;
+        this.tokenBalance -= Math.floor(amount);
+        this.tokensLost += Math.floor(amount);
     }
 
     /**
@@ -281,13 +281,13 @@ class TokenManager {
      */
     setTokenAmount(amount) {
         checkNumber(amount, 0, undefined);
-        this.tokenBalance = amount;
+        this.tokenBalance = Math.floor(amount);
     }
 
     bet(amount) {
         checkNumber(amount, 1, this.tokenBalance, "Cannot bet 0 tokens", "Bet cannot be greater than balance");
-        this.tokenBalance -= amount;
-        this.pendingBet += amount;
+        this.tokenBalance -= Math.floor(amount);
+        this.pendingBet += Math.floor(amount);
     }
 
     /**
@@ -528,6 +528,3 @@ const userAvailable = () => {
 const init_royale = () => {
     updateSession()
 };
-
-// Generate user object
-if(!userAvailable()) init_royale();

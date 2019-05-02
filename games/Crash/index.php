@@ -16,6 +16,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
     <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
+
+    <link href="stilark.css" rel="stylesheet"> <!-- Stilark for siden -->
 </head>
 <body>
 

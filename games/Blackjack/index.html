@@ -76,20 +76,12 @@
             <button onclick="mainMenuModal.close(); start();">Start Blackjack</button>
             <button onclick="openRules();">Show Rules</button>
             <button onclick="returnToHub();">Return to Hub</button>
-            <button onclick="mainMenuModal.close();">Exit Menu</button>
         </div>
         <div class="menu-item" id="menu-rules">
             <p>Blackjack Rules:</p>
             <button onclick="closeRules();">← Back to menu</button>
         </div>
     </div>
-</div>
-
-<div id="userChoices">
-
-    <button id="hitBtn"   onclick="userChoice='hit'">Hit</button>
-    <button id="standBtn" onclick="userChoice='stand'">Stand</button>
-
 </div>
 
 <div id="gameResultDisplay">
@@ -103,12 +95,24 @@
     </div>
 </div>
 
+
 <img src="logo.png" alt="blackjack logo" id="logo" width="500">
 
 <div id="play-area">
     <div id="leftGUI">
         <br>
         <img src="/games/Blackjack/img/BACK.png" alt="back of cards" width="170">
+
+        <div class="controls" style="display: flex;">
+            <h3>Current Profit</h3>
+            <br>
+            <p><em>Tokens: </em><span id="tokenProfit">0</span></p>
+        </div>
+
+        <div class="controls" id="betAmountDisplay">
+            <h3>Pending Bet</h3>
+            <p><em>Tokens: <span id="betAmount">###</span></em></p>
+        </div>
 
         <div class="controls" id="betMenu">
 
@@ -127,6 +131,16 @@
             <div>
                 <button onclick="playAgain = true;">Yes</button>
                 <button onclick="playAgain = false;">No</button>
+            </div>
+        </div>
+
+        <div class="controls" id="hitStandDoubleMenu">
+            <h3>Action</h3>
+            <br>
+            <div id="userChoiceMenuButtons">
+                <button onclick="userChoice = 'hit';">Hit</button>
+                <button onclick="userChoice = 'stand';">Stand</button>
+                <button onclick="userChoice = 'double_down';" id="doubleDown">Double Down</button>
             </div>
         </div>
 

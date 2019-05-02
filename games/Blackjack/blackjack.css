@@ -26,7 +26,7 @@ body {
     border: none;
 }
 
-button {
+button:not(.retroButton) {
     width: 150px;
 }
 
@@ -48,6 +48,8 @@ img#logo {
 #menu {
     transition: all 500ms ease-out;
     width: 200px;
+
+    z-index: 100;
 
     border-radius: 14px;
     opacity: .9;
@@ -72,7 +74,6 @@ img#logo {
 
 #dealerArea {
     position: absolute;
-    border: solid red 2px;
 
     top: 10px;
     left: 20%;
@@ -81,31 +82,15 @@ img#logo {
     height: 260px;
 }
 
-#dealerArea:after {
-    content: "DEALER";
-    position: absolute;
-    top: 20px;
-    left: 50px;
-}
-
 
 #playerArea {
     position: absolute;
-
-    border: solid blue 2px;
 
     bottom: 20px;
     left: 20%;
 
     width: 60%;
     height: 260px;
-}
-
-#playerArea:after {
-    content: "PLAYER";
-    position: absolute;
-    top: 20px;
-    left: 50px;
 }
 
 .bj-card {
@@ -150,11 +135,11 @@ img#logo {
     position: absolute;
 
     color: #e0e0e0;
-    background-color: darkred;
+    background-color: rgba(139, 0, 0,.95);
 
     font-size: 24pt;
 
-    opacity: .7;
+    z-index: 50;
 
     top: calc(50% - 50px);
     left: calc(50% - 200px);
@@ -240,10 +225,12 @@ img#logo {
     width: 90%;
     flex-direction: row;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .controls > div > button {
-    width: 40%;
+    min-width: 40%;
+    width: initial;
 }
 
 #notificationBackdrop {
@@ -264,7 +251,7 @@ img#logo {
     border-radius: 25px;
 
     top: 45%;
-    left: calc(50% - 90px);
+    left: calc(50% - 120px);
 
     padding: 5px;
 

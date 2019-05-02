@@ -46,6 +46,8 @@ window.addEventListener("load", function () {
 
     document.body.appendChild(rmh);
 
+    rmh_update();
+
 
 
     /* structure:

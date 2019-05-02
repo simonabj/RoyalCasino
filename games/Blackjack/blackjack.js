@@ -118,16 +118,6 @@ function createCard(cardId,owner, reveal=false) {
     return img;
 }
 
-function showChoices() {
-    g("hitBtn").style.opacity = "1";
-    g("standBtn").style.opacity = "1";
-}
-
-function hideChoices() {
-    g("hitBtn").style.opacity = "0";
-    g("standBtn").style.opacity = "0"
-}
-
 function showResult(result) {
     g("gameResultDisplay").style.display = "block";
     g("gameResultText").innerText = result;
@@ -194,9 +184,21 @@ function getBetValue() {
     });
 }
 
+function showBetAmount(amount) {
+    g("betAmountDisplay").style.display = "flex";
+    g("betAmount").innerText = amount;
+}
+
+function hideBetAmount() {
+    g("betAmountDisplay").style.display = "none";
+}
+
 let playAgain = undefined;
 
 function getPlayAgain() {
+
+    playAgain = undefined;
+
     g("playAgainMenu").style.display = "flex";
     return new Promise( resolve => {
         let iter = setInterval( () => {
@@ -211,8 +213,22 @@ function getPlayAgain() {
 
 let userChoice = undefined;
 
-function choose() {
-    return new Promise(resolve => {
+function showUserChoices(doubleDown = false) {
+    g("hitStandDoubleMenu").style.display = "flex";
+    let divEl = g("userChoiceMenuButtons");
+    divEl.children[2].style.display = (doubleDown)? "inline":"none";
+}
+
+function hideUserChoices() {
+    g("hitStandDoubleMenu").style.display = "none";
+}
+
+async function getUserChoice(doubleDown = false) {
+    showUserChoices(doubleDown);
+
+    userChoice = undefined;
+
+    let result = await new Promise(resolve => {
         let id = setInterval(() => {
             if (userChoice !== undefined) {
                 clearInterval(id);
@@ -220,16 +236,8 @@ function choose() {
             }
         }, 200);
     });
-}
 
-async function getUserChoice() {
-    showChoices();
-
-    userChoice = undefined;
-
-    let result = await choose();
-
-    hideChoices();
+    hideUserChoices();
 
     return result;
 }
@@ -292,7 +300,7 @@ class CardManager {
         else if (deck === "dealer") { // Add the cards to player deck
             this.dealerDeck = this.dealerDeck.concat(cardsToDeal);
             for(let i = 0; i < cardsToDeal.length; i++) {
-                let card = createCard(cardsToDeal[i],"player", i===0);
+                let card = createCard(cardsToDeal[i],"dealer", i===0);
                 g("cardContainer").appendChild(card);
 
                 dealerCards.push(card);
@@ -326,6 +334,7 @@ async function start() {
 
     do {
         hideResult();
+        hideBetAmount();
         g("cardContainer").childNodes.remove();
         userCardIndex = 0;
         dealerCardIndex = 0;
@@ -358,6 +367,8 @@ async function start() {
 
         }
 
+        g("tokenProfit").innerText = profit;
+
         let text = result.toLowerCase();
         showResult(text.charAt(0).toUpperCase() + text.slice(1));
 
@@ -370,8 +381,14 @@ async function start() {
     setTimeout(() => {
 
         notify("Thank you for playing!",
-            "You " + ((profit >= 0)?"earned":"lost") + " a total of " + Math.abs(profit) + " tokens!", 1000);
+            "You " + ((profit >= 0)?"earned":"lost") + " a total of " + Math.abs(profit) + " tokens!", 2000);
         hideResult();
+
+        g("cardContainer").childNodes.remove();
+        userCardIndex = 0;
+        dealerCardIndex = 0;
+        dealerCards = [];
+
         mainMenuModal.open();
     }, 1000);
 }
@@ -388,17 +405,41 @@ async function playRound() {
 
     bet = await getBetValue();
 
+    showBetAmount(bet);
+
     user.tokenManager.bet(bet);
 
-    cm.deal(2, "player");
-
     cm.deal(2, "dealer");
+
+    cm.deal(2, "player");
 
     score = calcScore(cm.playerDeck);
 
 
     // User choice
-    choice = await getUserChoice();
+    choice = await getUserChoice(true);
+
+    //
+    // Check for Double Down
+    //
+
+    if(choice === "double_down") {
+
+        // Double pending bet
+        user.tokenManager.bet(bet);
+
+        bet *= 2;
+        showBetAmount(bet);
+
+        // deal one card
+        cm.deal(1, "player");
+
+        score = calcScore(cm.playerDeck);
+
+        if(score > 21) {
+            return "BUST";
+        }
+    }
 
 
     // Hit loop
@@ -428,15 +469,13 @@ async function playRound() {
     let box = g("dealerArea").getBoundingClientRect();
     card.style.top = box.top + 5 + "px";
     card.style.left = box.left + ((dealerCardIndex-1) * (cardWidth + 5)) + 2 + "px";
-    g("cardContainer").appendChild(card);
+    g("cardContainer").insertBefore(card, g("cardContainer").children[0].nextSibling);
 
 
     // Blackjack
     if(score === 21 && cm.playerDeck.length === 2) {
         return "BLACKJACK";
     }
-
-    let dealerBust = false;
 
     // Amount of aces dealer has
     let dealerAces = hasCard(cm.dealerDeck, "A");
@@ -447,26 +486,29 @@ async function playRound() {
 
     while(dealerHit) {
 
-
-        // Wait for 1 second
-        await new Promise(resolve => {setTimeout(()=>resolve(1), 1000)});
+        await new Promise( resolve => setTimeout(() => resolve(1), 1000));
 
         // Deal a card
         cm.deal(1, "dealer");
 
         // Calculate score and aces
         dealerScore = calcScore(cm.dealerDeck);
+        console.log("Score: " + dealerScore);
         dealerAces = hasCard(cm.dealerDeck, "A");
 
         // Check if dealer bust
         if(dealerScore > 21) {
-            dealerBust = true;
-            return "DEALER BUST";
+            // Wait for 1 second
+            await new Promise(resolve => {setTimeout(()=>resolve(1), 1000)});
+            return "DEALER BUST"
         }
 
         // Determine if dealer should hit
         dealerHit = (dealerScore <= 16 || (dealerScore <= 17 && dealerAces > 0));
     }
+
+
+    await new Promise(resolve => {setTimeout(()=>resolve(1), 1000)});
 
     if(score > dealerScore) { // Win
         return "PLAYER WIN";

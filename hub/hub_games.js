@@ -12,11 +12,6 @@ $(function () {
             href: "../games/Roulette/index.php",
         },
         {
-            title: "monty Hall",
-            image: "https://media.boingboing.net/wp-content/uploads/2017/10/monty-hall.jpg",
-            href: "../games/montyHall/index.php",
-        },
-        {
             title: "Crash",
             image: "https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F480661%2Frising_stock_chart.jpg&w=700&op=resize",
             href: "../games/Crash/index.php",

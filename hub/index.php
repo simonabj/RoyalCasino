@@ -133,7 +133,7 @@ $theme = $value->theme;
                         if(i === 1) tr.setAttribute("id", "hof_1stPlace");
                         else if(i === 2) tr.setAttribute("id", "hof_2ndPlace");
                         else if(i === 3) tr.setAttribute("id", "hof_3rdPlace");
-                        else tr.setAttribute("class", "lowerRanked");
+                        else tr.setAttribute("class", "hof_lowerRanked");
 
                         let td1 = document.createElement("td");
                         let td2 = document.createElement("td");

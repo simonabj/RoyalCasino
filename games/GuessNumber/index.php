@@ -57,6 +57,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     var vinnertall; /*Definere variablen vinnertall*/
 
     init_royale();
+    
+    rmh_update(); /*Oppdater antall tokens i toppmeny*/
 
     /*Funksjonen som kjører når man klikker på knappen, denne kommuniserer med en annen fil som oppdaterer databasen*/
     function kjorBet() {

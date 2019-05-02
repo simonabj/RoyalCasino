@@ -3,7 +3,7 @@ body {
     background-image: url("../../resources/loops/Dark_Wood_Floor.jpg");
 }
 
-button {
+#button, #button2 {
     font-size: 25px!important;
 }
 

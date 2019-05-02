@@ -25,6 +25,10 @@ $datasett22 = mysqli_query($link, $sql3); /*Datasett*/
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> <!-- Stilark for enkelte deler -->
     <link href="stilark.css" rel="stylesheet" type="text/css"> <!-- Stilark -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> <!-- jQuery -->
+    
+    <link href="../../0CSS/universal.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
+    <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
+    <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 </head>
 <body>
 
@@ -86,6 +90,8 @@ $datasett22 = mysqli_query($link, $sql3); /*Datasett*/
 
 
 <script>
+    rmh_update(); /*Oppdater token visning i universel menu*/
+    
     /*Get variables to use later*/
     var txtOppdaternavn1El = document.querySelector("#txtOppdaternavn1");
     var sliderThemeEl = document.querySelector("#sliderTheme");

@@ -112,19 +112,19 @@ $(function () {
     let _gameloop, stop, spinTime, spinning = false,
     sfx_spinning, betInput = $("#howMuch")[0],
     numberInput = $("#whatNumbers")[0],
-    bettingAlert = $("#bettingAlert"),
-    winningAlert = $("#winningAlert")[0];
-    numberInput.addEventListener("animationend", function () { numberInput.classList.remove("jello-horizontal"); });
-    numberInput.addEventListener("animationend", function () { betInput.classList.remove("jello-horizontal"); });
+    bettingAlert = $("#bettingAlert");
+    numberInput.addEventListener("animationend", function () { numberInput.classList.remove("jello-horizontal"); betInput.classList.remove("jello-horizontal"); });
 
     function spin() {
+
+    }
         // ****************************
         // * IF NOT CURRENTLY SPINNIG *
         // ****************************
         if (!spinning) {
 
             console.log("");
-            winningAlert.style.display = "none";
+            $("#winningAlert")[0].style.display = "none";
             numberInput.classList.remove("jello-horizontal");
             betInput.classList.remove("jello-horizontal");
             bettingAlert[0].classList.remove("shake-horizontal");
@@ -137,7 +137,7 @@ $(function () {
             // IF INPUTS ARE NOT GIVEN *
             if (betInput.value === "" || numberInput.value === "") {
 
-                winningAlert.style.display = "none";
+                $("#winningAlert")[0].style.display = "none";
                 numberInput.classList.remove("jello-horizontal");
                 betInput.classList.remove("jello-horizontal");
 
@@ -378,7 +378,7 @@ $(function () {
             betInput.classList.add("flip-scale-up-hor");
             betInput.value = "";
 
-
+            alert.won(wonAmount);
 
             // __ ADDING THE WON TOKENS TO THE USERS BALANCE __
             if (affectUser) {
@@ -397,23 +397,7 @@ $(function () {
             betInput.classList.add("flip-scale-up-hor");
             betInput.value = "";
 
-            winningAlert.classList.remove("slide-in-elliptic-top-fwd");
-            winningAlert.querySelector("h1").innerHTML = "You lost " + bet + " tokens :( ";
-            winningAlert.style.display = "block";
-            winningAlert.style.backgroundColor = "rgba(121, 18, 21, 0.95)";
-
-            //sliding in
-            winningAlert.classList.add("bounce-in-top");
-
-            //sliding out
-            setTimeout(function () {
-                winningAlert.classList.remove("bounce-in-top");
-                winningAlert.classList.add("slide-out-bck-bottom");
-                setTimeout(function () {
-                    winningAlert.style.display = "none";
-                    winningAlert.classList.remove("slide-out-bck-bottom");
-                }, 700)
-            }, 3500);
+            alert.lost(bet);
 
             // __ REMOVING THE BET TOKENS FROM THE USERS BALANCE __
             if (affectUser) {

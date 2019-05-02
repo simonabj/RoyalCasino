@@ -92,7 +92,6 @@ $datasett22 = mysqli_query($link, $sql3); /*Datasett*/
 
 <script>
     init_royale();
-    saveUser(user); /*Oppdatere til session storage*/
     rmh_update(); /*Oppdater token visning i universel menu*/
     
     /*Get variables to use later*/

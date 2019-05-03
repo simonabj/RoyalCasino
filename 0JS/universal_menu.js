@@ -96,6 +96,7 @@ window.addEventListener("load", function () {
             setTimeout(function () {
                 document.getElementById("rmh_tooltip").style.opacity = 1;
             }, 3000);
+            sessionStorage.setItem("firstTime",false);
         }
     }
 

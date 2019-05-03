@@ -358,9 +358,9 @@ const updateSession = async (username = undefined) => {
         resolve(result);
     });
 
-    promise.then((result) => {
+    promise.then(() => {
 
-        console.log("VALIDATION: " + (result ? "SUCCESS" : "FAILURE"));
+        console.log("VALIDATION: SUCCESS");
 
         let xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/0JS/sub/updateSession.php", true);
@@ -396,6 +396,7 @@ const updateSession = async (username = undefined) => {
         };
         xhttp.send();
     }, () => {
+        console.log("VALIDATION: FAILURE");
         window.location.replace("/0PHP/logout.php");
     });
 };

@@ -2,19 +2,14 @@ $(function () {
 
     let games = [
         {
-            title: "roulette",
-            image: "https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip",
-            href: "../games/Roulette/index.php",
-        },
-        {
             title: "blackjack",
             image: "../games/Blackjack/banner.jpg",
             href: "../games/Blackjack/index.html",
         },
         {
-            title: "monty Hall",
-            image: "https://media.boingboing.net/wp-content/uploads/2017/10/monty-hall.jpg",
-            href: "../games/montyHall/index.php",
+            title: "roulette",
+            image: "https://images.theconversation.com/files/147757/original/image-20161128-22748-1couruj.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip",
+            href: "../games/Roulette/index.php",
         },
         {
             title: "Crash",
@@ -22,15 +17,22 @@ $(function () {
             href: "../games/Crash/index.php",
         },
         {
-            title: "S・N・A・K・E",
-            image: "https://i.ytimg.com/vi/f0chIP_5RdQ/maxresdefault.jpg",
-            href: "../games/Snake/index.php",
-        },
-        {
-            title: "Adventure",
+            title: "Royale Adventures",
             image: "https://bonusstagemagazine.files.wordpress.com/2015/09/anime-mario-portada2.png",
             //image: "https://pm1.narvii.com/6326/b437edd56f794d316a4925316d29857e46c55eef_hq.jpg",
             href: "../games/RPG tilemap/index.html",
+        },
+        {
+            title: "Coinflip",
+            image: "https://media.istockphoto.com/photos/coin-flip-picture-id173242927?k=6&m=173242927&s=612x612&w=0&h=2xElyeRe6hOGwelEbyxLTk3GcRp-PjBVKRKwVDVOZF0=",
+            //image: "https://media.istockphoto.com/photos/coin-flip-picture-id173242927?k=6&m=173242927&s=612x612&w=0&h=2xElyeRe6hOGwelEbyxLTk3GcRp-PjBVKRKwVDVOZF0=",
+            href: "../games/CoinFlip/index.php",
+        },
+        {
+            title: "Guess The Number",
+            image: "https://www.funbrain.com/assets/img/content-cards/F2qRmLhRnmebc8jJAUjr_GuessTheNumber%403x.png",
+            //image: "https://www.funbrain.com/assets/img/content-cards/F2qRmLhRnmebc8jJAUjr_GuessTheNumber%403x.png",
+            href: "../games/GuessNumber/index.php",
         },
 
     ];

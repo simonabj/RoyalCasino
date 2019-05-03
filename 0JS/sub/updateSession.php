@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/0PHP/config.php');
 session_start();
 $username = $_SESSION['username'];
 
-$sql = "SELECT mail,balance,profilePicture,amountInvites FROM users WHERE username='$username'";
+$sql = "SELECT mail,balance,tokensGained,tokensLost,profilePicture,amountInvites FROM users WHERE username='$username'";
 
 $result = $link->query($sql);
 

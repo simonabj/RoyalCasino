@@ -37,14 +37,18 @@ window.addEventListener("load", function () {
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
         '                <div class="container row">\n' +
         '                    <img src="https://i.imgur.com/KIEjXV8.png" alt="token" class="rmh_token">\n' +
-        '                    <p id="rmh_tokenCount"> x nothing</p>\n' +
-        '                    <script> setTimeout(function(){document.getElementById("rmh_tokenCount").innerHTML = "x " + user.tokenManager.getCount();}, 500);</script>\n' +
+        '                    <p id="rmh_tokenCount"> x wait a sec</p>\n' +
+        '                    <script> setTimeout(function(){document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();}, 500);</script>\n' +
         '                </div>\n' +
         '                <button class="retroButton" onclick="">get more</button>\n' +
         '            </div>\n' +
         '        </div>\n';
 
     document.body.appendChild(rmh);
+
+    setTimeout(function() {
+        rmh_update();
+    }, 2000);
 
 
 

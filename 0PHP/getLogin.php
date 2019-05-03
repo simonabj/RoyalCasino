@@ -78,15 +78,14 @@ if ($svar_sporring<1) {
         let sessionFirstTime = "<?php echo ($_SESSION['firstTimeLogin'] === TRUE) ? 1 : 0;?>";
         save("firstTime", sessionFirstTime === "1");
 
-        save("user", new User(
-            "<?php echo $_SESSION["username"]?>",
-            "<?php echo $_SESSION["mail"] ?>",
-            "<?php echo $_SESSION["loggedin"]?>" === "1",
-            Number("<?php echo $_SESSION["balance"] ?>"),
-            "<?php echo $_SESSION["profilePicture"]?>",
-            Number("<?php echo $_SESSION["amountInvites"]?>")
-        ));
-        window.location.replace("/hub/");
+        console.log("Logging in as <?php echo $_SESSION["username"];?>");
+
+        saveUser(new User("<?PHP echo $_SESSION['username']; ?>"));
+
+        updateSession("<?php echo $_SESSION["username"];?>").then(() => {
+            window.location.replace("/hub/");
+        });
+
     }
 </script>
 </body>

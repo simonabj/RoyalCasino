@@ -82,7 +82,7 @@ th, td {
   height: 50px;
   border-radius: 50%;
 }
-#avatarVelg, #showSettings, #showIP {
+#avatarVelg, #showSettings, #showIP, #standardProfile, #endrePassord {
   user-select: none;
   background-image: none;
   border: 1px solid transparent;

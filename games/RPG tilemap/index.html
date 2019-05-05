@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>testing</title>
+    <script src="../../0JS/jquery-3.4.0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <!--<script src="../../0JS/RoyaleSubsystem.js">$(function(){init_royale()});</script>-->
+
+
+    <script src="utilities.js"></script>
+    <script src="modules/audio.js"></script>
+    <script src="modules/maps.js"></script> <!-- loaded first as it contains global variables. -->
+    <script src="modules/rendering.js"></script>
+    <link href="modules/interface.css" rel="stylesheet">
+
+    <style>
+        body {
+            padding  : 0;
+            margin   : 0;
+            overflow : hidden;
+            cursor   : none;
+            }
+
+        #gameCanvas {
+            image-rendering     : -moz-crisp-edges;
+            image-rendering     : pixelated;
+            position            : absolute;
+            margin              : 0;
+            z-index             : -5;
+            -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
+            }
+    </style>
+
+</head>
+<body>
+
+
+    <!-- THE OVERLAY USED FOR FADING -->
+    <span id="curtain" style="z-index: -4; background-color: black; margin:0; width: 100vw; height: 100vh;"></span>
+
+
+    <!-- THE GAME -->
+    <canvas id="gameCanvas"></canvas>
+
+
+
+    <!-- THE DIALOGUE BOX -->
+    <div id="UI_mid" style="display: none;">
+
+            <h2 id="UI_mid_title"> </h2>
+            <p id="UI_mid_text"> </p>
+
+        <div id="UI_mid_input">
+            <p id="UI_mid_input_text"></p>
+            <input id="UI_mid_input_textLine" type="text" class="input">
+            <textarea id="UI_mid_input_textArea" class="input"></textarea>
+            <select id="UI_mid_input_select" class="input">
+                <option value="a"></option>
+                <option value="b"></option>
+                <option value="c"></option>
+                <option value="d"></option>
+            </select>
+            <button class="input">Yes</button>
+            <button class="input">No</button>
+        </div>
+    </div>
+
+
+
+    <script src="modules/interface.js"></script>
+    <script src="modules/dialogue.js"></script>
+</body>
+</html>

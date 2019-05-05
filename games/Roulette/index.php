@@ -9,12 +9,13 @@
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 
-    <!--<script src="../../0JS/RoyaleSubsystem.js"></script>-->
+    <script src="../../0JS/RoyaleSubsystem.js"></script>
     <link href="../../0CSS/universal.css" rel="stylesheet">
     <link href="../../0CSS/classes.css" rel="stylesheet">
 
     <script src="../../0JS/universal_menu.js"></script>
     <link href="../../0CSS/universal_menu.css" rel="stylesheet">
+    <script src="../../0JS/winLoseAnimation.js"></script>
 
     <link href="roulette.css" rel="stylesheet">
     <script src="roulette.js"></script>
@@ -68,19 +69,17 @@
         <p id="practiceModeTip" class="smallText">When enabled, you won't lose or gain any tokens.</p>
     </div>
 
-    <div id="winningAlert" class="smoothEdges"><h1></h1></div>
 
 
 
 
 </div> <!-- end of document wrapper -->
 <script>
-    //affectUser = false;
-    //rmh_affectUser = false;
+    affectUser = true;
+    rmh_affectUser = true;
     $(function () {
         if (affectUser) init_royale();
         rmh_openAfter(3);
-
     });
 </script>
 </body>

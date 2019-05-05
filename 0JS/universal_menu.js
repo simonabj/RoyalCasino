@@ -9,7 +9,7 @@ let rmh_href = "../../hub/index.php";
 let isRmhOpen;
 
 
-
+// RUNNING CODE WHEN THE PAGE HAS LOADED
 window.addEventListener("load", function () {
 
     // APPENDING THE ICON-FONT TO HEAD
@@ -52,7 +52,10 @@ window.addEventListener("load", function () {
 
 
 
-    /* structure:
+    /*
+
+    structure:
+
     <div id="rmh" class="container">
 
         <img id="rmh_handle" src="../../resources/redChip.png">
@@ -179,6 +182,10 @@ function rmh_openAfter(seconds) {
     }, seconds * 1000);
 }
 
+/**
+ * @function
+ * @desc updates the token count in the universal menu.
+ */
 function rmh_update() {
     document.getElementById("rmh_tokenCount").innerHTML = "x " + user.tokenManager.getCount();
 }

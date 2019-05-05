@@ -9,42 +9,48 @@ var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator
 
 var echoKeys = false; //if true, console.log's keydown events.
 
-// 'keys' is an object containing information about all pressed keys.
-// when a key is pressed, it is put into the object and given the value "true".
-// when a key is released, it is given the value "false".
-// The keys are stored as object-keys with the name of they key as its name.
-// Use " keys.<keyName> " to return true or false.
-// F.eks.: "if(keys.shift){ <do stuff> }"
+/** 'keys' is an object containing the states of all until-now pressed keys.
+ * when a key is pressed, it's name is put into the object and given the value "true".
+ * when a key is released, it's given the value "false".
+ * The keys are stored as object-keys with the name of they key as its name.
+ * Use " keys.<keyName> " to return true or false.
+ * F.eks.: "if(keys.shift){ <do stuff> }"
+ * directional keys = "arrow"+direction
+ */
 
-var keys = {}; //All lowercase
-var keysCS = {}; //Case Sensitive
+var keys = {}; //all lowercase
+var keysCS = {}; //CaSE SeNsItIvE
+var keyLog = [];
+var keyLog_limit = 100;
 
-
+/**
+ * @function
+ * @desc logs the pressed key into keys and keysCS with value true, and runs keys_preventCombinations
+ * @param event {event} - the event
+ */
 window.addEventListener("keydown", function (event) {
     keys[event.key.toLowerCase()] = true;
     keysCS[event.key] = true;
     keys_preventCombinations(event);
-
     if (echoKeys) console.log("↓ " + event.key);
 });
 
+/**
+ * @function
+ * @desc sets value of unpressed key to false in keys and keysCS, and runs various functions.
+ * @param event {event} - the event
+ */
 window.addEventListener("keyup", function (event) {
     keys[event.key.toLowerCase()] = false;
     keysCS[event.key] = false;
+    if(logKeys){ if(keyLog.length > keyLog_limit) keyLog.shift(); keyLog.push(event.key); keyComboCheck(); } //{ keyLog.unshift(event.key); konamiCodeCheck(); if(keyLog.length > keyLog_limit) keyLog.pop(); }
 });
 
 /**
- * get the angle between two 2D points.
- * @param x1
- * @param y1
- * @param x2
- * @param y2
- * @returns {number}
+ * @function
+ * @desc used to prevent default handlings of certain events.
+ * @param event {event} - the event
  */
-function getAngle(x1, y1, x2, y2) {
-    return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-}
-
 function keys_preventCombinations(event) {
     /*if (keys.control) {
         event.preventDefault(event);
@@ -52,11 +58,6 @@ function keys_preventCombinations(event) {
     }*/
 }
 
-function toLowestDeg(deg) {
-    if (deg > 360) while(deg > 360) deg = deg - 360;
-    if (deg < -360) while(deg < -360) deg = deg + 360;
-    return deg;
-}
 
 // ______________________________________ PROTOTYPES _________________________
 String.prototype.capitalize = function () { return this[0].toUpperCase() + this.slice(1); };
@@ -67,11 +68,12 @@ String.prototype.removeQuotes = function () {
     }
 
 };
+
+//methods toUrl/toURL returns the given string with all spaces replaced with "%20".
 String.prototype.toUrl = function () { return this.replace(/ /g, "%20"); };
 String.prototype.toURL = function () { return this.replace(/ /g, "%20"); };
 Element.prototype.remove = function () { this.outerHTML = ""; };
 NodeList.prototype.remove = HTMLCollection.prototype.remove = function () { this.outerHTML = ""; };
-
 
 
 //_______________________________________ GENERAL ____________________________
@@ -105,6 +107,30 @@ function getAbsPos(element) {
     return [left, top];
 }
 
+/**
+ * get the angle between two 2D points.
+ * @param x1
+ * @param y1
+ * @param x2
+ * @param y2
+ * @returns {number}
+ */
+function getAngle(x1, y1, x2, y2) {
+    return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+}
+
+
+/**
+ * @method
+ * @desc normalizes degree
+ * @param deg {number} degree
+ * @returns {number} normalized degree
+ */
+function toLowestDeg(deg) {
+    if (deg > 360) while(deg > 360) deg = deg - 360;
+    if (deg < -360) while(deg < -360) deg = deg + 360;
+    return deg;
+}
 
 
 /**

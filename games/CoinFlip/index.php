@@ -8,6 +8,8 @@
     <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
     <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 
+    <link href="../../0CSS/winLoseAnimation.js" rel="stylesheet">
+
     <link rel="stylesheet" href="coinFlip.css"> <!-- Stilark til siden -->
     <link rel="stylesheet" href="../../0CSS/classes.css">
     <link rel="stylesheet" href="../../0CSS/universal.css">

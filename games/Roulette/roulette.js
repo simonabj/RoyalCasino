@@ -31,11 +31,21 @@ $(function () {
             this.el = initEl;
         }
 
+        /**
+         * @method
+         * @desc sets transform property of element to it's degree + given degree.
+         * @param deg {number} - degree to rotate by
+         */
         rotate(deg) {
             this.deg += deg;
             this.el.style.transform = "rotate(" + normalizeAngle(this.deg) + "deg)";
         }
 
+        /**
+         * @method
+         * @desc rotates element to given degree.
+         * @param deg {number} - degree to rotate to
+         */
         rotateTo(deg) {
             this.deg = deg;
             this.el.style.transform = "rotate(" + normalizeAngle(this.deg) + "deg)";
@@ -59,14 +69,18 @@ $(function () {
 
 
 
-    
+
     // ________ GAMELOOP ________
+    /**
+     * @method
+     * @desc rotates the ball until variable "stop" is true, proceeds to lower the ball and it's rotation speed until it stops, clearing its own interval.
+     */
     function gameloop() {
-        
+
         // ROTATING
         rWheel.rotate(rotateVel_wheel * 0.4);
         ball.rotate(-rotateVel);
-        
+
         // IF STOPPING
         if (stop) {
             // SLOWING THE BALL DOWN
@@ -96,35 +110,41 @@ $(function () {
                 ball.el.style.height = ballHeight + "px";
                 // RETURNING VALUES TO MAX SMOOTHLY (Makes the rotation and ball return to correct velocity and height smoothly).
             }
-            
+
         } else {
             // RETURNING VALUES TO MAX SMOOTHLY (Makes the rotation and ball return to correct velocity and height smoothly).
             if (rotateVel < rotateVelMax) rotateVel += 0.4;
             if (rotateVel_wheel < rotateVelMax_wheel) rotateVel_wheel += 0.1;
-            if(ballHeight < ballHeightMax) ballHeight += 10
+            if (ballHeight < ballHeightMax) ballHeight += 10
         }
-        
+
         //requestAnimationFrame(gameloop); //_gameloop (for ctrl+f'ing, remember to disable this if you're using interval.)
     }
 
-    
+
     // SIGNIFYING WHEN TO STOP
     let _gameloop, stop, spinTime, spinning = false,
-    sfx_spinning, betInput = $("#howMuch")[0],
-    numberInput = $("#whatNumbers")[0],
-    bettingAlert = $("#bettingAlert");
-    numberInput.addEventListener("animationend", function () { numberInput.classList.remove("jello-horizontal"); betInput.classList.remove("jello-horizontal"); });
+        sfx_spinning, betInput = $("#howMuch")[0],
+        numberInput = $("#whatNumbers")[0],
+        bettingAlert = $("#bettingAlert");
+    numberInput.addEventListener("animationend", function () {
+        numberInput.classList.remove("jello-horizontal");
+        betInput.classList.remove("jello-horizontal");
+    });
 
+    /**
+     * @method
+     * @desc Checks if inputs are correct and spins the wheel.
+     */
     function spin() {
 
-    }
+
         // ****************************
         // * IF NOT CURRENTLY SPINNIG *
         // ****************************
         if (!spinning) {
 
             console.log("");
-            $("#winningAlert")[0].style.display = "none";
             numberInput.classList.remove("jello-horizontal");
             betInput.classList.remove("jello-horizontal");
             bettingAlert[0].classList.remove("shake-horizontal");
@@ -137,7 +157,6 @@ $(function () {
             // IF INPUTS ARE NOT GIVEN *
             if (betInput.value === "" || numberInput.value === "") {
 
-                $("#winningAlert")[0].style.display = "none";
                 numberInput.classList.remove("jello-horizontal");
                 betInput.classList.remove("jello-horizontal");
 
@@ -182,7 +201,7 @@ $(function () {
                 return false;
             }
             // IF USER HAS BET MORE THAN HIS CURRENT BALANC
-            if(affectUser) if(Number(betInput.value) > getUser().tokenManager.getCount()){
+            if (affectUser) if (Number(betInput.value) > getUser().tokenManager.getCount()) {
                 setTimeout(function () {
                     betInput.classList.add("jello-horizontal");
                     bettingAlert[0].classList.add("shake-horizontal");
@@ -198,19 +217,23 @@ $(function () {
              * method isThereAWrongNumber checks if all the numbers that the user has placed a bet on exist on the wheel, and returns the number which conforms with said requirements if so.
              * @returns {number} - The number that doesn't exist on the wheel. Undefined if all numbers exist on the wheel.
              */
-            // IF USER HAS BET ON A NUMBER NOT ON THE WHEEL
+                // IF USER HAS BET ON A NUMBER NOT ON THE WHEEL
             let isThereAWrongNumber = function () {
-                //let bettedNumbers = $("#whatNumbers")[0].value.split(',').map(Number);
-                for (let i = 0; i < betNumbs.length; i++) {
-                    let tempVar = false;
-                    for (let j = 0; j < realValues.length; j++)
-                        if (realValues[j][2] === betNumbs[i]) {
-                            tempVar = true;
-                            break;
+                    // only proceeds if input doesn't include "red" or "black", in which case the function further down will check the values.
+                    if (!betNumbs.includes("red") && !betNumbs.includes("black")) {
+                        //let bettedNumbers = $("#whatNumbers")[0].value.split(',').map(Number);
+                        for (let i = 0; i < betNumbs.length; i++) {
+                            let tempVar = false;
+                            for (let j = 0; j < realValues.length; j++)
+                                if (realValues[j][2] === betNumbs[i]) {
+                                    tempVar = true;
+                                    break;
+                                }
+                            if (tempVar === false) return betNumbs[i];
                         }
-                    if (tempVar === false) return betNumbs[i];
-                }
-            }; if (isThereAWrongNumber()) {
+                    }
+                };
+            if (isThereAWrongNumber()) {
                 setTimeout(function () {
                     numberInput.classList.add("jello-horizontal");
                     bettingAlert[0].classList.add("shake-horizontal");
@@ -220,9 +243,9 @@ $(function () {
                 return false;
             }
             // CHECKING I THE USER HAS BET ON BOTH COLORS, OR A COLOR AND A NUMBER.
-            if(betNumbs.includes("red") || betNumbs.includes("black")){
+            if (betNumbs.includes("red") || betNumbs.includes("black")) {
                 console.log(betNumbs);
-                if((betNumbs.includes("red") && betNumbs.includes("black")) || (betNumbs.includes("black") && betNumbs.includes("red"))){
+                if ((betNumbs.includes("red") && betNumbs.includes("black")) || (betNumbs.includes("black") && betNumbs.includes("red"))) {
                     bettingAlert[0].querySelector("h3").innerHTML = "You can't bet on two colors.";
                     bettingAlert[0].querySelector("h3").innerHTML = "You can't bet on a color and numbers.";
                     setTimeout(function () {
@@ -231,7 +254,7 @@ $(function () {
                         bettingAlert.show();
                     }, 50);
                     return false;
-                } else if(betNumbs.length>1){ //if(function(){for(let i = 0; i < betNumbs.length; i++) if(typeof betNumbs[i] === "number") return true;})
+                } else if (betNumbs.length > 1) { //if(function(){for(let i = 0; i < betNumbs.length; i++) if(typeof betNumbs[i] === "number") return true;})
                     bettingAlert[0].querySelector("h3").innerHTML = "You can't bet on a color and numbers.";
                     setTimeout(function () {
                         numberInput.classList.add("jello-horizontal");
@@ -251,7 +274,7 @@ $(function () {
 
             spinning = true;
             stop = false;
-            
+
             spinTime = Math.random() * 6000 + 1500;
             console.log("The wheel will spin for " + (spinTime / 1000).toFixed(1) + " seconds.");
 
@@ -283,11 +306,11 @@ $(function () {
 
             //gameloop();
             //enable to cap the framerate to 60fps: 
-            _gameloop = setInterval(function(){gameloop()}, 1000/60); // alternative option - 30fps
+            _gameloop = setInterval(function () {gameloop()}, 1000 / 60); // alternative option - 30fps
+
+        }
 
     }
-
-
 
     $("#spinBtn").click(function () {
         spin();
@@ -298,27 +321,26 @@ $(function () {
     betInput.addEventListener("keyup", function (event) {
         if (event.key === "Enter") spin();
     });
-
     betInput.addEventListener("animationend", function () {
         betInput.classList.remove("flip-scale-up-hor");
     });
 
-    //winningAlert.addEventListener("animationend", function () { winningAlert.classList.remove("slide-in-elliptic-top-fwd"); winningAlert.classList.remove("bounce-in-top"); });
 
 
 
 
-        /**
-         * @function
-         * @desc Returns the numbers the user has bet on.
-         * @returns {number[]} - The numbers
-         */
     let numbersBettedOn;
-    function getNumbersBettedOn(){
+
+    /**
+     * @function
+     * @desc Returns the numbers the user has bet on.
+     * @returns {number[]} - The numbers
+     */
+    function getNumbersBettedOn() {
         // REGISTERING THE NUMBERS THE USER HAS BET ON
         let values = $("#whatNumbers")[0].value.split(',').map(Number);
         // REGISTERING THE COLOR THE USER HAS BET ON
-        if(isNaN(values[0])){ values = $("#whatNumbers")[0].value.split(','); }
+        if (isNaN(values[0])) { values = $("#whatNumbers")[0].value.split(','); }
         return values;
     }
 
@@ -326,7 +348,7 @@ $(function () {
     let ballEndDeg, wheelEndDeg, difference, landedOn, landedOnColor;
 
     /**
-     * @function
+     * @method
      * @desc Determines whether the user has won or lost, and executes related actions.
      */
     function stopped() {
@@ -339,22 +361,22 @@ $(function () {
         for (let i = 0; i < realValues.length; i++) {
             if (difference < realValues[i][0]) {
                 landedOn = realValues[i - 1][2];
-                if (i - 1 > 0 && i - 1 < realValues.length - 2)(isEven(i - 1)) ? landedOnColor = "black" : landedOnColor = "red";
+                if (i - 1 > 0 && i - 1 < realValues.length - 2) (isEven(i - 1)) ? landedOnColor = "black" : landedOnColor = "red";
                 break;
             }
         }
 
-        console.log("Your ball landed on " + landedOn + " (" + landedOnColor + ", "+difference+"deg)");
+        console.log("Your ball landed on " + landedOn + " (" + landedOnColor + ", " + difference + "deg)");
 
         // WINNING OR LOSING
-        
+
 
         // RE-ENABLING INPUTS
         betInput.disabled = false;
         numberInput.disabled = false;
         betInput.classList.remove("shadow-inset-center");
         numberInput.classList.remove("shadow-inset-center");
-        let bet=betInput.value, wonAmount, bettedValues = getNumbersBettedOn();
+        let bet = betInput.value, wonAmount, bettedValues = getNumbersBettedOn();
 
         // ________ WINNING AND LOSING _______
 
@@ -499,9 +521,13 @@ $(function () {
 
     let practiceModeToggle = $("#practiceModeToggle")[0];
     practiceModeToggle.checked = !affectUser;
+    /**
+     * @method
+     * @desc enables or disables practice mode (where your user isnt affected)
+     */
     $("#practiceModeToggle").click(function () {
         affectUser = !affectUser;
-        (affectUser) ? console.log("Practice mode turned off."): console.log("Practice mode turned on.");
+        (affectUser) ? console.log("Practice mode turned off.") : console.log("Practice mode turned on.");
     });
 
     /**

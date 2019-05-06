@@ -60,7 +60,7 @@ p { font-family : "Lucida Sans Unicode", serif; }
     height              : 500px;
     border-radius       : 50%;
     position            : absolute;
-    transition-duration : 16ms /*16.6666667ms*/; /* IMPORTANT TODO - BYTT OVER TIL 60FPS (eller bittelitt under) TRANSITION DURATION */
+    transition-duration : 0ms;
     will-change         : transform;
     cursor              : pointer;
     }
@@ -73,7 +73,7 @@ p { font-family : "Lucida Sans Unicode", serif; }
     box-shadow          : none;
     height              : 595px; /* initial height, will shrink to make the ball go nearer the center. */
     width               : auto;
-    transition-duration : 16.5ms; /*kan fjerne return-to-max greiene hvis trans-dur ikke er på 0*/
+    transition-duration : 0ms; /*kan fjerne return-to-max greiene hvis trans-dur ikke er på 0*/
     }
 
 #ball {

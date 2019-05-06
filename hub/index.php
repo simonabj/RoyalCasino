@@ -57,10 +57,9 @@ $theme = $value->theme;
             <img src="https://i.imgur.com/KIEjXV8.png" alt="token" id="tokenCountToken">
             <p id="tokenCount">x 2500</p>
         </div>
-        <button onclick="/*switch to + material icon, redirecting to money-buying-place*/" class="retroButton"
+        <button onclick="window.location.href='../games/snake/index.php'/*redirect to money-buying-place*/" class="retroButton"
                 style="background-color: purple; color: yellow; margin-bottom: 4px;">BUY
         </button>
-        <!-- todo: redirect til buying place?  eller:når man trykker på "BUY" knappen så vises en meny med fem options til høyre, man trykker på en option for å kjøpe. -->
         <script> $(function () {
                 setTimeout(function () {
                     document.getElementById("tokenCount").innerText = "x " + getUser().tokenManager.getCount();
@@ -106,63 +105,66 @@ $theme = $value->theme;
 
     <!-- text box -->
     <span><br><br><br><br><br><br><br><br></span>
-    <div id="hof_container">
-        <h1 id="hof_title">Hall of Fame</h1>
-        <table id="hof_table">
-            <tr id="hof_headerRow">
-                <th>Rank</th>
-                <th>Username</th>
-                <th>Balance</th>
-                <th>Joined</th>
-            </tr>
+    <div id="hof_containerBorder">
+        <div id="hof_container">
+            <h1 id="hof_title" class="title">Hall of Fame</h1>
+            <table id="hof_table">
+                <tbody><tr id="hof_headerRow">
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Balance</th>
+                    <th>Joined</th>
+                </tr>
 
-            <script>
+                <script>
 
-                (async () => {
-                    /**
-                     * @type {{username:string, balance:number, created_at:string}[]}
-                     */
-                    let top_players = await querySQL("SELECT username,balance,created_at FROM users ORDER BY balance DESC LIMIT 10");
+                    (async () => {
+                        /**
+                         * @type {{username:string, balance:number, created_at:string}[]}
+                         */
+                        let top_players = await querySQL("SELECT username,balance,created_at FROM users ORDER BY balance DESC LIMIT 10");
 
-                    let i = 1;
+                        let i = 1;
 
-                    for(let player of top_players) {
+                        for(let player of top_players) {
 
-                        let tr = document.createElement("tr");
+                            let tr = document.createElement("tr");
 
-                        if(i === 1) tr.setAttribute("id", "hof_1stPlace");
-                        else if(i === 2) tr.setAttribute("id", "hof_2ndPlace");
-                        else if(i === 3) tr.setAttribute("id", "hof_3rdPlace");
-                        else tr.setAttribute("class", "hof_lowerRanked");
+                            if(i === 1) tr.setAttribute("id", "hof_1stPlace");
+                            else if(i === 2) tr.setAttribute("id", "hof_2ndPlace");
+                            else if(i === 3) tr.setAttribute("id", "hof_3rdPlace");
+                            else tr.setAttribute("class", "hof_lowerRanked");
 
-                        let td1 = document.createElement("td");
-                        let td2 = document.createElement("td");
-                        let td3 = document.createElement("td");
-                        let td4 = document.createElement("td");
+                            let td1 = document.createElement("td");
+                            let td2 = document.createElement("td");
+                            let td3 = document.createElement("td");
+                            let td4 = document.createElement("td");
 
-                        td1.innerText = i + ".";
-                        td2.innerText = player.username;
-                        td3.innerText = player.balance;
-                        td4.innerText = (new Date(player.created_at.replace(/-/g, "/"))).toDateString();
+                            td1.innerText = i + ".";
+                            td2.innerText = player.username;
+                            td3.innerText = player.balance;
+                            td4.innerText = (new Date(player.created_at.replace(/-/g, "/"))).toDateString();
 
-                        td2.setAttribute("id", "hof_rank" + i + "-username");
-                        td3.setAttribute("id", "hof_rank" + i + "-balance");
-                        td4.setAttribute("id", "hof_rank" + i + "-date");
+                            td2.setAttribute("id", "hof_rank" + i + "-username");
+                            td3.setAttribute("id", "hof_rank" + i + "-balance");
+                            td4.setAttribute("id", "hof_rank" + i + "-date");
 
-                        tr.appendChild(td1);
-                        tr.appendChild(td2);
-                        tr.appendChild(td3);
-                        tr.appendChild(td4);
+                            tr.appendChild(td1);
+                            tr.appendChild(td2);
+                            tr.appendChild(td3);
+                            tr.appendChild(td4);
 
-                        document.getElementById("hof_table").appendChild(tr);
+                            document.getElementById("hof_table").appendChild(tr);
 
-                        i++;
-                    }
+                            i++;
+                        }
 
-                }).call();
-            </script>
-        </table>
+                    }).call();
+                </script>
+                </tbody><tr id="hof_1stPlace"><td>1.</td><td id="hof_rank1-username">Chris</td><td id="hof_rank1-balance">1453375</td><td id="hof_rank1-date">Mon Apr 15 2019</td></tr><tr id="hof_2ndPlace"><td>2.</td><td id="hof_rank2-username">DivineChili</td><td id="hof_rank2-balance">1104923</td><td id="hof_rank2-date">Mon Apr 15 2019</td></tr><tr id="hof_3rdPlace"><td>3.</td><td id="hof_rank3-username">Testuser</td><td id="hof_rank3-balance">5574</td><td id="hof_rank3-date">Mon Apr 15 2019</td></tr><tr class="hof_lowerRanked"><td>4.</td><td id="hof_rank4-username">Eirik</td><td id="hof_rank4-balance">880</td><td id="hof_rank4-date">Fri Apr 26 2019</td></tr><tr class="hof_lowerRanked"><td>5.</td><td id="hof_rank5-username">qwe</td><td id="hof_rank5-balance">503</td><td id="hof_rank5-date">Mon Apr 15 2019</td></tr><tr class="hof_lowerRanked"><td>6.</td><td id="hof_rank6-username">wagabobo</td><td id="hof_rank6-balance">500</td><td id="hof_rank6-date">Sat Apr 20 2019</td></tr><tr class="hof_lowerRanked"><td>7.</td><td id="hof_rank7-username">mufasa</td><td id="hof_rank7-balance">500</td><td id="hof_rank7-date">Sat Apr 20 2019</td></tr><tr class="hof_lowerRanked"><td>8.</td><td id="hof_rank8-username">watta</td><td id="hof_rank8-balance">500</td><td id="hof_rank8-date">Sat Apr 20 2019</td></tr><tr class="hof_lowerRanked"><td>9.</td><td id="hof_rank9-username">Ewq</td><td id="hof_rank9-balance">500</td><td id="hof_rank9-date">Thu Apr 18 2019</td></tr><tr class="hof_lowerRanked"><td>10.</td><td id="hof_rank10-username">asda</td><td id="hof_rank10-balance">500</td><td id="hof_rank10-date">Thu May 02 2019</td></tr></table>
+        </div>
     </div>
+
 
     <span><br><br><br><br><br><br><br><br></span>
 
@@ -191,7 +193,7 @@ $theme = $value->theme;
 <script>
     init_royale();
 
-    // todo - expand on
+    // todo - expand on, and change to make it look better, :
     let theme = "<?php echo $theme; ?>";
     if (theme === "Dark") {
         let root = $(':root')[0];
@@ -202,7 +204,6 @@ $theme = $value->theme;
         root.css('--background', 'black');
         root.css('--background', 'black');
     }
-
 </script>
 </body>
 </html>

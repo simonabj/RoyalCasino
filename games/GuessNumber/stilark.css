@@ -1,49 +1,66 @@
 /*Styling of body*/
 body {
-    background-image: url("../../resources/loops/Dark_Wood_Floor.jpg");
-}
+    background-image : url("../../resources/loops/Dark_Wood_Floor.jpg");
+    }
+
 input {
-    color: white;
-    font-size: 20px;
-}
-div{
-    display: flex;
-}
+    color     : white;
+    font-size : 20px;
+    }
+
+div {
+    display : flex;
+    }
 
 #documentWrapper {
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    height: 70vh;
-    width: 100vw;
-}
+    flex-direction  : column;
+    justify-content : center;
+    align-content   : center;
+    align-items     : center;
+    justify-items: center;
+    height          : 70vh;
+    width           : 100vw;
+    }
 
 #utfall {
-    background-color: #C53426;
-    border: #F8A917 2px solid;
-    width: 300px;
-    border-radius: 50px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    margin-top: 25px;
-}
+    background-color : #C53426;
+    border           : #F8A917 2px solid;
+    width            : 300px;
+    border-radius    : 50px;
+    text-align       : center;
+    display          : flex;
+    flex-direction   : column;
+    margin-top       : 25px;
+    }
+
+#containerBorder {
+    margin           : 0;
+    margin-top       : 25vh;
+    padding          : 25px;
+    background-image : url("../../resources/loops/iStock-645858422-921x537.jpg");
+    background-size  : 500px;
+    border-radius    : 50px;
+    box-shadow       : 0 0 15px 15px rgba(0, 0, 0, .5);
+    }
+
 #container {
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    background-image: url(../../resources/textures/felt-table-texture.jpg);
-    background-repeat: repeat;
-    border-radius: 50px;
-    padding: 30px;
-    width: 750px;
-}
+    box-shadow        : 0 0 5px 5px inset rgba(0, 0, 0, .5);
+    flex-direction    : column;
+    align-content     : center;
+    justify-content   : center;
+    align-items       : center;
+    background-image  : url(../../resources/textures/felt-table-texture.jpg);
+    background-repeat : repeat;
+    border-radius     : 50px;
+    padding           : 30px;
+    width             : 750px;
+    }
+
 #bet, #valgtTall {
-    width: 300px;
-}
+    width : 300px;
+    }
+
 #vinnerTall {
-    text-align:center;
-    font-size: 40px;
-}
+    text-align : center;
+    font-size  : 40px;
+    }

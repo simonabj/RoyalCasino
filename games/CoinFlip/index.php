@@ -18,29 +18,31 @@
 <body>
 <div id="documentWrapper">
 
-    <div id="container">
+    <span id="containerBorder">
 
+        <div id="container">
 
-        <div id="penge">
-            <div class="side1"></div>
-            <div class="side2"></div>
-        </div>
-
-        <div id="input">
-            Tokens: <input type="number" id="bet"> <br>
-
-            Select a side to bet on:  <br>
-
-            <div id="velg" class="container row">
-                <div id="lilla"> </div>
-                <div id="rod"> </div>
+            <div id="penge">
+                <div class="side1"></div>
+                <div class="side2"></div>
             </div>
-            <br>
 
-            <button class="retroButton" type="button" id="flip">Flip</button>
-            <p id="melding"></p>
+            <div id="input">
+                Tokens: <input type="number" id="bet"> <br>
+
+                Select a side to bet on:  <br>
+
+                <div id="velg" class="container row">
+                    <div id="lilla"> </div>
+                    <div id="rod"> </div>
+                </div>
+                <br>
+
+                <button class="retroButton" type="button" id="flip">Flip</button>
+                <p id="melding"></p>
+            </div>
         </div>
-    </div>
+    </span>
 </div>
 
 <script>

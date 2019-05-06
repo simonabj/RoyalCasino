@@ -103,12 +103,6 @@ function changeMap(newMap = currMap) {
 
         SFX.play(map.bgMusic,1,true);
 
-        //TODO - create Audio object, containing variables sfx:{"bgm, (?ambience (w.random setInterval)?,) swordSlash, walking, death, sfx1, sfx2, sf3, sfx4"} from default.
-        //TODO - which also has the functions "play(sound, vol, doesRepeat=false), stop(sound), pause(sound), change(sound, newSrc), update("all"/sound){sound.}, volTo(sound, targetVol, transDur=0(ms))
-        //TODO - /*to fade between bgmusic: "  volTo(sounds.bgm,0,2);    stop(sound.bgm,isRepeating=false);    change(sound.bgm, map.bgMusic);     play(sound.bgm);    volTo(sound.bgm,100,2)*/
-        //TODO - vol() uses setInterval to lower to targetVol by (+/-)abs(vol-targetVol)/transDur, every ms, until ms>transDur, and then clearInterval's it when <sound>.volume (if(targetVol>Audio.volume){>}
-        //TODO - if(doesRepeat) addEventlistener(sound)("audioEndEllerno?", function(){sound.pause;sound.time=0;sound.play};  (stop() if(isRepeating)removeEventListeners(sound));
-
     }, 100);
 
 }
@@ -262,7 +256,6 @@ Game.removeTextBoxes = function(){
 
 
 
-//todo, legg tilbake - width og -height på camera, og fix det at hele banen renderes to ganger, en gang til til høyre og 1 tile lengre opp. Sikkert noe map.width og height problem
 
 
 

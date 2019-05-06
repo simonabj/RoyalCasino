@@ -436,7 +436,6 @@ $(function () {
 
         console.log("");
 
-        //can currently just change number when you see what its gonna land on, make the bets bve set and disabled at spin. todo.
 
     }
 

@@ -87,11 +87,11 @@
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
                     user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN TAILS");
-                    alert.won/bet(vinn);
+                    wlAlert.won/bet(vinn);
                 } else {
                     user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS HEADS");
-                    alert.lost/bet(betEl.value);
+                    wlAlert.lost/bet(betEl.value);
                 }
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/
@@ -101,11 +101,11 @@
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
                     user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN HEADS");
-                    alert.won/bet(vinn);
+                    wlAlert.won/bet(vinn);
                 } else {
                     user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS TAILS");
-                    alert.lost/bet(betEl.value);
+                    wlAlert.lost/bet(betEl.value);
                 }
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/

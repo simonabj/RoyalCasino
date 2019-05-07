@@ -18,6 +18,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 
     <link href="stilark.css" rel="stylesheet"> <!-- Stilark for siden -->
+    
+    <link rel="icon" href="https://i.imgur.com/KIEjXV8.png"> <!-- Favicon -->
 </head>
 <body>
 

@@ -87,7 +87,7 @@
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
                     user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN TAILS");
-                    alert.win/bet(vinn);
+                    alert.won/bet(vinn);
                 } else {
                     user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS HEADS");
@@ -101,7 +101,7 @@
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
                     user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN HEADS");
-                    alert.win/bet(vinn);
+                    alert.won/bet(vinn);
                 } else {
                     user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS TAILS");

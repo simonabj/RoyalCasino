@@ -19,14 +19,15 @@ window.addEventListener("load", function () {
     document.body.appendChild(container);
 });
 
-var alert = {};
+
+var wlAlert = {};
 
 /**
  * @method
  * @desc shows a pop-up displaying amount of tokens won
  * @param wonAmount {number} - won amount
  */
-alert.won = function (wonAmount) {
+wlAlert.won = function (wonAmount) {
     container.style.zIndex = "100";
     winningAlert.classList.remove("bounce-in-top");
     winningAlert.querySelector("h1").innerHTML = "YOU WON " + wonAmount + " TOKENS!";
@@ -52,7 +53,7 @@ alert.won = function (wonAmount) {
  * @desc shows a pop-up displaying amount of tokens lost
  * @param lostAmount {number} - lost amount
  */
-alert.lost = function (lostAmount) {
+wlAlert.lost = function (lostAmount) {
     container.style.zIndex = "100";
     winningAlert.classList.remove("slide-in-elliptic-top-fwd");
     winningAlert.querySelector("h1").innerHTML = "You lost " + lostAmount + " tokens :( ";

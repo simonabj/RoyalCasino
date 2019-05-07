@@ -93,7 +93,7 @@
                 } else {
                     user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS HEADS");
-                    alert.lose/bet(betEl.value);
+                    alert.lost/bet(betEl.value);
                 }
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/
@@ -107,7 +107,7 @@
                 } else {
                     user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS TAILS");
-                    alert.lose/bet(betEl.value);
+                    alert.lost/bet(betEl.value);
                 }
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/

@@ -56,7 +56,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         /*Definere antall tokens på brukeren ved en variabel.*/
         var balanse = getUser().tokenManager.getCount();
         /*Ta en hvis test på om verdien du vedder er gjeldende.*/
-        if (0<Number(betEl.value) && Number(betEl.value)<Number(balanse) && betEl.value!=="" && isNaN(betEl.value)==false) {
+        if (0<Number(betEl.value) && Number(betEl.value)<=Number(balanse) && betEl.value!=="" && isNaN(betEl.value)==false) {
             betVerdi=betEl.value; /*Lagre original vedde verdien for at man ikke skal kunne endre underveis.*/
             startEl.removeEventListener("click", startCrash); /*Fjerne ny start.*/
             widrawEl.addEventListener("click", widrawFunc); /*Legge til mulighet til å trekke seg.*/

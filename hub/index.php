@@ -161,6 +161,8 @@ $theme = $value->theme;
 
                     }).call();
                 </script>
+                </tbody>
+            </table>
         </div>
     </div>
 

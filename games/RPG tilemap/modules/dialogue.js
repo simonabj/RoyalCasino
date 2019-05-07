@@ -19,7 +19,6 @@ Dialogues.intro = function () {
         "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit! <br><br>" +
         "Main Menu: [Esc]               <br>" +
         "Movement:  [W][A][S][D]        <br>" + //Press [Esc] to open the main menu, [W][A][S][D] to move, and the space bar to attack.
-        "Attack: [spacebar]          <br>" +
         "<span style='font-size: 8pt'>Konami Code: [up][up][down][down][left][right][left][right][b][a]</span><br>",
         "Got it",
         function () {

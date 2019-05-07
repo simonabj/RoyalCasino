@@ -23,15 +23,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </head>
 <body>
 
-<p style="text-align:center;font-size:40px;"><span id="ganger">1.00</span>x</p> <!-- Det som viser verdien til ganger tallet -->
+<p style="text-align:center;font-size:40px;color:white;"><span id="ganger">1.00</span>x</p> <!-- Det som viser verdien til ganger tallet -->
 <div id="chartContainer" style="height: 360px; width: 99vw;"></div> <!-- Viser Charten av økingen -->
 
 <button id="button">Start</button> <!-- Knapp for å starte bettet -->
 <button id="button2">Widraw</button> <!-- Knapp for å gi seg med profitt -->
 
 <input type="number" id="bet" placeholder="Hvor mye vedder du?" /> <!-- Input for hvor mye penger du vedder -->
-<p id="utfall"></p>
-<p>Balanse: <span id="tokenCount"></span></p>
+<p id="utfall" style="color:white;"></p>
+<p style="color: white;">Balanse: <span id="tokenCount"></span></p>
 
 <script>
     /*Lage variabler for å kunne bruke dem senere i spillet*/
@@ -172,7 +172,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         document.getElementById("tokenCount").innerHTML = getUser().tokenManager.getCount(); /*Oppdater antall tokens brukeren har*/
 
         /*Melding om vinn.*/
-        utfallEl.innerHTML="You managed to get out in time, you placed a bet on "+betVerdi+" tokens and earned "+Number(betVerdi*n-betVerdi).toFixed(2)+" Tokens. Your bet was multiplied by "+n.toFixed(2)+".";
+        utfallEl.innerHTML="You managed to get out in time, you placed a bet on "+betVerdi+" tokens and earned "+Number(betVerdi*n-betVerdi).toFixed(0)+" Tokens. Your bet was multiplied by "+n.toFixed(2)+".";
 
         running=false; /*Skru av kjøringen av videre tabellagning.*/
         rmh_update(); /*Oppdater antall tokens i toppmeny*/

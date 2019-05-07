@@ -57,6 +57,7 @@
             ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
             if(trail[i].x==px && trail[i].y==py) {
                 tail = 5;
+                document.getElementById("counter").innerHTML= "X  0";
             }
         }
         trail.push({x:px,y:py});

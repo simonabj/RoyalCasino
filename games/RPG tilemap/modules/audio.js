@@ -16,21 +16,21 @@ var music = {
     // OUTSIDE
     island1: new Audio("sfx/music/island1.ogg"),
     cave: new Audio("sfx/music/cave.ogg"),
-    mystical: new Audio("sfx/music/twilightsBayCity.ogg"),
+    //mystical: new Audio("sfx/music/twilightsBayCity.ogg"),
 
     // INDOOR
     home: new Audio("sfx/music/home.ogg"), //undertale
-    house: new Audio("sfx/music/house.ogg"),
+  /*  house: new Audio("sfx/music/house.ogg"),
 
     // SITUATIONAL
     battle: new Audio("sfx/music/battle.ogg"),
     battle2: new Audio("sfx/music/battle2.ogg"),
     healthRegained: new Audio("sfx/music/healthRegained.ogg"),
     foundTreasure: new Audio("sfx/music/foundTreasure.ogg"),
-
+*/
 
 };
-
+/*
 var ambient = {
     chirp: new Audio("sfx/ambient/chirp.ogg"),
     wind1: new Audio("sfx/ambient/wind1.ogg"),
@@ -54,6 +54,9 @@ var sfx = {
     //sfx4:,
     temp: [],
 };
+*/
+
+
 
 var dialogue_audio = {
     skyrim: {
@@ -99,9 +102,7 @@ SFX.play = function (sound, volume = 1, doesRepeat = false) {
     //sound.currentTime = 0;
 
     if (doesRepeat) sound.onended = function () {SFX.restart(sound)};
-
     SFX.volume(sound, volume);
-
     sound.play();
 
 };

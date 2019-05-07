@@ -8,6 +8,8 @@
     <script src="../../0JS/universal_menu.js"></script> <!-- Meny øverst til høyre -->
     <link href="../../0CSS/universal_menu.css" rel="stylesheet"> <!-- Meny øverst til høyre -->
 
+    <script src="../../0CSS/winLoseAnimation.js" > </script>
+
     <link rel="stylesheet" href="coinFlip.css"> <!-- Stilark til siden -->
     <link rel="stylesheet" href="../../0CSS/classes.css">
     <link rel="stylesheet" href="../../0CSS/universal.css">
@@ -87,9 +89,11 @@
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
                     user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN TAILS");
+                    alert.won/bet(vinn);
                 } else {
                     user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS HEADS");
+                    alert.lose/bet(betEl.value);
                 }
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/
@@ -99,9 +103,11 @@
                     var vinn = 2 * Number(betEl.value) - Number(betEl.value);
                     user.tokenManager.resolveBet(true, vinn); /*Gi brukeren tokens hvis vinn*/
                     console.log("WIN HEADS");
+                    alert.won/bet(vinn);
                 } else {
                     user.tokenManager.resolveBet(false); /*Fjern tokens hvis tap*/
                     console.log("LOSS TAILS");
+                    alert.lose/bet(betEl.value);
                 }
                 saveUser(user); /*Oppdatere til session storage*/
                 updateSQL(); /*Oppdater database*/

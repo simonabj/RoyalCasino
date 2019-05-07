@@ -58,7 +58,7 @@ $theme = $value->theme;
             <p id="tokenCount">x 2500</p>
         </div>
         <button onclick="window.location.href='../games/snake/index.php'/*redirect to money-buying-place*/" class="retroButton"
-                style="background-color: purple; color: yellow; margin-bottom: 4px;">BUY
+                style="background-color: purple; color: yellow; margin-bottom: 4px;">GET
         </button>
         <script> $(function () {
                 setTimeout(function () {

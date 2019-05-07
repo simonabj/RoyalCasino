@@ -38,7 +38,7 @@ window.addEventListener("load", function () {
         '                <div class="container row">\n' +
         '                    <img src="https://i.imgur.com/KIEjXV8.png" alt="token" class="rmh_token">\n' +
         '                    <p id="rmh_tokenCount"> x wait a sec</p>\n' +
-        '                    <script> setTimeout(function(){document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();}, 500);</script>\n' +
+        '                    <script> setTimeout(function(){document.getElementById("rmh_tokenCount").innerHTML = "x " + (getUser().tokenManager.getCount()>=1e7)?getUser().tokenManager.getCount().toExponential(3) : getUser().tokenManager.getCount();}, 500);</script>\n' +
         '                </div>\n' +
         '                <button class="retroButton" onclick="">get more</button>\n' +
         '            </div>\n' +

@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+
+
+body {
+    justify-content     : center;
+    align-items         : center;
+    display             : flex;
+    -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
+    font-family         : 'Press Start 2P', Arial, serif;
+    }
+
+div {
+    display : flex;
+    }
+
+span {
+    display        : flex;
+    flex-direction : row;
+    }
+
+
+#UI_mid {
+    max-width        : 750px;
+
+    flex-direction   : column;
+    align-items      : center;
+    position         : absolute;
+    z-index          : 10;
+    min-height       : 100px;
+    min-width        : 100px;
+    padding          : 30px;
+
+    background-color : rgba(256, 256, 256, .75);
+    }
+
+#UI_mid_title {
+    text-align          : center;
+    color               : orangered;
+    -webkit-text-stroke : 2px black;
+    font-size           : 22pt;
+    font-weight         : bolder;
+    -webkit-transform   : scale(1, 1.25);-moz-transform : scale(1, 1.25);-ms-transform : scale(1, 1.25);-o-transform : scale(1, 1.25);transform : scale(1, 1.25);
+    }
+
+#UI_mid_text {
+    max-width         : 100%;
+    padding           : 20px;
+    line-height       : 16pt;
+    justify-content   : left;
+    flex-direction    : column;
+    align-items       : start;
+    line-break        : auto;
+    -webkit-transform : scale(1, 1.25);-moz-transform : scale(1, 1.25);-ms-transform : scale(1, 1.25);-o-transform : scale(1, 1.25);transform : scale(1, 1.25);
+    }
+
+#UI_mid_input {
+    width             : 100%;
+    -webkit-transform : scale(1, 1.25);-moz-transform : scale(1, 1.25);-ms-transform : scale(1, 1.25);-o-transform : scale(1, 1.25);transform : scale(1, 1.25);
+    flex-direction    : row;
+    justify-content   : center;
+    align-items       : center;
+    }
+
+.input {
+    font-family      : 'Press Start 2P', cursive;
+    font-size        : 8pt;
+    background-color : transparent;
+    border           : solid black 3px;
+    padding          : 5px 4px;
+    flex-grow        : 1;
+    margin           : 15px;
+    outline          : none;
+    }
+
+#UI_mid_input_text {
+    -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
+    }
+
+#UI_mid_input_textLine {
+    -webkit-user-select : text;-moz-user-select : text;-ms-user-select : text;user-select : text;
+    }
+
+#UI_mid_input_textArea {
+    -webkit-user-select : text;-moz-user-select : text;-ms-user-select : text;user-select : text;
+    }
+
+#UI_mid_input_select {
+    -webkit-user-select : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
+    }
+
+
+
+/* ============== CLASSES ============== */
+button {
+    outline          : none;
+    min-width        : 2em;
+    min-height       : 2em;
+    background-color : white !important;
+    box-shadow       : 0 5px 0 black;
+    transform        : translate(0, -5px);
+    cursor           : url("../gfx/pointy.cur"), pointer;
+    transition       : all linear 0.025s;
+    }
+
+button:hover {
+    background-color : darkorange !important;
+    }
+
+button:active {
+    background-color : orangered !important;
+    transition       : all linear 0.05s;
+    transform        : translate(0, 0px);
+    box-shadow       : none;
+    }
+
+select, option {
+    cursor             : url("../gfx/pointy.cur"), pointer !important;
+    background-color   : white !important;
+    color              : orangered;
+    text-align         : center;
+    outline            : none;
+    appearance         : none; /* fjerner pilen (som ellers ikke kan styles) */
+    -webkit-appearance : none;
+    }
+
+
+
+
+input[type="range"] {
+    -webkit-appearance : none;-moz-appearance : none; appearance : none;
+    position           : relative;
+    overflow           : hidden;
+    height             : 20px;
+    cursor             : url("../gfx/pointy.cur"), pointer;
+    border-radius      : 0;
+    border             : solid black 3px;
+    flex-grow          : 1;
+    margin             : 15px;
+    background         : white;
+    outline            : none;
+    }
+
+::-moz-range-track, ::-webkit-slider-runnable-track {
+    height : 100%;
+    }
+
+::-moz-range-thumb {
+    border        : none;
+    left          : -25px;
+    margin        : 0;
+    height        : 100%;
+    border-radius : 0;
+    box-shadow    : -100vw 0 0 100vw orangered;
+    background    : none;
+    box-sizing    : border-box;
+    width         : 0;
+    }
+
+::-webkit-slider-thumb {
+    box-sizing         : border-box;
+    left               : -50px;
+    width              : 0;
+    height             : 100%;
+    -webkit-appearance : none;
+    background-color   : transparent;
+    box-shadow         : -100vw 0 0 100vw orangered;
+    }
+
+

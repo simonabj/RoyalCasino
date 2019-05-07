@@ -177,30 +177,5 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         running=false; /*Skru av kjøringen av videre tabellagning.*/
         rmh_update(); /*Oppdater antall tokens i toppmeny*/
     }
-
-    /*Kjøring av funksjon for tabell on load*/
-    var dps = [];   //dataPoints.
-    var chart = new CanvasJS.Chart("chartContainer",{
-        title :{
-            text: "Crash"
-        },
-        axisX: {
-            title: ""
-        },
-        axisY: {
-            title: "X times bet"
-        },
-        data: [{
-            type: "line",
-            dataPoints : dps
-        }]
-    });
-    function parseDataPoints () {
-        for (var i = 0; i <= dataArray.length; i++)
-            dps.push({y: dataArray[i]});
-    };
-    parseDataPoints();
-    chart.options.data[0].dataPoints = dps;
-    chart.render();
 </script>
 </body>

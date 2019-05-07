@@ -142,7 +142,7 @@ $theme = $value->theme;
 
                             td1.innerText = i + ".";
                             td2.innerText = player.username;
-                            td3.innerText = player.balance;
+                            td3.innerText = (player.balance>=1e7) ? player.balance.toExponential(3) : player.balance;
                             td4.innerText = (new Date(player.created_at.replace(/-/g, "/"))).toDateString();
 
                             td2.setAttribute("id", "hof_rank" + i + "-username");

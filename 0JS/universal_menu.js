@@ -12,6 +12,7 @@ let isRmhOpen;
 // RUNNING CODE WHEN THE PAGE HAS LOADED
 window.addEventListener("load", function () {
 
+
     // APPENDING THE ICON-FONT TO HEAD
     let link = document.createElement("link");
     link.integrity = "sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf";
@@ -31,7 +32,7 @@ window.addEventListener("load", function () {
         '        <div id="rmh_bar">\n' +
         '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="if(rmh_affectUser){ saveUser(user); updateSQL(); }; window.location.href=\' ' + rmh_href + ' \'"></i>\n' +
+        '                <i class="fas fa-home" onclick="if(rmh_affectUser){ saveUser(user); updateSQL(); }; setTimeout(function(){window.location.href=\' ' + rmh_href + ' \'}, 200)"></i>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
@@ -40,7 +41,7 @@ window.addEventListener("load", function () {
         '                    <p id="rmh_tokenCount"> x wait a sec</p>\n' +
         '                    <script> setTimeout(function(){document.getElementById("rmh_tokenCount").innerHTML = "x " + (getUser().tokenManager.getCount()>=1e7)?getUser().tokenManager.getCount().toExponential(3) : getUser().tokenManager.getCount();}, 500);</script>\n' +
         '                </div>\n' +
-        '                <button class="retroButton" onclick="">get more</button>\n' +
+        '                <button class="retroButton" onclick="window.location.href = \'/games/snake/\'">get more</button>\n' +
         '            </div>\n' +
         '        </div>\n';
 
